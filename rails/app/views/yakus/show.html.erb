@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name kanji:</b>
+  <%= @yaku.name_kanji %>
+</p>
+
+<p>
+  <b>Name kana:</b>
+  <%= @yaku.name_kana %>
+</p>
+
+<p>
+  <b>Han num:</b>
+  <%= @yaku.han_num %>
+</p>
+
+<p>
+  <b>Naki han num:</b>
+  <%= @yaku.naki_han_num %>
+</p>
+
+
+<%= link_to 'Edit', edit_yaku_path(@yaku) %> |
+<%= link_to 'Back', yakus_path %>

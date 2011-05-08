@@ -1,0 +1,101 @@
+<%= form_for(@agari) do |f| %>
+  <% if @agari.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@agari.errors.count, "error") %> prohibited this agari from being saved:</h2>
+
+      <ul>
+      <% @agari.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :is_ippatsu %><br />
+    <%= f.check_box :is_ippatsu %>
+  </div>
+  <div class="field">
+    <%= f.label :is_parent %><br />
+    <%= f.check_box :is_parent %>
+  </div>
+  <div class="field">
+    <%= f.label :is_tsumo %><br />
+    <%= f.check_box :is_tsumo %>
+  </div>
+  <div class="field">
+    <%= f.label :dora_num %><br />
+    <%= f.text_field :dora_num %>
+  </div>
+  <div class="field">
+    <%= f.label :bakaze %><br />
+    <%= f.text_field :bakaze %>
+  </div>
+  <div class="field">
+    <%= f.label :jikaze %><br />
+    <%= f.text_field :jikaze %>
+  </div>
+  <div class="field">
+    <%= f.label :honba_num %><br />
+    <%= f.text_field :honba_num %>
+  </div>
+  <div class="field">
+    <%= f.label :reach_num %><br />
+    <%= f.text_field :reach_num %>
+  </div>
+  <div class="field">
+    <%= f.label :is_haitei %><br />
+    <%= f.check_box :is_haitei %>
+  </div>
+  <div class="field">
+    <%= f.label :is_rinshan %><br />
+    <%= f.check_box :is_rinshan %>
+  </div>
+  <div class="field">
+    <%= f.label :is_chankan %><br />
+    <%= f.check_box :is_chankan %>
+  </div>
+  <div class="field">
+    <%= f.label :is_tenho %><br />
+    <%= f.check_box :is_tenho %>
+  </div>
+  <div class="field">
+    <%= f.label :is_chiho %><br />
+    <%= f.check_box :is_chiho %>
+  </div>
+  <div class="field">
+    <%= f.label :total_fu_num %><br />
+    <%= f.text_field :total_fu_num %>
+  </div>
+  <div class="field">
+    <%= f.label :total_han_num %><br />
+    <%= f.text_field :total_han_num %>
+  </div>
+  <div class="field">
+    <%= f.label :mangan_scale %><br />
+    <%= f.text_field :mangan_scale %>
+  </div>
+  <div class="field">
+    <%= f.label :total_point %><br />
+    <%= f.text_field :total_point %>
+  </div>
+  <div class="field">
+    <%= f.label :parent_point %><br />
+    <%= f.text_field :parent_point %>
+  </div>
+  <div class="field">
+    <%= f.label :child_point %><br />
+    <%= f.text_field :child_point %>
+  </div>
+  <div class="field">
+    <%= f.label :tehai_img %><br />
+    <%= f.text_area :tehai_img %>
+  </div>
+  <div class="field">
+    <%= f.label :tehai_list %><br />
+    <%= f.text_field :tehai_list %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

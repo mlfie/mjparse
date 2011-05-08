@@ -1,0 +1,2 @@
+module YakusHelper
+end

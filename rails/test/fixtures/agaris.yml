@@ -1,0 +1,47 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  is_ippatsu: false
+  is_parent: false
+  is_tsumo: false
+  dora_num: 1
+  bakaze: MyString
+  jikaze: MyString
+  honba_num: 1
+  reach_num: 1
+  is_haitei: false
+  is_rinshan: false
+  is_chankan: false
+  is_tenho: false
+  is_chiho: false
+  total_fu_num: 1
+  total_han_num: 1
+  mangan_scale: 1
+  total_point: 1
+  parent_point: 1
+  child_point: 1
+  tehai_img: MyText
+  tehai_list: MyString
+
+two:
+  is_ippatsu: false
+  is_parent: false
+  is_tsumo: false
+  dora_num: 1
+  bakaze: MyString
+  jikaze: MyString
+  honba_num: 1
+  reach_num: 1
+  is_haitei: false
+  is_rinshan: false
+  is_chankan: false
+  is_tenho: false
+  is_chiho: false
+  total_fu_num: 1
+  total_han_num: 1
+  mangan_scale: 1
+  total_point: 1
+  parent_point: 1
+  child_point: 1
+  tehai_img: MyText
+  tehai_list: MyString

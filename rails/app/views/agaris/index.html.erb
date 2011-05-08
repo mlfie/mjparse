@@ -1,0 +1,63 @@
+<h1>Listing agaris</h1>
+
+<table>
+  <tr>
+    <th>Is ippatsu</th>
+    <th>Is parent</th>
+    <th>Is tsumo</th>
+    <th>Dora num</th>
+    <th>Bakaze</th>
+    <th>Jikaze</th>
+    <th>Honba num</th>
+    <th>Reach num</th>
+    <th>Is haitei</th>
+    <th>Is rinshan</th>
+    <th>Is chankan</th>
+    <th>Is tenho</th>
+    <th>Is chiho</th>
+    <th>Total fu num</th>
+    <th>Total han num</th>
+    <th>Mangan scale</th>
+    <th>Total point</th>
+    <th>Parent point</th>
+    <th>Child point</th>
+    <th>Tehai img</th>
+    <th>Tehai list</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @agaris.each do |agari| %>
+  <tr>
+    <td><%= agari.is_ippatsu %></td>
+    <td><%= agari.is_parent %></td>
+    <td><%= agari.is_tsumo %></td>
+    <td><%= agari.dora_num %></td>
+    <td><%= agari.bakaze %></td>
+    <td><%= agari.jikaze %></td>
+    <td><%= agari.honba_num %></td>
+    <td><%= agari.reach_num %></td>
+    <td><%= agari.is_haitei %></td>
+    <td><%= agari.is_rinshan %></td>
+    <td><%= agari.is_chankan %></td>
+    <td><%= agari.is_tenho %></td>
+    <td><%= agari.is_chiho %></td>
+    <td><%= agari.total_fu_num %></td>
+    <td><%= agari.total_han_num %></td>
+    <td><%= agari.mangan_scale %></td>
+    <td><%= agari.total_point %></td>
+    <td><%= agari.parent_point %></td>
+    <td><%= agari.child_point %></td>
+    <td><%= agari.tehai_img %></td>
+    <td><%= agari.tehai_list %></td>
+    <td><%= link_to 'Show', agari %></td>
+    <td><%= link_to 'Edit', edit_agari_path(agari) %></td>
+    <td><%= link_to 'Destroy', agari, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Agari', new_agari_path %>
