@@ -17,7 +17,7 @@ class AgarisController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @agari }
+      format.json { render :text => @agari.to_json }
     end
   end
 
@@ -41,16 +41,26 @@ class AgarisController < ApplicationController
   # POST /agaris.xml
   def create
     @agari = Agari.new(params[:agari])
+    self.analysis(@agari)
 
     respond_to do |format|
       if @agari.save
         format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
         format.xml  { render :xml => @agari, :status => :created, :location => @agari }
+        format.json { render :text => @agari.to_json }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @agari.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def analysis(agari)
+    agari.total_fu_num = 30
+    agari.total_han_num = 4
+    agari.mangan_scale = 1
+    agari.total_point = 8000
+    agari.tehai_list = "m2m3m4m5m6m7p2p3p4p5p5s2s3s4"
   end
 
   # PUT /agaris/1
