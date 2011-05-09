@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110508125345) do
+ActiveRecord::Schema.define(:version => 20110509152609) do
 
   create_table "agaris", :force => true do |t|
     t.boolean  "is_ippatsu",    :default => false
@@ -36,6 +36,11 @@ ActiveRecord::Schema.define(:version => 20110508125345) do
     t.string   "tehai_list"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "agaris_yakus", :id => false, :force => true do |t|
+    t.integer "agari_id"
+    t.integer "yaku_id"
   end
 
   create_table "yakus", :force => true do |t|

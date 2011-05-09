@@ -95,6 +95,10 @@
     <%= f.label :tehai_list %><br />
     <%= f.text_field :tehai_list %>
   </div>
+  <div class="field">
+    <%= f.label :yakus %><br />
+    <%= collection_select(:agari, :yaku_list_ids,  Yaku.all, :id, :name_kana, {}, :multiple => 'multiple', :size => 5) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
