@@ -3,7 +3,7 @@ require 'fitting/line_fitting'
 
 class LineFittingTest < ActiveSupport::TestCase
   def setup
-    @fitting = Fitting::LineFitting.new
+    @fitting = Fitting::LeastDistanceSquaresLineFitting.new
   end
 
   test "points and add" do

@@ -1,5 +1,5 @@
 module Fitting
-  class LineFitting
+  class LeastDistanceSquaresLineFitting
     class Result
       attr_accessor :slope, :intercept
       def initialize(slope, intercept)
