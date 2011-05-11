@@ -7,6 +7,8 @@ gem 'rails', '3.0.7'
 
 gem 'mysql2', '< 0.3'
 
+gem 'twitter'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

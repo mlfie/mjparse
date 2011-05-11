@@ -44,6 +44,9 @@ class AgarisController < ApplicationController
   def create
     @agari = Agari.new(params[:agari])
     self.analysis(@agari)
+    
+    twitter = Mjt::Tsumotter.new
+    twitter.update(@agari)
 
     respond_to do |format|
       if @agari.save
