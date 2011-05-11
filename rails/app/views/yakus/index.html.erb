@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Name</th>
     <th>Name kanji</th>
     <th>Name kana</th>
     <th>Han num</th>
@@ -13,6 +14,7 @@
 
 <% @yakus.each do |yaku| %>
   <tr>
+    <td><%= yaku.name %></td>
     <td><%= yaku.name_kanji %></td>
     <td><%= yaku.name_kana %></td>
     <td><%= yaku.han_num %></td>

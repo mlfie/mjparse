@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110509152609) do
+ActiveRecord::Schema.define(:version => 20110511114021) do
 
   create_table "agaris", :force => true do |t|
     t.boolean  "is_ippatsu",    :default => false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20110509152609) do
     t.integer  "naki_han_num"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
 end
