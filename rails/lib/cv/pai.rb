@@ -3,7 +3,7 @@ require 'mlfielib/geom/point2d_op'
 module CV
   class Pai
     include Mlfielib::Geom::Point2DOp
-      def initialize(x, y, width, height, value, type)
+      def initialize(x=0, y=0, width=0, height=0, value=0, type=nil)
        @x = x
        @y = y
        @width = width

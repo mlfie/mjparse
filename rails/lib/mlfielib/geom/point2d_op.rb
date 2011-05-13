@@ -19,7 +19,7 @@ module Mlfielib
         (distance(origin) * Math.sin(theta)).abs
       end
       def nearest(p_list)
-        p_list.min |a, b| do
+        p_list.min do |a, b|
           distance(a) - distance(b)
         end
       end
