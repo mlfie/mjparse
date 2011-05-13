@@ -6,5 +6,5 @@ DIRPATH = 'cv/test_img'
 
 tmc = CV::TemplateMatchingClassifier.new
 
-pai_list = tmc.classify(DIRPATH + '/all.jpg')
+pai_list = tmc.classify(DIRPATH + '/DSC_0013.jpg')
 p pai_list.size

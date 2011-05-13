@@ -60,11 +60,12 @@ module CV
             target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
                       CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
                      :color => CvColor::White, :thickness => -1)
-            if(max_val > 0.92)        
-              pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, @type_hash[File.basename(img).split('.')[0].upcase])
+            if(max_val > 0.6)        
+              pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, @type_hash[File.basename(f).split('.')[0].upcase])
               @pai_list.push(pai)
-              #puts "val = #{pai.value}"
-              #puts "type = #{pai.type}"
+             
+              puts "val = #{pai.value}"
+              puts "type = #{pai.type}"
             end
           end while (max_val > 0.8)
           
