@@ -1,14 +1,12 @@
 module Mjt::Analysis
   class Pai
-    attr_accessor           :type, :number, :is_agari
-#    validates_presence_of   :type, :number, :is_agari
-#    validates_inclusion_of  :type,     :in => ['Manzu', 'Souzu', 'Pinzu', 'Jihai']
-#    validates_inclusion_of  :number,   :in => [1, 2, 3, 4, 5, 6, 7, 8, 9]
-#    validates_inclusion_of  :is_agari, :in => [true, false]
+    attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
+                  :number,  # 数字(字牌の場合、1:東 2:南 3:西 4:北 5:白 6:發 7:中)
+                  :is_agari # アガリ牌かどうか(true/false)
 
     def initialize(tehai_st, is_agari)
-      @type = 'Manzu'
-      @number = 1
+      @type     = tehai_st[0, 1]
+      @number   = tehai_st[1, 1].to_i
       @is_agari = is_agari
     end
 
