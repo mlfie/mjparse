@@ -1,3 +1,5 @@
+require 'mlfielib/geom/point2d_op'
+
 module Fitting
   class LeastDistanceSquaresLineFitting
     class Result
@@ -55,6 +57,7 @@ module Fitting
   end
 
   class Point
+    include Mlfielib::Geom::Point2DOp
     attr_accessor :x, :y
 
     def initialize(x = 0, y = 0)

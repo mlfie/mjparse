@@ -13,6 +13,11 @@ module CV
       end
   
       attr_accessor :x, :y, :width, :height, :value, :type
+
+      #TODO refactor
+      def minus(pai)
+        Pai.new(x - pai.x, y - pai.y)
+      end
       
   end
 end
