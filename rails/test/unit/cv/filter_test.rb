@@ -2,6 +2,7 @@ require 'test_helper'
 require 'fitting/least_median_squares_line_fitting'
 require 'fitting/line_fitting'
 require 'cv/filter'
+require 'cv/selector'
 require 'cv/pai'
 
 class FilterTest < ActiveSupport::TestCase
@@ -23,5 +24,9 @@ class FilterTest < ActiveSupport::TestCase
     filtered_pais.each do |pai|
       assert_in_delta 3*pai.x, pai.y, 1
     end
+
+    selector = CV::Selector.new
+    selector.select(filtered_pais)
+
   end
 end

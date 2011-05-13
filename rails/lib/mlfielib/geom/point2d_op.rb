@@ -12,6 +12,10 @@ module Mlfielib
           [(top - r.bottom).abs, (bottom - r.top).abs].min
       end
 
+      def area
+        width * height
+      end
+
       def left
         x
       end
