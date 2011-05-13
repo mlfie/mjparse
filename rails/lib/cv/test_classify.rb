@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 require 'cv/template-matching-classifier'
 
-DIRPATH = '/Users/fujisaki/Documents/workspace/mjtsumotter/samplecode/test_img'
+DIRPATH = 'cv/test_img'
 
 tmc = CV::TemplateMatchingClassifier.new
 

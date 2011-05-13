@@ -10,7 +10,7 @@ module CV
     include OpenCV
 
     
-    DIRPATH = '/Users/fujisaki/Documents/workspace/mjtsumotter/samplecode/base'
+    DIRPATH = 'cv/base'
       def classify(img)
           @pai_list = Array.new
           @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
