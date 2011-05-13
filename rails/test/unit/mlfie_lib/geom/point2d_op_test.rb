@@ -52,6 +52,7 @@ class Point2DOpTest < ActiveSupport::TestCase
 
     assert r1.intersect?(r2)
     assert_equal 4, r1.intersect_area(r2)
+    assert_equal 4, r2.intersect_area(r1)
   end
 
 end
