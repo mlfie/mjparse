@@ -11,6 +11,7 @@ module CV
 
     
     DIRPATH = 'cv/base2'
+    RANGE = 5
       def classify(img)
           @pai_list = Array.new
           @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
@@ -48,28 +49,49 @@ module CV
                   "S8" => CV::PaiEnum.type_e::S8,
                   "S9" => CV::PaiEnum.type_e::S9
                  }
+        target_img = IplImage.load(img, CV_LOAD_IMAGE_COLOR)
         
-        target_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
+        min_val = [0,0,0]
+        max_val = [0,0,0]
+        min_loc = [0,0,0]
+        max_loc = [0,0,0]
         
         Dir::glob(DIRPATH+'/*[^n].jpg').each {|f|
           target = target_img.clone
-          pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
+          target_array = target.split
           begin
-            templ_img = IplImage.load(f, CV_LOAD_IMAGE_GRAYSCALE)
-            result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
-            min_val, max_val, min_loc, max_loc = result.min_max_loc
-            target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
-                      CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
-                     :color => CvColor::White, :thickness => -1)
-            if(pai.index("Apple"))
-            if(max_val > 0.65)        
-              pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type)
+            val = 0
+            templ_img = IplImage.load(f, CV_LOAD_IMAGE_COLOR)
+            templ_array = templ_img.split
+             
+            target_array.each_with_index do |e,i|
+              result = e.match_template(templ_array[i], CV_TM_CCOEFF_NORMED)
+              
+              min_val[i], max_val[i], min_loc[i], max_loc[i] = result.min_max_loc
+              target_array[i].rectangle!(CvPoint.new(max_loc[i].x, max_loc[i].y), 
+                        CvPoint.new(max_loc[i].x + templ_img.cols, max_loc[i].y + templ_img.rows),
+                       :color => CvColor::White, :thickness => -1)
+            end
+              #3個が同じ位置
+            if (max_loc[0].x == max_loc[1].x && max_loc[0].x == max_loc[2].x &&
+                  max_loc[0].y == max_loc[1].y && max_loc[0].y == max_loc[2].y)
+                  val = max_val[0] + max_val[1] + max_val[2]
+            #3個中、２個が同じだったら
+            elsif (max_loc[0].x >= max_loc[1].x - RANGE && max_loc[1].x + RANGE >= max_loc[0].x) 
+                  val = max_val[0] + max_val[1]
+            elsif (max_loc[0].x >= max_loc[2].x - RANGE && max_loc[2].x + RANGE >= max_loc[0].x)
+                  val = max_val[0] + max_val[2]
+            elsif (max_loc[1].x >= max_loc[2].x - RANGE && max_loc[2].x + RANGE >= max_loc[0].x)
+                  val = max_val[1] + max_val[2]
+            end
+            if(val > 1.5)        
+              pai = CV::Pai.new(0, 0, templ_img.cols, templ_img.rows, val, @type_hash[File.basename(f).split('.')[0].upcase])
               @pai_list.push(pai)
              
               puts "val = #{pai.value}"
               puts "type = #{pai.type}"
             end
-          end while (max_val > 0.8)
+          end while (val > 1)
           
         }
         return @pai_list

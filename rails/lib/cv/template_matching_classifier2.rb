@@ -50,20 +50,20 @@ module CV
                  }
         
         target_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
+        target_img,th1 = target_img.threshold(0, 255, CV_THRESH_OTSU)
         
         Dir::glob(DIRPATH+'/*[^n].jpg').each {|f|
           target = target_img.clone
-          pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
           begin
             templ_img = IplImage.load(f, CV_LOAD_IMAGE_GRAYSCALE)
+            templ_img,th2 = templ_img.threshold(0, 255, CV_THRESH_OTSU)
             result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
             min_val, max_val, min_loc, max_loc = result.min_max_loc
             target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
                       CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
                      :color => CvColor::White, :thickness => -1)
-            if(pai.index("Apple"))
-            if(max_val > 0.65)        
-              pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type)
+            if(max_val > 0.55)        
+              pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, @type_hash[File.basename(f).split('.')[0].upcase])
               @pai_list.push(pai)
              
               puts "val = #{pai.value}"
