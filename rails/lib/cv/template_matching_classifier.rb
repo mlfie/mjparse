@@ -61,7 +61,6 @@ module CV
             target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
                       CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
                      :color => CvColor::White, :thickness => -1)
-            if(pai.index("Apple"))
             if(max_val > 0.65)        
               pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type)
               @pai_list.push(pai)
