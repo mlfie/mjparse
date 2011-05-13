@@ -1,5 +1,31 @@
 module Mlfielib
   module Geom
+    module RectOp
+      def intersect?(r)
+        (left <= r.right) && (r.left <= right) &&
+          (top <= r.bottom) && (r.top <= bottom)
+      end
+
+      def intersect_area(r)
+        return 0 unless intersect?(r)
+        [(left - r.right).abs, (right - r.left).abs].min * 
+          [(top - r.bottom).abs, (bottom - r.top).abs].min
+      end
+
+      def left
+        x
+      end
+      def top
+        y
+      end
+      def right
+        x + width
+      end
+      def bottom
+        y + height
+      end
+
+    end
     module Point2DOp
       def distance(p)
         Math.sqrt((x-p.x)**2 + (y-p.y)**2)
