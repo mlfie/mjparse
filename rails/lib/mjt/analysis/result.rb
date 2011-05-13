@@ -1,6 +1,7 @@
 module Mjt::Analysis
   class Result
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
+                  :atama,         # 雀頭(Pai)
                   :yaku_list,     # 役(Yaku)のリスト
                   :fu_num,        # 符数
                   :han_num,       # 飜数
