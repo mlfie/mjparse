@@ -12,7 +12,7 @@ module CV
       klass = Class.new( self )
       self.const_set( name, klass ) unless name.nil?
   
-      klass.instance_eval{|klass|
+      klass.instance_eval{|k|
         self.extend( Enumerable )
         @index = {}
         @members = []

@@ -51,10 +51,10 @@ module CV
         
         target_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
         
-        Dir::glob(DIRPATH+'/*[^n].jpg').each {|img|
+        Dir::glob(DIRPATH+'/*[^n].jpg').each {|f|
           target = target_img.clone
           begin
-            templ_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
+            templ_img = IplImage.load(f, CV_LOAD_IMAGE_GRAYSCALE)
             result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
             min_val, max_val, min_loc, max_loc = result.min_max_loc
             target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
