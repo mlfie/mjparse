@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>写真を撮ってみよう</title>
+    <title>Mj-Tsumotter</title>
 
     <script type="text/javascript" charset="utf-8" src="phonegap.0.9.5.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="post.js"></script>
@@ -10,6 +10,8 @@
 
     var pictureSource;   // 写真ソース
     var destinationType; // 戻り値のフォーマット
+
+	var base64str="";
 
     // PhoneGapがデバイスと接続するまで待機
     //
@@ -24,88 +26,89 @@
         destinationType=navigator.camera.DestinationType;
     }
 
-    // 写真の撮影に成功した場合（その1）
-    //
-    function onPhotoDataSuccess(imageData) {
-      // 下記のコメントを外すことでBase64形式のデータをログに出力
-      //console.log(imageData);
-post(imageData);
-      // 画像ハンドルを取得
-      //
-      var smallImage = document.getElementById('smallImage');
-
-      // 画像要素を表示
-      //
-      smallImage.style.display = 'block';
-
-      // 取得した写真を表示
-      // 画像のリサイズにインラインCSSを使用
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    }
-
-    // 写真の撮影に成功した場合（その2）
-    //
-    function onPhotoURISuccess(imageURI) {
-      // 下記のコメントを外すことでファイルURIをログに出力
-      // console.log(imageURI);
-
-      // 画像ハンドルを取得
-      //
-      var largeImage = document.getElementById('largeImage');
-
-      // 画像要素を表示
-      //
-      largeImage.style.display = 'block';
-
-      // 取得した写真を表示
-      // 画像のリサイズにインラインCSSを使用
-      //
-      largeImage.src = imageURI;
-    }
-
-    // ボタンがクリックされた場合の処理
-    //
     function capturePhoto() {
-      // 撮影した写真をBase64形式の文字列として取得する場合
+      // 撮影した写真をBase64形式の文字列として取得する
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
       
     }
 
-    // ボタンがクリックされた場合の処理
-    //
-    function capturePhotoEdit() {
-      // 撮影した写真を編集したあと、Base64形式の文字列として取得する場合
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true }); 
-    }
-
-    // ボタンがクリックされた場合の処理
-    //
-    function getPhoto(source) {
-      // 撮影した写真をファイルURIとして取得する場合
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // エラー発生時の処理
-    // 
+    // 写真の撮影に失敗した場合
     function onFail(mesage) {
       alert('エラーが発生しました: ' + message);
     }
 
+    // 写真の撮影に成功した場合
+    function onPhotoDataSuccess(imageData) {
+      // 下記のコメントを外すことでBase64形式のデータをログに出力
+      //console.log(imageData);
+	
+	base64str = imageData;			
+			
+	  // 画像表示
+      var smallImage = document.getElementById('image');
+      smallImage.style.display = 'block';
+      smallImage.src = "data:image/jpeg;base64," + imageData;
 
+    }
 
-
+	
+    function sendPhoto() {
+		console.log("start send photo");
+		infomsg("sendding photo...")
+	  
+		var url = "http://mjt.fedc.biz/agaris";
+		var request = createXMLHttpRequest();
+		var param = {agari:
+			{
+			is_tsumo: true,
+			is_haitei: true,
+			dora_num: 2,
+			bakaze: 'ton',
+			jikaze: 'ton',
+			honba_num: 9,
+			is_rinshan: false,
+			is_chankan: false,
+			reach_num: 2,
+			is_ippatsu: false,
+			is_tenho: false,
+			is_chiho: false,
+			is_parent: true,
+			tehai_img: base64str
+			}
+		};
+		var json = toJSON(param);
+    
+		//getAllListのリクエストをAjaxで発行
+		var httpObj = createXMLHttpRequest();
+	
+		//第二引数はtrue=非同期 false=同期
+		httpObj.open("POST", url, false);
+		httpObj.setRequestHeader("Content-Type","application/json");
+		httpObj.send(json);
+		if(httpObj.status == "200"){
+			console.log("post success")
+			infomsg("success to send")
+		}else{
+			console.log("post fail \nHTTP Return Status : " + httpObj.status + " \nRequest : " + request );
+			infomsg("fail to send")
+		}
+		console.log("finish send image");
+    }
+	
+	function infomsg(msg){
+	  // 画像表示
+      var image = document.getElementById('label');
+      image.innerHTML = msg;
+	
+	}
 
     </script>
   </head>
   <body onload="onLoad()">
-    <button onclick="capturePhoto();">写真を撮影</button> <br>
-    <button onclick="capturePhotoEdit();">写真を撮影して編集</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">フォトライブラリから取得</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">フォトアルバムから取得</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
+     <h1>Mj-Tsumotter</h1>
+	 <label type="text" style="font-size:120%" id="label">let's take mj agari photo</label>
+    <button style="width:300px;height:50px;font-size:120%" onclick="capturePhoto();">Take Photo</button> <br>
+    <button style="width:300px;height:50px;font-size:120%" onclick="sendPhoto();">Send Photo</button> <br>
+    <img style="display:none;width:300px" id="image" src="" />
   </body>
 </html>
