@@ -1,8 +1,8 @@
 #!/usr/bin/ruby -w0
 # -*- coding: utf-8 -*-
 
-require 'pai'
-require 'paienum'
+require 'cv/pai'
+require 'cv/paienum'
 
 pai = CV::Pai.new(1, 2, 3, 4, 5, CV::PaiEnum.type_e::J1)
 puts pai.x

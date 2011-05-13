@@ -1,4 +1,4 @@
-require 'enum'
+require 'cv/enum'
 
 module CV
   class PaiEnum
