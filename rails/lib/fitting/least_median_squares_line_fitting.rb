@@ -4,7 +4,11 @@ module Fitting
     def initialize(fitting_model, error_ratio = 0.5, step_num = 0)
       self.fitting_model = fitting_model
       self.error_ratio = error_ratio
-      self.step_num = step_num
+      self.step_num = step_num == 0 ? estimated_step_num : step_num
+    end
+
+    def estimated_step_num
+      return 2000
     end
 
     def search
