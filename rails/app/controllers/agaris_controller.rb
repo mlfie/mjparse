@@ -71,14 +71,17 @@ class AgarisController < ApplicationController
 
   def analysis(agari)
     tma = CV::TemplateMatchingAnalyzer.new
-    agari.tehai_list = tma.analyze
-    agari.total_fu_num = 30
-    agari.total_han_num = 4
-    agari.mangan_scale = 1
-    agari.total_point = 8000
-    agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
-    agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
-    agari.yaku_list << Yaku.find_by_name_kana('サンショク')
+    agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
+
+    resolver = Mjt::Analysys::MentsuResolver.new
+    resolver.get_mentsu(agari)
+    #agari.total_fu_num = 30
+    #agari.total_han_num = 4
+    #agari.mangan_scale = 1
+    #agari.total_point = 8000
+    #agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
+    #agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
+    #agari.yaku_list << Yaku.find_by_name_kana('サンショク')
   end
 
   # base64形式画像縮小
