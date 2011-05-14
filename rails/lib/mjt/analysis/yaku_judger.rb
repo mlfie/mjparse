@@ -43,6 +43,15 @@ class YakuJudger
     return true
   end
   
+  # 対々和判定メソッド
+  def toitoihou?
+    result.mentsu_list.each do |mentsu|
+      if mentsu.mentsu_type != 'k'
+        return false
+      end
+    end
+    return true
+  end
   
 end
 end
