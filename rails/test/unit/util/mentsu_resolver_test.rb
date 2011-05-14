@@ -7,7 +7,7 @@ class MentsuResolverTest < ActiveSupport::TestCase
     agari.is_tsumo = false
     agari.is_parent = true
     
-    Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+    # Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
     
     yaku_list = Array.new
     
