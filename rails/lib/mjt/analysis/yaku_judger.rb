@@ -66,7 +66,55 @@ class YakuJudger
     end
     return true
   end
-  def  self.pinfu?(result, agari); return false; end
+  def  self.pinfu?(result, agari)
+  		#コーツなし判定
+		result.mentsu_list.each do |mentsu|
+				if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
+					return false
+				end
+		end
+			
+		#対子が風・三元牌でナシ判定
+		kazemap = [["ton", 1], ["nan", 2], ["sya", 3], ["pei", 4]]
+		
+		kazemap.each do | ibakaze |
+			if agari.bakaze == ibakaze[0] && result.atama.number == ibakaze[1] 
+				return false
+			end
+		end
+				
+		kazemap.each do | ijikaze |
+			if agari.jikaze == ijikaze[0] && result.atama.number == ijikaze[1] 
+				return false
+			end
+		end
+				
+		if result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7
+			return false
+		end
+
+		# 両面で待っていることを判定
+		if result.atama.is_agari == true
+			return false
+		end
+			
+		result.mentsu_list.each do |mentsu|
+			if mentsu.pai_list[1].is_agari == true
+				return false
+			end
+				
+			if mentsu.pai_list[0].is_agari == true && mentsu.pai_list[2].number == 9
+				return false
+			end
+						
+			if mentsu.pai_list[2].is_agari == true && mentsu.pai_list[0].number == 1
+				return false
+			end
+					
+		end
+				
+		return true
+  end
   def  self.sanshoku?(result, agari); return false; end
   def  self.sanshokudouko?(result, agari); return false; end
   def  self.iipeikou?(result, agari); return false; end
