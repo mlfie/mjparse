@@ -138,13 +138,85 @@ class YakuJudger
   end # end def
 
   def  self.tsumo?(result, agari); return false; end
-  def  self.haku?(result, agari); return false; end
-  def  self.hatsu?(result, agari); return false; end
-  def  self.chun?(result, agari); return false; end
-  def  self.ton?(result, agari); return false; end
-  def  self.nan?(result, agari); return false; end
-  def  self.sha?(result, agari); return false; end
-  def  self.pei?(result, agari); return false; end
+  def  self.haku?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 5
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+
+  def  self.hatsu?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 6
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+  def  self.chun?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 7
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+  def  self.ton?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 1
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+
+  def  self.nan?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 2
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+  def  self.sha?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 3
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
+  def  self.pei?(result, agari)
+    result.mentsu_list.each do |mentsu|
+      count = 0 
+      mentsu.pai_list.each do |pai| 
+        count += 1 if pai.type == "j" && pai.number == 4
+      end 
+      return true if count == 3
+    end
+    return false
+  end
+
   def  self.rinshan?(result, agari); return false; end
   def  self.ikkitsukan?(result, agari); return false; end
   def  self.chanta?(result, agari); return false; end
