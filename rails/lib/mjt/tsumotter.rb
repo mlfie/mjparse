@@ -21,7 +21,7 @@ module Mjt
       kana_list = agari.yaku_list.map do |yaku|
         yaku.name_kana
       end
-      message = kana_list.join(",") + 'は' + agari.total_point.to_s + '点です。'
+      message = kana_list.join(",") + ' ' + agari.total_point.to_s + '点です。'
       p '----- Twitter -----'
       p message
       p '----- Twitter -----'
