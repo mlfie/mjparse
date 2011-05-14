@@ -14,7 +14,6 @@ class AgarisController < ApplicationController
   # GET /agaris/1.xml
   def show
     @agari = Agari.find(params[:id])
-    showimage(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +43,8 @@ class AgarisController < ApplicationController
     @agari = Agari.new(params[:agari])
 
     # 手配画像を小さくしてモデルにいれなおす
-    @agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
+    #@agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
+    @agari[:tehai_img] = base64_smaller(@agari[:tehai_img])
 
     self.analysis(@agari)
     
@@ -56,6 +56,9 @@ class AgarisController < ApplicationController
         format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
         format.xml  { render :xml => @agari, :status => :created, :location => @agari }
         format.json { render :text => @agari.to_json(:include => :yaku_list )}
+        # make tehai image file
+        @agari.reload
+        make_tehai_img(@agari[:id])
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @agari.errors, :status => :unprocessable_entity }
@@ -86,15 +89,14 @@ class AgarisController < ApplicationController
     return Base64.encode64(image.to_blob)    
   end	
 
-  # デバッグ用
+ 
   # 引数のIDの手配画像をjpegにして配置
-  def tehai_img(id)
+  def make_tehai_img(id)
     agari=Agari.find_by_id(id)
     image = Base64.decode64(agari[:tehai_img])
     rmagick = Magick::ImageList.new
     rmagick.from_blob(image)
-    @blob = rmagick.to_blob
-    send_data(@blob, :disposition => "inline", :type => "image/jpeg")
+    rmagick.write("public/img/#{id}.jpg")
   end
 
   # PUT /agaris/1
