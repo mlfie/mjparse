@@ -4,11 +4,13 @@ class MentsuResolverTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "private method" do
     agari = Agari.new
-    agari.tehai_list = 'm3m3m3m4m4m4m6m7m8p1p1m5m5m5'
-    resolver = Mjt::Analysis::MentsuResolver.new
+    agari.is_tsumo = false
+    agari.is_parent = true
+    agari.tehai_list = 'm3m3m3m4m4m4m6m6m6p1p1m5m5m5'
     
-    resolver.get_mentsu(agari)
+    Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
     
-    p resolver.result_list
-  end
+    p agari
+    
+    end
 end

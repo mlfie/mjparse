@@ -13,6 +13,7 @@ module Mjt::Analysis
     def initialize(mentsu_list, atama)
       self.mentsu_list = mentsu_list
       self.atama = atama
+      self.yaku_list = Array.new
     end
   end
 end

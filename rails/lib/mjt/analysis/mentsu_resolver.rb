@@ -46,9 +46,12 @@ module Mjt::Analysis
       tehai_items = tehai_list.scan(/.{1,2}/m)
       pai_items = Array.new
       tehai_items.each do |item| 
-        pai_items << Pai.new(item, false)        
+        if item == tehai_items[tehai_items.size - 1]
+          pai_items << Pai.new(item, true)
+        else
+          pai_items << Pai.new(item, false)
+        end
       end
-      @agari_hai = pai_items[pai_items.size - 1] 
       @pai_list = pai_items.sort_by { |pai| [pai.type, pai.number] }
     end
     
@@ -75,11 +78,7 @@ module Mjt::Analysis
       _pai_list.each_with_index { |pai, idx|
         # 最初だけ特別処理
         if idx == 0
-          if pai == @agari_hai
-            __pai_count = PaiCount.new(pai.type, pai.number, true)
-          else
-            __pai_count = PaiCount.new(pai.type, pai.number, false)
-          end
+          __pai_count = PaiCount.new(pai.type, pai.number, pai.agari)
           @pai_counts << __pai_count
           _last_pai_count = __pai_count
           next
@@ -88,11 +87,7 @@ module Mjt::Analysis
         if pai.type == _last_pai_count.type && pai.number == _last_pai_count.number
           _last_pai_count.count += 1
         else
-          if pai == @agari_hai
-            __pai_count = PaiCount.new(pai.type, pai.number, true)
-          else
-            __pai_count = PaiCount.new(pai.type, pai.number, false)
-          end
+          __pai_count = PaiCount.new(pai.type, pai.number, pai.agari)
           @pai_counts << __pai_count
           _last_pai_count = __pai_count
         end
