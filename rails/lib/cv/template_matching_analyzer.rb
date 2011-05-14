@@ -13,7 +13,7 @@ module CV
     end
 
     def analyze_raw(img_path)
-      @debug = true
+      @debug = false
       path = img_path #"lib/cv/test_img/test004.jpg" 
       tmc = CV::TemplateMatchingClassifier.new
       pais = tmc.classify(path)
