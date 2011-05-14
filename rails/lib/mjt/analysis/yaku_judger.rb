@@ -94,20 +94,20 @@ class YakuJudger
 		end
 
 		# 両面で待っていることを判定
-		if result.atama.is_agari == true
+		if result.atama.agari == true
 			return false
 		end
 			
 		result.mentsu_list.each do |mentsu|
-			if mentsu.pai_list[1].is_agari == true
+			if mentsu.pai_list[1].agari == true
 				return false
 			end
 				
-			if mentsu.pai_list[0].is_agari == true && mentsu.pai_list[2].number == 9
+			if mentsu.pai_list[0].agari == true && mentsu.pai_list[2].number == 9
 				return false
 			end
 						
-			if mentsu.pai_list[2].is_agari == true && mentsu.pai_list[0].number == 1
+			if mentsu.pai_list[2].agari == true && mentsu.pai_list[0].number == 1
 				return false
 			end
 					
