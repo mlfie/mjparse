@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Mjt::Analysis
   class Pai
     attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
@@ -17,5 +18,13 @@ module Mjt::Analysis
       return false
     end
 
+    def yaochu?
+      return self.number == 1 || self.number == 9 || self.type == "j"
+    end
+    
+    def chuchan?
+      return ! yaochu?
+    end
+    
   end
 end
