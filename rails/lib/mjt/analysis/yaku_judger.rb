@@ -95,7 +95,7 @@ class YakuJudger
 			end
 		end
 				
-		if result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7
+		if result.atama.type == j && (result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7)
 			return false
 		end
 
