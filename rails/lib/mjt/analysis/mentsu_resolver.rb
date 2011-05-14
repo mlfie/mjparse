@@ -67,6 +67,7 @@ module Mjt::Analysis
       _pai_list = @pai_list.clone
 
       # 頭を削除する
+      @atama = _pai_list[atama_pos].clone
       _pai_list.slice!(atama_pos, 2)
       
       @pai_counts = Array.new
@@ -101,7 +102,7 @@ module Mjt::Analysis
     def set_mentsu(pai_count_list)
       # 面子候補リストが完全に無くなったら終了
       if pai_count_list.size == 0
-        self.result_list << Result.new(Marshal.load(Marshal.dump(@mentsu_list)))
+        self.result_list << Result.new(Marshal.load(Marshal.dump(@mentsu_list)), @atama)
         return
       end
 
