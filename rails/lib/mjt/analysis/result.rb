@@ -1,7 +1,6 @@
 module Mjt::Analysis
   class Result
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
-                  :atama,         # 雀頭(Pai)
                   :yaku_list,     # 役(Yaku)のリスト
                   :fu_num,        # 符数
                   :han_num,       # 飜数
@@ -9,5 +8,9 @@ module Mjt::Analysis
                   :total_point,   # 総合得点
                   :parent_point,  # 親が払う点数
                   :child_point    # 子が払う点数
+                  
+    def initialize(mentsu_list)
+      self.mentsu_list = mentsu_list
+    end
   end
 end
