@@ -3,13 +3,15 @@ require 'fitting/least_median_squares_line_fitting'
 
 module CV
   class Filter
+    attr_reader :origin, :vector
     def filter(pailist)
-      fitting = Fitting::LeastMedianSquaresParamSearch.new(Fitting::LMSLineFittingModel.new(pailist), 0.1)
+puts "erorr = #{14.0/pailist.size}"
+      fitting = Fitting::LeastMedianSquaresParamSearch.new(Fitting::LMSLineFittingModel.new(pailist), 10.0/pailist.size)
       intercept, slope = fitting.search
-      o = origin(intercept)
-      v = vector(slope)
+      @origin = create_origin(intercept)
+      @vector = create_vector(slope)
       pailist.select do |pai|
-        nearby_line?(pai, o, v)
+        nearby_line?(pai, @origin, @vector)
       end
     end
 
@@ -17,10 +19,10 @@ module CV
       pai.distance_from_line(ori, vec) < pai.height * 0.5
     end
 
-    def origin(intercept)
+    def create_origin(intercept)
       Fitting::Point.new(0, intercept)
     end
-    def vector(slope)
+    def create_vector(slope)
       Fitting::Point.new(1, slope)
     end
   end

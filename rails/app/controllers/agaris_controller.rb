@@ -88,12 +88,13 @@ class AgarisController < ApplicationController
 
   # デバッグ用
   # 引数のIDの手配画像をjpegにして配置
-  def showimage(id)
+  def tehai_img(id)
     agari=Agari.find_by_id(id)
     image = Base64.decode64(agari[:tehai_img])
     rmagick = Magick::ImageList.new
     rmagick.from_blob(image)
-    rmagick.write("/app/mj_tsumotter/public/js/#{id}.jpg")
+    @blob = rmagick.to_blob
+    send_data(@blob, :disposition => "inline", :type => "image/jpeg")
   end
 
   # PUT /agaris/1
