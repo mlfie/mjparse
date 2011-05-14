@@ -120,7 +120,18 @@ class YakuJudger
 		end
 				
 		return true
+end
+  # 対々和
+  def self.toitoihou?(result, agari)
+    result.mentsu_list.each do | mentsu |
+      if(mentsu.mentsu_type != 'k')
+        return false
+      end
+    end
+    return true
   end
+
+
   def  self.sanshoku?(result, agari)
 		result.mentsu_list.each do | mentsu|
 			if mentsu.mentsu_type == "s"
