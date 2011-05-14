@@ -1,13 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name_kanji: MyString
-  name_kana: MyString
-  han_num: 
-  naki_han_num: 
+  name: tanyao
+  name_kanji: tanyao
+  name_kana: tanyao
+  han_num: 1
+  naki_han_num: 1
 
-two:
-  name_kanji: MyString
-  name_kana: MyString
-  han_num: 
-  naki_han_num: 
