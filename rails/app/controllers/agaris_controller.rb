@@ -100,7 +100,7 @@ class AgarisController < ApplicationController
     image = Base64.decode64(agari[:tehai_img])
     rmagick = Magick::ImageList.new
     rmagick.from_blob(image)
-    rmagick.write("public/img/#{id}.jpg")
+    rmagick.write(tehai_img_path(id))
   end
 
   # PUT /agaris/1
@@ -132,4 +132,12 @@ class AgarisController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  #手配画像のパス
+  def tehai_img_path(id)
+    return "public/img/#{id}.jpg"
+  end
+
 end
