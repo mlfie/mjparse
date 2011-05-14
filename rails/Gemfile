@@ -31,3 +31,6 @@ gem 'twitter'
 # group :development, :test do
 #   gem 'webrat'
 # end
+require 'RMagick'
+require 'base64'
+

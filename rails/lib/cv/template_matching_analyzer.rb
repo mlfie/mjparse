@@ -6,7 +6,8 @@ module CV
   class TemplateMatchingAnalyzer
     def analyze
       tmc = CV::TemplateMatchingClassifier.new
-      pais = tmc.classify("lib/cv/test_img/mj_5s_ng_003.jpg")
+      pais = tmc.classify("lib/cv/test_img/test003.jpg")
+      #pais = tmc.classify("lib/cv/test_img/mj_5s_ng_003.jpg")
 
       filter = CV::Filter.new
       filtered_pais = filter.filter(pais)

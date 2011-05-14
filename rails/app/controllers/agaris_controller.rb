@@ -1,11 +1,9 @@
 #encoding:utf-8
-
 class AgarisController < ApplicationController
   # GET /agaris
   # GET /agaris.xml
   def index
     @agaris = Agari.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @agaris }
@@ -16,6 +14,7 @@ class AgarisController < ApplicationController
   # GET /agaris/1.xml
   def show
     @agari = Agari.find(params[:id])
+    showimage(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -43,10 +42,14 @@ class AgarisController < ApplicationController
   # POST /agaris.xml
   def create
     @agari = Agari.new(params[:agari])
+
+    # 手配画像を小さくしてモデルにいれなおす
+    @agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
+
     self.analysis(@agari)
     
     twitter = Mjt::Tsumotter.new
-    twitter.update(@agari)
+    #twitter.update(@agari)
 
     respond_to do |format|
       if @agari.save
@@ -69,6 +72,28 @@ class AgarisController < ApplicationController
     agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
     agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
     agari.yaku_list << Yaku.find_by_name_kana('サンショク')
+  end
+
+  # base64形式画像縮小
+  #
+  # param @str: base64のJPEG
+  # return: 600*448に縮小したJPEGのbase64
+  def base64_smaller(str)
+    blob = Base64.decode64(str)
+    image = Magick::ImageList.new
+    image.from_blob(blob)
+    image.resize!(600,448)
+    return Base64.encode64(image.to_blob)    
+  end	
+
+  # デバッグ用
+  # 引数のIDの手配画像をjpegにして配置
+  def showimage(id)
+    agari=Agari.find_by_id(id)
+    image = Base64.decode64(agari[:tehai_img])
+    rmagick = Magick::ImageList.new
+    rmagick.from_blob(image)
+    rmagick.write("/app/mj_tsumotter/public/js/#{id}.jpg")
   end
 
   # PUT /agaris/1

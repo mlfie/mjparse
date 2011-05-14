@@ -10,7 +10,7 @@ module CV
     include OpenCV
 
     
-    DIRPATH = 'cv/base2'
+    DIRPATH = 'lib/cv/base'
       def classify(img)
           @pai_list = Array.new
           @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
@@ -61,14 +61,13 @@ module CV
             target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
                       CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
                      :color => CvColor::White, :thickness => -1)
-            if(max_val > 0.65)        
+            if(max_val > 0.6)        
               pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type)
               @pai_list.push(pai)
              
-              puts "val = #{pai.value}"
-              puts "type = #{pai.type}"
+              puts "val = #{pai.value}, type = #{pai.type}"
             end
-          end while (max_val > 0.8)
+          end while (max_val > 0.6)
           
         }
         return @pai_list

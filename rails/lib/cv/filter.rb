@@ -4,7 +4,7 @@ require 'fitting/least_median_squares_line_fitting'
 module CV
   class Filter
     def filter(pailist)
-      fitting = Fitting::LeastMedianSquaresParamSearch.new(Fitting::LMSLineFittingModel.new(pailist))
+      fitting = Fitting::LeastMedianSquaresParamSearch.new(Fitting::LMSLineFittingModel.new(pailist), 0.1)
       intercept, slope = fitting.search
       o = origin(intercept)
       v = vector(slope)
@@ -14,7 +14,7 @@ module CV
     end
 
     def nearby_line?(pai, ori, vec)
-      pai.distance_from_line(ori, vec) < pai.height * 0.8
+      pai.distance_from_line(ori, vec) < pai.height * 0.5
     end
 
     def origin(intercept)

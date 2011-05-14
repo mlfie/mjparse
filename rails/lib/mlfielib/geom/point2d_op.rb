@@ -8,12 +8,12 @@ module Mlfielib
 
       def intersect_area(r)
         return 0 unless intersect?(r)
-        [(left - r.right).abs, (right - r.left).abs].min * 
-          [(top - r.bottom).abs, (bottom - r.top).abs].min
+        ([(left - r.right).abs, (right - r.left).abs].min * 
+          [(top - r.bottom).abs, (bottom - r.top).abs].min).to_f
       end
 
       def area
-        width * height
+        (width * height).to_f
       end
 
       def left
