@@ -22,6 +22,9 @@ module Mjt
         yaku.name_kana
       end
       message = kana_list.join(' ') + 'は' + agari.total_point.to_s + '点です。'
+      p '----- Twitter -----'
+      p message
+      p '----- Twitter -----'
       Twitter.update(message)
     end
   end
