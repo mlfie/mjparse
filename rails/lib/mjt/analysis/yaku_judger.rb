@@ -120,18 +120,7 @@ class YakuJudger
 		end
 				
 		return true
-end
-  # 対々和
-  def self.toitoihou?(result, agari)
-    result.mentsu_list.each do | mentsu |
-      if(mentsu.mentsu_type != 'k')
-        return false
-      end
-    end
-    return true
   end
-
-
   def  self.sanshoku?(result, agari)
 		result.mentsu_list.each do | mentsu|
 			if mentsu.mentsu_type == "s"
@@ -266,7 +255,24 @@ end
   def  self.shousangen?(result, agari); return false; end
   def  self.doublereach?(result, agari); return false; end
   def  self.chitoitsu?(result, agari); return false; end
-  def  self.honitsu?(result, agari); return false; end
+
+  def  self.honitsu?(result, agari)
+    beforetype = nil
+    result.mentsu_list.each do |mentsu|
+      mentsu.pai_list.each do |pai|
+        if pai.type == "j" then
+          continue
+        elsif pai.type == beforetype || beforetype == nil
+          continue
+        else
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+
   def  self.junchan?(result, agari); return false; end
   def  self.ryanpeikou?(result, agari); return false; end
 
