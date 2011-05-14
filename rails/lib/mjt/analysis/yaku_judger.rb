@@ -121,7 +121,28 @@ class YakuJudger
 				
 		return true
   end
-  def  self.sanshoku?(result, agari); return false; end
+  def  self.sanshoku?(result, agari)
+		result.mentsu_list.each do | mentsu|
+			if mentsu.mentsu_type == "s"
+				result.mentsu_list.each do | mentsu2|
+					if mentsu2.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu2.pai_list[0].type
+						if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
+							result.mentsu_list.each do | mentsu3|
+								if mentsu3.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
+									if mentsu.pai_list[0].number == mentsu3.pai_list[0].number 										
+										return true
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+			
+		return false
+
+  end
   def  self.sanshokudouko?(result, agari); return false; end
   
   def  self.iipeikou?(result, agari) 
