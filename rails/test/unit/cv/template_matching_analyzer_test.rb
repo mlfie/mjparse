@@ -15,8 +15,11 @@ class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
   end
 
   test "analyze" do
+    @tma.instance_eval do
+      @debug = true
+    end
     win = GUI::Window.new "result"
-    path = "public/img/9.jpg"
+    path = "public/img/3.jpg"
     img = IplImage.load(path, CV_LOAD_IMAGE_GRAYSCALE)
     pais = @tma.analyze_raw(path)
     pais.each do |pai|

@@ -56,10 +56,12 @@
     <td><%= agari.parent_point %></td>
     <td><%= agari.child_point %></td>
     <td><img src="<%= tehai_img_path(agari) %>" ></td>
-    <% to_img_src(agari.tehai_list).each do |e| %>
-        <td><img src="<%= e %>" ></td>
+    <% unless agari.tehai_list.nil? %>
+      <% to_img_src(agari.tehai_list).each do |e| %>
+          <td><img src="<%= e %>" ></td>
+      <% end %>
+      <td><%= agari.tehai_list %></td>
     <% end %>
-    <td><%= agari.tehai_list %></td>
     <td><%= link_to 'Show', agari %></td>
     <td><%= link_to 'Edit', edit_agari_path(agari) %></td>
     <td><%= link_to 'Destroy', agari, :confirm => 'Are you sure?', :method => :delete %></td>

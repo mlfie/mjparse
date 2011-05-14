@@ -6,6 +6,9 @@ include OpenCV
 
 module CV
   class TemplateMatchingAnalyzer
+    def initialize
+      @debug = false
+    end
 
     def analyze(img_path)
       pais = analyze_raw(img_path)
@@ -13,7 +16,6 @@ module CV
     end
 
     def analyze_raw(img_path)
-      @debug = false
       path = img_path #"lib/cv/test_img/test004.jpg" 
       tmc = CV::TemplateMatchingClassifier.new
       pais = tmc.classify(path)

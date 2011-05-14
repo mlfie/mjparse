@@ -12,6 +12,11 @@ module AgarisHelper
       img_list << 'paiimages/' + str.slice(i,2) + '.gif'
       i = i + 2
     end
+    if img_list.size < 14
+      (14 - img_list.size).times do
+        img_list << 'paiimages/z0.gif'
+      end
+    end
     return img_list
   end
 

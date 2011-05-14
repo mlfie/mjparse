@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: tanyao
-  name_kanji: tanyao
-  name_kana: tanyao
-  han_num: 1
-  naki_han_num: 1
-
