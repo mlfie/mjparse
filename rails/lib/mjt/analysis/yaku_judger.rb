@@ -95,7 +95,7 @@ class YakuJudger
 			end
 		end
 				
-		if result.atama.type == j && (result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7)
+		if result.atama.type == "j" && (result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7)
 			return false
 		end
 
@@ -165,6 +165,7 @@ class YakuJudger
   end # end def
 
   def  self.tsumo?(result, agari); return false; end
+
   def  self.haku?(result, agari)
     result.mentsu_list.each do |mentsu|
       count = 0 
@@ -262,14 +263,13 @@ class YakuJudger
   def  self.chinitsu?(result, agari)
     beforetype = nil
     result.mentsu_list.each do |mentsu|
-      mentsu.pai_list.each do |pai| 
-        if ( pai.type == "j" || 
-             ( pai.type != beforetype &&  pai.type != nil ) )
-           return false
-        else
+      mentsu.pai_list.each do |pai|
+        if beforetype == nil then
           beforetype = pai.type
+        elsif beforetype != pai.type || pai.type == "j"
+          return false
         end
-      end 
+      end
     end
     return true
   end
