@@ -6,6 +6,10 @@ module Mjt
       resolver = Mjt::Analysis::MentsuResolver.new
     
       resolver.get_mentsu(agari)
+      
+      if resolver.result_list.size == 0
+        return 
+      end
     
       resolver.result_list.each do | result |
         # 役を取得する
