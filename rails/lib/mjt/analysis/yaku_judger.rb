@@ -9,6 +9,12 @@ class YakuJudger
   def self.set_yaku_list(result, agari)
 
     yaku_list = Array.new
+    
+    # 役満は該当したらreturn
+    if daisangen?(result, agari)
+      yaku_list << Yaku.find_by_name("daisangen")
+      return
+    end
 
  yaku_list << Yaku.find_by_name("ippatsu")   if  ippatsu?(result, agari)
  yaku_list << Yaku.find_by_name("tanyao")   if  tanyao?(result, agari)
