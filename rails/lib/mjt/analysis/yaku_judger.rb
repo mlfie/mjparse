@@ -5,20 +5,21 @@ require 'mjt/analysis/teyaku_decider'
 module Mjt
 module Analysis
 class YakuJudger
-  
-  def set_yaku_list(result, agari)
-    
+
+  def self.set_yaku_list(result, agari)
+
     yaku_list = Array.new
-    yaku_list << Yakus.find_by_name("tanyao") if  isTanyao(result, agari)
-    yaku_list << Yakus.find_by_name("pinfu") if  isPinfu(result, agari)
+    if  isTanyao(result, agari) then
+      yaku_list << Yaku.find_by_name("tanyao")
+    end
 
     result.yaku_list = yaku_list
   end
-  
+
   #################以下役判定用内部呼び出しメソッド郡###############################
-  
+
   #タンヤオ判定メソッド
-  def isTanyao(result, agari)
+  def self.isTanyao(result, agari)
     if result.atama.yaochu?
       return false
     end
@@ -31,28 +32,19 @@ class YakuJudger
     end
     return true
   end
-  
+
   #ピンフ判定メソッド
-  def isPinfu()
+  def self.isPinfu(result, agari)
     # TODP
     return true
   end
-  
+
   #イーペーコー判定メソッド
-  def isEepeko()
+  def self.isEepeko(result, agari)
     return true
   end
-  
-  # 対々和判定メソッド
-  def toitoihou?
-    result.mentsu_list.each do |mentsu|
-      if mentsu.mentsu_type != 'k'
-        return false
-      end
-    end
-    return true
-  end
-  
+
+
 end
 end
 end

@@ -1,7 +1,9 @@
+<h1>fujisaki</h1>
 <h1>Listing agaris</h1>
 
 <table>
   <tr>
+    <th>ID</th>
     <th>Is ippatsu</th>
     <th>Is parent</th>
     <th>Is tsumo</th>
@@ -22,6 +24,9 @@
     <th>Parent point</th>
     <th>Child point</th>
     <th>Tehai img</th>
+    <% for i in 1..14 %>
+        <th> </th>
+    <% end %>
     <th>Tehai list</th>
     <th></th>
     <th></th>
@@ -30,6 +35,7 @@
 
 <% @agaris.each do |agari| %>
   <tr>
+    <td><%= agari.id %></td>
     <td><%= agari.is_ippatsu %></td>
     <td><%= agari.is_parent %></td>
     <td><%= agari.is_tsumo %></td>
@@ -49,7 +55,10 @@
     <td><%= agari.total_point %></td>
     <td><%= agari.parent_point %></td>
     <td><%= agari.child_point %></td>
-    <td><%= agari.tehai_img %></td>
+    <td><img src="<%= tehai_img_path(agari) %>" ></td>
+    <% to_img_src(agari.tehai_list).each do |e| %>
+        <td><img src="<%= e %>" ></td>
+    <% end %>
     <td><%= agari.tehai_list %></td>
     <td><%= link_to 'Show', agari %></td>
     <td><%= link_to 'Edit', edit_agari_path(agari) %></td>

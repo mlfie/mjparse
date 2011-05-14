@@ -1,5 +1,6 @@
 #encoding:utf-8
 require 'cv/template_matching_analyzer'
+require 'mjt/analysis/teyaku_decider'
 
 class AgarisController < ApplicationController
   # GET /agaris
@@ -73,7 +74,7 @@ class AgarisController < ApplicationController
   def analysis(agari)
     tma = CV::TemplateMatchingAnalyzer.new
     agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
-    Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+    #Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
 
     #resolver = Mjt::Analysys::MentsuResolver.new
     #resolver.get_mentsu(agari)
