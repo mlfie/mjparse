@@ -8,7 +8,7 @@ module Mjt
       resolver.get_mentsu(agari)
       
       if resolver.result_list.size == 0
-        return 
+        return false
       end
     
       resolver.result_list.each do | result |
@@ -27,6 +27,10 @@ module Mjt
           index = idx
         end
       }
+      if index < 0
+        return false
+      end
+      
       result = resolver.result_list[index]
       
       # アガリに値をセット
@@ -37,6 +41,8 @@ module Mjt
       agari.parent_point  = result.parent_point
       agari.child_point   = result.child_point
       agari.yaku_list     = result.yaku_list
+      
+      return true
     end
   end
  end
