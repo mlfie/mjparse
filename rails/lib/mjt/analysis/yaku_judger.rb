@@ -8,6 +8,7 @@ class YakuJudger
   
   def set_yaku_list(result, agari)
     
+    yaku_list = Array.new
     yaku_list << Yakus.find_by_name("tanyao") if  isTanyao(result, agari)
     yaku_list << Yakus.find_by_name("pinfu") if  isPinfu(result, agari)
 
