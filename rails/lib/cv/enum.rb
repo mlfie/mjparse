@@ -89,8 +89,12 @@ module CV
     def name
       self.class.instance_variable_get( :@index )[self.value]
     end
-    alias :to_s :name
-  
+    #alias :to_s :name
+    ## fujisaki add
+    def to_s
+      self.class.instance_variable_get( :@index )[self.value].downcase
+    end
+    
     def value
       @value
     end

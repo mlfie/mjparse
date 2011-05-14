@@ -11,4 +11,5 @@ puts pai.width
 puts pai.height
 puts pai.value
 puts pai.type
+puts pai.type.to_s
 
