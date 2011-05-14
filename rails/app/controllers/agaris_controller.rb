@@ -1,4 +1,6 @@
 #encoding:utf-8
+require 'cv/template_matching_analyzer'
+
 class AgarisController < ApplicationController
   # GET /agaris
   # GET /agaris.xml
@@ -46,19 +48,20 @@ class AgarisController < ApplicationController
     #@agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
     @agari[:tehai_img] = base64_smaller(@agari[:tehai_img])
 
-    self.analysis(@agari)
     
     twitter = Mjt::Tsumotter.new
     #twitter.update(@agari)
 
     respond_to do |format|
       if @agari.save
+        @agari.reload
+        make_tehai_img(@agari[:id])
+        self.analysis(@agari)
+
         format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
         format.xml  { render :xml => @agari, :status => :created, :location => @agari }
         format.json { render :text => @agari.to_json(:include => :yaku_list )}
         # make tehai image file
-        @agari.reload
-        make_tehai_img(@agari[:id])
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @agari.errors, :status => :unprocessable_entity }
@@ -67,11 +70,12 @@ class AgarisController < ApplicationController
   end
 
   def analysis(agari)
+    tma = CV::TemplateMatchingAnalyzer.new
+    agari.tehai_list = tma.analyze
     agari.total_fu_num = 30
     agari.total_han_num = 4
     agari.mangan_scale = 1
     agari.total_point = 8000
-    agari.tehai_list = "m2m3m4m5m6m7p2p3p4p5p5s2s3s4"
     agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
     agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
     agari.yaku_list << Yaku.find_by_name_kana('サンショク')

@@ -6,7 +6,13 @@ include OpenCV
 
 module CV
   class TemplateMatchingAnalyzer
-    def analyze
+
+    def analyze(img_path)
+      pais = analyze_raw
+      pais.map {|e| e.type}
+    end
+
+    def analyze_raw
       @debug = true
       path = "lib/cv/test_img/test004.jpg" 
       tmc = CV::TemplateMatchingClassifier.new
@@ -19,7 +25,7 @@ module CV
 
       selector = CV::Selector.new
       selected_pais = selector.select(filtered_pais)
-      selected_pais.sort{|pai| pai.x}
+      selected_pais.sort{|a,b| a.x-b.x}
     end
 
     def debug(path, pais)

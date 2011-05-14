@@ -18,7 +18,7 @@ class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
     win = GUI::Window.new "result"
     path = "lib/cv/test_img/test004.jpg"
     img = IplImage.load(path, CV_LOAD_IMAGE_GRAYSCALE)
-    pais = @tma.analyze
+    pais = @tma.analyze_raw
     pais.each do |pai|
       puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}"
       img.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
