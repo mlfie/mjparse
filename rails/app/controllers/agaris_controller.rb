@@ -57,6 +57,7 @@ class AgarisController < ApplicationController
         @agari.reload
         make_tehai_img(@agari[:id])
         self.analysis(@agari)
+        @agari.save
 
         format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
         format.xml  { render :xml => @agari, :status => :created, :location => @agari }
@@ -73,8 +74,8 @@ class AgarisController < ApplicationController
     tma = CV::TemplateMatchingAnalyzer.new
     agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
 
-    resolver = Mjt::Analysys::MentsuResolver.new
-    resolver.get_mentsu(agari)
+    #resolver = Mjt::Analysys::MentsuResolver.new
+    #resolver.get_mentsu(agari)
     #agari.total_fu_num = 30
     #agari.total_han_num = 4
     #agari.mangan_scale = 1
