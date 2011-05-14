@@ -6,11 +6,27 @@ class MentsuResolverTest < ActiveSupport::TestCase
     agari = Agari.new
     agari.is_tsumo = false
     agari.is_parent = true
-    agari.tehai_list = 'm3m3m3m4m4m4m6m6m6p1p1m5m5m5'
     
     Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
     
+    yaku_list = Array.new
+    
+    yaku1 = Yaku.new
+    yaku1.kana_name = 'hoge'
+    yaku_list << yaku1
+
+    yaku2 = Yaku.new
+    yaku2.kana_name = 'foo'
+    yaku_list << yaku2
+    
+    p yaku_list
+    
+    agari.yaku_list = yaku_list
+    
     p agari
     
-    end
+    twitter = Mjt::Tsumotter.new
+    twitter.update(agari)
+    
+  end
 end
