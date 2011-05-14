@@ -1,4 +1,5 @@
-module Mjt::Analysis
+module Mjt
+ module Analysis
   # 最も高い手を判定する
   class TeyakuDecider
     def self.get_agari_teyaku(agari)
@@ -34,4 +35,5 @@ module Mjt::Analysis
       agari.yaku_list     = result.yaku_list
     end
   end
+ end
 end

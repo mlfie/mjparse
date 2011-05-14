@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
-module Mjt::Analysis::YakuJudger
+
+require 'mjt/analysis/teyaku_decider'
+
+module Mjt
+module Analysis
+class YakuJudger
   
   def set_yaku_list(result, agari)
     
-    #適用する役リスト
-    funclist = [[isTanyao, "Tanyao"], [isPinfu, "Pinfu"]]
-    
-    yaku_list = []
-
-    #　役判定メソッドを反復適用（trueの場合役リストに追加）		
-    funclist.each do |func|
-      if func[0](result, agari) then
-        yaku_list << Yakus.find_by_name(func[1])
-      end
-    end
+    yaku_list << Yakus.find_by_name("tanyao") if  isTanyao(result, agari)
+    yaku_list << Yakus.find_by_name("pinfu") if  isPinfu(result, agari)
 
     result.yaku_list = yaku_list
   end
@@ -47,4 +43,6 @@ module Mjt::Analysis::YakuJudger
   def isEepeko()
     return true
   end
+end
+end
 end
