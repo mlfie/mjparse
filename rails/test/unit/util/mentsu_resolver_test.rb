@@ -12,11 +12,11 @@ class MentsuResolverTest < ActiveSupport::TestCase
     yaku_list = Array.new
     
     yaku1 = Yaku.new
-    yaku1.kana_name = 'hoge'
+    yaku1.name_kana = 'hoge'
     yaku_list << yaku1
 
     yaku2 = Yaku.new
-    yaku2.kana_name = 'foo'
+    yaku2.name_kana = 'foo'
     yaku_list << yaku2
     
     p yaku_list
