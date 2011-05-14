@@ -19,16 +19,14 @@ class YakuJudger
   
   #タンヤオ判定メソッド
   def isTanyao(result, agari)
+    if result.atama.yaochu?
+      return false
+    end
     result.mentsu_list.each do |mentsu|
-      mentsu.each do | pai |
-        if pai.number == 1 || pai.number == 9 || pai.type == "j"
+      mentsu.pai_list.each do | pai |
+        if pai.yaochu?
           return false
         end
-      end
-    end
-    result.atama.each do |atam_pi|
-      if atam_pi.number == 1 || atam_pi.number == 9 || atam_pi.type == "j"
-        return false
       end
     end
     return true
@@ -44,6 +42,8 @@ class YakuJudger
   def isEepeko()
     return true
   end
+  
+  
 end
 end
 end
