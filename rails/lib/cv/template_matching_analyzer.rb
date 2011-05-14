@@ -19,6 +19,7 @@ module CV
 
       selector = CV::Selector.new
       selected_pais = selector.select(filtered_pais)
+      selected_pais.sort{|pai| pai.x}
     end
 
     def debug(path, pais)
