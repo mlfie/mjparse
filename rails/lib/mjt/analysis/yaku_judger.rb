@@ -1,76 +1,73 @@
-module Mjt::Analysis
-  # –ğ‚ğ“¾‚é
-  
-  #ƒJƒ“‚Í–¢‘Î‰
-  #‘m{ƒ`[ƒgƒCƒc
-  class YakuJudger
-		attr_accessor :result,
-					  :agari,
-					  :funclist
-
-	    def initialize(resultin, agariin)
-			@result     = resultin
-			@agari   = agariin
-			@funclist = Array.new()
-		end
-
-		##################ˆÈ‰ºƒƒCƒ“ƒƒ\ƒbƒh#############################################
-		
-		#ŠO•”‚©‚çŒÄ‚Ño‚³‚ê‚éƒƒ\ƒbƒh
-		def outmethod()
-		
-				#“K—p‚·‚é–ğƒŠƒXƒg
-				funclist = [[isTanyao, "Tanyao"], [isPinfu, "Pinfu"]]
-				
-				#@–ğ”»’èƒƒ\ƒbƒh‚ğ”½•œ“K—pitrue‚Ìê‡–ğƒŠƒXƒg‚É’Ç‰Áj		
-				funclist.each do |func|
-					if func[0]
-						result.yaku_list.push(func[1])
-					end
-				end
-				
-				p result.yaku_list
-				return "hoge"
-		end
-	
-		#################ˆÈ‰º–ğ”»’è—p“à•”ŒÄ‚Ño‚µƒƒ\ƒbƒhŒS###############################
-	
-		#ƒ^ƒ“ƒ„ƒI”»’èƒƒ\ƒbƒh
-		def isTanyao()
-				result.mentsu_list.each do |mentsu|
-					mentsu.each do | pai |
-						  if pai.number == 1 || pai.number == 9 || pai.type == "j"
-								return false
-						  end
-					end
-				end
-				result.atama.each do |atam_pi|
-						  if atam_pi.number == 1 || atam_pi.number == 9 || atam_pi.type == "j"
-								return false
-					end
-				end
-				return true
-		end
-		
-		#ƒsƒ“ƒt”»’èƒƒ\ƒbƒh
-		def isPinfu()
-			#ƒR[ƒc‚È‚µ”»’è
-			result.mentsu_list.each do |mentsu|
-					if mentsu[0].number == mentsu[1].number || mentsu[1].number == mentsu[2].number
-						return false
-					end
-			end
-			
-			
-			
-	
-
-			return true
-		end
-		
-		#ƒC[ƒy[ƒR[”»’èƒƒ\ƒbƒh
-		def isEepeko()
-			
-		end
-  end
-end
+# -*- coding: utf-8 -*-
+ï»¿module Mjt::Analysis
+   # å½¹ã‚’å¾—ã‚‹
+   
+   #ã‚«ãƒ³ã¯æœªå¯¾å¿œ
+   #å›½å£«ï¼‹ãƒãƒ¼ãƒˆã‚¤ãƒ„
+   class YakuJudger
+     attr_accessor :result,
+     :agari,
+     :funclist
+     
+     def initialize(resultin, agariin)
+       @result     = resultin
+       @agari   = agariin
+       @funclist = Array.new()
+     end
+     
+     ##################ä»¥ä¸‹ãƒ¡ã‚¤ãƒ³ãƒ¡ã‚½ãƒƒãƒ‰#############################################
+     
+     #å¤–éƒ¨ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+     def outmethod()
+       
+       #é©ç”¨ã™ã‚‹å½¹ãƒªã‚¹ãƒˆ
+       funclist = [[isTanyao, "Tanyao"], [isPinfu, "Pinfu"]]
+       
+       #ã€€å½¹åˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰ã‚’åå¾©é©ç”¨ï¼ˆtrueã®å ´åˆå½¹ãƒªã‚¹ãƒˆã«è¿½åŠ ï¼‰		
+       funclist.each do |func|
+        if func[0]
+          result.yaku_list.push(func[1])
+        end
+      end
+       
+       p result.yaku_list
+       return "hoge"
+     end
+     
+     #################ä»¥ä¸‹å½¹åˆ¤å®šç”¨å†…éƒ¨å‘¼ã³å‡ºã—ãƒ¡ã‚½ãƒƒãƒ‰éƒ¡###############################
+     
+     #ã‚¿ãƒ³ãƒ¤ã‚ªåˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰
+     def isTanyao()
+       result.mentsu_list.each do |mentsu|
+        mentsu.each do | pai |
+          if pai.number == 1 || pai.number == 9 || pai.type == "j"
+            return false
+          end
+        end
+      end
+       result.atama.each do |atam_pi|
+        if atam_pi.number == 1 || atam_pi.number == 9 || atam_pi.type == "j"
+          return false
+        end
+      end
+      return true
+     end
+     
+     #ãƒ”ãƒ³ãƒ•åˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰
+     def isPinfu()
+       #ã‚³ãƒ¼ãƒ„ãªã—åˆ¤å®š
+       result.mentsu_list.each do |mentsu|
+        if mentsu[0].number == mentsu[1].number || mentsu[1].number == mentsu[2].number
+          return false
+        end
+      end
+     
+       return true
+     end
+     
+     #ã‚¤ãƒ¼ãƒšãƒ¼ã‚³ãƒ¼åˆ¤å®šãƒ¡ã‚½ãƒƒãƒ‰
+     def isEepeko()
+       
+     end
+   end
+ end
