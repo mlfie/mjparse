@@ -18,11 +18,11 @@ module Mjt
     end
     
     def update(agari)
-      message = ''
+      kana_list = Array.new
       agari.yaku_list.each do |yaku|
-        message = message + yaku.name_kana + ' '
+        kana_list << yaku.name_kana
       end
-      message = message + ' ' + agari.total_point.to_s + '点 ' + (srand(Time.now.sec ^ Time.now.usec ^ Process.pid) * 10).to_i.to_s 
+      message = kana_list.join(' ') + 'は' + agari.total_point.to_s + '点です。' + (srand(Process.pid) * 10 / 10).to_i.to_s 
       Twitter.update(message)
     end
   end
