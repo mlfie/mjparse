@@ -50,19 +50,20 @@ class AgarisController < ApplicationController
     @agari[:tehai_img] = base64_smaller(@agari[:tehai_img])
 
     
-    twitter = Mjt::Tsumotter.new
-    twitter.update(@agari)
-
     respond_to do |format|
       if @agari.save
         @agari.reload
         make_tehai_img(@agari[:id])
-        self.analysis(@agari)
-        @agari.save
+        if self.analysis(@agari)
+          @agari.save
 
-        format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
-        format.xml  { render :xml => @agari, :status => :created, :location => @agari }
-        format.json { render :text => @agari.to_json(:include => :yaku_list )}
+          format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
+          format.xml  { render :xml => @agari, :status => :created, :location => @agari }
+          format.json { render :text => @agari.to_json(:include => :yaku_list )}
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @agari.errors, :status => :unprocessable_entity }
+        end
         # make tehai image file
       else
         format.html { render :action => "new" }
@@ -74,7 +75,14 @@ class AgarisController < ApplicationController
   def analysis(agari)
     tma = CV::TemplateMatchingAnalyzer.new
     agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
-    Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+    agari.save
+    if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+      twitter = Mjt::Tsumotter.new
+      twitter.update(agari)
+      return true
+    else
+      return false
+    end
 
     #resolver = Mjt::Analysys::MentsuResolver.new
     #resolver.get_mentsu(agari)

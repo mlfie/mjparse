@@ -230,7 +230,24 @@ class YakuJudger
   def  self.honitsu?(result, agari); return false; end
   def  self.junchan?(result, agari); return false; end
   def  self.ryanpeikou?(result, agari); return false; end
-  def  self.chinitsu?(result, agari); return false; end
+
+
+  def  self.chinitsu?(result, agari)
+    beforetype = nil
+    result.mentsu_list.each do |mentsu|
+      mentsu.pai_list.each do |pai| 
+        if ( pai.type == "j" || 
+             ( pai.type != beforetype &&  pai.type != nil ) )
+           return false
+        else
+          beforetype = pai.type
+        end
+      end 
+    end
+    return true
+  end
+
+
   def  self.chankan?(result, agari); return false; end
   def  self.haitei?(result, agari); return false; end
   def  self.houtei?(result, agari); return false; end
