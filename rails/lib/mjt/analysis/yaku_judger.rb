@@ -253,7 +253,29 @@ class YakuJudger
   def  self.houtei?(result, agari); return false; end
   def  self.kokushi?(result, agari); return false; end
   def  self.suuankou?(result, agari); return false; end
+    def self.daisangen?(result, agari)
+      has_haku = false
+      has_chun = false
+      has_hatsu = false
+      
+      result.mentsu_list.each do |metsu|
+        if metsu.mentsu_type == 'k'
+          if mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 5
+            has_haku = true
+          elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 6
+            has_chun = true
+          elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 7
+            has_hatsu = true
+          end
+        end
+        
+        if has_haku && has_chun && has_hatsu
+          return true
+        end
+        return false
+        end
+      end
+    end
 
-end
-end
+  end
 end
