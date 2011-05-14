@@ -19,8 +19,9 @@ module Mjt
     def update(agari)
       message = ''
       agari.yaku_list.each do |yaku|
-        message = message + yaku.name_kana
+        message = message + yaku.name_kana + ' '
       end
+      message = message + ' ' + agari.total_point.to_s + '点 ' + (srand(Time.now.sec ^ Time.now.usec ^ Process.pid) * 10).to_i.to_s
       Twitter.update(message)
     end
   end

@@ -51,7 +51,7 @@ class AgarisController < ApplicationController
 
     
     twitter = Mjt::Tsumotter.new
-    #twitter.update(@agari)
+    twitter.update(@agari)
 
     respond_to do |format|
       if @agari.save
