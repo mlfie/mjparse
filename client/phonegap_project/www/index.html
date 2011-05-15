@@ -41,6 +41,8 @@
     function onPhotoDataSuccess(imageData) {
       // 下記のコメントを外すことでBase64形式のデータをログに出力
       //console.log(imageData);
+		console.log("scucess to take a photo. Let's send");
+		infomsg("scucess to take a photo. Let's send")
 	
 	base64str = imageData;			
 			
@@ -53,46 +55,43 @@
 
 	
     function sendPhoto() {
-		console.log("start send photo");
-		infomsg("sendding photo...")
+		console.log("start sendding photo...");
+		infomsg("start sendding photo...")
 	  
 		var url = "http://mjt.fedc.biz/agaris";
 		var request = createXMLHttpRequest();
 		var param = {agari:
 			{
-			is_tsumo: true,
-			is_haitei: true,
-			dora_num: 2,
+			is_tsumo: false,
+			is_haitei: false,
+			dora_num: 0,
 			bakaze: 'ton',
-			jikaze: 'ton',
-			honba_num: 9,
+			jikaze: 'nan',
+			honba_num: 0,
 			is_rinshan: false,
 			is_chankan: false,
-			reach_num: 2,
+			reach_num: 0,
 			is_ippatsu: false,
 			is_tenho: false,
 			is_chiho: false,
-			is_parent: true,
+			is_parent: false,
 			tehai_img: base64str
 			}
 		};
 		var json = toJSON(param);
     
-		//getAllListのリクエストをAjaxで発行
 		var httpObj = createXMLHttpRequest();
 	
-		//第二引数はtrue=非同期 false=同期
 		httpObj.open("POST", url, false);
 		httpObj.setRequestHeader("Content-Type","application/json");
 		httpObj.send(json);
 		if(httpObj.status == "200"){
-			console.log("post success")
+			console.log("success to send")
 			infomsg("success to send")
 		}else{
-			console.log("post fail \nHTTP Return Status : " + httpObj.status + " \nRequest : " + request );
-			infomsg("fail to send")
+			console.log("!!! fail to send !!!  error code:" + httpObj.status  );
+			infomsg("!!! fail to send !!!  error code:" + httpObj.status )
 		}
-		console.log("finish send image");
     }
 	
 	function infomsg(msg){
