@@ -26,7 +26,7 @@ class MentsuResolverTest < ActiveSupport::TestCase
     p agari
     
     twitter = Mjt::Tsumotter.new
-    twitter.update(agari)
+    #twitter.update(agari)
     
   end
 end

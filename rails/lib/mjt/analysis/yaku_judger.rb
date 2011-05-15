@@ -261,9 +261,9 @@ class YakuJudger
     result.mentsu_list.each do |mentsu|
       mentsu.pai_list.each do |pai|
         if pai.type == "j" then
-          continue
+          next
         elsif pai.type == beforetype || beforetype == nil
-          continue
+          next
         else
           return false
         end
