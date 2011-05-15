@@ -7,26 +7,35 @@ require 'cv/selector'
 require 'cv/pai'
 require 'rubygems'
 require 'opencv'
+require 'cv_test_helper'
 
 include OpenCV
 class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
+  include CvTestHelper
   def setup
+    #for debug mode, uncomment below
+    #@@mode = :debug
+    p debug?
     @tma = CV::TemplateMatchingAnalyzer.new
   end
 
   test "analyze" do
-    @tma.instance_eval do
-      @debug = true
-    end
-    win = GUI::Window.new "result"
     path = "lib/cv/test_img/test004.jpg"
-    img = IplImage.load(path, CV_LOAD_IMAGE_GRAYSCALE)
+    expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
+
     pais = @tma.analyze_raw(path)
-    pais.each do |pai|
-      puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}"
-      img.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
-    win.show img
-    GUI::wait_key
+    debug {
+      img = IplImage.load(path, CV_LOAD_IMAGE_GRAYSCALE)
+      win = GUI::Window.new "debug result"
+      pais.each do |pai|
+        puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}"
+        img.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
+      win.show img
+      GUI::wait_key
+      end
+    }
+    expects.zip(pais).each do |expect, pai|
+      assert_equal expect, pai.type.to_s
     end
   end
 end
