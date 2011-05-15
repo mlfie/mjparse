@@ -8,6 +8,8 @@ gem 'rails', '3.0.7'
 gem 'mysql2', '< 0.3'
 
 gem 'twitter'
+gem 'opencv', '0.0.6'
+gem 'rmagick'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -31,6 +33,4 @@ gem 'twitter'
 # group :development, :test do
 #   gem 'webrat'
 # end
-require 'RMagick'
-require 'base64'
 
