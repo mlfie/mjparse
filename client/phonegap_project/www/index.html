@@ -29,7 +29,10 @@
     function capturePhoto() {
       // 撮影した写真をBase64形式の文字列として取得する
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
-      
+    }
+        
+    function selectPhoto() {
+        navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, sourceType: Camera.PictureSourceType.PHOTOLIBRARY });
     }
 
     // 写真の撮影に失敗した場合
@@ -107,6 +110,7 @@
      <h1>Mj-Tsumotter</h1>
 	 <label type="text" style="font-size:120%" id="label">let's take mj agari photo</label>
     <button style="width:300px;height:50px;font-size:120%" onclick="capturePhoto();">Take Photo</button> <br>
+    <button style="width:300px;height:50px;font-size:120%" onclick="selectPhoto();">Select Photo</button> <br>
     <button style="width:300px;height:50px;font-size:120%" onclick="sendPhoto();">Send Photo</button> <br>
     <img style="display:none;width:300px" id="image" src="" />
   </body>
