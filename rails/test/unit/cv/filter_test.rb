@@ -1,6 +1,6 @@
 require 'test_helper'
-require 'fitting/least_median_squares_line_fitting'
-require 'fitting/line_fitting'
+require 'mlfielib/fitting/least_median_squares_line_fitting'
+require 'mlfielib/fitting/line_fitting'
 require 'cv/filter'
 require 'cv/selector'
 require 'cv/pai'

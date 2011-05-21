@@ -1,12 +1,12 @@
-require 'fitting/line_fitting'
-require 'fitting/least_median_squares_line_fitting'
+require 'mlfielib/geom/point'
+require 'mlfielib/fitting/line_fitting'
+require 'mlfielib/fitting/least_median_squares_line_fitting'
 
 module CV
   class Filter
     attr_reader :origin, :vector
     def filter(pailist)
-puts "erorr = #{14.0/pailist.size}"
-      fitting = Fitting::LeastMedianSquaresParamSearch.new(Fitting::LMSLineFittingModel.new(pailist), 10.0/pailist.size)
+      fitting = Mlfielib::Fitting::LeastMedianSquaresParamSearch.new(Mlfielib::Fitting::LMSLineFittingModel.new(pailist), 10.0/pailist.size)
       intercept, slope = fitting.search
       @origin = create_origin(intercept)
       @vector = create_vector(slope)
@@ -20,10 +20,10 @@ puts "erorr = #{14.0/pailist.size}"
     end
 
     def create_origin(intercept)
-      Fitting::Point.new(0, intercept)
+      Mlfielib::Geom::Point.new(0, intercept)
     end
     def create_vector(slope)
-      Fitting::Point.new(1, slope)
+      Mlfielib::Geom::Point.new(1, slope)
     end
   end
 end
