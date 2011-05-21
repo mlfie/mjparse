@@ -5,7 +5,10 @@ require 'mlfielib/geom/point'
 include Mlfielib::Geom
 
 class PointTest < Test::Unit::TestCase
+  include Mlfielib::Geom::Point::Test
+
   def setup
+    @model = Point.new
     @p0 = Point.new
     @p1 = Point.new(3.0, 4.0)
     @p2 = Point.new(4.0, -3.0)

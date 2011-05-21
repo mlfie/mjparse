@@ -1,6 +1,10 @@
+require 'mlfielib/geom/point_op'
+
 module Mlfielib
   module Geom
     class Point
+      include Mlfielib::Geom::PointOp
+
       attr_accessor :x, :y
 
       def initialize(x = 0, y = 0)
