@@ -6,64 +6,64 @@ module Mjt
 module Analysis
 class YakuJudger
 
-  def self.set_yaku_list(result, agari)
+  def self.set_yaku_list(tehai, agari)
 
     yaku_list = Array.new
     
     # 役満は該当したらreturn
-    if daisangen?(result, agari)
+    if daisangen?(tehai, agari)
       yaku_list << Yaku.find_by_name("daisangen")
       return
     end
 
- yaku_list << Yaku.find_by_name("ippatsu")   if  ippatsu?(result, agari)
- yaku_list << Yaku.find_by_name("tanyao")   if  tanyao?(result, agari)
- yaku_list << Yaku.find_by_name("pinfu")   if  pinfu?(result, agari)
- yaku_list << Yaku.find_by_name("sanshoku")   if  sanshoku?(result, agari)
- yaku_list << Yaku.find_by_name("sanshokudouko")   if  sanshokudouko?(result, agari)
- yaku_list << Yaku.find_by_name("iipeikou")   if  iipeikou?(result, agari)
- yaku_list << Yaku.find_by_name("tsumo")   if  tsumo?(result, agari)
- yaku_list << Yaku.find_by_name("haku")   if  haku?(result, agari)
- yaku_list << Yaku.find_by_name("hatsu")   if  hatsu?(result, agari)
- yaku_list << Yaku.find_by_name("chun")   if  chun?(result, agari)
- yaku_list << Yaku.find_by_name("ton")   if  ton?(result, agari)
- yaku_list << Yaku.find_by_name("nan")   if  nan?(result, agari)
- yaku_list << Yaku.find_by_name("sha")   if  sha?(result, agari)
- yaku_list << Yaku.find_by_name("pei")   if  pei?(result, agari)
- yaku_list << Yaku.find_by_name("rinshan")   if  rinshan?(result, agari)
- yaku_list << Yaku.find_by_name("ikkitsukan")   if  ikkitsukan?(result, agari)
- yaku_list << Yaku.find_by_name("chanta")   if  chanta?(result, agari)
- yaku_list << Yaku.find_by_name("toitoihou")   if  toitoihou?(result, agari)
- yaku_list << Yaku.find_by_name("sanankou")   if  sanankou?(result, agari)
- yaku_list << Yaku.find_by_name("honroutou")   if  honroutou?(result, agari)
- yaku_list << Yaku.find_by_name("sankantsu")   if  sankantsu?(result, agari)
- yaku_list << Yaku.find_by_name("shousangen")   if  shousangen?(result, agari)
- yaku_list << Yaku.find_by_name("doublereach")   if  doublereach?(result, agari)
- yaku_list << Yaku.find_by_name("chitoitsu")   if  chitoitsu?(result, agari)
- yaku_list << Yaku.find_by_name("honitsu")   if  honitsu?(result, agari)
- yaku_list << Yaku.find_by_name("junchan")   if  junchan?(result, agari)
- yaku_list << Yaku.find_by_name("ryanpeikou")   if  ryanpeikou?(result, agari)
- yaku_list << Yaku.find_by_name("chinitsu")   if  chinitsu?(result, agari)
- yaku_list << Yaku.find_by_name("chankan")   if  chankan?(result, agari)
- yaku_list << Yaku.find_by_name("haitei")   if  haitei?(result, agari)
- yaku_list << Yaku.find_by_name("houtei")   if  houtei?(result, agari)
- yaku_list << Yaku.find_by_name("kokushi")   if  kokushi?(result, agari)
- yaku_list << Yaku.find_by_name("suuankou")   if  suuankou?(result, agari)
+ yaku_list << Yaku.find_by_name("ippatsu")   if  ippatsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("tanyao")   if  tanyao?(tehai, agari)
+ yaku_list << Yaku.find_by_name("pinfu")   if  pinfu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("sanshoku")   if  sanshoku?(tehai, agari)
+ yaku_list << Yaku.find_by_name("sanshokudouko")   if  sanshokudouko?(tehai, agari)
+ yaku_list << Yaku.find_by_name("iipeikou")   if  iipeikou?(tehai, agari)
+ yaku_list << Yaku.find_by_name("tsumo")   if  tsumo?(tehai, agari)
+ yaku_list << Yaku.find_by_name("haku")   if  haku?(tehai, agari)
+ yaku_list << Yaku.find_by_name("hatsu")   if  hatsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("chun")   if  chun?(tehai, agari)
+ yaku_list << Yaku.find_by_name("ton")   if  ton?(tehai, agari)
+ yaku_list << Yaku.find_by_name("nan")   if  nan?(tehai, agari)
+ yaku_list << Yaku.find_by_name("sha")   if  sha?(tehai, agari)
+ yaku_list << Yaku.find_by_name("pei")   if  pei?(tehai, agari)
+ yaku_list << Yaku.find_by_name("rinshan")   if  rinshan?(tehai, agari)
+ yaku_list << Yaku.find_by_name("ikkitsukan")   if  ikkitsukan?(tehai, agari)
+ yaku_list << Yaku.find_by_name("chanta")   if  chanta?(tehai, agari)
+ yaku_list << Yaku.find_by_name("toitoihou")   if  toitoihou?(tehai, agari)
+ yaku_list << Yaku.find_by_name("sanankou")   if  sanankou?(tehai, agari)
+ yaku_list << Yaku.find_by_name("honroutou")   if  honroutou?(tehai, agari)
+ yaku_list << Yaku.find_by_name("sankantsu")   if  sankantsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("shousangen")   if  shousangen?(tehai, agari)
+ yaku_list << Yaku.find_by_name("doublereach")   if  doublereach?(tehai, agari)
+ yaku_list << Yaku.find_by_name("chitoitsu")   if  chitoitsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("honitsu")   if  honitsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("junchan")   if  junchan?(tehai, agari)
+ yaku_list << Yaku.find_by_name("ryanpeikou")   if  ryanpeikou?(tehai, agari)
+ yaku_list << Yaku.find_by_name("chinitsu")   if  chinitsu?(tehai, agari)
+ yaku_list << Yaku.find_by_name("chankan")   if  chankan?(tehai, agari)
+ yaku_list << Yaku.find_by_name("haitei")   if  haitei?(tehai, agari)
+ yaku_list << Yaku.find_by_name("houtei")   if  houtei?(tehai, agari)
+ yaku_list << Yaku.find_by_name("kokushi")   if  kokushi?(tehai, agari)
+ yaku_list << Yaku.find_by_name("suuankou")   if  suuankou?(tehai, agari)
 
 
-    result.yaku_list = yaku_list
+    tehai.yaku_list = yaku_list
   end
 
   #以下役判定用内部呼び出しメソッド郡
 
 
-  def  self.reach?(result, agari); return false; end
-  def  self.ippatsu?(result, agari); return false; end
-  def self.tanyao?(result, agari)
-    if result.atama.yaochu?
+  def  self.reach?(tehai, agari); return false; end
+  def  self.ippatsu?(tehai, agari); return false; end
+  def self.tanyao?(tehai, agari)
+    if tehai.atama.yaochu?
       return false
     end
-    result.mentsu_list.each do |mentsu|
+    tehai.mentsu_list.each do |mentsu|
       mentsu.pai_list.each do | pai |
         if pai.yaochu?
           return false
@@ -72,9 +72,9 @@ class YakuJudger
     end
     return true
   end
-  def  self.pinfu?(result, agari)
+  def  self.pinfu?(tehai, agari)
   		#コーツなし判定
-		result.mentsu_list.each do |mentsu|
+		tehai.mentsu_list.each do |mentsu|
 				if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
 					return false
 				end
@@ -84,27 +84,27 @@ class YakuJudger
 		kazemap = [["ton", 1], ["nan", 2], ["sya", 3], ["pei", 4]]
 		
 		kazemap.each do | ibakaze |
-			if agari.bakaze == ibakaze[0] && result.atama.number == ibakaze[1] 
+			if agari.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] 
 				return false
 			end
 		end
 				
 		kazemap.each do | ijikaze |
-			if agari.jikaze == ijikaze[0] && result.atama.number == ijikaze[1] 
+			if agari.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] 
 				return false
 			end
 		end
 				
-		if result.atama.type == "j" && (result.atama.number == 5 || result.atama.number == 6 || result.atama.number == 7)
+		if tehai.atama.type == "j" && (tehai.atama.number == 5 || tehai.atama.number == 6 || tehai.atama.number == 7)
 			return false
 		end
 
 		# 両面で待っていることを判定
-		if result.atama.agari == true
+		if tehai.atama.agari == true
 			return false
 		end
 			
-		result.mentsu_list.each do |mentsu|
+		tehai.mentsu_list.each do |mentsu|
 			if mentsu.pai_list[1].agari == true
 				return false
 			end
@@ -121,13 +121,13 @@ class YakuJudger
 				
 		return true
   end
-  def  self.sanshoku?(result, agari)
-		result.mentsu_list.each do | mentsu|
+  def  self.sanshoku?(tehai, agari)
+		tehai.mentsu_list.each do | mentsu|
 			if mentsu.mentsu_type == "s"
-				result.mentsu_list.each do | mentsu2|
+				tehai.mentsu_list.each do | mentsu2|
 					if mentsu2.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu2.pai_list[0].type
 						if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
-							result.mentsu_list.each do | mentsu3|
+							tehai.mentsu_list.each do | mentsu3|
 								if mentsu3.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
 									if mentsu.pai_list[0].number == mentsu3.pai_list[0].number 										
 										return true
@@ -143,11 +143,11 @@ class YakuJudger
 		return false
 
   end
-  def  self.sanshokudouko?(result, agari); return false; end
+  def  self.sanshokudouko?(tehai, agari); return false; end
   
-  def  self.iipeikou?(result, agari) 
-    result.mentsu_list.each_with_index do |mentsu_1,i|
-      result.mentsu_list.each_with_index do |mentsu_2,j|
+  def  self.iipeikou?(tehai, agari) 
+    tehai.mentsu_list.each_with_index do |mentsu_1,i|
+      tehai.mentsu_list.each_with_index do |mentsu_2,j|
         if i != j
           count=0
           [0,1,2].each do |k|
@@ -164,10 +164,10 @@ class YakuJudger
     return false
   end # end def
 
-  def  self.tsumo?(result, agari); return false; end
+  def  self.tsumo?(tehai, agari); return false; end
 
-  def  self.haku?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.haku?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 5
@@ -178,8 +178,8 @@ class YakuJudger
   end
 
 
-  def  self.hatsu?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.hatsu?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 6
@@ -189,8 +189,8 @@ class YakuJudger
     return false
   end
 
-  def  self.chun?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.chun?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 7
@@ -200,8 +200,8 @@ class YakuJudger
     return false
   end
 
-  def  self.ton?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.ton?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 1
@@ -212,8 +212,8 @@ class YakuJudger
   end
 
 
-  def  self.nan?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.nan?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 2
@@ -223,8 +223,8 @@ class YakuJudger
     return false
   end
 
-  def  self.sha?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.sha?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 3
@@ -234,8 +234,8 @@ class YakuJudger
     return false
   end
 
-  def  self.pei?(result, agari)
-    result.mentsu_list.each do |mentsu|
+  def  self.pei?(tehai, agari)
+    tehai.mentsu_list.each do |mentsu|
       count = 0 
       mentsu.pai_list.each do |pai| 
         count += 1 if pai.type == "j" && pai.number == 4
@@ -245,20 +245,20 @@ class YakuJudger
     return false
   end
 
-  def  self.rinshan?(result, agari); return false; end
-  def  self.ikkitsukan?(result, agari); return false; end
-  def  self.chanta?(result, agari); return false; end
-  def  self.toitoihou?(result, agari); return false; end
-  def  self.sanankou?(result, agari); return false; end
-  def  self.honroutou?(result, agari); return false; end
-  def  self.sankantsu?(result, agari); return false; end
-  def  self.shousangen?(result, agari); return false; end
-  def  self.doublereach?(result, agari); return false; end
-  def  self.chitoitsu?(result, agari); return false; end
+  def  self.rinshan?(tehai, agari); return false; end
+  def  self.ikkitsukan?(tehai, agari); return false; end
+  def  self.chanta?(tehai, agari); return false; end
+  def  self.toitoihou?(tehai, agari); return false; end
+  def  self.sanankou?(tehai, agari); return false; end
+  def  self.honroutou?(tehai, agari); return false; end
+  def  self.sankantsu?(tehai, agari); return false; end
+  def  self.shousangen?(tehai, agari); return false; end
+  def  self.doublereach?(tehai, agari); return false; end
+  def  self.chitoitsu?(tehai, agari); return false; end
 
-  def  self.honitsu?(result, agari)
+  def  self.honitsu?(tehai, agari)
     beforetype = nil
-    result.mentsu_list.each do |mentsu|
+    tehai.mentsu_list.each do |mentsu|
       mentsu.pai_list.each do |pai|
         if pai.type == "j" then
           next
@@ -273,13 +273,13 @@ class YakuJudger
   end
 
 
-  def  self.junchan?(result, agari); return false; end
-  def  self.ryanpeikou?(result, agari); return false; end
+  def  self.junchan?(tehai, agari); return false; end
+  def  self.ryanpeikou?(tehai, agari); return false; end
 
 
-  def  self.chinitsu?(result, agari)
+  def  self.chinitsu?(tehai, agari)
     beforetype = nil
-    result.mentsu_list.each do |mentsu|
+    tehai.mentsu_list.each do |mentsu|
       mentsu.pai_list.each do |pai|
         if beforetype == nil then
           beforetype = pai.type
@@ -292,17 +292,17 @@ class YakuJudger
   end
 
 
-  def  self.chankan?(result, agari); return false; end
-  def  self.haitei?(result, agari); return false; end
-  def  self.houtei?(result, agari); return false; end
-  def  self.kokushi?(result, agari); return false; end
-  def  self.suuankou?(result, agari); return false; end
-    def self.daisangen?(result, agari)
+  def  self.chankan?(tehai, agari); return false; end
+  def  self.haitei?(tehai, agari); return false; end
+  def  self.houtei?(tehai, agari); return false; end
+  def  self.kokushi?(tehai, agari); return false; end
+  def  self.suuankou?(tehai, agari); return false; end
+    def self.daisangen?(tehai, agari)
       has_haku = false
       has_chun = false
       has_hatsu = false
       
-      result.mentsu_list.each do |mentsu|
+      tehai.mentsu_list.each do |mentsu|
         if mentsu.mentsu_type == 'k'
           if mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 5
             has_haku = true

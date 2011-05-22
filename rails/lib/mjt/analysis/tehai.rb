@@ -1,5 +1,5 @@
 module Mjt::Analysis
-  class Result
+  class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
                   :atama,         # 雀頭(1枚)
                   :yaku_list,     # 役(Yaku)のリスト

@@ -2,10 +2,10 @@ module Mjt::Analysis
   # あがりの形を得る
   class MentsuResolver
     
-    attr_accessor :result_list  # 結果(Result)の配列
+    attr_accessor :tehai_list  # 手牌(Tehai)の配列
     
     def initialize
-      self.result_list = Array.new
+      self.tehai_list = Array.new
     end
     
     # 同一の牌がいくつあるか保持する
@@ -97,7 +97,7 @@ module Mjt::Analysis
     def set_mentsu(pai_count_list)
       # 面子候補リストが完全に無くなったら終了
       if pai_count_list.size == 0
-        self.result_list << Result.new(Marshal.load(Marshal.dump(@mentsu_list)), @atama)
+        self.tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)), @atama)
         return
       end
 
@@ -106,11 +106,11 @@ module Mjt::Analysis
       # 刻子の判定へ
       if is_koutsu?(pai_count_list[0])
         pai_count = pai_count_list[0]
-        mentsu = Mentsu.new
-        mentsu.pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
-        mentsu.pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
-        mentsu.pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
-        mentsu.mentsu_type = 'k'
+        pai_list = Array.new
+        pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
+        pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
+        pai_list << Pai.new(pai_count.type + pai_count.number.to_s, pai_count.is_agari)
+        mentsu = Mentsu.new(pai_list, 'k')
         @mentsu_list.push(mentsu)
         if pai_count.count == 3
           pai_count_list.shift
@@ -131,11 +131,11 @@ module Mjt::Analysis
         pai_count1 = pai_count_list[0]
         pai_count2 = pai_count_list[1]
         pai_count3 = pai_count_list[2]
-        mentsu = Mentsu.new
-        mentsu.pai_list << Pai.new(pai_count1.type + pai_count1.number.to_s, pai_count1.is_agari)
-        mentsu.pai_list << Pai.new(pai_count2.type + pai_count2.number.to_s, pai_count2.is_agari)
-        mentsu.pai_list << Pai.new(pai_count3.type + pai_count3.number.to_s, pai_count3.is_agari)
-        mentsu.mentsu_type = 's'
+        pai_list = Array.new
+        pai_list << Pai.new(pai_count1.type + pai_count1.number.to_s, pai_count1.is_agari)
+        pai_list << Pai.new(pai_count2.type + pai_count2.number.to_s, pai_count2.is_agari)
+        pai_list << Pai.new(pai_count3.type + pai_count3.number.to_s, pai_count3.is_agari)
+        mentsu = Mentsu.new(pai_list, 's')
         @mentsu_list.push(mentsu)
         _is_shift1 = false
         _is_shift2 = false
