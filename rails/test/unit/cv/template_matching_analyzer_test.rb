@@ -15,7 +15,7 @@ class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
   def setup
     #for debug mode, uncomment below
     @@mode = :debug
-    @tma = CV::TemplateMatchingAnalyzer.new
+    @tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
   end
 
   test "analyze" do
