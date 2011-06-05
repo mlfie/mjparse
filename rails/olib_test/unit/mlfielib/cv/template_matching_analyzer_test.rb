@@ -1,3 +1,4 @@
+require 'test/unit'
 require 'test_helper'
 require 'mlfielib/fitting/least_median_squares_line_fitting'
 require 'mlfielib/fitting/line_fitting'
@@ -10,7 +11,7 @@ require 'opencv'
 require 'cv_test_helper'
 
 include OpenCV
-class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
+class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
   include CvTestHelper
   def setup
     #for debug mode, uncomment below
@@ -18,7 +19,7 @@ class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
     @tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
   end
 
-  test "analyze" do
+  def test_analyze
     path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
 
