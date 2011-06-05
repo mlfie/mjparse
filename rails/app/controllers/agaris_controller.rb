@@ -1,5 +1,5 @@
 #encoding:utf-8
-require 'cv/template_matching_analyzer'
+require 'mlfielib/cv/template_matching_analyzer'
 require 'mjt/analysis/teyaku_decider'
 require 'RMagick'
 require 'base64'

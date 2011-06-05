@@ -1,4 +1,4 @@
-require 'cv/enum'
+require 'mlfielib/cv/enum'
 
 module CV
   class PaiEnum

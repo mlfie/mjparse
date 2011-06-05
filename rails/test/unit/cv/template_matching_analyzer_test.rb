@@ -1,10 +1,10 @@
 require 'test_helper'
 require 'mlfielib/fitting/least_median_squares_line_fitting'
 require 'mlfielib/fitting/line_fitting'
-require 'cv/template_matching_analyzer'
-require 'cv/filter'
-require 'cv/selector'
-require 'cv/pai'
+require 'mlfielib/cv/template_matching_analyzer'
+require 'mlfielib/cv/filter'
+require 'mlfielib/cv/selector'
+require 'mlfielib/cv/pai'
 require 'rubygems'
 require 'opencv'
 require 'cv_test_helper'
@@ -14,12 +14,12 @@ class TemplateMatchingAnalyzerTest < ActiveSupport::TestCase
   include CvTestHelper
   def setup
     #for debug mode, uncomment below
-    #@@mode = :debug
+    @@mode = :debug
     @tma = CV::TemplateMatchingAnalyzer.new
   end
 
   test "analyze" do
-    path = "lib/cv/test_img/test004.jpg"
+    path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
 
     pais = @tma.analyze_raw(path)

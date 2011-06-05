@@ -1,13 +1,13 @@
-require 'cv/template_matching_classifier'
-require 'cv/filter'
-require 'cv/selector'
+require 'mlfielib/cv/template_matching_classifier'
+require 'mlfielib/cv/filter'
+require 'mlfielib/cv/selector'
 require 'opencv'
 include OpenCV
 
 module CV
   class TemplateMatchingAnalyzer
     def initialize
-      @debug = false
+      @debug = true
     end
 
     def analyze(img_path)

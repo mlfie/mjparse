@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 require "rubygems"
 require "opencv"
-require 'cv/pai'
-require 'cv/paienum'
+require 'mlfielib/cv/pai'
+require 'mlfielib/cv/paienum'
 
 module CV
   class TemplateMatchingClassifier
     include OpenCV
 
     
-    DIRPATH = 'lib/cv/base'
+    DIRPATH = 'olib/mlfielib/cv/base'
       def classify(img)
           @pai_list = Array.new
           @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
