@@ -75,7 +75,7 @@ class AgarisController < ApplicationController
   end
 
   def analysis(agari)
-    tma = CV::TemplateMatchingAnalyzer.new
+    tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
     agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
     agari.save
     if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
