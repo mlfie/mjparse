@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Image file name:</b>
+  <%= @image.image_file_name %>
+</p>
+
+<p>
+  <b>Image content type:</b>
+  <%= @image.image_content_type %>
+</p>
+
+<p>
+  <b>Image file size:</b>
+  <%= @image.image_file_size %>
+</p>
+
+<p>
+  <b>Image updated at:</b>
+  <%= @image.image_updated_at %>
+</p>
+
+<p>
+  <b>Image remote url:</b>
+  <%= @image.image_remote_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>

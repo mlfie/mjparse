@@ -1,4 +1,6 @@
 MjTsumotter::Application.routes.draw do
+  resources :images
+
   resources :agaris
 
   resources :yakus

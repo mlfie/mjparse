@@ -10,6 +10,7 @@ gem 'mysql2', '< 0.3'
 gem 'twitter'
 gem 'opencv', '0.0.6'
 gem 'rmagick'
+gem 'paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'
