@@ -24,10 +24,18 @@
   <b>Image remote url:</b>
   <%= @image.image_remote_url %>
 </p>
+<p>
+  <b>Thum Image:</b><br>
+  <%= image_tag @image.image.url(:thum) %>
 
 <p>
-  <b>Image:</b>
-  <%= image_tag @image.image.url %>
+  <b>Normalize Image:</b><br>
+  <%= image_tag @image.image.url(:normal) %>  
+</p>
+<p>
+  <b>Original Image:</b><br>
+  <%= image_tag @image.image.url %> 
+</p>
 </p>
 
 <%= link_to 'Edit', edit_image_path(@image) %> |

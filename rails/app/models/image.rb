@@ -1,6 +1,7 @@
 class Image < ActiveRecord::Base
 
  has_attached_file :image,
+    :styles => { :normal => "600x448>", :thum => "100x100>" },
     :url  => "/assets/products/:id/p_:style.:basename.:extension",
     :path => "/app/mj_tsumotter/public/assets/products/:id/p_:style.:basename.:extension"
 
