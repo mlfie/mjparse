@@ -1,0 +1,176 @@
+<html>
+
+  <head>
+    <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript">
+      function getElement() {
+        var param = {
+          agari: {
+            tehai_img: "hogehoge"
+          }
+        };
+
+        $("select").each( function() {
+          var name = $(this).attr("name");
+          var val = $(this).children(":selected").attr("value")
+          param["agari"][name] = val;
+        });
+        $("input:checkbox").each( function() {
+          var name = $(this).attr("name");
+          var val = $(this).val();
+          param["agari"][name] = val;
+        });
+        infomsg(print_r(param))
+
+      }
+
+      function sendPhoto() {
+
+        var url = "http://fetaro-mjt.fedc.biz/agaris";
+        var request = createXMLHttpRequest();
+
+        var param = {
+          agari: {
+            is_tsumo: false,
+            is_haitei: false,
+            dora_num: 0,
+            bakaze: 'ton',
+            jikaze: 'nan',
+            honba_num: 0,
+            is_rinshan: false,
+            is_chankan: false,
+            reach_num: 0,
+            is_ippatsu: false,
+            is_tenho: false,
+            is_chiho: false,
+            is_parent: false,
+            tehai_img: base64str
+          }
+        };
+        var json = toJSON(param);
+
+        var httpObj = createXMLHttpRequest();
+
+        httpObj.open("POST", url, false);
+        httpObj.setRequestHeader("Content-Type","application/json");
+        httpObj.send(json);
+        if(httpObj.status == "200") {
+          console.log("success to send")
+          infomsg("success to send")
+        } else {
+          console.log("!!! fail to send !!!  error code:" + httpObj.status  );
+          infomsg("!!! fail to send !!!  error code:" + httpObj.status )
+        }
+      }
+
+      function infomsg(msg) {
+        var image = document.getElementById('msg');
+        image.innerHTML = msg;
+
+      }
+    </script>
+  </head>
+
+  <body>
+
+    <!--指定IDのエレメント取得のサンプル-->
+    <div id="test">
+      中身テキスト
+    </div>
+    <button onclick="getElement()">
+      b
+    </button>
+
+    <div id="agari">
+      <div>
+        場風
+        <select name="bakaze">
+          <option value="ton">東</option>
+          <option value="nan">南</option>
+          <option value="sha">西</option>
+          <option value="pei">北</option>
+        </select>
+      </div>
+
+      <div>
+        自風
+        <select name="jikaze">
+          <option value="ton">東</option>
+          <option value="nan">南</option>
+          <option value="sha">西</option>
+          <option value="pei">北</option>
+        </select>
+      </div>
+
+      <div>
+        本場
+        <select name="honba_num">
+          <script type="text/javascript" charset="utf-8">
+            for(i=0;i<10;i++) {
+              document.write("<option value=" + i + ">" + i + " </option>");
+            }
+          </script>
+        </select>
+      </div>
+
+      <div>
+        アガリ種類
+        <select name="is_tsumo">
+          <option value="true">ツモ</option>
+          <option value="false">ロン</option>
+        </select>
+      </div>
+
+      <div>
+        ドラ数
+        <select name="dora_num">
+          <script type="text/javascript" charset="utf-8">
+            for(i=0;i<30;i++) {
+              document.write("<option value=" + i + ">" + i + " </option>");
+            }
+          </script>
+        </select>
+      </div>
+
+      <div>
+        リーチ
+        <select name="reach">
+          <option value="0">なし</option>
+          <option value="1">ノーマル</option>
+          <option value="2">ダブリー</option>
+        </select>
+      </div>
+
+      <div>
+        一発
+        <input type="checkbox" name="is_ippatsu" value="true">
+      </div>
+
+      <div>
+        海底
+        <input type="checkbox" name="is_haitei" value="true">
+      </div>
+
+      <div>
+        嶺上開花
+        <input type="checkbox" name="is_rinshan" value="true">
+      </div>
+
+      <div>
+        天和
+        <input type="checkbox" name="is_tenho" value="true">
+      </div>
+
+      <div>
+        地和
+        <input type="checkbox" name="is_chiho" value="true">
+      </div>
+    </div>
+
+    <label id=msg>
+    </label>
+
+  </body>
+</html>
+
