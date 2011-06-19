@@ -55,6 +55,7 @@
     <td><%= agari.total_point %></td>
     <td><%= agari.parent_point %></td>
     <td><%= agari.child_point %></td>
+    <td><%= agari.img_url %></td>
     <td><img src="<%= tehai_img_path(agari) %>" ></td>
     <% unless agari.tehai_list.nil? %>
       <% to_img_src(agari.tehai_list).each do |e| %>
