@@ -61,11 +61,12 @@
         httpObj.setRequestHeader("Content-Type","application/json");
         httpObj.send(json);
         if(httpObj.status == "200") {
-          console.log("success to send")
-          infomsg("success to send")
+          console.log("success to send");
+          infomsg("success to send");
         } else {
           console.log("!!! fail to send !!!  error code:" + httpObj.status  );
-          infomsg("!!! fail to send !!!  error code:" + httpObj.status )
+          infomsg("!!! fail to send !!!  error code:" + httpObj.status );
+          dbgmsg(httpObj.responseText);
         }
       }
 
@@ -92,7 +93,7 @@
     </p>
     <p>
       <button onclick="capturePhoto();">
-        Take Photo
+        Capture Photo
       </button>
     </p>
     <p>
@@ -110,7 +111,7 @@
     <form name="agari">
       <div>
         画像URL
-        <input type="text" name="img_url">
+        <input id="img_url" type="text" name="img_url">
       </div>
       <div>
         場風
