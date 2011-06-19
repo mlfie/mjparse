@@ -1,9 +1,17 @@
 class Image < ActiveRecord::Base
 
+ # ORIGINAL
+ #has_attached_file :image,
+ #   :styles => { :normal => "600x448>", :thum => "100x100>" },
+ #   :url  => "/assets/products/:id/p_:style.:basename.:extension",
+ #   :path => "public/assets/products/:id/p_:style.:basename.:extension"
+
  has_attached_file :image,
     :styles => { :normal => "600x448>", :thum => "100x100>" },
-    :url  => "/assets/products/:id/p_:style.:basename.:extension",
-    :path => "public/assets/products/:id/p_:style.:basename.:extension"
+    :url  => "/assets/image/:id_:style.:extension",
+    :path => "public/assets/image/:id_:style.:extension"
+
+
 
   # ====================================
   # Paper Clip upload from url

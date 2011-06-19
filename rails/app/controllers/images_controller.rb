@@ -44,7 +44,8 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
+        #format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
+        format.html { render :text => @image.image.url(:normal) , :status => :created, :location =>  @image.image.url(:normal)  }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
         format.html { render :action => "new" }
