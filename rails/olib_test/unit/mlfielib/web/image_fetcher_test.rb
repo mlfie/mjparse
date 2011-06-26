@@ -4,7 +4,8 @@ require 'mlfielib/web/image_fetcher'
 
 class CardChooserTest < Test::Unit::TestCase
   def setup
-    @uri = "http://mjt.fedc.biz/img/9.jpg"
+    #@uri = "http://mjt.fedc.biz/img/9.jpg"
+    @uri = "http://mjt.fedc.biz/assets/image/7_normal.jpg"
     @fetcher = Mlfielib::Web::ImageFetcher.new
   end
 

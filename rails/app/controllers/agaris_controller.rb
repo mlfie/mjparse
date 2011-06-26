@@ -1,5 +1,6 @@
 #encoding:utf-8
 require 'mlfielib/cv/template_matching_analyzer'
+require 'mlfielib/web/image_fetcher'
 require 'mjt/analysis/teyaku_decider'
 require 'RMagick'
 require 'base64'
@@ -46,6 +47,13 @@ class AgarisController < ApplicationController
   # POST /agaris.xml
   def create
     @agari = Agari.new(params[:agari])
+
+    #URIから画像を取得する
+    if @agari[:tehai_img].blank? && @agari.img_url
+      img_fetcher = Mlfielib::Web::ImageFetcher.new
+      img_path = img_fetcher.save_image(@agari.img_url)
+      @agari[:tehai_img] = to_base64(img_path)
+    end
 
     # 手配画像を小さくしてモデルにいれなおす
     #@agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
@@ -109,7 +117,19 @@ class AgarisController < ApplicationController
     return Base64.encode64(image.to_blob)    
   end	
 
- 
+  def to_base64(img_path)
+    puts "befor new !"
+    image = Magick::ImageList.new
+    p image
+    puts "befor read"
+    puts "img_path=#{img_path}"
+    image.read(img_path)
+    puts "read!"
+    image.resize!(600,448)
+    puts "resize!"
+    return Base64.encode64(image.to_blob)
+  end
+
   # 引数のIDの手配画像をjpegにして配置
   def make_tehai_img(id)
     agari=Agari.find_by_id(id)

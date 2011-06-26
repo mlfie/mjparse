@@ -7,7 +7,8 @@ module Mlfielib
       def save_image(uri)
         basename = File.basename(uri)
         temp = Tempfile::new(basename, "/tmp")
-        open(uri) do |data|
+        temp.binmode
+        open(uri, "rb") do |data|
           temp.write(data.read)
         end
         temp.close
