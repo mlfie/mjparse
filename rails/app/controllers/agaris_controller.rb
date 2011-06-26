@@ -2,8 +2,6 @@
 require 'mlfielib/cv/template_matching_analyzer'
 require 'mlfielib/web/image_fetcher'
 require 'mjt/analysis/teyaku_decider'
-require 'RMagick'
-require 'base64'
 
 class AgarisController < ApplicationController
   # GET /agaris
@@ -43,29 +41,29 @@ class AgarisController < ApplicationController
     @agari = Agari.find(params[:id])
   end
 
+
   # POST /agaris
   # POST /agaris.xml
   def create
     @agari = Agari.new(params[:agari])
 
-    #URIから画像を取得する
-    if @agari[:tehai_img].blank? && @agari.img_url
-      img_fetcher = Mlfielib::Web::ImageFetcher.new
-      img_path = img_fetcher.save_image(@agari.img_url)
-      @agari[:tehai_img] = to_base64(img_path)
-    end
-
-    # 手配画像を小さくしてモデルにいれなおす
-    #@agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
-    @agari[:tehai_img] = base64_smaller(@agari[:tehai_img])
-
-    
     respond_to do |format|
       if @agari.save
         @agari.reload
-        make_tehai_img(@agari[:id])
-        if self.analysis(@agari)
-          @agari.save
+
+        # set dummy date
+        @agari.total_fu_num = 20
+        @agari.total_han_num = 4
+        @agari.mangan_scale = 0
+        @agari.total_point = 5200
+        @agari.parent_point = 2600
+        @agari.child_point = 1300
+        @agari.tehai_list = "m4m5m6m7m7p2p3p4s5s6s7s7s8s9"
+        @agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
+        @agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
+        @agari.yaku_list << Yaku.find_by_name_kana('サンショク')
+
+        if  @agari.save
 
           format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
           format.xml  { render :xml => @agari, :status => :created, :location => @agari }
@@ -81,6 +79,7 @@ class AgarisController < ApplicationController
       end
     end
   end
+
 
   def analysis(agari)
     tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
@@ -103,40 +102,6 @@ class AgarisController < ApplicationController
     #agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
     #agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
     #agari.yaku_list << Yaku.find_by_name_kana('サンショク')
-  end
-
-  # base64形式画像縮小
-  #
-  # param @str: base64のJPEG
-  # return: 600*448に縮小したJPEGのbase64
-  def base64_smaller(str)
-    blob = Base64.decode64(str)
-    image = Magick::ImageList.new
-    image.from_blob(blob)
-    image.resize!(600,448)
-    return Base64.encode64(image.to_blob)    
-  end	
-
-  def to_base64(img_path)
-    puts "befor new !"
-    image = Magick::ImageList.new
-    p image
-    puts "befor read"
-    puts "img_path=#{img_path}"
-    image.read(img_path)
-    puts "read!"
-    image.resize!(600,448)
-    puts "resize!"
-    return Base64.encode64(image.to_blob)
-  end
-
-  # 引数のIDの手配画像をjpegにして配置
-  def make_tehai_img(id)
-    agari=Agari.find_by_id(id)
-    image = Base64.decode64(agari[:tehai_img])
-    rmagick = Magick::ImageList.new
-    rmagick.from_blob(image)
-    rmagick.write(tehai_img_path(id))
   end
 
   # PUT /agaris/1
