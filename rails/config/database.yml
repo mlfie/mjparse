@@ -1,23 +1,24 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: fetaro_mjt_dev
-  username: fetaro
-  password: fetaro
+  database: mj_tsumotter_dev
+  username: root
+  password: 
   socket: /var/lib/mysql/mysql.sock
 
 production:
   adapter: mysql2
   encoding: utf8
-  database: fetaro_mjt_pro
-  username: fetaro
-  password: fetaro
+  database: mj_tsumotter_pro
+  database: msuke_pro
+  username: root
+  password: 
   socket: /var/lib/mysql/mysql.sock
 
 test:
   adapter: mysql2
   encoding: utf8
-  database: fetaro_mjt_test
-  username: fetaro
-  password: fetaro
+  database: mj_tsumotter_test
+  username: root
+  password: 
   socket: /var/lib/mysql/mysql.sock
