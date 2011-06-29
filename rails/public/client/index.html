@@ -20,7 +20,6 @@
         infomsg("start sendding photo...")
 
         var url = "/agaris.json";
-        var request = createXMLHttpRequest();
 
         //フォームからパラメータ作成
         var param = {
@@ -52,39 +51,100 @@
         //JSONに変換
         var json = toJSON(param);
         dbgmsg("<h4>SEND:</h4>" + json);
-        console.log(param);
 
+        //リクエスト送信
         $.ajax({
           type: "POST",
           url: url,
           data: json,
-          success: function(data) {
-            console.log(data);
-            infomsg("success to send");
+          success: function(data, textStatus, xhr) {
+            infomsg("success to send . " + xhr.status );
             dbgmsg("<h4>RESPONSE:</h4>" + toJSON(data));
-            $("#resultdiv").html = toJSON(data);
+
+            $("#resultdiv").html(agariToHtml(data.agari));
           },
           error: function(data) {
-            console.log(data);
-            infomsg("fail to send ! http status is " + data.status);
+            infomsg("fail to send ! " + data.status);
             dbgmsg(data.responseText);
           }
         });
       }
 
-      function urlchange() {
-        //console.log($("#image").attr("src"));
-        console.log($('#img_url').val());
+      function imgload() {
         $("#image").attr("src",$('#img_url').val());
       }
 
       function infomsg(msg) {
-        $("#infodiv").html = msg;
+        $("#infodiv").html(msg);
       }
 
       function dbgmsg(msg) {
-        $("#dbgdiv").html += "<hr>" + msg ;
+        $("#dbgdiv").append("<hr>" + msg) ;
       }
+
+      function agariToHtml(a) {
+
+        var manganStr="";
+        switch (a.mangan_scale) {
+          case 0:
+            manganStr="" ;
+            break;
+          case 1:
+            manganStr="満貫 " ;
+            break;
+          case 1.5:
+            manganStr="跳満 " ;
+            break;
+          case 2:
+            manganStr="倍満 " ;
+            break;
+          case 3:
+            manganStr="三倍満 " ;
+            break;
+          case 4:
+            manganStr="役満 " ;
+            break;
+          case 8:
+            manganStr="ダブル役満 " ;
+            break;
+          case 12:
+            manganStr="トリプル役満 " ;
+            break;
+          case 16:
+            manganStr="四倍役満 " ;
+            break;
+        }
+
+        //HTML生成
+        var html ="<h3>解析結果</h3>";
+
+        html += "<p>"
+        for(var i=0;i<28;i+=2) {
+          var paistr = a.tehai_list.slice(i,i+2);
+          if(paistr == ""){
+           //解析に失敗したパイがある場合
+            paistr = "z0";//失敗画像のファイル名"z0"を指定
+          }
+          html += "<img width=17 src=img/" + paistr + ".gif>";
+        }
+
+        html += "</p>"
+
+        html += "<table>";
+        $.each(a.yaku_list, function() {
+          html += "<tr><td>" + this.name_kanji + "</td><td>" + this.han_num +"飜</td></tr>";
+        });
+        html +="</table>";
+
+        html += "<p>" + a.total_fu_num + "符　" + manganStr + a.total_han_num + "飜　" + a.total_point + "点</p>"
+
+        if(a.is_parent) {
+          html += a.child_point + "点　オール"
+        } else {
+          html += "子"+a.child_point + "点/親" +a.parent_point + "点"
+        }
+        return html;
+      };
     </script>
   </head>
 
@@ -113,12 +173,12 @@
         </tr>
         <tr>
           <td colspan=4>
-          <input id="img_url" type="text" name="img_url" size="40" onchange="urlchange()">
+          <input id="img_url" type="text" name="img_url" size="40" onchange="imgload">
           </td>
         </tr>
         <tr>
           <td colspan=4>
-          <img id="image" src="" width="200" height="200"/>
+          <img id="image" width="200" height="200" src="img/nophoto.jpg"/>
           </td>
         </tr>
 
@@ -220,8 +280,7 @@
       Send Data
     </button>
 
-    <div style="border:1px solid gray; width:250px;" id="resultdiv">
-      analysis result:
+    <div id="resultdiv">
     </div>
 
     <hr>
