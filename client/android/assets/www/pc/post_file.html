@@ -1,0 +1,29 @@
+<html>
+  <head>
+  <title>写真投稿</title>
+  <script type="text/javascript">
+	function back(){
+	  if(!window.opener || window.opener.closed){ // メインウィンドウの存在をチェック
+	    window.alert('メインウィンドウがありません');
+	  }else{
+        iframe = document.getElementById("if"); // iframeエレメント
+        imgurl = iframe.contentDocument.body.childNodes[0].data;
+	    window.opener.document.getElementById("img_url").value = imgurl;
+	    window.close();
+	  }
+    }
+  </script>
+  </head>
+
+  <body>
+	<form action="/images" target="upload" enctype="multipart/form-data"  method="post" >
+	  <input name="image[image]" type="file">
+      <input type="submit" value="画像アップロード">
+	</form>
+    アップロードが成功したら、以下のフレームに画像のURLが表示されます。<br>
+	<input type="button" value="戻る" onClick="back()"><br>
+    戻るボタンを押すと、画像のURLを親ウインドウに連携し、このウインドウを閉じます。<br>
+	<iframe id="if" src="about:blank" name="upload" ></iframe>	
+  </body>
+
+</html>
