@@ -1,11 +1,9 @@
 
-function capturePhoto(params) {
-  //androidlog.d("capture button pressed");
-  androidcamera.capture(params);
+function capturePhoto() {
+  android.capturePhoto();
 }
 
-function selectPhoto(params) {
-  //androidlog.d("select button pressed");
-  androidcamera.select(params);
+function selectPhoto() {
+  android.selectPhoto();
 }
 

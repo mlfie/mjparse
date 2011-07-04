@@ -13,13 +13,11 @@ public class Top extends Activity {
 
 	private static final String TAG = "mjt-client";
 
-	private static final int REQUEST_CAMERA_BRIDGE = 1;
+	private static final int REQUEST_TO_PHOTO = 1;
 
 	private static final String TOP_HTML="file:///android_asset/www/index.html";	
 	
 	private WebView webview = null;
-
-	String htmlGetParams = null;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,8 +26,7 @@ public class Top extends Activity {
 		settings.setJavaScriptEnabled(true);
 		//settings.setJavaScriptCanOpenWindowsAutomatically(true);
 		//settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
-		webview.addJavascriptInterface(new CameraBridge(), "androidcamera");
-		webview.addJavascriptInterface(new LogBridge(), "androidlog");
+		webview.addJavascriptInterface(this, "android");
 		
 		webview.loadUrl(TOP_HTML);		
 		setContentView(webview);
@@ -37,7 +34,7 @@ public class Top extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if(requestCode == REQUEST_CAMERA_BRIDGE){
+		if(requestCode == REQUEST_TO_PHOTO){
 			Log.d(TAG,"intent from CameraBridge recived");
 			if(resultCode == RESULT_OK){
 				Bundle extras=intent.getExtras();
@@ -46,9 +43,8 @@ public class Top extends Activity {
 					if(imgurl == null || imgurl == ""){
 						Log.e(TAG,"intent extra string from cameraBridge is null or empty" );
 					}else{
-						String url=TOP_HTML + "?"+ htmlGetParams + "&img_url="  +  URLEncoder.encode(imgurl);
-						Log.d(TAG,"webview.loadUrl " + url);
-						webview.loadUrl(url);			
+						Log.d(TAG,"imgurl " + imgurl);
+						webview.loadUrl("javascript:setImgUrl('" + imgurl + "')");			
 					}
 				}else{
 					Log.e(TAG,"intent extra from CameraBridge is null");
@@ -60,33 +56,20 @@ public class Top extends Activity {
 	}
 	
 	
+	public void capturePhoto() {
+		Log.d(TAG, "capturePhoto");
+		Intent intent = new Intent(getApplicationContext(),Photo.class);
+		intent.putExtra(Photo.INTENT_KEY, Photo.INTENT_VAL_CAPTURE);
+		startActivityForResult(intent, REQUEST_TO_PHOTO);	
+	}
+	
+	public void selectPhoto() {
+		Log.d(TAG, "selectPhoto");
+		Intent intent = new Intent(getApplicationContext(),Photo.class);
+		intent.putExtra(Photo.INTENT_KEY, Photo.INTENT_VAL_SELECT);
+		startActivityForResult(intent, REQUEST_TO_PHOTO);	
 
-
-	public class CameraBridge {
-		public void capture(String getParams) {
-			
-			Log.d(TAG, "CameraBridge: capture. htmlGetParam=" + getParams);
-			
-			htmlGetParams  = getParams;
-			Intent intent = new Intent(getApplicationContext(),Photo.class);
-			intent.putExtra("getParam", getParams);
-			startActivityForResult(intent, REQUEST_CAMERA_BRIDGE);	
-		}
-		
-		public void select(String getParam) {
-			Log.d(TAG, "CameraBridge: select. getParam=" + getParam);
-			webview.loadUrl("file:///android_asset/www/index.html?bakaze=nan&jikaze=nan&honba_num=0&is_tsumo=true&dora_num=0&reach_num=0&is_ippatsu=false&is_haitei=false&is_rinshan=false&is_chankan=false&is_tenho=false&is_chiho=false&&img_url=%2Fassets%2Fimage%2F114_normal.jpeg%3F1309715933");	
-
-		}
 	}
 
-	public class LogBridge {
-		public void d(String str) {
-			Log.d(TAG, str);
-		}
-		public void e(String str) {
-			Log.e(TAG, str);
-		}
-	}
 
 }

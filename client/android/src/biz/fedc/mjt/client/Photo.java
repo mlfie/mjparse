@@ -13,6 +13,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,11 +25,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-/**
- * Intent Camera Test
- */
 public class Photo extends Activity {
 
+	public static final int INTENT_VAL_CAPTURE = 1;
+	public static final int INTENT_VAL_SELECT = 2;
+	public static final String INTENT_KEY = "op";
+	
 	/** log tag */
 	public static final String TAG = "mjt-client";
 	/** ImageView */
@@ -41,57 +43,70 @@ public class Photo extends Activity {
 	private static final String TMP_FILE_PATH = Environment
 			.getExternalStorageDirectory()
 			+ "/tmp.jpeg";
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-		
+
 		// preview ImageView
 		previewImage = (ImageView) findViewById(R.id.previewImage);
 
-		// Capture Button
-		findViewById(R.id.captureButton).setOnClickListener(
-				new OnClickListener() {
-					public void onClick(View v) {
-						Log.d(TAG, "captureButton:onClick() start");
-						Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						startActivityForResult(i, REQUEST_PICK_CONTACT);
+		Log.d(TAG,getIntent().getExtras().getInt(INTENT_KEY ) + "");
+		
+		switch (getIntent().getExtras().getInt(INTENT_KEY)){
+		case INTENT_VAL_CAPTURE : capture();break;
+		case INTENT_VAL_SELECT : select();break;
+		}
 
-					}
-				});
 
-		findViewById(R.id.SelectButton).setOnClickListener(
-				new OnClickListener() {
-					public void onClick(View v) {
-						Intent intent = new Intent(Intent.ACTION_PICK);
-						intent.setType("image/*");
-						startActivityForResult(intent, REQUEST_PICK_CONTACT);
-
-					}
-				});
-
+		findViewById(R.id.captureButton).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				switch (getIntent().getExtras().getInt(INTENT_KEY)){
+				case INTENT_VAL_CAPTURE : capture();break;
+				case INTENT_VAL_SELECT : select();break;
+				}
+			}
+		});
+		
+		
 		findViewById(R.id.sendButton).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Log.d(TAG, "sendButton:onClick() start");
-
 				try {
-					String imgurl = postFile(SERVER_URL, PARAM_NAME, TMP_FILE_PATH);
-					//Activityの完了
+					String imgurl = postFile(SERVER_URL, PARAM_NAME,
+							TMP_FILE_PATH);
+					
+					// Activityの完了
 					Intent intent = new Intent();
 					intent.putExtra("imgurl", imgurl);
-					setResult(Activity.RESULT_OK,intent);
+					setResult(Activity.RESULT_OK, intent);
 					finish();
 				} catch (Exception e) {
-					Log.d(TAG, e.getMessage(), e);
+					Log.e(TAG, "fail to photo send", e);
+					Log.e(TAG, e.getMessage(), e);
 				}
 			}
 		});
 	}
 
+	private void capture(){
+		Log.d(TAG, "capture photo");
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(intent, REQUEST_PICK_CONTACT);
+	}
+	
+	private void select(){
+		Log.d(TAG, "select photo");
+		Intent intent = new Intent(Intent.ACTION_PICK);
+		intent.setType("image/*");
+		startActivityForResult(intent, REQUEST_PICK_CONTACT);
+	}
+	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 		Log.d(TAG, "onActivityResult:requestCode=" + requestCode
 				+ ",resultCode=" + resultCode);
@@ -110,7 +125,7 @@ public class Photo extends Activity {
 			} catch (Exception e) {
 				Log.d(TAG, e.getMessage(), e);
 			}
-		}else{
+		} else {
 			Log.d(TAG, "onActivityResult:camera fail!");
 		}
 

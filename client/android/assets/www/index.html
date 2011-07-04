@@ -21,53 +21,12 @@
     <script type="text/javascript" charset="utf-8" >
     <!--
       function onLoad() {
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++) {
-          hash = hashes[i].split('=');
-          key = hash[0];
-          val = hash[1]
-          var jqn = $("#" + key)
-          if(jqn.attr("type") == "checkbox" && ( val=="true" || val=="on")) {
-            jqn.attr("checked",true);
-          } else {
-            jqn.val(decodeURIComponent(val));
-          }
-        }
       }
 
       
-      function formToGetParams() {
-        var str = "";
-        $("input:text").each( function() {
-          if( $(this).val() != "" ) {
-            var name = $(this).attr("name");
-            str += name + "=" + encodeURIComponent($(this).val()) +"&";
-          }
-        });
-        $("select").each( function() {
-          var name = $(this).attr("name");
-          var val = $(this).children(":selected").attr("value")
-          if(val.match(/^[0-9]+$/)) {
-            val = parseInt(val);
-          }
-          str += name + "=" + val+"&";
-        });
-        $("input:checkbox").each( function() {
-          var name = $(this).attr("name");
-          if ( $(this).attr("checked")=="checked" ) {
-            str += name + "=true" + "&";
-          } else {
-            str += name + "=false"+"&";
-          }
-        });
-        //is_parentの計算
-        // TODO
-
-
-
-        return str;
+      function setImgUrl(str){
+      $("#img_url").val(str);
       }
-      
       
       function sendPhoto() {
         infomsg("start sendding photo...")
@@ -208,20 +167,15 @@
       let's take mj agari photo
     </div>
 
-    <form name="agari">
-      <table summary="">
-        <tr>
-          <td colspan=2>
-          <button onclick="capturePhoto(formToGetParams());">
+          <button onclick="capturePhoto();">
             Capture Photo
           </button>
-          </td>
-          <td colspan=2>
-          <button onclick="selectPhoto(formToGetParams());">
+          <button onclick="selectPhoto();">
             Select Photo
           </button>
-          </td>
-        </tr>
+
+    <form name="agari">
+      <table summary="">
         <tr>
           <td colspan=4> 画像URL</td>
         </tr>
