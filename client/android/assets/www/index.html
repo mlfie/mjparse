@@ -54,7 +54,7 @@
         param["agari"]["is_parent"] = param["agari"]["jikaze"]=="ton";
 
         //JSONに変換
-        var json = toJSON(param);
+        var json = toJSON(param).replace("\"", "");;
         dbgmsg("<h4>SEND:<\/h4>" + json);
 
         //リクエスト送信
