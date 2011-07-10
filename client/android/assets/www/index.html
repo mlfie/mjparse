@@ -7,25 +7,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
-    <!--  
-    <script type="text/javascript" charset="utf-8" src="pc/photo.js"></script>
-    <link rel="stylesheet" type="text/css" href="pc/top.css">
- 	-->
-
-    <script type="text/javascript" charset="utf-8" src="android/photo.js"></script>
-    <link rel="stylesheet" type="text/css" href="android/top.css">
-
-
     <script type="text/javascript" charset="utf-8" src="util.js"></script>
     <script type="text/javascript" charset="utf-8" src="jquery-1.6.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" >
     <!--
       function onLoad() {
+        dbgmsg("plat form name is " + getPlatformName());
       }
 
       
       function setImgUrl(str){
       $("#img_url").val(str);
+      $("#image").attr('src',str);
       }
       
       function sendPhoto() {
@@ -157,6 +150,38 @@
         }
         return html;
       };
+      
+
+function getPlatformName(){
+  if(android){
+    return "Android"
+  }else{
+    return "ブラウザ"
+  }
+}
+      
+function capturePhoto() {
+  if(android.capturePhoto){
+    //androidの場合
+    android.capturePhoto();
+  }else{
+    //ブラウザの場合
+    window.open('pc/post_file.html','a','menubar=no,toolbar=no'); 
+  }
+}
+
+function selectPhoto() {
+  if(android.selectPhoto){
+    //androidの場合
+    android.selectPhoto();
+  }else{
+    //ブラウザの場合
+    window.open('pc/post_file.html','a','menubar=no,toolbar=no'); 
+  }
+}
+
+      
+      
     -->
     </script>
   </head>
