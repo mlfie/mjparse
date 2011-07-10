@@ -8,7 +8,7 @@ module Mlfielib
       attr_reader :origin, :vector
       def filter(pailist)
         error_ratio = 10.0 / pailist.size > 0.5 ? 0.5 : 10.0 / pailist.size
-        fitting = Mlfielib::Fitting::LeastMedianSquaresParamSearch.new(Mlfielib::Fitting::LMSLineFittingModel.new(pailist), error_ratio)
+        fitting = Mlfielib::Fitting::LeastMedianSquaresParamSearch.new(Mlfielib::Fitting::LMSLineFittingModel.new(pailist.select{|pai| pai.direction == :top}), error_ratio)
         intercept, slope = fitting.search
         @origin = create_origin(intercept)
         @vector = create_vector(slope)

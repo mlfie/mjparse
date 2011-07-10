@@ -20,7 +20,7 @@ class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
   end
 
   def test_analyze
-    path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
+    path = "olib_test/unit/mlfielib/cv/test_img/test_komagahouse3.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
 
     pais = @tma.analyze_raw(path)
@@ -28,7 +28,7 @@ class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
       img = IplImage.load(path, CV_LOAD_IMAGE_GRAYSCALE)
       win = GUI::Window.new "debug result"
       pais.each do |pai|
-        puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}"
+        puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}, #{pai.direction}"
         img.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
       win.show img
       GUI::wait_key

@@ -7,16 +7,17 @@ module Mlfielib
     class Pai
       include Mlfielib::Geom::PointOp
       include Mlfielib::Geom::RectOp
-        def initialize(x=0, y=0, width=0, height=0, value=0, type=nil)
+        def initialize(x=0, y=0, width=0, height=0, value=0, type=nil, direction=:top)
          @x = x
          @y = y
          @width = width
          @height = height
          @value = value
          @type = type
+         @direction = direction
         end
     
-        attr_accessor :x, :y, :width, :height, :value, :type
+        attr_accessor :x, :y, :width, :height, :value, :type, :direction
   
         #TODO refactor
         def -(pai)

@@ -51,7 +51,6 @@ GEM
     multi_xml (0.2.2)
     multipart-post (1.1.0)
     mysql2 (0.2.6)
-    opencv (0.0.6)
     paperclip (2.3.11)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -97,7 +96,6 @@ PLATFORMS
 
 DEPENDENCIES
   mysql2 (< 0.3)
-  opencv (= 0.0.6)
   paperclip
   rails (= 3.0.7)
   rmagick

@@ -52,9 +52,18 @@ module Mlfielib
           
           target_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
           
-          Dir::glob(DIRPATH+'/*[^n].jpg').each {|f|
+          Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
             target = target_img.clone
             pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
+            pai_direction = case File.basename(f).split('.')[1]
+                            when 't'
+                              :top
+                            when 'r'
+                              :right
+                            else
+                              :top
+                            end
+              
             begin
               templ_img = IplImage.load(f, CV_LOAD_IMAGE_GRAYSCALE)
               result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
@@ -63,7 +72,7 @@ module Mlfielib
                         CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
                        :color => CvColor::White, :thickness => -1)
               if(max_val > 0.6)        
-                pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type)
+                pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type, pai_direction)
                 @pai_list.push(pai)
                
                 puts "val = #{pai.value}, type = #{pai.type}"
@@ -74,8 +83,6 @@ module Mlfielib
           return @pai_list
           
         end
-        
-        
     end
   end
 end

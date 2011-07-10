@@ -8,7 +8,7 @@ gem 'rails', '3.0.7'
 gem 'mysql2', '< 0.3'
 
 gem 'twitter'
-gem 'opencv', '0.0.6'
+#gem 'opencv', '0.0.6'
 gem 'rmagick'
 gem 'paperclip'
 
