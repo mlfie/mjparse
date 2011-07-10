@@ -71,7 +71,7 @@ function toJSON(obj) {
     ret = "{";
     var comma = "";
     for(var i in obj) {
-      ret += comma + '"' + i + '":' + toJSON(obj[i]);
+      ret += comma + '"' + i + '": ' + toJSON(obj[i]);
       comma = ",";
     }
     return ret + "}";

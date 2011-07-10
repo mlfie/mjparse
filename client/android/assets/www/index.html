@@ -53,8 +53,10 @@
         //is_parentの計算
         param["agari"]["is_parent"] = param["agari"]["jikaze"]=="ton";
 
-        //JSONに変換
-        var json = toJSON(param).replace("\"", "");;
+        //JSONに変換 「"」を除く
+        var json = toJSON(param);
+
+
         dbgmsg("<h4>SEND:<\/h4>" + json);
 
         //リクエスト送信
@@ -62,6 +64,7 @@
           type: "POST",
           url: url,
           data: json,
+          contentType:"application/json",
           success: function(data, textStatus, xhr) {
             infomsg("success to send . " + xhr.status );
             dbgmsg("<h4>RESPONSE:<\/h4>" + toJSON(data));
@@ -73,6 +76,7 @@
             dbgmsg(data.responseText);
           }
         });
+
       }
 
       function imgload() {
