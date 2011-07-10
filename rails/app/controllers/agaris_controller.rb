@@ -48,10 +48,19 @@ class AgarisController < ApplicationController
   def create
     @agari = Agari.new(params[:agari])
 
+logger.debug params[:agari]
+logger.debug @agari.bakaze
+
     #URIから画像を取得する
+logger.debug "horehore"
+logger.debug @agari[:tehai_img].blank?
+logger.debug "img_url = #{@agari.img_url}"
+    logger.debug @agari[:tehai_img].blank? && @agari.img_url
     if @agari[:tehai_img].blank? && @agari.img_url
+logger.debug "korehoge"
       img_fetcher = Mlfielib::Web::ImageFetcher.new
       img_path = img_fetcher.save_image(@agari.img_url)
+logger.debug "img_path = #{img_path}"
       @agari[:tehai_img] = to_base64(img_path)
     end
 
@@ -102,7 +111,7 @@ class AgarisController < ApplicationController
     agari.total_point = 8000
     agari.parent_point = 4000
     agari.child_point = 2000
-    agari.tehai_list = "m4m5m6m7m7p2p3p4s5s6s7s7s8s9"
+    #agari.tehai_list = "m4m5m6m7m7p2p3p4s5s6s7s7s8s9"
     agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
     agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
     agari.yaku_list << Yaku.find_by_name_kana('サンショク')
