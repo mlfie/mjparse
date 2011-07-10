@@ -4,13 +4,13 @@ module Mjt::Analysis
     
     # 得点を計算して結果を返す
     def self.calculate_point(tehai, agari)
-      tehai.fu_num = self.calc_fu(tehai, agari)
+      tehai.fu_num = self.ceil_one_level(self.calc_fu(tehai, agari))
       tehai.han_num = self.calc_han(tehai)
       tehai.mangan_scale = self.calc_mangan_scale(tehai)
       base_point = self.calc_base_point(tehai)
-      tehai.child_point = cail_ten_level(self.calc_child_point(base_point, tehai, agari))
-      tehai.parent_point = cail_ten_level(self.calc_parent_point(base_point, tehai, agari))
-      tehai.total_point = cail_ten_level(self.calc_total_point(base_point, tehai, agari))
+      tehai.child_point = self.ceil_ten_level(self.calc_child_point(base_point, tehai, agari))
+      tehai.parent_point = self.ceil_ten_level(self.calc_parent_point(base_point, tehai, agari))
+      tehai.total_point = self.ceil_ten_level(self.calc_total_point(base_point, tehai, agari))
     end
     
     # 符を計算する
@@ -20,38 +20,38 @@ module Mjt::Analysis
       total_fu = 20
       
       ### 雀頭による符
-      if tehai.atama.type == 'j'
+      if tehai.atama.type == Pai::PAI_TYPE_JIHAI
         # 風牌の場合
-        if 1 <= tehai.atama.number && tehai.atama.number <= 4
+        if Pai::PAI_NUMBER_TON <= tehai.atama.number && tehai.atama.number <= Pai::PAI_NUMBER_PEI
           # 自風の計算
-          if tehai.atama.number == 0 && agari.jikaze == 'ton'
+          if tehai.atama.number == Pai::PAI_NUMBER_TON && agari.jikaze == 'ton'
             total_fu += 2
-          elsif tehai.atama.number == 1 && agari.jikaze == 'nan'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_NAN && agari.jikaze == 'nan'
             total_fu += 2
-          elsif tehai.atama.number == 2 && agari.jikaze == 'sha'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_SHA && agari.jikaze == 'sha'
             total_fu += 2
-          elsif tehai.atama.number == 3 && agari.jikaze == 'pei'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_PEI && agari.jikaze == 'pei'
             total_fu += 2
           end
           # 場風の計算
-          if tehai.atama.number == 0 && agari.bakaze == 'ton'
+          if tehai.atama.number == Pai::PAI_NUMBER_TON && agari.bakaze == 'ton'
             total_fu += 2
-          elsif tehai.atama.number == 1 && agari.bakaze == 'nan'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_NAN && agari.bakaze == 'nan'
             total_fu += 2
-          elsif tehai.atama.number == 2 && agari.bakaze == 'sha'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_SHA && agari.bakaze == 'sha'
             total_fu += 2
-          elsif tehai.atama.number == 3 && agari.bakaze == 'pei'
+          elsif tehai.atama.number == Pai::PAI_NUMBER_PEI && agari.bakaze == 'pei'
             total_fu += 2
           end
         # 三元牌の場合
-        elsif 5 <= tehai.atama.number && tehai.atama.number <= 7
+        elsif Pai::PAI_NUMBER_HAKU <= tehai.atama.number && tehai.atama.number <= Pai::PAI_NUMBER_CHUN
           total_fu += 2
         end
       end
       
       ### 刻子による符
       tehai.mentsu_list.each do |mentsu|
-        if mentsu.mentsu_type == 'k' 
+        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU
           # 字牌の場合
           if mentsu.pai_list[0].yaochu?
             total_fu += 8
@@ -65,12 +65,12 @@ module Mjt::Analysis
       ### 待ちの形による符
       tehai.mentsu_list.each do |mentsu|
         # 嵌張待ちの場合
-        if mentsu.pai_list[1].agari
+        if mentsu.kanchan?
           total_fu += 2
           break
         end
         # 辺張待ちの場合
-        if ( mentsu.pai_list[0].number == 1 && mentsu.pai_list[2].agari ) || ( mentsu.pai_list[2].number == 9 && mentsu.pai_list[0].agari )
+        if mentsu.penchan?
           total_fu += 2
           break
         end
@@ -82,13 +82,22 @@ module Mjt::Analysis
 
       ### 自摸和了による符
       if agari.is_tsumo
-        # TODO 平和を含まない場合
-        if true
+        pinfu = false
+        tehai.yaku_list.each do |yaku|
+          if yaku.name == 'pinfu'
+            pinfu = true
+            break
+          end
+        end
+        if ! pinfu
           total_fu += 2
         end
       end
       
-      return self.ceil_one_level(total_fu)
+      ### 門前でのロンアガリによる符
+      # TODO 門前 + !is_tsumo
+      
+      return total_fu
     end
     
     # 飜を計算する
@@ -104,7 +113,7 @@ module Mjt::Analysis
     def self.calc_mangan_scale(tehai)
       if tehai.han_num <= 4
         return 0
-      elsif tehai.han_num <= 5
+      elsif (tehai.han_num = 3 && tehai.fu_num >= 70) || (tehai.han_num = 4 && tehai.fu_num >= 40) || tehai.han_num <= 5
         return 1
       elsif tehai.han_num <= 7
         return 1.5
@@ -119,7 +128,7 @@ module Mjt::Analysis
     
     # 基本点を計算する
     def self.calc_base_point(tehai)
-      base_point = tehai.fu_num * 2 ** (tehai.han_num + 2)
+      base_point = tehai.fu_num * ( 2 ** (tehai.han_num + 2) )
       if base_point > 2000
         base_point = 2000
       end
@@ -142,7 +151,7 @@ module Mjt::Analysis
           point = base_point * 4
         end
       end
-      if tehai.han_num >= 5
+      if tehai.mangan_scale > 0
         return point * tehai.mangan_scale
       end
       return point
@@ -151,6 +160,7 @@ module Mjt::Analysis
     # 親が支払う点数を計算する
     def self.calc_parent_point(base_point, tehai, agari)
       point = 0
+      # 子の場合のみ計算する
       if ! agari.is_parent
         if agari.is_tsumo
           point = base_point * 2
@@ -158,7 +168,7 @@ module Mjt::Analysis
           point = base_point * 4
         end
       end
-      if tehai.han_num >= 5
+      if tehai.mangan_scale > 0
         return point * tehai.mangan_scale
       end
       return point
@@ -166,24 +176,28 @@ module Mjt::Analysis
     
     # 総合得点を計算する
     def self.calc_total_point(base_point, tehai, agari)
+      point = 0
       if agari.is_parent
         if agari.is_tsumo
-          return tehai.child_point * 3
+          point = tehai.child_point * 3
+        else
+          point = tehai.child_point
         end
-        return base_point * 6
       else
         if agari.is_tsumo
-          return tehai.child_point * 2 + tehai.parent_point
+          point = tehai.child_point * 2 + tehai.parent_point
+        else
+          point = tehai.parent_point
         end
-        return base_point * 4
       end
+      return point
     end
     
     def self.ceil_one_level(point)
       return ( ( point + 9 ) / 10 ) * 10
     end
     
-    def self.cail_ten_level(point)
+    def self.ceil_ten_level(point)
       return ( ( point + 90 ) / 100 ) * 100
     end
   end

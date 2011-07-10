@@ -9,7 +9,8 @@ module Mjt
       MENTSU_TYPE_TOKUSYU = 'y'
 
       attr_accessor :pai_list,    # 牌(Paiクラス)のリスト
-                    :mentsu_type  # 面子の種類(s:順子 k:刻子, 4:槓子, t:対子, y:特殊形)
+                    :mentsu_type, # 面子の種類(s:順子, k:刻子, 4:槓子, t:対子, y:特殊形)
+                    :furo         # 副露面子かどうか(true:副露, false:門前)
       
       # 初期化メソッド
       def initialize(pai_list, mentsu_type)
@@ -53,6 +54,16 @@ module Mjt
       def tokusyu?
         if self.mentsu_type == MENTSU_TYPE_TOKUSYU
           return true
+        end
+        return false
+      end
+      
+      # 副露かどうか
+      def furo?
+        self.pai_list.each do |pai|
+          if pai.naki
+            return true
+          end
         end
         return false
       end
@@ -151,29 +162,6 @@ module Mjt
         return false
       end
 
-=begin
-      # 全ての牌が同色かつ並びになっているかどうか？(同順の条件を満たしているか？)
-      def doujun?
-        if ! self.jihai?
-          if self.pai_list[0].type == self.pai_list[1].type && self.pai_list[0].type == self.pai_list[2].type &&
-             self.pai_list[0].number == self.pai_list[1].number - 1 && self.pai_list[0].number == self.pai_list[2].number - 2
-             return true
-          end
-        end
-        return false
-      end
-
-      # 全ての牌が同色かつ同じ数字になっているかどうか？(同順の条件を満たしているか？)
-      def doukou?
-        if ! self.jihai?
-          if self.pai_list[0].type == self.pai_list[1].type && self.pai_list[0].type == self.pai_list[2].type &&
-             self.pai_list[0].number == self.pai_list[1].number - 1 && self.pai_list[0].number == self.pai_list[2].number - 2
-            return true
-          end
-        end
-        return false
-      end
-=end
     end
   end
 end

@@ -4,9 +4,9 @@ class MentsuTest < ActiveSupport::TestCase
   # 作成テスト
   test "create" do
     pai_list = Array.new
-    pai_list << Mjt::Analysis::Pai.new('m1', false)
-    pai_list << Mjt::Analysis::Pai.new('m2', false)
-    pai_list << Mjt::Analysis::Pai.new('m3', false)
+    pai_list << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu = Mjt::Analysis::Mentsu.new(pai_list, 's')
     
     assert_equal mentsu.pai_list.size, 3
@@ -15,27 +15,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "shuntsu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.shuntsu?, true
@@ -47,27 +47,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "koutsu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.koutsu?, false
@@ -79,27 +79,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "kantsu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.kantsu?, false
@@ -111,27 +111,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "toitsu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.toitsu?, false
@@ -143,27 +143,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "tokusyu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.tokusyu?, false
@@ -173,29 +173,61 @@ class MentsuTest < ActiveSupport::TestCase
     assert_equal mentsu5.tokusyu?, true
   end
   
-  test "manzu" do
+  test "furo" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', true, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
+    mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
+    
+    assert_equal mentsu1.furo?, true
+    assert_equal mentsu2.furo?, false
+    assert_equal mentsu3.furo?, false
+    assert_equal mentsu4.furo?, false
+    assert_equal mentsu5.furo?, false
+  end
+  
+  test "manzu" do
+    pai_list1 = Array.new
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
+    mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
+    pai_list2 = Array.new
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
+    pai_list3 = Array.new
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
+    pai_list4 = Array.new
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
+    pai_list5 = Array.new
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.manzu?, true
@@ -207,27 +239,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "pinzu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.pinzu?, false
@@ -239,27 +271,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "souzu" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.souzu?, false
@@ -271,27 +303,27 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "jihai" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p4', false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p4', false, false)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 'k')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s5', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s5', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, '4')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
-    pai_list4 << Mjt::Analysis::Pai.new('j6', false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('j6', false, false)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 't')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('m7', false)
+    pai_list5 << Mjt::Analysis::Pai.new('m7', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 'y')
     
     assert_equal mentsu1.jihai?, false
@@ -303,38 +335,38 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "ryanmen" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', true)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, true)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p1', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p2', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p3', true)
+    pai_list2 << Mjt::Analysis::Pai.new('p1', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p2', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p3', false, true)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 's')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s7', true)
-    pai_list3 << Mjt::Analysis::Pai.new('s8', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s9', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s7', false, true)
+    pai_list3 << Mjt::Analysis::Pai.new('s8', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s9', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, 's')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('m7', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m8', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list4 << Mjt::Analysis::Pai.new('m7', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m8', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 's')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list5 << Mjt::Analysis::Pai.new('p5', true)
-    pai_list5 << Mjt::Analysis::Pai.new('p6', false)
+    pai_list5 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list5 << Mjt::Analysis::Pai.new('p5', false, true)
+    pai_list5 << Mjt::Analysis::Pai.new('p6', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 's')
     pai_list6 = Array.new
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
     mentsu6 = Mjt::Analysis::Mentsu.new(pai_list6, 't')
     pai_list7 = Array.new
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu7 = Mjt::Analysis::Mentsu.new(pai_list7, 'k')
     
     assert_equal mentsu1.ryanmen?, true
@@ -348,38 +380,38 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "penchan" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', true)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, true)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p1', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p2', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p3', true)
+    pai_list2 << Mjt::Analysis::Pai.new('p1', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p2', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p3', false, true)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 's')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s7', true)
-    pai_list3 << Mjt::Analysis::Pai.new('s8', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s9', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s7', false, true)
+    pai_list3 << Mjt::Analysis::Pai.new('s8', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s9', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, 's')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('m7', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m8', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list4 << Mjt::Analysis::Pai.new('m7', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m8', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 's')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list5 << Mjt::Analysis::Pai.new('p5', true)
-    pai_list5 << Mjt::Analysis::Pai.new('p6', false)
+    pai_list5 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list5 << Mjt::Analysis::Pai.new('p5', false, true)
+    pai_list5 << Mjt::Analysis::Pai.new('p6', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 's')
     pai_list6 = Array.new
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
     mentsu6 = Mjt::Analysis::Mentsu.new(pai_list6, 't')
     pai_list7 = Array.new
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu7 = Mjt::Analysis::Mentsu.new(pai_list7, 'k')
     
     assert_equal mentsu1.penchan?, false
@@ -393,38 +425,38 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "kanchan" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', true)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, true)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p1', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p2', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p3', true)
+    pai_list2 << Mjt::Analysis::Pai.new('p1', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p2', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p3', false, true)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 's')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s7', true)
-    pai_list3 << Mjt::Analysis::Pai.new('s8', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s9', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s7', false, true)
+    pai_list3 << Mjt::Analysis::Pai.new('s8', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s9', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, 's')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('m7', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m8', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list4 << Mjt::Analysis::Pai.new('m7', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m8', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 's')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list5 << Mjt::Analysis::Pai.new('p5', true)
-    pai_list5 << Mjt::Analysis::Pai.new('p6', false)
+    pai_list5 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list5 << Mjt::Analysis::Pai.new('p5', false, true)
+    pai_list5 << Mjt::Analysis::Pai.new('p6', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 's')
     pai_list6 = Array.new
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
     mentsu6 = Mjt::Analysis::Mentsu.new(pai_list6, 't')
     pai_list7 = Array.new
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu7 = Mjt::Analysis::Mentsu.new(pai_list7, 'k')
     
     assert_equal mentsu1.kanchan?, false
@@ -438,38 +470,38 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "tanki" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', true)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, true)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p1', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p2', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p3', true)
+    pai_list2 << Mjt::Analysis::Pai.new('p1', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p2', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p3', false, true)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 's')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s7', true)
-    pai_list3 << Mjt::Analysis::Pai.new('s8', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s9', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s7', false, true)
+    pai_list3 << Mjt::Analysis::Pai.new('s8', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s9', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, 's')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('m7', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m8', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list4 << Mjt::Analysis::Pai.new('m7', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m8', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 's')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list5 << Mjt::Analysis::Pai.new('p5', true)
-    pai_list5 << Mjt::Analysis::Pai.new('p6', false)
+    pai_list5 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list5 << Mjt::Analysis::Pai.new('p5', false, true)
+    pai_list5 << Mjt::Analysis::Pai.new('p6', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 's')
     pai_list6 = Array.new
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
     mentsu6 = Mjt::Analysis::Mentsu.new(pai_list6, 't')
     pai_list7 = Array.new
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu7 = Mjt::Analysis::Mentsu.new(pai_list7, 'k')
     
     assert_equal mentsu1.tanki?, false
@@ -483,38 +515,38 @@ class MentsuTest < ActiveSupport::TestCase
   
   test "shanpon" do
     pai_list1 = Array.new
-    pai_list1 << Mjt::Analysis::Pai.new('m1', true)
-    pai_list1 << Mjt::Analysis::Pai.new('m2', false)
-    pai_list1 << Mjt::Analysis::Pai.new('m3', false)
+    pai_list1 << Mjt::Analysis::Pai.new('m1', false, true)
+    pai_list1 << Mjt::Analysis::Pai.new('m2', false, false)
+    pai_list1 << Mjt::Analysis::Pai.new('m3', false, false)
     mentsu1 = Mjt::Analysis::Mentsu.new(pai_list1, 's')
     pai_list2 = Array.new
-    pai_list2 << Mjt::Analysis::Pai.new('p1', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p2', false)
-    pai_list2 << Mjt::Analysis::Pai.new('p3', true)
+    pai_list2 << Mjt::Analysis::Pai.new('p1', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p2', false, false)
+    pai_list2 << Mjt::Analysis::Pai.new('p3', false, true)
     mentsu2 = Mjt::Analysis::Mentsu.new(pai_list2, 's')
     pai_list3 = Array.new
-    pai_list3 << Mjt::Analysis::Pai.new('s7', true)
-    pai_list3 << Mjt::Analysis::Pai.new('s8', false)
-    pai_list3 << Mjt::Analysis::Pai.new('s9', false)
+    pai_list3 << Mjt::Analysis::Pai.new('s7', false, true)
+    pai_list3 << Mjt::Analysis::Pai.new('s8', false, false)
+    pai_list3 << Mjt::Analysis::Pai.new('s9', false, false)
     mentsu3 = Mjt::Analysis::Mentsu.new(pai_list3, 's')
     pai_list4 = Array.new
-    pai_list4 << Mjt::Analysis::Pai.new('m7', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m8', false)
-    pai_list4 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list4 << Mjt::Analysis::Pai.new('m7', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m8', false, false)
+    pai_list4 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu4 = Mjt::Analysis::Mentsu.new(pai_list4, 's')
     pai_list5 = Array.new
-    pai_list5 << Mjt::Analysis::Pai.new('p4', false)
-    pai_list5 << Mjt::Analysis::Pai.new('p5', true)
-    pai_list5 << Mjt::Analysis::Pai.new('p6', false)
+    pai_list5 << Mjt::Analysis::Pai.new('p4', false, false)
+    pai_list5 << Mjt::Analysis::Pai.new('p5', false, true)
+    pai_list5 << Mjt::Analysis::Pai.new('p6', false, false)
     mentsu5 = Mjt::Analysis::Mentsu.new(pai_list5, 's')
     pai_list6 = Array.new
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
-    pai_list6 << Mjt::Analysis::Pai.new('j7', true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
+    pai_list6 << Mjt::Analysis::Pai.new('j7', false, true)
     mentsu6 = Mjt::Analysis::Mentsu.new(pai_list6, 't')
     pai_list7 = Array.new
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
-    pai_list7 << Mjt::Analysis::Pai.new('m9', true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
+    pai_list7 << Mjt::Analysis::Pai.new('m9', false, true)
     mentsu7 = Mjt::Analysis::Mentsu.new(pai_list7, 'k')
     
     assert_equal mentsu1.shanpon?, false

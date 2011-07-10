@@ -5,7 +5,7 @@ module Mjt
     def self.get_agari_teyaku(agari)
       resolver = Mjt::Analysis::MentsuResolver.new
     
-      resolver.get_mentsu(agari)
+      resolver.get_mentsu(resolver.get_pai_list(agari.tehai_list))
       
       if resolver.tehai_list.size == 0
         return false
