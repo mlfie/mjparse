@@ -17,14 +17,14 @@
 
       
       function setImgUrl(str){
-      $("#img_url").val(str);
-      $("#image").attr('src',str);
+        $("#img_url").val(str);
+        $("#image").attr('src',str);
       }
       
       function sendPhoto() {
         infomsg("start sendding photo...")
 
-        var url = "http://fetaro-mjt.fedc.biz/agaris.json";
+        var url = "http://mjt.fedc.biz/agaris.json";
 
         //フォームからパラメータ作成
         var param = {
@@ -153,7 +153,7 @@
       
 
 function getPlatformName(){
-  if(android){
+  if(android != undefined){
     return "Android"
   }else{
     return "ブラウザ"
@@ -161,7 +161,7 @@ function getPlatformName(){
 }
       
 function capturePhoto() {
-  if(android.capturePhoto){
+  if(getPlatformName() == "android"){
     //androidの場合
     android.capturePhoto();
   }else{
@@ -171,7 +171,7 @@ function capturePhoto() {
 }
 
 function selectPhoto() {
-  if(android.selectPhoto){
+  if(getPlatformName() == "android"){
     //androidの場合
     android.selectPhoto();
   }else{
