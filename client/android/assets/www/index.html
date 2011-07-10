@@ -153,10 +153,10 @@
       
 
 function getPlatformName(){
-  if(android != undefined){
-    return "Android"
+  if( typeof android != 'undefined'){
+    return "android";
   }else{
-    return "ブラウザ"
+    return "pcbrowser";
   }
 }
       
