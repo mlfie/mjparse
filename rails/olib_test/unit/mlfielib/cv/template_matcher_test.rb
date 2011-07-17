@@ -1,12 +1,13 @@
 require 'test/unit'
 require 'test_helper'
-require 'mlfielib/cv/template_matcher'
+require 'mlfielib/cv/template_matching'
 require 'opencv'
 require 'cv_test_helper'
 
 class TemplateMatcherTest < Test::Unit::TestCase
   include CvTestHelper
   include OpenCV
+  include Mlfielib::CV::TemplateMatching
 
   TEST_IMG_PATH="olib_test/unit/mlfielib/cv/test_img/"
 
@@ -19,13 +20,9 @@ class TemplateMatcherTest < Test::Unit::TestCase
       @template_path,
       CV_LOAD_IMAGE_GRAYSCALE
     )
-    @default_matcher = Mlfielib::CV::TemplateMatcher.new(
+    @matcher = TemplateMatcher.new(
+      CcoeffNormedModel.new(0.7),
       @template_path
-    )
-    @matcher = Mlfielib::CV::TemplateMatcher.new(
-      @template_path,
-      :threshold => 0.7,
-      :algorithm => :normed
     )
   end
 
@@ -33,28 +30,7 @@ class TemplateMatcherTest < Test::Unit::TestCase
     assert_equal @template_path, @matcher.template_path
   end
 
-  def test_default_threshold
-    assert_equal Mlfielib::CV::TemplateMatcher::DEFAULT_THRESHOLD, @default_matcher.threshold
-  end
-
-  def test_threshold
-    assert_equal 0.7, @matcher.threshold
-    @matcher.threshold = 0.1
-    assert_equal 0.1, @matcher.threshold
-  end
-
-  def test_default_algorithm
-    assert_equal Mlfielib::CV::TemplateMatcher::DEFAULT_ALGORITHM, @default_matcher.algorithm
-  end
-
-  def test_algorithm
-    assert_equal :normed, @matcher.algorithm
-    @matcher.algorithm = :ccoeff
-    assert_equal :ccoeff, @matcher.algorithm
-  end
-
   def test_detect
-    @matcher.algorithm = :ccoeff_normed
     target = IplImage.load(@target_path, CV_LOAD_IMAGE_GRAYSCALE)
     detected_rects = @matcher.detect(@target_path)
 
