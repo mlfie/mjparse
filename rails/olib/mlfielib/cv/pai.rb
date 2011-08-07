@@ -1,4 +1,5 @@
 require 'mlfielib/geom/point'
+require 'mlfielib/geom/rect'
 require 'mlfielib/geom/point_op'
 require 'mlfielib/geom/rect_op'
 
@@ -15,16 +16,13 @@ module Mlfielib
          @value = value
          @type = type
          @direction = direction
+         @rect = Mlfielib::Geom::Rect.new(x, y, width, height)
         end
     
         attr_accessor :x, :y, :width, :height, :value, :type, :direction
   
-        #TODO refactor
-        def -(pai)
-          Pai.new(x - pai.x, y - pai.y)
-        end
         def position
-          Mlfielib::Geom::Point.new(@x, @y)
+          @rect.position
         end
     end
   end

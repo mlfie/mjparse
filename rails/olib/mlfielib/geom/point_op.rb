@@ -23,6 +23,12 @@ module Mlfielib
           distance(a) - distance(b)
         end
       end
+      def -(a)
+        p = self.clone
+        p.x = self.x - a.x
+        p.y = self.y - a.y
+        p
+      end
 
       module Test
         #include this module to your point model
