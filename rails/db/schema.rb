@@ -54,16 +54,6 @@ ActiveRecord::Schema.define(:version => 20110619140040) do
     t.datetime "updated_at"
   end
 
-  create_table "papers", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "image_remote_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "yakus", :force => true do |t|
     t.string   "name_kanji"
     t.string   "name_kana"

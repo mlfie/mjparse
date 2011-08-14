@@ -4,7 +4,7 @@ development:
   database: mj_tsumotter_dev
   username: root
   password: 
-  socket: /var/lib/mysql/mysql.sock
+  socket: /opt/local/var/run/mysql5/mysqld.sock
 
 production:
   adapter: mysql2
@@ -13,7 +13,7 @@ production:
   database: msuke_pro
   username: root
   password: 
-  socket: /var/lib/mysql/mysql.sock
+  socket: /opt/local/var/run/mysql5/mysqld.sock
 
 test:
   adapter: mysql2
@@ -21,4 +21,4 @@ test:
   database: mj_tsumotter_test
   username: root
   password: 
-  socket: /var/lib/mysql/mysql.sock
+  socket: /opt/local/var/run/mysql5/mysqld.sock
