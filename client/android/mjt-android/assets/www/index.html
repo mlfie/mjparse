@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja-JP">
+  <head>
+    <title>Mj-Tsumotter</title>
+    <META http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="util.js"></script>
+    <script type="text/javascript" charset="utf-8" src="main.js"></script>
+  </head>
+
+  <body onload="onLoad()">
+    <div style="border:1px solid gray; width:device-width;" id="infodiv">
+      手牌の写真を撮影or選択してください
+    </div>
+
+    <table summary="">
+    <tr>
+    <td>
+    <button onclick="capturePhoto();">写真を撮影</button>
+    <button onclick="getPhoto();">写真を選択</button><br/>
+    <button onclick="sendPhoto();">写真を送信</button><br/>
+    </td>
+    <td>
+    <img id="smallImage" width="120" height="120" src="img/nophoto.jpg" alt=""/><br/>
+    </td>
+    </tr>
+    </table>
+    <hr>
+
+
+    <form name="agari">
+      <table summary="">
+        <tr>
+          <td colspan=1> 写真URL</td>
+          <td colspan=3>
+          <input id="img_url" type="text" name="img_url" onchange="imgload">
+          <img id="image" width="15" height="15" src="img/nophoto.jpg" alt=""/>
+          </td>
+        </tr>
+        <tr>
+          <td> 場風</td>
+          <td>
+          <select id="bakaze" name="bakaze">
+            <option value="ton">東</option>
+            <option value="nan">南</option>
+            <option value="sha">西</option>
+            <option value="pei">北</option>
+          </select>
+          </td>
+          <td> 自風</td>
+          <td>
+          <select id="jikaze" name="jikaze">
+            <option value="ton">東</option>
+            <option value="nan">南</option>
+            <option value="sha">西</option>
+            <option value="pei">北</option>
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td> 本場</td>
+          <td>
+          <select id="honba_num" name="honba_num">
+            <script type="text/javascript" charset="utf-8">
+              for(i=0;i<10;i++) {
+                document.write("<option value=" + i + ">" + i + " <\/option>");
+              }
+            </script>
+          </select>
+          </td>
+          <td> アガリ</td>
+          <td>
+          <select id="is_tsumo" name="is_tsumo">
+            <option value="true">ツモ</option>
+            <option value="false">ロン</option>
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td> ドラ</td>
+          <td>
+          <select id="dora_num" name="dora_num">
+            <script type="text/javascript" charset="utf-8">
+              for(i=0;i<30;i++) {
+                document.write("<option value=" + i + ">" + i + " <\/option>");
+              }
+            </script>
+          </select>
+          </td>
+          <td> リーチ</td>
+          <td>
+          <select id="reach_num" name="reach_num">
+            <option value="0">なし</option>
+            <option value="1">ノーマル</option>
+            <option value="2">ダブリー</option>
+          </select>
+          </td>
+        </tr>
+      </table>
+      <table summary="">
+        <tr>
+          <td> 一発</td>
+          <td>
+              <input type="checkbox" id="is_ippatsu" name="is_ippatsu">
+          </td>
+          <td> 海底</td>
+          <td>
+              <input type="checkbox" id="is_haitei" name="is_haitei">
+          </td>
+          <td> 嶺上</td>
+          <td>
+              <input type="checkbox" id="is_rinshan" name="is_rinshan">
+          </td>
+        </tr>
+        <tr>
+          <td> 槍槓</td>
+          <td>
+              <input type="checkbox" id="is_chankan" name="is_chankan">
+          </td>
+          <td> 天和</td>
+          <td>
+              <input type="checkbox" id="is_tenho" name="is_tenho">
+          </td>
+          <td> 地和</td>
+          <td>
+              <input type="checkbox" id="is_chiho" name="is_chiho">
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <button style="width: 200px;" onclick="sendData();">
+      得点計算
+    </button>
+
+    <div id="resultdiv">
+    </div>
+
+    <hr>
+    <h3>debug message</h3>
+
+    <label type="text" id="dbgdiv">
+    </label>
+  </body>
+</html>
