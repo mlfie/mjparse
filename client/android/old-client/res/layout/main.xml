@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@android:color/white">
+
+
+	<TextView android:layout_width="fill_parent"  android:id="@+id/infoView"
+		android:layout_height="wrap_content" android:text="この写真でよいですか？" />
+
+	<Button android:text="撮り直す" android:id="@+id/captureButton"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		
+	<Button android:text="サーバに送信" android:id="@+id/sendButton"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" ></Button>
+		
+	<ImageView android:id="@+id/previewImage"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></ImageView>
+
+
+
+</LinearLayout>
