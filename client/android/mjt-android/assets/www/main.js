@@ -237,3 +237,13 @@ function getPlatformName() {
         return "pcbrowser";
     }
 }
+
+function changeDetailCond(){
+	if ( $('#detail_cond').css('display') == 'none' ){;
+		$('#detail_cond').css('display', 'inline');
+		$('#detail_cond_button').html('▲隠す');
+	}else{
+		$('#detail_cond').css('display', 'none');		
+		$('#detail_cond_button').html('▼その他条件');
+	}
+}
