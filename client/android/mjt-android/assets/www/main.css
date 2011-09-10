@@ -30,3 +30,14 @@ border-right-color:  #999999;
 border-radius: 5px; /* CSS3 */
 
 }
+
+button.large{
+background-color: #dddddd;
+
+}
+button.small{
+border: solid 0px ; 
+color:#0000ff ; 
+background-color: #ffffff;
+text-decoration: underline;
+}
