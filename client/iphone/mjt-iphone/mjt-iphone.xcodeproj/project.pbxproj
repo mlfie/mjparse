@@ -33,7 +33,7 @@
 		C407EB0A141C5A85009AED0C /* Capture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C407EB09141C5A85009AED0C /* Capture.bundle */; };
 		C407EB0C141C5A85009AED0C /* PhoneGap.plist in Resources */ = {isa = PBXBuildFile; fileRef = C407EB0B141C5A85009AED0C /* PhoneGap.plist */; };
 		C407EB10141C5A85009AED0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C407EB0F141C5A85009AED0C /* AppDelegate.m */; };
-		C407EB26141C6141009AED0C /* www in Resources */ = {isa = PBXBuildFile; fileRef = C407EB25141C6141009AED0C /* www */; };
+		C407EB31141C8215009AED0C /* www in Resources */ = {isa = PBXBuildFile; fileRef = C407EB30141C8215009AED0C /* www */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +68,7 @@
 		C407EB0E141C5A85009AED0C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		C407EB0F141C5A85009AED0C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
 		C407EB12141C5A85009AED0C /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
-		C407EB25141C6141009AED0C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../www; sourceTree = "<group>"; };
+		C407EB30141C8215009AED0C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../www; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		C407EABD141C5A85009AED0C = {
 			isa = PBXGroup;
 			children = (
-				C407EB25141C6141009AED0C /* www */,
+				C407EB30141C8215009AED0C /* www */,
 				C407EAE9141C5A85009AED0C /* mjt-iphone */,
 				C407EACE141C5A85009AED0C /* Frameworks */,
 				C407EACC141C5A85009AED0C /* Products */,
@@ -290,7 +290,7 @@
 				C407EB08141C5A85009AED0C /* Default@2x.png in Resources */,
 				C407EB0A141C5A85009AED0C /* Capture.bundle in Resources */,
 				C407EB0C141C5A85009AED0C /* PhoneGap.plist in Resources */,
-				C407EB26141C6141009AED0C /* www in Resources */,
+				C407EB31141C8215009AED0C /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
