@@ -21,15 +21,15 @@ function onDeviceReady() {
  * 写真取得
  */ 
 function capturePhoto() {
-    dbgmsg("[capturePhoto]");
+    dbgmsg("[capturePhoto] start");
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 50
     });
 }
 
 // 写真選択
-function getPhoto() {
-    dbgmsg("[getPhoto]");
+function selectPhoto() {
+    dbgmsg("[getPhoto] start");
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 50,
         sourceType: pictureSource.PHOTOLIBRARY
@@ -38,10 +38,10 @@ function getPhoto() {
 
 // 写真の撮影に成功した場合
 function onPhotoDataSuccess(imageData) {
-    dbgmsg("[onPhotoDataSuccess]");
+    dbgmsg("[onPhotoDataSuccess] start");
 
     // 画像ハンドルを取得
-    var image = document.getElementById('localimage');
+    var image = document.getElementById('confirm');
 
     // 画像要素を表示
     image.style.display = 'block';
@@ -52,15 +52,17 @@ function onPhotoDataSuccess(imageData) {
 
     //base64の文字列を格納
     base64str = imageData;
+    dbgmsg("[onPhotoDataSuccess] Photo Image(base64):" + imageData);
 
-    infomsg("写真をサーバに送信してください");
-    dbgmsg("Photo Image(base64):" + imageData);
+    
+    changePanel('confirm');
+    infomsg("この写真でよろしいですか？");
 
 }
 
 // 写真の撮影に失敗した場合
 function onFail(mesage) {
-    alert('エラーが発生しました: ' + message);
+    infomsg('写真の撮影に失敗しました: ' + message);
 }
 
 function sendPhoto() {
@@ -69,7 +71,7 @@ function sendPhoto() {
     var url = "http://fetaro-mjt.fedc.biz/photos";
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    //dbgmsg("<h4>SEND:<\/h4>" + json);
+    dbgmsg("[sendPhoto] REQUEST: " + json);
 
     //リクエスト送信
     $.ajax({
@@ -78,14 +80,18 @@ function sendPhoto() {
         data: json,
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
-            infomsg("写真の登録完了(" + data + ")" );
-            dbgmsg("写真の登録完了 RESPONSE=" + data);
+            infomsg("写真の登録完了" );
+            dbgmsg("[sendPhoto] RESPONSE: " + data);
+            changePanel('top');
             setImgUrl(data);
             imgload();
+            //送信ボタンを活性化
+            $('#btn_send').removeAttr('disabled');
+            
         },
         error: function (data) {
             infomsg("写真の登録失敗 " + data.status);
-            dbgmsg(data.responseText);
+            dbgmsg("[sendPhoto] RESPONSE: " + data.responseText);
         }
     });
 
@@ -96,7 +102,7 @@ function dlPhoto() {
 
     var url = "http://fetaro-mjt.fedc.biz/photos.json";
 
-    dbgmsg("<h6>REQUEST:<\/h6>" + "GET " + url );
+    dbgmsg("[dlPhoto] REQUEST:" + "GET " + url );
 
     //リクエスト送信
     $.ajax({
@@ -104,11 +110,11 @@ function dlPhoto() {
         url: url,
         success: function (data, textStatus, xhr) {
             infomsg("写真リスト取得完了" );
-            dbgmsg("<h6>RESPONSE:<\/h6>" + prettyPrint(eval(data),2));
+            dbgmsg("[dlPhoto] RESPONSE:" + prettyPrint(eval(data),2));
             viewPhotoList(data);
         },
         error: function (data) {
-            infomsg("写真の登録失敗:" + data.status);
+            infomsg("写真リスト取得失敗:" + data.status);
             dbgmsg(data.responseText);
         }
     });
@@ -119,7 +125,7 @@ function viewPhotoList(jsdata) {
     infomsg("写真を選択してください" );
     var data = eval(jsdata);
     for(var i=0; i<data.length; i++) {
-        $("#photolist").append(
+        $("#panel_photolist").append(
             data[i].photo.created_at.replace("T"," ").replace("+09:00","")
             + "<br>"
             + "<img "  
@@ -144,17 +150,24 @@ function viewPhotoList(jsdata) {
         
         $("#sphoto" + data[i].photo.id).click(function(){
             //クリック時
-            dbgmsg("Selected Photo : " + $(this).attr('alt'));
+            dbgmsg("[viewPhotoList] Selected Photo : " + $(this).attr('alt'));
             setImgUrl($(this).attr('alt'));
+            infomsg("条件を入力した後、得点計算を押してください" );
+            $('#btn_send').removeAttr('disabled');
             changePanel("top");
         });
-        
-        dbgmsg(data[i].photo.thum_url);
     }
     changePanel("photolist");
 }
 
 function sendData() {
+    
+    if($("#img_url").val() == "" ){
+        infomsg("未だ写真がサーバに登録されていません(写真URLが空です)");
+    	return ;
+    }
+    
+    
     infomsg("サーバに得点計算リクエストを送信中...");
 
     var url = "http://fetaro-mjt.fedc.biz/agaris.json";
@@ -188,7 +201,7 @@ function sendData() {
     //JSONに変換 「"」を除く
     var json = toJSON(param);
 
-    dbgmsg("<h4>SEND:<\/h4>" + json);
+    dbgmsg("[sendData] REQUEST:" + url  + json);
 
     //リクエスト送信
     $.ajax({
@@ -198,13 +211,14 @@ function sendData() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("得点計算リクエスト正常終了");
-            dbgmsg("<h4>RESPONSE:<\/h4>" + toJSON(data));
+            dbgmsg("[sendData] RESPONSE:" + toJSON(data));
 
             $("#resultdiv").html(agariToHtml(data.agari));
+            
         },
         error: function (data) {
             infomsg("得点計算リクエストエラー:" + data.status);
-            dbgmsg(data.responseText);
+            dbgmsg("[sendData] RESPONSE:" + data.responseText);
         }
     });
 
@@ -244,7 +258,7 @@ function agariToHtml(a) {
     }
 
     //HTML生成
-    var html = "<h3>解析結果<\/h3>";
+    var html = "<b>解析結果</b><br>";
 
     html += "<p>";
     for (var i = 0; i < 28; i += 2) {
@@ -298,15 +312,29 @@ function dbgmsg(msg) {
 /**
  * その他条件の表示・非表示を切り替える
  */ 
-function changeDetailCond() {
-    if ( $('#detail_cond').css('display') == 'none' ) {;
+function showDetailCond() {
         $('#detail_cond').css('display', 'inline');
-        $('#detail_cond_button').html('▲隠す');
-    } else {
+        $('#btn_showcond').css('display', 'none');	
+}
+
+function hideDetailCond(){
         $('#detail_cond').css('display', 'none');
-        $('#detail_cond_button').html('▼その他条件');
+        $('#btn_showcond').css('display', 'inline');	
+}
+
+/**
+ * デバッグ情報の表示・非表示
+ */ 
+function changeDbgMsg() {
+    if ( $('#debug').css('display') == 'none' ) {;
+        $('#debug').css('display', 'inline');
+        $('#btn_dbg').html('▲ hide debug');
+    } else {
+        $('#debug').css('display', 'none');
+        $('#btn_dbg').html('▼ show debug message');
     }
 }
+
 
 /**
  * パネルを入れ替える
