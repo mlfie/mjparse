@@ -33,7 +33,8 @@ border-radius: 5px; /* CSS3 */
 
 button.large{
 background-color: #dddddd;
-
+width: 80px;
+height: 40px;
 }
 button.small{
 border: solid 0px ; 
