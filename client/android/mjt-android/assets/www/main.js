@@ -172,11 +172,8 @@ function sendData() {
         infomsg("未だ写真がサーバに登録されていません(写真URLが空です)");
     	return ;
     }
-    
-    
+       
     infomsg("サーバに得点計算リクエストを送信中...");
-
-    var url
 
     //フォームからパラメータ作成
     var param = {
