@@ -1,8 +1,0 @@
-//
-// Prefix header for all source files of the 'mjt-iphone' target in the 'mjt-iphone' project
-//
-
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-#endif

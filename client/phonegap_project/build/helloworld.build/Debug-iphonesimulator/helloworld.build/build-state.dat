@@ -1,841 +1,0 @@
-Thelloworld
-v7
-r0
-t327010518.264953
-cCheck dependencies
-cProcessInfoPlistFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Info.plist helloworld-Info.plist
-cPhaseScriptExecution "Copy PhoneGap Javascript" /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-30E9A9A110B758320022D3BA.sh
-cPhaseScriptExecution "Touch www folder" /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-304B58A110DAC018002A0835.sh
-cCpResource build/Debug-iphonesimulator/helloworld.app/www www
-cCpResource build/Debug-iphonesimulator/helloworld.app/VERSION /Users/fetaro/Documents/PhoneGapLib/VERSION
-cCpResource build/Debug-iphonesimulator/helloworld.app/Default.png Default.png
-cCpResource build/Debug-iphonesimulator/helloworld.app/icon.png icon.png
-cCopyPlistFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PhoneGap.plist PhoneGap.plist
-cCpResource build/Debug-iphonesimulator/helloworld.app/PhoneGapBuildSettings.xcconfig PhoneGapBuildSettings.xcconfig
-cCpResource build/Debug-iphonesimulator/helloworld.app/icon-72.png icon-72.png
-cCpResource build/Debug-iphonesimulator/helloworld.app/icon@2x.png icon@2x.png
-cCpResource build/Debug-iphonesimulator/helloworld.app/Default-Landscape.png Default-Landscape.png
-cCpResource build/Debug-iphonesimulator/helloworld.app/Default-Portrait.png Default-Portrait.png
-cProcessPCH /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch.gch helloworld_Prefix.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-cCompileC build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/main.o /Users/fetaro/Documents/helloworld/main.m normal i386 objective-c com.apple.compilers.llvmgcc42
-cCompileC build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworldAppDelegate.o /Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m normal i386 objective-c com.apple.compilers.llvmgcc42
-cLd /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld normal i386
-cGenerateDSYMFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app.dSYM /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld
-cTouch /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk
-c000000004D4F75BF0000000000000110
-t1297053119
-s272
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
-c000000004BD2005600000000000102F0
-t1272053846
-s66288
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.h
-c000000004BD2005500000000000000EB
-t1272053845
-s235
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AddressBook.framework/AddressBook
-c000000004BD1CFF4000000000003DB40
-t1272041460
-s252736
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
-c000000004BD1D81600000000001567C0
-t1272043542
-s1402816
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
-c000000004BD2001C0000000000193D80
-t1272053788
-s1654144
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioServices.h
-c000000004BD1FFCD000000000000E37C
-t1272053709
-s58236
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
-c000000004BD1CD580000000000125540
-t1272040792
-s1201472
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004BD1CD90000000000026F020
-t1272040848
-s2551840
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
-c000000004BD1D4D20000000000061790
-t1272042706
-s399248
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.h
-c000000004BD1D4C800000000000001AF
-t1272042696
-s431
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004BD1FFC200000000002A96A0
-t1272053698
-s2791072
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004BD1FF9E0000000000001355
-t1272053662
-s4949
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
-c000000004BD2095E00000000001515F0
-t1272056158
-s1381872
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
-c000000004BD20075000000000005A8B0
-t1272053877
-s370864
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c000000004BD1D06900000000001294B0
-t1272041577
-s1217712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
-c000000004BD1CD190000000000055570
-t1272040729
-s349552
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004BD20412000000000000098F
-t1272054802
-s2447
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/UIKit.framework/Headers/UINavigationController.h
-c000000004BD204120000000000001971
-t1272054802
-s6513
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004BD20471000000000222E640
-t1272054897
-s35841600
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk
-c000000004C5EA2500000000000000132
-t1281270352
-s306
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
-c000000004C01F5AE00000000000C05A0
-t1275196846
-s787872
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.h
-c000000004C01F5AA000000000000065C
-t1275196842
-s1628
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AddressBook.framework/AddressBook
-c000000004BFF3B87000000000006F150
-t1275018119
-s454992
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
-c000000004C04722E0000000000147690
-t1275359790
-s1341072
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
-c000000004BFF3B7600000000001C8900
-t1275018102
-s1870080
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioServices.h
-c000000004BFF3B620000000000010A78
-t1275018082
-s68216
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
-c000000004BFDFE57000000000018BC00
-t1274936919
-s1620992
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004BFDFE39000000000027C7D0
-t1274936889
-s2607056
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
-c000000004BFF44C00000000000068F90
-t1275020480
-s429968
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.h
-c000000004BFF44B600000000000001D0
-t1275020470
-s464
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004BFDFE7C000000000029D5D0
-t1274936956
-s2741712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004BFDFE6E0000000000001466
-t1274936942
-s5222
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
-c000000004C0473250000000000155C80
-t1275360037
-s1399936
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
-c000000004BFF3B790000000000055950
-t1275018105
-s350544
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c000000004C0458E90000000000151D30
-t1275353321
-s1383728
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
-c000000004BFDFDAA000000000005E690
-t1274936746
-s386704
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004C0470BB00000000000009CD
-t1275359419
-s2509
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UINavigationController.h
-c000000004C0470BB0000000000001971
-t1275359419
-s6513
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004C0471620000000001D47210
-t1275359586
-s30700048
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
-c000000004D5C9B4E0000000000000110
-t1297914702
-s272
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
-c000000004D5EBEC300000000001340C0
-t1298054851
-s1261760
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.h
-c000000004D5EBEBB00000000000007D0
-t1298054843
-s2000
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AddressBook.framework/AddressBook
-c000000004D54D3440000000000078770
-t1297404740
-s493424
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
-c000000004D5C9BB80000000000168430
-t1297914808
-s1475632
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
-c000000004D54CF5D0000000000205F50
-t1297403741
-s2121552
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioServices.h
-c000000004D54CF4A0000000000010AD5
-t1297403722
-s68309
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
-c000000004D54CF7C00000000001C41F0
-t1297403772
-s1851888
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004D54CFFA00000000002999B0
-t1297403898
-s2726320
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
-c000000004D54DEBC00000000000778F0
-t1297407676
-s489712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.h
-c000000004D54DEB600000000000001D0
-t1297407670
-s464
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004D54CFE5000000000029DA70
-t1297403877
-s2742896
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004D54CFB80000000000001466
-t1297403832
-s5222
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
-c000000004D5EBF5300000000001C31B0
-t1298054995
-s1847728
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
-c000000004D54D0BC000000000005C090
-t1297404092
-s376976
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
-c000000004D54D4200000000000162C50
-t1297404960
-s1453136
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
-c000000004D54CF0700000000000689C0
-t1297403655
-s428480
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004D5615B40000000000000AA1
-t1297487284
-s2721
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/Headers/UINavigationController.h
-c000000004D5615B400000000000019AC
-t1297487284
-s6572
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004D5616030000000000766870
-t1297487363
-s7759984
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/DebugConsole.h
-c000000004D1126800000000000000170
-t1292969600
-s368
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-i"PhoneGapCommand.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/JSON.h
-c000000004D11268000000000000008F9
-t1292969600
-s2297
-i"SBJSON.h"
-i"NSObject+SBJSON.h"
-i"NSString+SBJSON.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/NSObject+SBJSON.h
-c000000004D1126800000000000000A01
-t1292969600
-s2561
-i<Foundation/Foundation.h>
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/NSString+SBJSON.h
-c000000004D1126800000000000000916
-t1292969600
-s2326
-i<Foundation/Foundation.h>
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/SBJSON.h
-c000000004D1126800000000000000AED
-t1292969600
-s2797
-i<Foundation/Foundation.h>
-i"SBJsonParser.h"
-i"SBJsonWriter.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/SBJsonBase.h
-c000000004D1126800000000000000B82
-t1292969600
-s2946
-i<Foundation/Foundation.h>
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/SBJsonParser.h
-c000000004D1126800000000000000C0B
-t1292969600
-s3083
-i<Foundation/Foundation.h>
-i"SBJsonBase.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/JSON/SBJsonWriter.h
-c000000004D1126800000000000001140
-t1292969600
-s4416
-i<Foundation/Foundation.h>
-i"SBJsonBase.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/Location.h
-c000000004D11268000000000000005D0
-t1292969600
-s1488
-i<UIKit/UIKit.h>
-i<CoreLocation/CoreLocation.h>
-i"PhoneGapCommand.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/PhoneGapCommand.h
-c000000004DB8B5FA0000000000000306
-t1303950842
-s774
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-i"PluginResult.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/PhoneGapDelegate.h
-c000000004DB8B5FA0000000000000867
-t1303950842
-s2151
-i<UIKit/UIKit.h>
-i<CoreLocation/CoreLocation.h>
-i<UIKit/UINavigationController.h>
-i"JSON/JSON.h"
-i"Location.h"
-i"Sound.h"
-i"DebugConsole.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/PhoneGapViewController.h
-c000000004DB8B5FA000000000000021A
-t1303950842
-s538
-i<UIKit/UIKit.h>
-i<Foundation/Foundation.h>
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/PluginResult.h
-c000000004DB8B5FA0000000000000924
-t1303950842
-s2340
-i<Foundation/Foundation.h>
-
-N/Users/fetaro/Documents/PhoneGapLib/Classes/Sound.h
-c000000004D1126800000000000000704
-t1292969600
-s1796
-i<Foundation/Foundation.h>
-i<AudioToolbox/AudioServices.h>
-i<AVFoundation/AVFoundation.h>
-i"PhoneGapCommand.h"
-
-N/Users/fetaro/Documents/PhoneGapLib/VERSION
-c000000004DB8B5FA0000000000000005
-t1303950842
-s5
-
-N/Users/fetaro/Documents/PhoneGapLib/build/Debug-iphonesimulator/libPhoneGapLib.a
-c000000004DCD8DF3000000000014AE28
-t1305316851
-s1355304
-
-N/Users/fetaro/Documents/PhoneGapLib/build/Debug/libPhoneGapLib.a
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.h
-c000000004DC4D0C80000000000000106
-t1304744136
-s262
-i<UIKit/UIKit.h>
-i"PhoneGapDelegate.h"
-
-N/Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m
-c000000004DC4D0C800000000000007F7
-t1304744136
-s2039
-i"helloworldAppDelegate.h"
-i"PhoneGapViewController.h"
-
-N/Users/fetaro/Documents/helloworld/Default-Landscape.png
-c000000004DC4D0C8000000000000154E
-t1304744136
-s5454
-
-N/Users/fetaro/Documents/helloworld/Default-Portrait.png
-c000000004DC4D0C800000000000016C0
-t1304744136
-s5824
-
-N/Users/fetaro/Documents/helloworld/Default.png
-c000000004DC4D0C80000000000000BAE
-t1304744136
-s2990
-
-N/Users/fetaro/Documents/helloworld/PhoneGap.plist
-c000000004DC4D0C80000000000000167
-t1304744136
-s359
-
-N/Users/fetaro/Documents/helloworld/PhoneGapBuildSettings.xcconfig
-c000000004DC4D0C800000000000000C4
-t1304744136
-s196
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app
-t1305317718
-s510
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app.dSYM
-t1305316853
-s102
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Default-Landscape.png
-t1305214775
-s5454
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Default-Portrait.png
-t1305214775
-s5824
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Default.png
-t1305214775
-s2990
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Info.plist
-t1305316851
-s947
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PhoneGap.plist
-t1304745456
-s145
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PhoneGapBuildSettings.xcconfig
-t1305214775
-s196
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PkgInfo
-t1305316851
-s8
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/VERSION
-t1305214775
-s5
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld
-t1305316853
-s427188
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/icon-72.png
-t1305214775
-s5049
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/icon.png
-t1305214775
-s3126
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/icon@2x.png
-t1305214775
-s5340
-
-N/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/www
-t1305317718
-s204
-
-N/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworld.LinkFileList
-c000000004DC4D5EF0000000000000109
-t1304745455
-s265
-
-N/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworldAppDelegate.o
-t1305316853
-s45564
-
-N/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/main.o
-t1305316853
-s3272
-
-N/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-304B58A110DAC018002A0835.sh
-c000000004DC4D5EF0000000000000027
-t1304745455
-s39
-
-N/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-30E9A9A110B758320022D3BA.sh
-c000000004DC4D5EF0000000000000237
-t1304745455
-s567
-
-N/Users/fetaro/Documents/helloworld/helloworld_Prefix.pch
-c000000004DC4D0C800000000000000BD
-t1304744136
-s189
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/fetaro/Documents/helloworld/icon-72.png
-c000000004DC4D0C800000000000013B9
-t1304744136
-s5049
-
-N/Users/fetaro/Documents/helloworld/icon.png
-c000000004DC4D0C80000000000000C36
-t1304744136
-s3126
-
-N/Users/fetaro/Documents/helloworld/icon@2x.png
-c000000004DC4D0C800000000000014DC
-t1304744136
-s5340
-
-N/Users/fetaro/Documents/helloworld/main.m
-c000000004DC4D0C8000000000000017A
-t1304744136
-s378
-i<UIKit/UIKit.h>
-
-N/Users/fetaro/Documents/helloworld/www
-c000000004DCD91560000000000000110
-t1305317718
-s272
-
-N/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-caziyxejwxgdnibzpqufyzyacitn/helloworld_Prefix.pch.gch
-t2
-s0
-
-N/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-cqccdimckpaiiiakroxnphtbwmeq/helloworld_Prefix.pch.gch
-t1304745456
-s10622864
-
-N/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch.gch
-t1305316852
-s12262832
-
-N/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-glgcmlcfzmeqnygqkmwryqrbobsx/helloworld_Prefix.pch.gch
-t1305214776
-s10631056
-
-Nhelloworld-Info.plist
-c000000004DC4D0C800000000000005C5
-t1304744136
-s1477
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies327010517#327010517#0(116"[WARN]warning: no rule to process file '$(PROJECT_DIR)/post.js' of type sourcecode.javascript for architecture i3861(22@109"warning: no rule to process file '$(PROJECT_DIR)/post.js' of type sourcecode.javascript for architecture i386327010517#18446744073709551615#0#0(1@0"0(0#1#0"8642692064#0"0#
-
-CCompileC build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworldAppDelegate.o /Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m normal i386 objective-c com.apple.compilers.llvmgcc42
-s327009653.029701
-e327009653.248188
-r1
-xCompileC
-xbuild/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworldAppDelegate.o
-x/Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF07#2@74"Compile /Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m327009653#327009653#0(0"0(0#0#66"/Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m8663732480#2084"    cd /Users/fetaro/Documents/helloworld    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-generated-files.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-own-target-headers.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-all-target-headers.hmap -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-project-headers.hmap -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -iquote/Users/fetaro/Documents/PhoneGapLib/Classes/JSON -iquote/Users/fetaro/Documents/PhoneGapLib/Classes -I/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources/i386 -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources -include /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch -c /Users/fetaro/Documents/helloworld/Classes/helloworldAppDelegate.m -o /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworldAppDelegate.o0#
-
-CCompileC build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/main.o /Users/fetaro/Documents/helloworld/main.m normal i386 objective-c com.apple.compilers.llvmgcc42
-s327009653.028706
-e327009653.143914
-r1
-xCompileC
-xbuild/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/main.o
-x/Users/fetaro/Documents/helloworld/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF07#2@49"Compile /Users/fetaro/Documents/helloworld/main.m327009653#327009653#0(0"0(0#0#41"/Users/fetaro/Documents/helloworld/main.m8664116768#2042"    cd /Users/fetaro/Documents/helloworld    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-generated-files.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-own-target-headers.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-all-target-headers.hmap -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-project-headers.hmap -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -iquote/Users/fetaro/Documents/PhoneGapLib/Classes/JSON -iquote/Users/fetaro/Documents/PhoneGapLib/Classes -I/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources/i386 -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources -include /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch -c /Users/fetaro/Documents/helloworld/main.m -o /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/main.o0#
-
-CCopyPlistFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PhoneGap.plist PhoneGap.plist
-s326438256.394203
-e326438256.439948
-r1
-xCopyPlistFile
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PhoneGap.plist
-xPhoneGap.plist
-lSLF07#2@19"Copy PhoneGap.plist326438256#326438256#0(0"0(0#0#49"/Users/fetaro/Documents/helloworld/PhoneGap.plist8605427968#384"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copyplist --convert binary1 PhoneGap.plist --outdir /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/Default-Landscape.png Default-Landscape.png
-s326907575.542120
-e326907575.570859
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/Default-Landscape.png
-xDefault-Landscape.png
-lSLF07#2@26"Copy Default-Landscape.png326907575#326907575#0(0"0(0#0#56"/Users/fetaro/Documents/helloworld/Default-Landscape.png8612703360#470"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/Default-Landscape.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/Default-Portrait.png Default-Portrait.png
-s326907575.543769
-e326907575.564095
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/Default-Portrait.png
-xDefault-Portrait.png
-lSLF07#2@25"Copy Default-Portrait.png326907575#326907575#0(0"0(0#0#55"/Users/fetaro/Documents/helloworld/Default-Portrait.png8612576576#469"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/Default-Portrait.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/Default.png Default.png
-s326907575.533668
-e326907575.574431
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/Default.png
-xDefault.png
-lSLF07#2@16"Copy Default.png326907575#326907575#0(0"0(0#0#46"/Users/fetaro/Documents/helloworld/Default.png8612981856#460"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/Default.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/PhoneGapBuildSettings.xcconfig PhoneGapBuildSettings.xcconfig
-s326907575.537436
-e326907575.554030
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/PhoneGapBuildSettings.xcconfig
-xPhoneGapBuildSettings.xcconfig
-lSLF07#2@35"Copy PhoneGapBuildSettings.xcconfig326907575#326907575#0(0"0(0#0#65"/Users/fetaro/Documents/helloworld/PhoneGapBuildSettings.xcconfig8613136512#479"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/PhoneGapBuildSettings.xcconfig /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/VERSION /Users/fetaro/Documents/PhoneGapLib/VERSION
-s326907575.532816
-e326907575.550344
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/VERSION
-x/Users/fetaro/Documents/PhoneGapLib/VERSION
-lSLF07#2@48"Copy /Users/fetaro/Documents/PhoneGapLib/VERSION326907575#326907575#0(0"0(0#0#43"/Users/fetaro/Documents/PhoneGapLib/VERSION8613764000#457"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/PhoneGapLib/VERSION /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/icon-72.png icon-72.png
-s326907575.539044
-e326907575.575522
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/icon-72.png
-xicon-72.png
-lSLF07#2@16"Copy icon-72.png326907575#326907575#0(0"0(0#0#46"/Users/fetaro/Documents/helloworld/icon-72.png8612857824#460"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/icon-72.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/icon.png icon.png
-s326907575.535524
-e326907575.571079
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/icon.png
-xicon.png
-lSLF07#2@13"Copy icon.png326907575#326907575#0(0"0(0#0#43"/Users/fetaro/Documents/helloworld/icon.png8613357632#457"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/icon.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/icon@2x.png icon@2x.png
-s326907575.540835
-e326907575.577461
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/icon@2x.png
-xicon@2x.png
-lSLF07#2@16"Copy icon@2x.png326907575#326907575#0(0"0(0#0#46"/Users/fetaro/Documents/helloworld/icon@2x.png8612764384#460"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/icon@2x.png /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CCpResource build/Debug-iphonesimulator/helloworld.app/www www
-s327010518.255450
-e327010518.261828
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/helloworld.app/www
-xwww
-lSLF07#2@8"Copy www327010518#327010518#0(0"0(0#0#38"/Users/fetaro/Documents/helloworld/www8657586432#452"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/fetaro/Documents/helloworld/www /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
-CGenerateDSYMFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app.dSYM /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld
-s327009653.400185
-e327009653.472085
-r1
-xGenerateDSYMFile
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app.dSYM
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld
-lSLF07#2@118"GenerateDSYMFile build/Debug-iphonesimulator/helloworld.app.dSYM build/Debug-iphonesimulator/helloworld.app/helloworld327009653#327009653#0(0"0(0#0#88"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld8658028640#380"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld -o /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app.dSYM0#
-
-CLd /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld normal i386
-s327009653.248279
-e327009653.400044
-r1
-xLd
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld
-xnormal
-xi386
-lSLF07#2@93"Link /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld327009653#327009653#0(0"0(0#0#0"8664792224#1245"    cd /Users/fetaro/Documents/helloworld    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -L/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -filelist /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworld.LinkFileList -mmacosx-version-min=10.6 -all_load -Obj-C -Xlinker -objc_abi_version -Xlinker 2 /Users/fetaro/Documents/PhoneGapLib/build/Debug-iphonesimulator/libPhoneGapLib.a -framework Foundation -framework UIKit -framework CoreGraphics -framework AddressBook -framework AddressBookUI -framework AudioToolbox -framework AVFoundation -framework CFNetwork -framework CoreLocation -framework MediaPlayer -framework QuartzCore -framework SystemConfiguration -framework MobileCoreServices -o /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/helloworld0#
-
-CPhaseScriptExecution "Copy PhoneGap Javascript" /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-30E9A9A110B758320022D3BA.sh
-s327010517.213971
-e327010518.240467
-r1
-xPhaseScriptExecution
-xCopy PhoneGap Javascript
-x/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-30E9A9A110B758320022D3BA.sh
-ojava -jar util/yuicompressor/yuicompressor-2.4.2.jar --nomunge --charset UTF-8 -o javascripts/phonegap.0.9.5.min.js javascripts/phonegap.0.9.5.js
-lSLF07#2@50"Run custom shell script 'Copy PhoneGap Javascript'327010517#327010518#0(146"java -jar util/yuicompressor/yuicompressor-2.4.2.jar --nomunge --charset UTF-8 -o javascripts/phonegap.0.9.5.min.js javascripts/phonegap.0.9.5.js1(13@146"java -jar util/yuicompressor/yuicompressor-2.4.2.jar --nomunge --charset UTF-8 -o javascripts/phonegap.0.9.5.min.js javascripts/phonegap.0.9.5.js327010517#0#146#0(1@0"0(0#0#0"8609719648#17583"    cd /Users/fetaro/Documents/helloworld    setenv ACTION build    setenv ALTERNATE_GROUP staff    setenv ALTERNATE_MODE u+w,go-w,a+rX    setenv ALTERNATE_OWNER fetaro    setenv ALWAYS_SEARCH_USER_PATHS NO    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer    setenv APPLE_INTERNAL_DIR /AppleInternal    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools    setenv APPLY_RULES_IN_COPY_FILES NO    setenv ARCHS i386    setenv ARCHS_STANDARD_32_BIT i386    setenv ARCHS_UNIVERSAL_IPHONE_OS i386    setenv BUILD_COMPONENTS "headers build"    setenv BUILD_DIR /Users/fetaro/Documents/helloworld/build    setenv BUILD_ROOT /Users/fetaro/Documents/helloworld/build    setenv BUILD_STYLE Debug    setenv BUILD_VARIANTS normal    setenv BUILT_PRODUCTS_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv CACHE_ROOT /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502    setenv CCHROOT /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502    setenv CHMOD /bin/chmod    setenv CHOWN /usr/sbin/chown    setenv CLASS_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/JavaClasses    setenv CLEAN_PRECOMPS YES    setenv CLONE_HEADERS NO    setenv CODESIGNING_FOLDER_PATH /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app    setenv CODE_SIGN_CONTEXT_CLASS XCCodeSignContext    setenv COMMAND_MODE legacy    setenv COMPOSITE_SDK_DIRS /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/CompositeSDKs    setenv COMPRESS_PNG_FILES YES    setenv CONFIGURATION Debug    setenv CONFIGURATION_BUILD_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv CONFIGURATION_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator    setenv CONTENTS_FOLDER_PATH helloworld.app    setenv COPYING_PRESERVES_HFS_DATA NO    setenv COPY_PHASE_STRIP NO    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES    setenv CP /bin/cp    setenv CURRENT_ARCH i386    setenv CURRENT_VARIANT normal    setenv DEAD_CODE_STRIPPING NO    setenv DEBUGGING_SYMBOLS YES    setenv DEBUG_INFORMATION_FORMAT dwarf-with-dsym    setenv DEPLOYMENT_LOCATION NO    setenv DEPLOYMENT_POSTPROCESSING NO    setenv DERIVED_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DERIVED_SOURCES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv DEVELOPER_BIN_DIR /Developer/usr/bin    setenv DEVELOPER_DIR /Developer    setenv DEVELOPER_FRAMEWORKS_DIR /Developer/Library/Frameworks    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/Developer/Library/Frameworks\""    setenv DEVELOPER_LIBRARY_DIR /Developer/Library    setenv DEVELOPER_SDK_DIR /Developer/SDKs    setenv DEVELOPER_TOOLS_DIR /Developer/Tools    setenv DEVELOPER_USR_DIR /Developer/usr    setenv DEVELOPMENT_LANGUAGE English    setenv DOCUMENTATION_FOLDER_PATH helloworld.app/English.lproj/Documentation    setenv DO_HEADER_SCANNING_IN_JAM NO    setenv DSTROOT /tmp/helloworld.dst    setenv DWARF_DSYM_FILE_NAME helloworld.app.dSYM    setenv DWARF_DSYM_FOLDER_PATH /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv EFFECTIVE_PLATFORM_NAME -iphonesimulator    setenv ENABLE_HEADER_DEPENDENCIES YES    setenv ENABLE_OPENMP_SUPPORT NO    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".svn .git CVS"    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) CVS .svn .git *.xcodeproj *.xcode *.pbproj *.pbxproj"    setenv EXECUTABLES_FOLDER_PATH helloworld.app/Executables    setenv EXECUTABLE_FOLDER_PATH helloworld.app    setenv EXECUTABLE_NAME helloworld    setenv EXECUTABLE_PATH helloworld.app/helloworld    setenv FILE_LIST /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects/LinkFileList    setenv FIXED_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/FixedFiles    setenv FRAMEWORKS_FOLDER_PATH helloworld.app/Frameworks    setenv FRAMEWORK_FLAG_PREFIX -framework    setenv FRAMEWORK_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv FRAMEWORK_VERSION A    setenv FULL_PRODUCT_NAME helloworld.app    setenv GCC3_VERSION 3.3    setenv GCC_C_LANGUAGE_STANDARD c99    setenv GCC_DYNAMIC_NO_PIC NO    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES    setenv GCC_OBJC_LEGACY_DISPATCH YES    setenv GCC_OPTIMIZATION_LEVEL 0    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"    setenv GCC_PRECOMPILE_PREFIX_HEADER YES    setenv GCC_PREFIX_HEADER helloworld_Prefix.pch    setenv GCC_SYMBOLS_PRIVATE_EXTERN YES    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO    setenv GCC_VERSION com.apple.compilers.llvmgcc42    setenv GCC_VERSION_IDENTIFIER com_apple_compilers_llvmgcc42    setenv GCC_WARN_ABOUT_RETURN_TYPE YES    setenv GCC_WARN_UNUSED_VARIABLE YES    setenv GENERATE_MASTER_OBJECT_FILE NO    setenv GENERATE_PKGINFO_FILE YES    setenv GENERATE_PROFILING_CODE NO    setenv GID 20    setenv GROUP staff    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES    setenv HEADER_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include\" "    setenv ICONV /usr/bin/iconv    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES    setenv INFOPLIST_FILE helloworld-Info.plist    setenv INFOPLIST_OUTPUT_FORMAT binary    setenv INFOPLIST_PATH helloworld.app/Info.plist    setenv INFOPLIST_PREPROCESS NO    setenv INFOSTRINGS_PATH helloworld.app/English.lproj/InfoPlist.strings    setenv INSTALL_DIR /tmp/helloworld.dst/Applications    setenv INSTALL_GROUP staff    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX    setenv INSTALL_OWNER fetaro    setenv INSTALL_PATH /Applications    setenv INSTALL_ROOT /tmp/helloworld.dst    setenv IPHONEOS_DEPLOYMENT_TARGET 3.0    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub    setenv JAVA_ARCHIVE_CLASSES YES    setenv JAVA_ARCHIVE_TYPE JAR    setenv JAVA_COMPILER /usr/bin/javac    setenv JAVA_FOLDER_PATH helloworld.app/Java    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources    setenv JAVA_JAR_FLAGS cv    setenv JAVA_SOURCE_SUBDIR .    setenv JAVA_USE_DEPENDENCIES YES    setenv JAVA_ZIP_FLAGS -urg    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"    setenv KEEP_PRIVATE_EXTERNS NO    setenv LD_GENERATE_MAP_FILE NO    setenv LD_MAP_FILE_PATH /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-LinkMap-normal-i386.txt    setenv LD_OPENMP_FLAGS -fopenmp    setenv LEX /Developer/usr/bin/lex    setenv LIBRARY_FLAG_NOSPACE YES    setenv LIBRARY_FLAG_PREFIX -l    setenv LIBRARY_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv LINKER_DISPLAYS_MANGLED_NAMES NO    setenv LINK_FILE_LIST_normal_i386 /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworld.LinkFileList    setenv LINK_WITH_STANDARD_LIBRARIES YES    setenv LOCALIZED_RESOURCES_FOLDER_PATH helloworld.app/English.lproj    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities    setenv LOCAL_APPS_DIR /Applications    setenv LOCAL_DEVELOPER_DIR /Library/Developer    setenv LOCAL_LIBRARY_DIR /Library    setenv MACH_O_TYPE mh_execute    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv MAC_OS_X_PRODUCT_BUILD_VERSION 10J869    setenv MAC_OS_X_VERSION_ACTUAL 1067    setenv MAC_OS_X_VERSION_MAJOR 1060    setenv MAC_OS_X_VERSION_MINOR 0607    setenv NATIVE_ARCH i386    setenv NATIVE_ARCH_32_BIT i386    setenv NATIVE_ARCH_64_BIT x86_64    setenv NATIVE_ARCH_ACTUAL x86_64    setenv NO_COMMON YES    setenv OBJC_ABI_VERSION 2    setenv OBJECT_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects    setenv OBJECT_FILE_DIR_normal /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal    setenv OBJROOT /Users/fetaro/Documents/helloworld/build    setenv ONLY_ACTIVE_ARCH NO    setenv OPTIMIZATION_LEVEL 0    setenv OS MACOS    setenv OSAC /usr/bin/osacompile    setenv OTHER_LDFLAGS "-all_load -Obj-C"    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application    setenv PASCAL_STRINGS YES    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /Developer/Headers /Developer/SDKs /Developer/Platforms"    setenv PBDEVELOPMENTPLIST_PATH helloworld.app/pbdevelopment.plist    setenv PFE_FILE_C_DIALECTS objective-c    setenv PHONEGAPLIB /Users/fetaro/Documents/PhoneGapLib    setenv PKGINFO_FILE_PATH /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/PkgInfo    setenv PKGINFO_PATH helloworld.app/PkgInfo    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Applications    setenv PLATFORM_DEVELOPER_BIN_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Library    setenv PLATFORM_DEVELOPER_SDK_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs    setenv PLATFORM_DEVELOPER_TOOLS_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Tools    setenv PLATFORM_DEVELOPER_USR_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/usr    setenv PLATFORM_DIR /Developer/Platforms/iPhoneSimulator.platform    setenv PLATFORM_NAME iphonesimulator    setenv PLATFORM_PRODUCT_BUILD_VERSION 8F192    setenv PLATFORM_VERSION_AVAILABILITY_H_FORMAT 40300    setenv PLIST_FILE_OUTPUT_FORMAT binary    setenv PLUGINS_FOLDER_PATH helloworld.app/PlugIns    setenv PREBINDING NO    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES    setenv PRECOMP_DESTINATION_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/PrefixHeaders    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO    setenv PRIVATE_HEADERS_FOLDER_PATH helloworld.app/PrivateHeaders    setenv PRODUCT_NAME helloworld    setenv PRODUCT_SETTINGS_PATH /Users/fetaro/Documents/helloworld/helloworld-Info.plist    setenv PRODUCT_TYPE com.apple.product-type.application    setenv PROFILING_CODE NO    setenv PROJECT helloworld    setenv PROJECT_DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/DerivedSources    setenv PROJECT_DIR /Users/fetaro/Documents/helloworld    setenv PROJECT_FILE_PATH /Users/fetaro/Documents/helloworld/helloworld.xcodeproj    setenv PROJECT_NAME helloworld    setenv PROJECT_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build    setenv PUBLIC_HEADERS_FOLDER_PATH helloworld.app/Headers    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES    setenv REMOVE_CVS_FROM_RESOURCES YES    setenv REMOVE_GIT_FROM_RESOURCES YES    setenv REMOVE_SVN_FROM_RESOURCES YES    setenv REZ_COLLECTOR_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/ResourceManagerResources    setenv REZ_OBJECTS_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/ResourceManagerResources/Objects    setenv REZ_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv RUN_CLANG_STATIC_ANALYZER NO    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO    setenv SCRIPTS_FOLDER_PATH helloworld.app/Scripts    setenv SCRIPT_INPUT_FILE_COUNT 0    setenv SCRIPT_OUTPUT_FILE_COUNT 0    setenv SDKROOT /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk    setenv SDK_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk    setenv SDK_NAME iphonesimulator4.3    setenv SDK_PRODUCT_BUILD_VERSION 8F192    setenv SED /usr/bin/sed    setenv SEPARATE_STRIP NO    setenv SEPARATE_SYMBOL_EDIT NO    setenv SET_DIR_MODE_OWNER_GROUP YES    setenv SET_FILE_MODE_OWNER_GROUP NO    setenv SHALLOW_BUNDLE YES    setenv SHARED_DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/DerivedSources    setenv SHARED_FRAMEWORKS_FOLDER_PATH helloworld.app/SharedFrameworks    setenv SHARED_PRECOMPS_DIR /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders    setenv SHARED_SUPPORT_FOLDER_PATH helloworld.app/SharedSupport    setenv SKIP_INSTALL YES    setenv SOURCE_ROOT /Users/fetaro/Documents/helloworld    setenv SRCROOT /Users/fetaro/Documents/helloworld    setenv STANDARD_C_PLUS_PLUS_LIBRARY_TYPE dynamic    setenv STRINGS_FILE_OUTPUT_ENCODING binary    setenv STRIP_INSTALLED_PRODUCT YES    setenv STRIP_STYLE all    setenv SUPPORTED_DEVICE_FAMILIES "1 2"    setenv SYMBOL_REPOSITORY_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/SymbolRepositories    setenv SYMROOT /Users/fetaro/Documents/helloworld/build    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities    setenv SYSTEM_APPS_DIR /Applications    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices    setenv SYSTEM_DEMOS_DIR /Applications/Extras    setenv SYSTEM_DEVELOPER_APPS_DIR /Developer/Applications    setenv SYSTEM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/Developer/Applications/Utilities/Built Examples"    setenv SYSTEM_DEVELOPER_DIR /Developer    setenv SYSTEM_DEVELOPER_DOC_DIR "/Developer/ADC Reference Library"    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/Developer/Applications/Graphics Tools"    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/Developer/Applications/Java Tools"    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/Developer/Applications/Performance Tools"    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes"    setenv SYSTEM_DEVELOPER_TOOLS /Developer/Tools    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/Developer/ADC Reference Library/documentation/DeveloperTools"    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes/DeveloperTools"    setenv SYSTEM_DEVELOPER_USR_DIR /Developer/usr    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /Developer/Applications/Utilities    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation    setenv SYSTEM_LIBRARY_DIR /System/Library    setenv TARGETED_DEVICE_FAMILY 1    setenv TARGETNAME helloworld    setenv TARGET_BUILD_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv TARGET_NAME helloworld    setenv TARGET_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_ROOT /Users/fetaro/Documents/helloworld/build    setenv UID 502    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH helloworld.app    setenv UNSTRIPPED_PRODUCT NO    setenv USER fetaro    setenv USER_APPS_DIR /Users/fetaro/Applications    setenv USER_HEADER_SEARCH_PATHS "\"/Users/fetaro/Documents/PhoneGapLib/Classes/JSON\" \"/Users/fetaro/Documents/PhoneGapLib/Classes\""    setenv USER_LIBRARY_DIR /Users/fetaro/Library    setenv USE_DYNAMIC_NO_PIC YES    setenv USE_HEADERMAP YES    setenv USE_HEADER_SYMLINKS NO    setenv VALIDATE_PRODUCT NO    setenv VALID_ARCHS i386    setenv VERBOSE_PBXCP NO    setenv VERSIONPLIST_PATH helloworld.app/version.plist    setenv VERSION_INFO_BUILDER fetaro    setenv VERSION_INFO_FILE helloworld_vers.c    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:helloworld  PROJECT:helloworld-\""    setenv WRAPPER_EXTENSION app    setenv WRAPPER_NAME helloworld.app    setenv WRAPPER_SUFFIX .app    setenv XCODE_APP_SUPPORT_DIR /Developer/Library/Xcode    setenv XCODE_PRODUCT_BUILD_VERSION 10M2518    setenv XCODE_VERSION_ACTUAL 0400    setenv XCODE_VERSION_MAJOR 0400    setenv XCODE_VERSION_MINOR 0400    setenv YACC /Developer/usr/bin/yacc    setenv _REAL_SDKROOT iphoneos4.3    /bin/sh -c /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-30E9A9A110B758320022D3BA.sh0#
-
-CPhaseScriptExecution "Touch www folder" /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-304B58A110DAC018002A0835.sh
-s327010518.241095
-e327010518.255372
-r1
-xPhaseScriptExecution
-xTouch www folder
-x/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-304B58A110DAC018002A0835.sh
-lSLF07#2@42"Run custom shell script 'Touch www folder'327010518#327010518#0(0"0(0#0#0"8659737696#17583"    cd /Users/fetaro/Documents/helloworld    setenv ACTION build    setenv ALTERNATE_GROUP staff    setenv ALTERNATE_MODE u+w,go-w,a+rX    setenv ALTERNATE_OWNER fetaro    setenv ALWAYS_SEARCH_USER_PATHS NO    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer    setenv APPLE_INTERNAL_DIR /AppleInternal    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools    setenv APPLY_RULES_IN_COPY_FILES NO    setenv ARCHS i386    setenv ARCHS_STANDARD_32_BIT i386    setenv ARCHS_UNIVERSAL_IPHONE_OS i386    setenv BUILD_COMPONENTS "headers build"    setenv BUILD_DIR /Users/fetaro/Documents/helloworld/build    setenv BUILD_ROOT /Users/fetaro/Documents/helloworld/build    setenv BUILD_STYLE Debug    setenv BUILD_VARIANTS normal    setenv BUILT_PRODUCTS_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv CACHE_ROOT /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502    setenv CCHROOT /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502    setenv CHMOD /bin/chmod    setenv CHOWN /usr/sbin/chown    setenv CLASS_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/JavaClasses    setenv CLEAN_PRECOMPS YES    setenv CLONE_HEADERS NO    setenv CODESIGNING_FOLDER_PATH /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app    setenv CODE_SIGN_CONTEXT_CLASS XCCodeSignContext    setenv COMMAND_MODE legacy    setenv COMPOSITE_SDK_DIRS /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/CompositeSDKs    setenv COMPRESS_PNG_FILES YES    setenv CONFIGURATION Debug    setenv CONFIGURATION_BUILD_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv CONFIGURATION_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator    setenv CONTENTS_FOLDER_PATH helloworld.app    setenv COPYING_PRESERVES_HFS_DATA NO    setenv COPY_PHASE_STRIP NO    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES    setenv CP /bin/cp    setenv CURRENT_ARCH i386    setenv CURRENT_VARIANT normal    setenv DEAD_CODE_STRIPPING NO    setenv DEBUGGING_SYMBOLS YES    setenv DEBUG_INFORMATION_FORMAT dwarf-with-dsym    setenv DEPLOYMENT_LOCATION NO    setenv DEPLOYMENT_POSTPROCESSING NO    setenv DERIVED_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DERIVED_SOURCES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources    setenv DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv DEVELOPER_BIN_DIR /Developer/usr/bin    setenv DEVELOPER_DIR /Developer    setenv DEVELOPER_FRAMEWORKS_DIR /Developer/Library/Frameworks    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/Developer/Library/Frameworks\""    setenv DEVELOPER_LIBRARY_DIR /Developer/Library    setenv DEVELOPER_SDK_DIR /Developer/SDKs    setenv DEVELOPER_TOOLS_DIR /Developer/Tools    setenv DEVELOPER_USR_DIR /Developer/usr    setenv DEVELOPMENT_LANGUAGE English    setenv DOCUMENTATION_FOLDER_PATH helloworld.app/English.lproj/Documentation    setenv DO_HEADER_SCANNING_IN_JAM NO    setenv DSTROOT /tmp/helloworld.dst    setenv DWARF_DSYM_FILE_NAME helloworld.app.dSYM    setenv DWARF_DSYM_FOLDER_PATH /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv EFFECTIVE_PLATFORM_NAME -iphonesimulator    setenv ENABLE_HEADER_DEPENDENCIES YES    setenv ENABLE_OPENMP_SUPPORT NO    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".svn .git CVS"    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) CVS .svn .git *.xcodeproj *.xcode *.pbproj *.pbxproj"    setenv EXECUTABLES_FOLDER_PATH helloworld.app/Executables    setenv EXECUTABLE_FOLDER_PATH helloworld.app    setenv EXECUTABLE_NAME helloworld    setenv EXECUTABLE_PATH helloworld.app/helloworld    setenv FILE_LIST /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects/LinkFileList    setenv FIXED_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/FixedFiles    setenv FRAMEWORKS_FOLDER_PATH helloworld.app/Frameworks    setenv FRAMEWORK_FLAG_PREFIX -framework    setenv FRAMEWORK_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv FRAMEWORK_VERSION A    setenv FULL_PRODUCT_NAME helloworld.app    setenv GCC3_VERSION 3.3    setenv GCC_C_LANGUAGE_STANDARD c99    setenv GCC_DYNAMIC_NO_PIC NO    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES    setenv GCC_OBJC_LEGACY_DISPATCH YES    setenv GCC_OPTIMIZATION_LEVEL 0    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"    setenv GCC_PRECOMPILE_PREFIX_HEADER YES    setenv GCC_PREFIX_HEADER helloworld_Prefix.pch    setenv GCC_SYMBOLS_PRIVATE_EXTERN YES    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO    setenv GCC_VERSION com.apple.compilers.llvmgcc42    setenv GCC_VERSION_IDENTIFIER com_apple_compilers_llvmgcc42    setenv GCC_WARN_ABOUT_RETURN_TYPE YES    setenv GCC_WARN_UNUSED_VARIABLE YES    setenv GENERATE_MASTER_OBJECT_FILE NO    setenv GENERATE_PKGINFO_FILE YES    setenv GENERATE_PROFILING_CODE NO    setenv GID 20    setenv GROUP staff    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES    setenv HEADER_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include\" "    setenv ICONV /usr/bin/iconv    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES    setenv INFOPLIST_FILE helloworld-Info.plist    setenv INFOPLIST_OUTPUT_FORMAT binary    setenv INFOPLIST_PATH helloworld.app/Info.plist    setenv INFOPLIST_PREPROCESS NO    setenv INFOSTRINGS_PATH helloworld.app/English.lproj/InfoPlist.strings    setenv INSTALL_DIR /tmp/helloworld.dst/Applications    setenv INSTALL_GROUP staff    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX    setenv INSTALL_OWNER fetaro    setenv INSTALL_PATH /Applications    setenv INSTALL_ROOT /tmp/helloworld.dst    setenv IPHONEOS_DEPLOYMENT_TARGET 3.0    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub    setenv JAVA_ARCHIVE_CLASSES YES    setenv JAVA_ARCHIVE_TYPE JAR    setenv JAVA_COMPILER /usr/bin/javac    setenv JAVA_FOLDER_PATH helloworld.app/Java    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources    setenv JAVA_JAR_FLAGS cv    setenv JAVA_SOURCE_SUBDIR .    setenv JAVA_USE_DEPENDENCIES YES    setenv JAVA_ZIP_FLAGS -urg    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"    setenv KEEP_PRIVATE_EXTERNS NO    setenv LD_GENERATE_MAP_FILE NO    setenv LD_MAP_FILE_PATH /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-LinkMap-normal-i386.txt    setenv LD_OPENMP_FLAGS -fopenmp    setenv LEX /Developer/usr/bin/lex    setenv LIBRARY_FLAG_NOSPACE YES    setenv LIBRARY_FLAG_PREFIX -l    setenv LIBRARY_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv LINKER_DISPLAYS_MANGLED_NAMES NO    setenv LINK_FILE_LIST_normal_i386 /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal/i386/helloworld.LinkFileList    setenv LINK_WITH_STANDARD_LIBRARIES YES    setenv LOCALIZED_RESOURCES_FOLDER_PATH helloworld.app/English.lproj    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities    setenv LOCAL_APPS_DIR /Applications    setenv LOCAL_DEVELOPER_DIR /Library/Developer    setenv LOCAL_LIBRARY_DIR /Library    setenv MACH_O_TYPE mh_execute    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv MAC_OS_X_PRODUCT_BUILD_VERSION 10J869    setenv MAC_OS_X_VERSION_ACTUAL 1067    setenv MAC_OS_X_VERSION_MAJOR 1060    setenv MAC_OS_X_VERSION_MINOR 0607    setenv NATIVE_ARCH i386    setenv NATIVE_ARCH_32_BIT i386    setenv NATIVE_ARCH_64_BIT x86_64    setenv NATIVE_ARCH_ACTUAL x86_64    setenv NO_COMMON YES    setenv OBJC_ABI_VERSION 2    setenv OBJECT_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects    setenv OBJECT_FILE_DIR_normal /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Objects-normal    setenv OBJROOT /Users/fetaro/Documents/helloworld/build    setenv ONLY_ACTIVE_ARCH NO    setenv OPTIMIZATION_LEVEL 0    setenv OS MACOS    setenv OSAC /usr/bin/osacompile    setenv OTHER_LDFLAGS "-all_load -Obj-C"    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application    setenv PASCAL_STRINGS YES    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /Developer/Headers /Developer/SDKs /Developer/Platforms"    setenv PBDEVELOPMENTPLIST_PATH helloworld.app/pbdevelopment.plist    setenv PFE_FILE_C_DIALECTS objective-c    setenv PHONEGAPLIB /Users/fetaro/Documents/PhoneGapLib    setenv PKGINFO_FILE_PATH /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/PkgInfo    setenv PKGINFO_PATH helloworld.app/PkgInfo    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Applications    setenv PLATFORM_DEVELOPER_BIN_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Library    setenv PLATFORM_DEVELOPER_SDK_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs    setenv PLATFORM_DEVELOPER_TOOLS_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/Tools    setenv PLATFORM_DEVELOPER_USR_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/usr    setenv PLATFORM_DIR /Developer/Platforms/iPhoneSimulator.platform    setenv PLATFORM_NAME iphonesimulator    setenv PLATFORM_PRODUCT_BUILD_VERSION 8F192    setenv PLATFORM_VERSION_AVAILABILITY_H_FORMAT 40300    setenv PLIST_FILE_OUTPUT_FORMAT binary    setenv PLUGINS_FOLDER_PATH helloworld.app/PlugIns    setenv PREBINDING NO    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES    setenv PRECOMP_DESTINATION_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/PrefixHeaders    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO    setenv PRIVATE_HEADERS_FOLDER_PATH helloworld.app/PrivateHeaders    setenv PRODUCT_NAME helloworld    setenv PRODUCT_SETTINGS_PATH /Users/fetaro/Documents/helloworld/helloworld-Info.plist    setenv PRODUCT_TYPE com.apple.product-type.application    setenv PROFILING_CODE NO    setenv PROJECT helloworld    setenv PROJECT_DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/DerivedSources    setenv PROJECT_DIR /Users/fetaro/Documents/helloworld    setenv PROJECT_FILE_PATH /Users/fetaro/Documents/helloworld/helloworld.xcodeproj    setenv PROJECT_NAME helloworld    setenv PROJECT_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build    setenv PUBLIC_HEADERS_FOLDER_PATH helloworld.app/Headers    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES    setenv REMOVE_CVS_FROM_RESOURCES YES    setenv REMOVE_GIT_FROM_RESOURCES YES    setenv REMOVE_SVN_FROM_RESOURCES YES    setenv REZ_COLLECTOR_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/ResourceManagerResources    setenv REZ_OBJECTS_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/ResourceManagerResources/Objects    setenv REZ_SEARCH_PATHS "\"/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator\" "    setenv RUN_CLANG_STATIC_ANALYZER NO    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO    setenv SCRIPTS_FOLDER_PATH helloworld.app/Scripts    setenv SCRIPT_INPUT_FILE_COUNT 0    setenv SCRIPT_OUTPUT_FILE_COUNT 0    setenv SDKROOT /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk    setenv SDK_DIR /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk    setenv SDK_NAME iphonesimulator4.3    setenv SDK_PRODUCT_BUILD_VERSION 8F192    setenv SED /usr/bin/sed    setenv SEPARATE_STRIP NO    setenv SEPARATE_SYMBOL_EDIT NO    setenv SET_DIR_MODE_OWNER_GROUP YES    setenv SET_FILE_MODE_OWNER_GROUP NO    setenv SHALLOW_BUNDLE YES    setenv SHARED_DERIVED_FILE_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/DerivedSources    setenv SHARED_FRAMEWORKS_FOLDER_PATH helloworld.app/SharedFrameworks    setenv SHARED_PRECOMPS_DIR /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders    setenv SHARED_SUPPORT_FOLDER_PATH helloworld.app/SharedSupport    setenv SKIP_INSTALL YES    setenv SOURCE_ROOT /Users/fetaro/Documents/helloworld    setenv SRCROOT /Users/fetaro/Documents/helloworld    setenv STANDARD_C_PLUS_PLUS_LIBRARY_TYPE dynamic    setenv STRINGS_FILE_OUTPUT_ENCODING binary    setenv STRIP_INSTALLED_PRODUCT YES    setenv STRIP_STYLE all    setenv SUPPORTED_DEVICE_FAMILIES "1 2"    setenv SYMBOL_REPOSITORY_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/SymbolRepositories    setenv SYMROOT /Users/fetaro/Documents/helloworld/build    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities    setenv SYSTEM_APPS_DIR /Applications    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices    setenv SYSTEM_DEMOS_DIR /Applications/Extras    setenv SYSTEM_DEVELOPER_APPS_DIR /Developer/Applications    setenv SYSTEM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/Developer/Applications/Utilities/Built Examples"    setenv SYSTEM_DEVELOPER_DIR /Developer    setenv SYSTEM_DEVELOPER_DOC_DIR "/Developer/ADC Reference Library"    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/Developer/Applications/Graphics Tools"    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/Developer/Applications/Java Tools"    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/Developer/Applications/Performance Tools"    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes"    setenv SYSTEM_DEVELOPER_TOOLS /Developer/Tools    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/Developer/ADC Reference Library/documentation/DeveloperTools"    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes/DeveloperTools"    setenv SYSTEM_DEVELOPER_USR_DIR /Developer/usr    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /Developer/Applications/Utilities    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation    setenv SYSTEM_LIBRARY_DIR /System/Library    setenv TARGETED_DEVICE_FAMILY 1    setenv TARGETNAME helloworld    setenv TARGET_BUILD_DIR /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator    setenv TARGET_NAME helloworld    setenv TARGET_TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_FILES_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_FILE_DIR /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build    setenv TEMP_ROOT /Users/fetaro/Documents/helloworld/build    setenv UID 502    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH helloworld.app    setenv UNSTRIPPED_PRODUCT NO    setenv USER fetaro    setenv USER_APPS_DIR /Users/fetaro/Applications    setenv USER_HEADER_SEARCH_PATHS "\"/Users/fetaro/Documents/PhoneGapLib/Classes/JSON\" \"/Users/fetaro/Documents/PhoneGapLib/Classes\""    setenv USER_LIBRARY_DIR /Users/fetaro/Library    setenv USE_DYNAMIC_NO_PIC YES    setenv USE_HEADERMAP YES    setenv USE_HEADER_SYMLINKS NO    setenv VALIDATE_PRODUCT NO    setenv VALID_ARCHS i386    setenv VERBOSE_PBXCP NO    setenv VERSIONPLIST_PATH helloworld.app/version.plist    setenv VERSION_INFO_BUILDER fetaro    setenv VERSION_INFO_FILE helloworld_vers.c    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:helloworld  PROJECT:helloworld-\""    setenv WRAPPER_EXTENSION app    setenv WRAPPER_NAME helloworld.app    setenv WRAPPER_SUFFIX .app    setenv XCODE_APP_SUPPORT_DIR /Developer/Library/Xcode    setenv XCODE_PRODUCT_BUILD_VERSION 10M2518    setenv XCODE_VERSION_ACTUAL 0400    setenv XCODE_VERSION_MAJOR 0400    setenv XCODE_VERSION_MINOR 0400    setenv YACC /Developer/usr/bin/yacc    setenv _REAL_SDKROOT iphoneos4.3    /bin/sh -c /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/Script-304B58A110DAC018002A0835.sh0#
-
-CProcessInfoPlistFile /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Info.plist helloworld-Info.plist
-s327009651.204886
-e327009651.208119
-r1
-xProcessInfoPlistFile
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Info.plist
-xhelloworld-Info.plist
-lSLF07#2@29"Process helloworld-Info.plist327009651#327009651#0(0"0(0#0#56"/Users/fetaro/Documents/helloworld/helloworld-Info.plist8656808512#476"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility helloworld-Info.plist -genpkginfo /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app/Info.plist0#
-
-CProcessPCH /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-caziyxejwxgdnibzpqufyzyacitn/helloworld_Prefix.pch.gch helloworld_Prefix.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-r0
-
-CProcessPCH /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-cqccdimckpaiiiakroxnphtbwmeq/helloworld_Prefix.pch.gch helloworld_Prefix.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-s326438256.440070
-e326438256.921992
-r1
-xProcessPCH
-x/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-cqccdimckpaiiiakroxnphtbwmeq/helloworld_Prefix.pch.gch
-xhelloworld_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF07#2@32"Precompile helloworld_Prefix.pch326438256#326438256#0(0"0(0#0#56"/Users/fetaro/Documents/helloworld/helloworld_Prefix.pch8607330080#2016"    cd /Users/fetaro/Documents/helloworld    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-generated-files.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-own-target-headers.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-all-target-headers.hmap -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-project-headers.hmap -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -iquote/Users/fetaro/Documents/PhoneGapLib/Classes/JSON -iquote/Users/fetaro/Documents/PhoneGapLib/Classes -I/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources/i386 -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -c /Users/fetaro/Documents/helloworld/helloworld_Prefix.pch -o /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-cqccdimckpaiiiakroxnphtbwmeq/helloworld_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch.gch helloworld_Prefix.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-s327009652.303499
-e327009653.027245
-r1
-xProcessPCH
-x/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch.gch
-xhelloworld_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-lSLF07#2@32"Precompile helloworld_Prefix.pch327009652#327009653#0(0"0(0#0#56"/Users/fetaro/Documents/helloworld/helloworld_Prefix.pch8652551648#1935"    cd /Users/fetaro/Documents/helloworld    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-generated-files.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-own-target-headers.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-all-target-headers.hmap -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-project-headers.hmap -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -iquote/Users/fetaro/Documents/PhoneGapLib/Classes/JSON -iquote/Users/fetaro/Documents/PhoneGapLib/Classes -I/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources/i386 -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources -c /Users/fetaro/Documents/helloworld/helloworld_Prefix.pch -o /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-flptliuefihlkledodgaqirnxmln/helloworld_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-glgcmlcfzmeqnygqkmwryqrbobsx/helloworld_Prefix.pch.gch helloworld_Prefix.pch normal i386 objective-c com.apple.compilers.llvmgcc42
-s326907575.577550
-e326907576.143694
-r1
-xProcessPCH
-x/var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-glgcmlcfzmeqnygqkmwryqrbobsx/helloworld_Prefix.pch.gch
-xhelloworld_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.llvmgcc42
-o<command-line>: warning: "__IPHONE_OS_VERSION_MIN_REQUIRED" redefined
-o<command-line>: warning: this is the location of the previous definition
-lSLF07#2@32"Precompile helloworld_Prefix.pch326907575#326907576#0(143"<command-line>: warning: "__IPHONE_OS_VERSION_MIN_REQUIRED" redefined<command-line>: warning: this is the location of the previous definition0(0#0#56"/Users/fetaro/Documents/helloworld/helloworld_Prefix.pch8613707936#1976"    cd /Users/fetaro/Documents/helloworld    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/llvm-gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.5 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=30000 -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-generated-files.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-own-target-headers.hmap -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-all-target-headers.hmap -iquote /Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/helloworld-project-headers.hmap -F/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator -iquote/Users/fetaro/Documents/PhoneGapLib/Classes/JSON -iquote/Users/fetaro/Documents/PhoneGapLib/Classes -I/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/include -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources/i386 -I/Users/fetaro/Documents/helloworld/build/helloworld.build/Debug-iphonesimulator/helloworld.build/DerivedSources -c /Users/fetaro/Documents/helloworld/helloworld_Prefix.pch -o /var/folders/uJ/uJztIF2tHJevJjIxOEuQbE+++TM/-Caches-/com.apple.Xcode.502/SharedPrecompiledHeaders/helloworld_Prefix-glgcmlcfzmeqnygqkmwryqrbobsx/helloworld_Prefix.pch.gch0#
-
-CTouch /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app
-s327010518.262317
-e327010518.264912
-r1
-xTouch
-x/Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app
-lSLF07#2@83"Touch /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app327010518#327010518#0(0"0(0#0#0"8654941952#273"    cd /Users/fetaro/Documents/helloworld    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/fetaro/Documents/helloworld/build/Debug-iphonesimulator/helloworld.app0#
-
