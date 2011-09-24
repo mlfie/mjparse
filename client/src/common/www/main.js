@@ -82,7 +82,7 @@ function sendPhoto() {
 
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json);
+    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json2txt(eval(json)));
 
     //リクエスト送信
     $.ajax({
@@ -207,7 +207,7 @@ function sendData() {
     //JSONに変換 「"」を除く
     var json = toJSON(param);
 
-    dbgmsg("sendData","REQUEST=" + MJT_AGARI_URL  + json);
+    dbgmsg("sendData","REQUEST=" + MJT_AGARI_URL  + json2txt(eval(json)));
 
     //リクエスト送信
     $.ajax({
@@ -217,7 +217,7 @@ function sendData() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("得点計算リクエスト正常終了");
-            dbgmsg("sendData","RESPONSE:" + toJSON(data));
+            dbgmsg("sendData","RESPONSE:" + json2txt(eval(data)));
 
             $("#resultdiv").html(agariToHtml(data.agari));
             
@@ -370,7 +370,7 @@ function sendDummy(){
 
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    dbgmsg("sendDymmy" , "REQUEST: " +MJT_PHOTO_URL + json);
+    dbgmsg("sendDymmy" , "REQUEST: " +MJT_PHOTO_URL + json2txt(eval(json)));
 
     //リクエスト送信
     $.ajax({
