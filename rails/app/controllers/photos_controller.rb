@@ -48,8 +48,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
   end
 
-  # POST /photos
-  # POST /photos.xml
+  # POST /photos.json
   def create
     require 'RMagick'
     pub_dir = "public/"
@@ -94,21 +93,13 @@ class PhotosController < ApplicationController
     @photo = Photo.new(params[:photo])
 
     if @photo.save
-        url = params[:photo][:url]
-        render :text => url, :status => :created, :location => url 
+        render :json => @photo, :status => :created, :location => @photo 
+        #url = params[:photo][:url]
+        #render :text => url, :status => :created, :location => url 
     else
         render :text => "error", :status => :internal_server_error , :location => url 
     end
 
-    #respond_to do |format|
-    #  if @photo.save
-    #    format.html { redirect_to(@photo, :notice => 'Photo was successfully created.') }
-    #    format.xml  { render :xml => @photo, :status => :created, :location => @photo }
-    #  else
-    #    format.html { render :action => "new" }
-    #    format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
-    #  end
-    #end
   end
 
   # PUT /photos/1
