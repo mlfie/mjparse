@@ -8,8 +8,8 @@ var dbgno=0;
 var dbgarray = new Array();
 
 //得点計算リクエスト送信先URL
-//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
-var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
+var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
+//var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
 
 //写真取得・登録先URL
 var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
@@ -82,7 +82,7 @@ function sendPhoto() {
 
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json2txt(eval(json)));
+    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json);
 
     //リクエスト送信
     $.ajax({
@@ -207,8 +207,7 @@ function sendData() {
     //JSONに変換 「"」を除く
     var json = toJSON(param);
 
-    dbgmsg("sendData","REQUEST=" + MJT_AGARI_URL  + json2txt(eval(json)));
-
+    dbgmsg("sendData","REQUEST=" + MJT_AGARI_URL  + json);
     //リクエスト送信
     $.ajax({
         type: "POST",
