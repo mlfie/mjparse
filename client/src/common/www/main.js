@@ -89,9 +89,9 @@ function sendPhoto() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("写真の登録完了" );
-            dbgmsg("[sendPhoto] RESPONSE: " + data);
+            dbgmsg("[sendPhoto] RESPONSE: " + prettyPrint(eval(data),2));
+            setImgUrl(eval(data).photo.url);
             changePanel('top');
-            setImgUrl(data);
             imgload();
             //送信ボタンを活性化
             $('#btn_send').removeAttr('disabled');
@@ -368,8 +368,8 @@ function sendDummy(){
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("写真の登録完了" );
-            dbgmsg("[sendPhoto] RESPONSE: " + data);
-            setImgUrl(data);
+            dbgmsg("[sendPhoto] RESPONSE: " + prettyPrint(eval(data),2));
+            setImgUrl(eval(data).photo.url);
             imgload();
         },
         error: function (data) {
