@@ -4,6 +4,9 @@ var destinationType; // 戻り値のフォーマット
 //写真のbase64ストリング
 var base64str="";
 
+var dbgno=0;
+var dbgarray = new Array();
+
 //得点計算リクエスト送信先URL
 //var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
 var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
@@ -30,7 +33,7 @@ function onDeviceReady() {
  * 写真取得
  */ 
 function capturePhoto() {
-    dbgmsg("[capturePhoto] start");
+    dbgmsg("capturePhoto", "start");
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 50
     });
@@ -38,7 +41,7 @@ function capturePhoto() {
 
 // 写真選択
 function selectPhoto() {
-    dbgmsg("[getPhoto] start");
+    dbgmsg("getPhoto", "start");
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 50,
         sourceType: pictureSource.PHOTOLIBRARY
@@ -47,7 +50,7 @@ function selectPhoto() {
 
 // 写真の撮影に成功した場合
 function onPhotoDataSuccess(imageData) {
-    dbgmsg("[onPhotoDataSuccess] start");
+    dbgmsg("onPhotoDataSuccess", "start");
 
     // 画像ハンドルを取得
     var image = document.getElementById('confirm');
@@ -61,7 +64,7 @@ function onPhotoDataSuccess(imageData) {
 
     //base64の文字列を格納
     base64str = imageData;
-    dbgmsg("[onPhotoDataSuccess] Photo Image(base64):" + imageData);
+    dbgmsg("onPhotoDataSuccess","Photo Image(base64)=" + imageData);
 
     
     changePanel('confirm');
@@ -79,7 +82,7 @@ function sendPhoto() {
 
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    dbgmsg("[sendPhoto] REQUEST: " +MJT_PHOTO_URL + json);
+    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json);
 
     //リクエスト送信
     $.ajax({
@@ -89,7 +92,7 @@ function sendPhoto() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("写真の登録完了" );
-            dbgmsg("[sendPhoto] RESPONSE: " + prettyPrint(eval(data),2));
+            dbgmsg("sendPhoto","RESPONSE=" + json2txt(eval(data)));
             setImgUrl(eval(data).photo.url);
             changePanel('top');
             imgload();
@@ -99,7 +102,7 @@ function sendPhoto() {
         },
         error: function (data) {
             infomsg("写真の登録失敗 " + data.status);
-            dbgmsg("[sendPhoto] RESPONSE: " + data.responseText);
+            dbgmsg("sendPhoto","RESPONSE=" + data.responseText);
         }
     });
 
@@ -108,7 +111,7 @@ function sendPhoto() {
 function dlPhoto() {
     infomsg("サーバから写真リストを取得中...");
 
-    dbgmsg("[dlPhoto] REQUEST:" + "GET " + MJT_PHOTO_URL );
+    dbgmsg("dlPhoto","REQUEST:" + "GET " + MJT_PHOTO_URL );
 
     //リクエスト送信
     $.ajax({
@@ -116,12 +119,12 @@ function dlPhoto() {
         url: MJT_PHOTO_URL,
         success: function (data, textStatus, xhr) {
             infomsg("写真リスト取得完了" );
-            dbgmsg("[dlPhoto] RESPONSE:" + prettyPrint(eval(data),2));
+            dbgmsg("dlPhoto","RESPONSE=" + json2txt(eval(data)));
             viewPhotoList(data);
         },
         error: function (data) {
             infomsg("写真リスト取得失敗:" + data.status);
-            dbgmsg(data.responseText);
+            dbgmsg("dlPhoto","RESPONSE=" + data.responseText);
         }
     });
 }
@@ -156,7 +159,7 @@ function viewPhotoList(jsdata) {
         
         $("#sphoto" + data[i].photo.id).click(function(){
             //クリック時
-            dbgmsg("[viewPhotoList] Selected Photo : " + $(this).attr('alt'));
+            dbgmsg("viewPhotoList","Selected Photo=" + $(this).attr('alt'));
             setImgUrl($(this).attr('alt'));
             infomsg("条件を入力した後、得点計算を押してください" );
             $('#btn_send').removeAttr('disabled');
@@ -204,7 +207,7 @@ function sendData() {
     //JSONに変換 「"」を除く
     var json = toJSON(param);
 
-    dbgmsg("[sendData] REQUEST:" + MJT_AGARI_URL  + json);
+    dbgmsg("sendData","REQUEST=" + MJT_AGARI_URL  + json);
 
     //リクエスト送信
     $.ajax({
@@ -214,14 +217,14 @@ function sendData() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("得点計算リクエスト正常終了");
-            dbgmsg("[sendData] RESPONSE:" + toJSON(data));
+            dbgmsg("sendData","RESPONSE:" + toJSON(data));
 
             $("#resultdiv").html(agariToHtml(data.agari));
             
         },
         error: function (data) {
             infomsg("得点計算リクエストエラー:" + data.status);
-            dbgmsg("[sendData] RESPONSE:" + data.responseText);
+            dbgmsg("sendData","RESPONSE:" + data.responseText);
         }
     });
 
@@ -305,11 +308,20 @@ function infomsg(msg) {
     $("#infodiv").html(msg);
 }
 
-function dbgmsg(msg) {
-    if (msg.length > 3000) {
-        msg = msg.substring(0,3000) + ".....";
+function dbgmsg(tag,msg) {
+    if (msg.length > 1000) {
+        printmsg = msg.substring(0,1000) 
+        + "<button class=small onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
+    }else{
+        printmsg=msg
     }
-    $("#dbgdiv").append("<hr>" + msg);
+    $("#dbgdiv").append("<b>" + dbgno + "." + tag + "</b><pre>" + printmsg +"</pre>");
+    dbgarray[dbgno]=msg;
+    dbgno++;
+}
+
+function dbgDetail(i){
+    alert(dbgarray[i]);
 }
 
 /**
@@ -344,7 +356,7 @@ function changeDbgMsg() {
  * @param {String} str パネル名。 idが"panel_(パネル名)"を表示し、それ以外を非表示にする。
  */ 
 function changePanel(str){
-    dbgmsg("changePanel : " + str);
+    dbgmsg("changePanel", str);
     $(".panel").css('display', 'none'); 
     $("#panel_"+str).css('display','inline');
 }
@@ -358,7 +370,7 @@ function sendDummy(){
 
     var json = "{photo: {base64: \"" + base64str + "\"}}";
 
-    dbgmsg("[sendPhoto] REQUEST: " +MJT_PHOTO_URL + json);
+    dbgmsg("sendDymmy" , "REQUEST: " +MJT_PHOTO_URL + json);
 
     //リクエスト送信
     $.ajax({
@@ -368,13 +380,13 @@ function sendDummy(){
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             infomsg("写真の登録完了" );
-            dbgmsg("[sendPhoto] RESPONSE: " + prettyPrint(eval(data),2));
+            dbgmsg("sendDymmy" , "RESPONSE: " + json2txt(eval(data)));
             setImgUrl(eval(data).photo.url);
             imgload();
         },
         error: function (data) {
             infomsg("写真の登録失敗 " + data.status);
-            dbgmsg("[sendPhoto] RESPONSE: " + data.responseText);
+            dbgmsg("sendDymmy" , "RESPONSE: " + data.responseText);
         }
     });
 
