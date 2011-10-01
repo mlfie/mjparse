@@ -15,8 +15,7 @@
     <body onload="onLoad()">
 
         <!--メッセージ-->
-        <div  id="infodiv">手牌の写真を撮影or選択してください</div>
-
+        <div  id="infodiv">アガリ写真を撮影or選択してください</div>
         
         <!--写真リストパネル-->
         <div class="panel" id="panel_photolist"  style="display: none ;"></div>
@@ -33,21 +32,32 @@
         <!--トップ画面パネル-->
         <div class="panel" id="panel_top" >
 
-            <div id="photo" class="chank">
+          <!-- 左側 -->
+          <div style="float:left;width:48%">
+
+            <!--アガリ写真チャンク-->
+            <div id="chank_photo" class="chank" >
                 <b>アガリ写真</b>
                 <br>
-                <button class="large" onclick="capturePhoto();" >撮影</button>
-                <button class="large" onclick="selectPhoto();">選択</button>
-                <button class="large" onclick="dlPhoto();">サーバ</button>
-                <br>
-                <center>
-                    <img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
-                </center>
-                <label for="img_url">写真URL</label>
-                <input id="img_url" type="text" name="img_url">
-            </div>
+                <table summary="">
+                <tr>
+                <td>
+                <button class="large" onclick="capturePhoto();" >撮影</button><br>
+                <button class="large" onclick="selectPhoto();">選択</button><br>
+                <button class="large" onclick="dlPhoto();">サーバ</button><br>
+                </td>
+                <td>
+                <img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
+                </td>
+                </tr>
+                </table>
+                
+                
+                <input id="img_url" type="text" name="img_url" style="display:none;">
+            </div><!-- end chank -->
 
-            <div id="cond" class="chank">
+            <!--アガリ条件チャンク-->
+            <div id="chank_cond" class="chank">
                 <b>アガリ条件</b>
                 <div id="main_cond">
                     <label for="bakaze">場風</label>
@@ -117,23 +127,36 @@
                     </button>
                </div>
 
+            </div><!-- end chank -->
+
+          </div>
+
+<div style="float:left;width:6%;">
+   <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:30px;height:250px;">→<br>→<br>得<br>点<br>計<br>算<br>→<br>→<br></button>
+ 
+</div>
+          <!-- 右側 -->
+          <div style="float:left;width:46%;">
+               <!-- <div>
+                  <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:100%;">得点計算</button>
+              </div>    -->    
+              <div>
+                  <div id="chank_result" class="chank">
+                      <b>解析結果</b>
+                      <div id="resultdiv"></div>
+                  </div>
+              </div>
+          </div>
+
+        </div><!-- end panel -->
 
 
-            </div>
-
-            <button id="btn_send" class="large" width=device-width disabled onclick="sendData();" >
-                得点計算
-            </button>
-            <div id="resultdiv" class="chank" ></div>
-
-            <br>
+        <!-- 下側（デバッグ用） -->
+        <div style="clear:both;">
             <button class="small" onclick="changePanel('debug')">
-                 show debug message
+             show debug message
             </button>
         </div>
-
-        
-        
         <div class="panel" id="panel_debug"  style="display: none ;">
             <button onclick="sendDummy();" >
                                        ダミーリクエスト

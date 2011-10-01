@@ -2,20 +2,22 @@ body{
 
 }
 
+
+
 div.chank { 
 display:block ;
 
 
 
-margin-top:    5px ;
-margin-bottom: 5px ;
-margin-left:   5px ;
-margin-right:  5px ;
+margin-top:    1px ;
+margin-bottom: 1px ;
+margin-left:   1px ;
+margin-right:  1px ;
 
-padding-top : 5px ; /*余白*/
-padding-bottom : 5px ; /*余白*/
-padding-left : 5px ; /*余白*/
-padding-right: 5px ; /*余白*/
+padding-top : 3px ; /*余白*/
+padding-bottom : 3px ; /*余白*/
+padding-left : 3px ; /*余白*/
+padding-right: 3px ; /*余白*/
 
 border: solid; 
 border-width: 3px;
@@ -33,7 +35,7 @@ border-radius: 5px; /* CSS3 */
 
 button.large{
 background-color: #dddddd;
-width: 80px;
+width: 70px;
 height: 40px;
 }
 button.small{

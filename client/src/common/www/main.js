@@ -263,7 +263,7 @@ function agariToHtml(a) {
     }
 
     //HTML生成
-    var html = "<b>解析結果</b><br>";
+    var html = "";
 
     html += "<p>";
     for (var i = 0; i < 28; i += 2) {
