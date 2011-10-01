@@ -266,6 +266,7 @@ function agariToHtml(a) {
     var html = "";
 
     html += "<p>";
+    /*
     for (var i = 0; i < 28; i += 2) {
         var paistr = a.tehai_list.slice(i, i + 2);
         if (paistr == "") {
@@ -274,6 +275,11 @@ function agariToHtml(a) {
         }
         html += "<img width=17 src=img/" + paistr + ".gif>";
     }
+    */
+
+    $.each(a.tehai_list, function () {
+        html += "<img style=\"zoom:0.7;\" src=img/pai/" + this.type + "-" + this.direction + ".gif>";
+    });
 
     html += "<\/p>";
 

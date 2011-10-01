@@ -134,15 +134,14 @@
 
           </div>
 
-<div style="float:left;width:6%;">
-   <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:30px;height:250px;">→<br>→<br>得<br>点<br>計<br>算<br>→<br>→<br></button>
- 
-</div>
+          <div style="float:left;width:6%;">
+              <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:30px;height:250px;">
+                →<br>→<br>得<br>点<br>計<br>算<br>→<br>→<br>
+              </button>
+          </div>
           <!-- 右側 -->
           <div style="float:left;width:46%;">
-               <!-- <div>
-                  <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:100%;">得点計算</button>
-              </div>    -->    
+  
               <div>
                   <div id="chank_result" class="chank">
                       <b>解析結果</b>
@@ -160,6 +159,12 @@
              show debug message
             </button>
         </div>
+        
+        
+        <button  id="btn_send"  class="large" onclick="setImgUrl('http://fetaro-mjt.fedc.biz/img/1.thum.jpg');sendData();">
+               得点計算ダミー
+         </button>
+        
         <div class="panel" id="panel_debug"  style="display: none ;">
             <button onclick="sendDummy();" >
                                        ダミーリクエスト
