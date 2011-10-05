@@ -33,10 +33,19 @@ border-radius: 5px; /* CSS3 */
 
 }
 
+select{
+width: 80px;
+height: 30px;
+font-size: 16px;
+}
+
 button.large{
 background-color: #dddddd;
 width: 70px;
 height: 40px;
+font-size: 16px;
+margin-top:    1px ;
+margin-bottom:    1px ;
 }
 button.small{
 border: solid 0px ; 

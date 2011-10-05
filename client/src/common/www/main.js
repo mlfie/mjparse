@@ -144,7 +144,7 @@ function viewPhotoList(jsdata) {
             + "style=border-color:#888888;border-width:2px;border-style:solid"
             + ">"
             + "<br>"
-            )
+            );
         
         $("#sphoto" + data[i].photo.id).hover(
           function(){
@@ -155,7 +155,7 @@ function viewPhotoList(jsdata) {
             //マウスオーバー解除
             $(this).css("border-color","#888888");
           }
-        )
+        );
         
         $("#sphoto" + data[i].photo.id).click(function(){
             //クリック時
@@ -218,7 +218,8 @@ function sendData() {
             infomsg("得点計算リクエスト正常終了");
             dbgmsg("sendData","RESPONSE:" + json2txt(eval(data)));
 
-            $("#resultdiv").html(agariToHtml(data.agari));
+            $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
+            $("#div_point").html(agariToPointHtml(data.agari));
             
         },
         error: function (data) {
@@ -229,7 +230,20 @@ function sendData() {
 
 }
 
-function agariToHtml(a) {
+function agariToAnalizedImgHtml(a) {
+
+    //HTML生成
+    var html = "";
+
+    $.each(a.tehai_list, function () {
+        html += "<img style=\"zoom:0.7;\" src=img/pai/" + this.type + "-" + this.direction + ".gif>";
+    });
+
+    return html;
+};
+
+
+function agariToPointHtml(a) {
 
     var manganStr = "";
     switch (a.mangan_scale) {
@@ -265,24 +279,6 @@ function agariToHtml(a) {
     //HTML生成
     var html = "";
 
-    html += "<p>";
-    /*
-    for (var i = 0; i < 28; i += 2) {
-        var paistr = a.tehai_list.slice(i, i + 2);
-        if (paistr == "") {
-            //解析に失敗したパイがある場合
-            paistr = "z0"; //失敗画像のファイル名"z0"を指定
-        }
-        html += "<img width=17 src=img/" + paistr + ".gif>";
-    }
-    */
-
-    $.each(a.tehai_list, function () {
-        html += "<img style=\"zoom:0.7;\" src=img/pai/" + this.type + "-" + this.direction + ".gif>";
-    });
-
-    html += "<\/p>";
-
     html += "<table>";
     $.each(a.yaku_list, function () {
         html += "<tr><td>" + this.name_kanji + "<\/td><td>" + this.han_num + "飜<\/td><\/tr>";
@@ -298,6 +294,7 @@ function agariToHtml(a) {
     }
     return html;
 };
+
 
 function setImgUrl(str) {
     $("#img_url").val(str);
@@ -315,10 +312,10 @@ function infomsg(msg) {
 
 function dbgmsg(tag,msg) {
     if (msg.length > 1000) {
-        printmsg = msg.substring(0,1000) 
+        printmsg = msg.substring(0,1000)
         + "<button class=small onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
     }else{
-        printmsg=msg
+        printmsg=msg;
     }
     $("#dbgdiv").append("<b>" + dbgno + "." + tag + "</b><pre>" + printmsg +"</pre>");
     dbgarray[dbgno]=msg;
