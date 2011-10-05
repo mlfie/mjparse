@@ -1,5 +1,5 @@
 body{
-
+font-size: 14px;
 }
 
 
@@ -7,20 +7,18 @@ body{
 div.chank { 
 display:block ;
 
-
-
 margin-top:    1px ;
 margin-bottom: 1px ;
 margin-left:   1px ;
 margin-right:  1px ;
 
-padding-top : 3px ; /*余白*/
-padding-bottom : 3px ; /*余白*/
-padding-left : 3px ; /*余白*/
-padding-right: 3px ; /*余白*/
+padding-top : 2px ; /*余白*/
+padding-bottom : 2px ; /*余白*/
+padding-left : 2px ; /*余白*/
+padding-right: 2px ; /*余白*/
 
 border: solid; 
-border-width: 3px;
+border-width: 2px;
 border-top-color:    #dddddd;
 border-left-color:   #dddddd;
 border-bottom-color: #999999;
@@ -34,25 +32,30 @@ border-radius: 5px; /* CSS3 */
 }
 
 select{
-width: 80px;
+width: 60px;
 height: 30px;
-font-size: 16px;
+font-size: 14px;
 }
 
 input.checkbox{
-width: 80px;
+width: 60px;
 height: 20px;
-font-size: 16px;
+font-size: 14px;
 }
 
 button.large{
+    margin: 1px;
+}
+
+/*button.large{
 background-color: #dddddd;
-width: 70px;
+width: 60px;
 height: 40px;
-font-size: 16px;
+font-size: 14px;
 margin-top:    1px ;
 margin-bottom:    1px ;
-}
+}*/
+
 button.small{
 border: solid 0px ; 
 color:#0000ff ; 

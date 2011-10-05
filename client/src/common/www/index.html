@@ -19,7 +19,7 @@
       <img src="img/logo.jpg" alt="tsumotter" height="15px" >
       <label id="infodiv">アガリ写真を撮影or選択してください</label>
     </div>
-    
+
     <!--写真リストパネル-->
     <div class="panel" id="panel_photolist"  style="display: none ;"></div>
 
@@ -37,143 +37,133 @@
 
       <!-- 左側 -->
       <div style="float:left;width:48%">
-
         <!--アガリ写真チャンク-->
         <div id="chank_photo" class="chank" >
           <b>アガリ写真</b>
           <br>
-          <table summary="">
-            <tr>
-              <td>
-				<button class="large" onclick="capturePhoto();" >撮影</button><br>
-				<button class="large" onclick="selectPhoto();">選択</button><br>
-				<button class="large" onclick="dlPhoto();">サーバ</button><br>
-              </td>
-              <td>
-				<img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
-              </td>
-            </tr>
-            <tr>
-			  <td>
-				画像URL
-			  </td>
-			  <td>
-				<input id="img_url" type="text" name="img_url">
-			  </td>
-			</tr>
-      </table>
+          <button class="large" onclick="capturePhoto();" >撮影</button>
+          <button class="large" onclick="selectPhoto();">選択</button>
+          <button class="large" onclick="dlPhoto();">サーバ</button>
           
+          <br>
+          
+          <img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
+          
+          <br>
+          <font size=-3>URL
+            <input id="img_url" type="text" name="img_url">
+          </font>
           
           <!--<input id="img_url" type="text" name="img_url" style="display:none;">-->
         </div><!-- end chank -->
-
+        
         <!--アガリ条件チャンク-->
         <div id="chank_cond" class="chank">
           <b>アガリ条件</b>
           <div id="main_cond">
             <label for="bakaze">
-			  場風
+              場風
               <select id="bakaze" name="bakaze">
                 <option value="ton">東</option>
                 <option value="nan">南</option>
                 <option value="sha">西</option>
                 <option value="pei">北</option>
               </select>
-			</label>
-
+            </label>
+            
             <label for="jikaze">
-			  自風
+              自風
               <select id="jikaze" name="jikaze">
                 <option value="ton">東</option>
                 <option value="nan">南</option>
                 <option value="sha">西</option>
                 <option value="pei">北</option>
               </select>
-			</label>
+            </label>
 
-			<br>   
+            <br>   
 
             <label for="honba_num">
-			  本場
+              本場
               <select id="honba_num" name="honba_num">
                 <script type="text/javascript" charset="utf-8">
                   <!--
                      for(i=0;i<10;i++) {
-									   document.write("<option value=" + i + ">" + i + " <\/option>");
-									   }
-									   -->
+                                       document.write("<option value=" + i + ">" + i + " <\/option>");
+                                       }
+                                       -->
                      </script>
               </select>
-			</label>
-			
+            </label>
+            
             <label for="is_tsumo">
-			  アガリ
+              アガリ
               <select id="is_tsumo" name="is_tsumo">
                 <option value="true">ツモ</option>
                 <option value="false">ロン</option>
               </select>
-			</label>
+            </label>
 
-			<br>   
+            <br>   
 
             <label for="dora_num">
-			  ドラ
+              ドラ
               <select id="dora_num" name="dora_num">
                 <script type="text/javascript" charset="utf-8">
                   <!--
                      for(i=0;i<30;i++) {
-									   document.write("<option value=" + i + ">" + i + " <\/option>");
-									   }
-									   -->
+                                       document.write("<option value=" + i + ">" + i + " <\/option>");
+                                       }
+                                       -->
                      </script>
               </select>
-			</label>
+            </label>
 
             <label for="reach_num"> 
-			  リーチ
+              リーチ
               <select id="reach_num" name="reach_num">
                 <option value="0">なし</option>
                 <option value="1">ノーマル</option>
                 <option value="2">ダブリー</option>
               </select>
-			</label>
+            </label>
             
             <br>
 
             <label for="is_ippatsu">
-			  一発
+              一発
               <input type="checkbox" id="is_ippatsu" name="is_ippatsu" class="checkbox">
             </label>
 
             <label for="is_haitei">
-			  海底
+              海底
               <input type="checkbox" id="is_haitei" name="is_haitei" class="checkbox">
             </label>
 
-			<br>
+            <br>
 
             <label for="is_rinshan">
-			  嶺上
+              嶺上
               <input type="checkbox" id="is_rinshan" name="is_rinshan" class="checkbox">
             </label>
 
             <label for="is_chankan">
-			  槍槓
+              槍槓
               <input type="checkbox" id="is_chankan" name="is_chankan" class="checkbox">
             </label>
 
-			<br>
+            <br>
 
             <label for="is_tenho">
-			  天和
+              天和
               <input type="checkbox" id="is_tenho" name="is_tenho" class="checkbox">
             </label>
 
             <label for="is_chiho">
-			  地和
+              地和
               <input type="checkbox" id="is_chiho" name="is_chiho" class="checkbox">
             </label>
-			
+            
           </div>
 
         </div><!-- end chank -->
@@ -191,7 +181,7 @@
         <div id="chank_analized_img" class="chank">
           <b>画像解析結果</b>
           <div id="div_analized_img"></div>
-		  <button id="btn_modAnalize" onclick="modAnalize();" style="width: 200;" disabled >
+          <button id="btn_modAnalize" onclick="modAnalize();" style="width: 200;" disabled >
             解析結果を訂正
           </button>
 
