@@ -297,12 +297,14 @@ function agariToPointHtml(a) {
 
 
 function setImgUrl(str) {
+    dbgmsg('setImgUrl',str);
     $("#img_url").val(str);
     $("#image").attr('src', str);
     $("#image").attr('src', str);
 }
 
 function imgload() {
+    dbgmsg('imgload',$('#img_url').val());
     $("#image").attr("src", $('#img_url').val());
 }
 
@@ -326,18 +328,6 @@ function dbgDetail(i){
     alert(dbgarray[i]);
 }
 
-/**
- * その他条件の表示・非表示を切り替える
- */ 
-function showDetailCond() {
-        $('#detail_cond').css('display', 'inline');
-        $('#btn_showcond').css('display', 'none');	
-}
-
-function hideDetailCond(){
-        $('#detail_cond').css('display', 'none');
-        $('#btn_showcond').css('display', 'inline');	
-}
 
 /**
  * デバッグ情報の表示・非表示
