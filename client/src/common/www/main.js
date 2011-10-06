@@ -1,11 +1,4 @@
-var pictureSource; // 写真ソース
-var destinationType; // 戻り値のフォーマット
-
-//写真のbase64ストリング
-var base64str="";
-
-var dbgno=0;
-var dbgarray = new Array();
+/*定数*/
 
 //得点計算リクエスト送信先URL
 var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
@@ -13,6 +6,17 @@ var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
 
 //写真取得・登録先URL
 var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
+
+/*変数*/
+
+var pictureSource; // 写真ソース
+var destinationType; // 戻り値のフォーマット
+var base64str="";//写真のbase64ストリング
+var dlPhotoData="";//ダウンロードした写真リスト
+var dbgno=0; //デバッグメッセージの行数
+var dbgarray = new Array();//デバッグメッセージ格納配列
+
+
 
 /**
  * PhoneGapがデバイスと接続するまで待機
@@ -94,8 +98,8 @@ function sendPhoto() {
             infomsg("写真の登録完了" );
             dbgmsg("sendPhoto","RESPONSE=" + json2txt(eval(data)));
             setImgUrl(eval(data).photo.url);
+            setImg(eval(data).photo.thum_url);
             changePanel('top');
-            imgload();
             //送信ボタンを活性化
             $('#btn_send').removeAttr('disabled');
             
@@ -108,25 +112,31 @@ function sendPhoto() {
 
 }
 
+//写真リストのダウンロード
 function dlPhoto() {
-    infomsg("サーバから写真リストを取得中...");
+    if(dlPhotoData != ""){
+		dbgmsg("dlPhoto","already downloaded" );
+        viewPhotoList(dlPhotoData);
+	}else{
+		infomsg("サーバから写真リストを取得中...");
+		dbgmsg("dlPhoto","REQUEST:" + "GET " + MJT_PHOTO_URL );
 
-    dbgmsg("dlPhoto","REQUEST:" + "GET " + MJT_PHOTO_URL );
-
-    //リクエスト送信
-    $.ajax({
-        type: "GET",
-        url: MJT_PHOTO_URL,
-        success: function (data, textStatus, xhr) {
-            infomsg("写真リスト取得完了" );
-            dbgmsg("dlPhoto","RESPONSE=" + json2txt(eval(data)));
-            viewPhotoList(data);
-        },
-        error: function (data) {
-            infomsg("写真リスト取得失敗:" + data.status);
-            dbgmsg("dlPhoto","RESPONSE=" + data.responseText);
-        }
-    });
+		//リクエスト送信
+		$.ajax({
+				   type: "GET",
+				   url: MJT_PHOTO_URL,
+				   success: function (data, textStatus, xhr) {
+					   infomsg("写真リスト取得完了" );
+					   dbgmsg("dlPhoto","RESPONSE=" + json2txt(eval(data)));
+					   dlPhotoData=data;
+					   viewPhotoList(data);
+				   },
+				   error: function (data) {
+					   infomsg("写真リスト取得失敗:" + data.status);
+					   dbgmsg("dlPhoto","RESPONSE=" + data.responseText);
+				   }
+			   });
+	}
 }
 
 //サーバから写真を選択するパネルを表示
@@ -134,8 +144,9 @@ function viewPhotoList(jsdata) {
     infomsg("写真を選択してください" );
     var data = eval(jsdata);
     for(var i=0; i<data.length; i++) {
-        $("#panel_photolist").append(
-            data[i].photo.created_at.replace("T"," ").replace("+09:00","")
+        $("#div_photolist").append(
+            "<div style='float:left;'>"
+            + data[i].photo.created_at.replace("T"," ").replace("+09:00","")
             + "<br>"
             + "<img "  
             + "id=sphoto" + data[i].photo.id + " "
@@ -143,7 +154,7 @@ function viewPhotoList(jsdata) {
             + "src=\"" + data[i].photo.thum_url + "\" "
             + "style=border-color:#888888;border-width:2px;border-style:solid"
             + ">"
-            + "<br>"
+            + "</div>"
             );
         
         $("#sphoto" + data[i].photo.id).hover(
@@ -161,6 +172,7 @@ function viewPhotoList(jsdata) {
             //クリック時
             dbgmsg("viewPhotoList","Selected Photo=" + $(this).attr('alt'));
             setImgUrl($(this).attr('alt'));
+            setImg($(this).attr('src'));
             infomsg("条件を入力した後、得点計算を押してください" );
             $('#btn_send').removeAttr('disabled');
             changePanel("top");
@@ -200,7 +212,7 @@ function sendData() {
         var val = $(this).attr("checked") == "checked";
         param["agari"][name] = val;
     });
-    //dbgmsg(print_r(param));
+
     //is_parentの計算
     param["agari"]["is_parent"] = param["agari"]["jikaze"] == "ton";
 
@@ -299,13 +311,11 @@ function agariToPointHtml(a) {
 function setImgUrl(str) {
     dbgmsg('setImgUrl',str);
     $("#img_url").val(str);
-    $("#image").attr('src', str);
-    $("#image").attr('src', str);
 }
 
-function imgload() {
-    dbgmsg('imgload',$('#img_url').val());
-    $("#image").attr("src", $('#img_url').val());
+function setImg(str) {
+    dbgmsg('setImg',str);
+    $("#image").attr("src", srt);
 }
 
 function infomsg(msg) {
@@ -374,7 +384,7 @@ function sendDummy(){
             infomsg("写真の登録完了" );
             dbgmsg("sendDymmy" , "RESPONSE: " + json2txt(eval(data)));
             setImgUrl(eval(data).photo.url);
-            imgload();
+            setImg(eval(data).photo.thum_rul);
         },
         error: function (data) {
             infomsg("写真の登録失敗 " + data.status);
