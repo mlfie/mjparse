@@ -156,28 +156,31 @@ function viewPhotoList(jsdata) {
             + ">"
             + "</div>"
             );
+
         
-        $("#sphoto" + data[i].photo.id).hover(
-          function(){
-            //マウスオーバー時
-            $(this).css("border-color","#990000");
-          },
-          function(){
-            //マウスオーバー解除
-            $(this).css("border-color","#888888");
-          }
-        );
-        
-        $("#sphoto" + data[i].photo.id).click(function(){
-            //クリック時
-            dbgmsg("viewPhotoList","Selected Photo=" + $(this).attr('alt'));
-            setImgUrl($(this).attr('alt'));
-            setImg($(this).attr('src'));
-            infomsg("条件を入力した後、得点計算を押してください" );
-            $('#btn_send').removeAttr('disabled');
-            changePanel("top");
-        });
-    }
+        $("#sphoto" + data[i].photo.id)
+			.hover(
+				function(){
+					//マウスオーバー時
+					$(this).css("border-color","#990000");
+				},
+				function(){
+					//マウスオーバー解除
+					$(this).css("border-color","#888888");
+				}
+			)
+			.click(
+				function(){
+					//クリック時
+					dbgmsg("viewPhotoList","Selected Photo=" + $(this).attr('alt'));
+					setImgUrl($(this).attr('alt'));
+					setImg($(this).attr('src'));
+					infomsg("条件を入力した後、得点計算を押してください" );
+					$('#btn_send').removeAttr('disabled');
+					changePanel("top");
+				}
+			);
+	}//end for
     changePanel("photolist");
 }
 
@@ -315,14 +318,14 @@ function setImgUrl(str) {
 
 function setImg(str) {
     dbgmsg('setImg',str);
-    $("#image").attr("src", srt);
+    $("#image").attr("src", str);
 }
 
 function infomsg(msg) {
     $("#infodiv").html(msg);
 }
 
-function dbgmsg(tag,msg) {
+function dbgmsg(tag, msg) {
     if (msg.length > 1000) {
         printmsg = msg.substring(0,1000)
         + "<button class=small onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
@@ -384,7 +387,7 @@ function sendDummy(){
             infomsg("写真の登録完了" );
             dbgmsg("sendDymmy" , "RESPONSE: " + json2txt(eval(data)));
             setImgUrl(eval(data).photo.url);
-            setImg(eval(data).photo.thum_rul);
+            setImg(eval(data).photo.thum_url);
         },
         error: function (data) {
             infomsg("写真の登録失敗 " + data.status);
