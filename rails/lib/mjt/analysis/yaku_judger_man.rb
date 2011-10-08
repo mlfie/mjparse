@@ -39,7 +39,7 @@ module Mjt
               has_hatsu = true
             end
           end
-        end
+      end
           
 		if has_haku && has_chun && has_hatsu
           return true
