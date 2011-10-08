@@ -22,8 +22,11 @@ module Mlfielib
 
         pais_candidate = []
         pais_candidate << tmc.classify(path)
+        pais_candidate << tmc.classify(path, 0.95)
         pais_candidate << tmc.classify(path, 0.9)
+        pais_candidate << tmc.classify(path, 0.85)
         pais_candidate << tmc.classify(path, 0.8)
+        pais_candidate << tmc.classify(path, 0.75)
         pais = pais_candidate.max_by{|p| p.size}
   
         debug path, pais if @debug
