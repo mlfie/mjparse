@@ -32,7 +32,7 @@ module Mjt
 			  flag = 1
 			end
 		end		
-		if flag = 0
+		if flag == 0
 		  return false
 		end
 		#後で消す処理。ここまで
@@ -58,21 +58,21 @@ module Mjt
       ### 純全帯么九
       def self.junchan?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type = "k" || mentsu.mentsu_type = "t"
-		      if mentsu.pai_list[0].type = "j"
+          if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
+		      if mentsu.pai_list[0].type == "j"
 				return false
 			　 elseif mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
 				return false
 			  end	 
 		  end
 		  
-		  if mentsu.mentsu_type = "s"
+		  if mentsu.mentsu_type == "s"
 		     if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "7"
 			   return false
 			 end
 		  end
 		  
-		  if mentsu.mentsu_type = "y"
+		  if mentsu.mentsu_type == "y"
 		    return false
 		  end
 		  
@@ -84,7 +84,7 @@ module Mjt
       ### 混老頭
       def self.honroutou?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
-            if mentsu.mentsu_type = "k" || mentsu.mentsu_type = "t"
+            if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
 		      if mentsu.pai_list[0].type != "j"
 				if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
 				  return false

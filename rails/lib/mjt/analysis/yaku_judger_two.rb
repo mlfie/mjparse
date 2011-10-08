@@ -25,7 +25,7 @@ module Mjt
 	    jihai_count = 0
 		kotsu_count = 0
         tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type = "k" || mentsu.mentsu_type = "t"
+          if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
 		     if mentsu.pai_list[0].type != "j"
                 if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
 				   return false
@@ -38,13 +38,13 @@ module Mjt
              end			 
 		  end
 		  
-		  if mentsu.mentsu_type = "s"
+		  if mentsu.mentsu_type == "s"
 		     if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "7"
 			   return false
 			 end
 		  end
 		  
-		  if mentsu.mentsu_type = "y"
+		  if mentsu.mentsu_type == "y"
 		    return false
 		  end
 		  ### ホンラオトーでないかつ、ジュンチャンでない

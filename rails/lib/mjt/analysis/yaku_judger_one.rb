@@ -79,7 +79,7 @@ module Mjt
         tehai.mentsu_list.each_with_index do |mentsu_1,i|
           tehai.mentsu_list.each_with_index do |mentsu_2,j|
             if i != j
-              count=0
+              count = 0
               [0,1,2].each do |k|
                 if mentsu_1.pai_list[k] == mentsu_2.pai_list[k]
                   count += 1
