@@ -6,7 +6,7 @@ module Mjt
     class YakuJudger
       ### ダブル立直
       def self.doublereach?(tehai, agari)
-        if agari.reach_num = "2"
+        if agari.reach_num == "2"
           return true
         end
         return false
