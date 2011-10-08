@@ -104,7 +104,7 @@ module Mjt
           mentsu.pai_list.each do |pai|
             if beforetype == nil then
               beforetype = pai.type
-            elsif beforetype != pai.type || pai.type == "j"
+            elsif beforetype != pai.type
               return false
             end
           end
