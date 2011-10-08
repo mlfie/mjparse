@@ -14,7 +14,17 @@ module Mjt
     
         # 役満から判定していく
         yaku_list << Yaku.find_by_name("daisangen")       if  daisangen?(tehai, agari)
-
+        yaku_list << Yaku.find_by_name("kokushi")         if  kokushi?(tehai, agari)
+        yaku_list << Yaku.find_by_name("suankou")        if  suankou?(tehai, agari)		
+		yaku_list << Yaku.find_by_name("sukantsu")       if  sukantsu?(tehai, agari)
+        yaku_list << Yaku.find_by_name("tenho")        if  tenho?(tehai, agari)
+        yaku_list << Yaku.find_by_name("chiho")        if  chiho?(tehai, agari)
+        yaku_list << Yaku.find_by_name("tasushi")        if  tasushi?(tehai, agari)
+        yaku_list << Yaku.find_by_name("shosushi")        if  shosushi?(tehai, agari)
+        yaku_list << Yaku.find_by_name("tsuiso")        if  tsuiso?(tehai, agari)
+        yaku_list << Yaku.find_by_name("chinraoto")        if  chinraoto?(tehai, agari)
+        yaku_list << Yaku.find_by_name("ryuiso")        if  ryuiso?(tehai, agari)
+        yaku_list << Yaku.find_by_name("churen")        if  churen?(tehai, agari)	
         # 役満は該当したらreturn
         if yaku_list.size > 0
           return
@@ -55,19 +65,6 @@ module Mjt
         yaku_list << Yaku.find_by_name("junchan")         if  junchan?(tehai, agari)
         yaku_list << Yaku.find_by_name("ryanpeikou")      if  ryanpeikou?(tehai, agari)
         yaku_list << Yaku.find_by_name("chinitsu")        if  chinitsu?(tehai, agari)
-		# 役満
-        yaku_list << Yaku.find_by_name("kokushi")         if  kokushi?(tehai, agari)
-        yaku_list << Yaku.find_by_name("suankou")        if  suankou?(tehai, agari)		
-		yaku_list << Yaku.find_by_name("sukantsu")       if  sukantsu?(tehai, agari)
-        yaku_list << Yaku.find_by_name("daisangen")       if  daisangen?(tehai, agari)
-        yaku_list << Yaku.find_by_name("tenho")        if  tenho?(tehai, agari)
-        yaku_list << Yaku.find_by_name("chiho")        if  chiho?(tehai, agari)
-        yaku_list << Yaku.find_by_name("tasushi")        if  tasushi?(tehai, agari)
-        yaku_list << Yaku.find_by_name("shosushi")        if  shosushi?(tehai, agari)
-        yaku_list << Yaku.find_by_name("tsuiso")        if  tsuiso?(tehai, agari)
-        yaku_list << Yaku.find_by_name("chinraoto")        if  chinraoto?(tehai, agari)
-        yaku_list << Yaku.find_by_name("ryuiso")        if  ryuiso?(tehai, agari)
-        yaku_list << Yaku.find_by_name("churen")        if  churen?(tehai, agari)	
 		
         tehai.yaku_list = yaku_list
       end
