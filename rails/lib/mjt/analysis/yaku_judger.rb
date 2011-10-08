@@ -13,7 +13,7 @@ module Mjt
         yaku_list = Array.new
     
         # 役満から判定していく
-        yaku_list << Yaku.find_by_name("daisangen")       if  daisangen?(tehai, agari)
+##        yaku_list << Yaku.find_by_name("daisangen")       if  daisangen?(tehai, agari)
         yaku_list << Yaku.find_by_name("kokushi")         if  kokushi?(tehai, agari)
         yaku_list << Yaku.find_by_name("suankou")        if  suankou?(tehai, agari)		
 		yaku_list << Yaku.find_by_name("sukantsu")       if  sukantsu?(tehai, agari)
