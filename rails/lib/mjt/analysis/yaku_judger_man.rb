@@ -11,16 +11,13 @@ module Mjt
       # 四暗刻
       def self.suankou?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
-          if mentsu.mentsu_type == 'k' 
-            if mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 5
-              has_haku = true
-            elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 6
-              has_chun = true
-            elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 7
-              has_hatsu = true
-            end
+          if mentsu.mentsu_type != 'k' 
+            return false
+	      elseif !(mentsu.furo)
+              return false	  
           end
         end
+		return true
       end
 	  
       # 大三元
