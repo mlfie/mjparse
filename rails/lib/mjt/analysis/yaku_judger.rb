@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-require 'mjt/analysis/yaku_judger_one.rb'
-require 'mjt/analysis/yaku_judger_two.rb'
-require 'mjt/analysis/yaku_judger_three_six.rb'
-require 'mjt/analysis/yaku_judger_man.rb'
+load 'mjt/analysis/yaku_judger_one.rb'
+load 'mjt/analysis/yaku_judger_two.rb'
+load 'mjt/analysis/yaku_judger_three_six.rb'
+load 'mjt/analysis/yaku_judger_man.rb'
 	
 module Mjt
   module Analysis
