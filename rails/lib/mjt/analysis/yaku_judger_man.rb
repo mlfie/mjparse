@@ -9,7 +9,7 @@ module Mjt
       def self.kokushi?(tehai, agari); return false; end
 
       # 四暗刻
-      def self.suuankou?(tehai, agari); return false; end
+      def self.suankou?(tehai, agari); return false; end
         tehai.mentsu_list.each do |mentsu|
           if mentsu.mentsu_type == 'k' 
             if mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 5
@@ -47,7 +47,7 @@ module Mjt
         return false
       end
   	
-	  def self.suukantsu?(tehai, agari)
+	  def self.sukantsu?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
           if mentsu.mentsu_type == "4"
