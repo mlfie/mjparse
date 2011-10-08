@@ -4,6 +4,15 @@
 module Mjt
   module Analysis
     class YakuJudger
+	
+	  ### リーチ
+      def self.reach?(tehai, agari)
+	     if agari.reach_num == 1
+		   return true
+		 end
+		 return false
+	  end
+	
       ### 平和
       def self.pinfu?(tehai, agari)
         #コーツなし判定
@@ -86,13 +95,28 @@ module Mjt
       end # end def
 
       ### 立直
-      def self.reach?(tehai, agari); return false; end
+      def self.reach?(tehai, agari)
+        if agari.reach_num == 1
+          return true
+        end
+        return false
+      end
 
       ### 一発
-      def self.ippatsu?(tehai, agari); return false; end
+      def self.ippatsu?(tehai, agari)
+        if agari.is_ippatsu
+          return true
+        end
+        return false
+      end
         
       ### 門前清自摸和
-      def self.tsumo?(tehai, agari); return false; end
+      def self.tsumo?(tehai, agari)
+        if agari.is_tsumo
+          return true
+        end
+        return false
+      end
 
       ### 東
       def self.ton?(tehai, agari)
@@ -179,16 +203,41 @@ module Mjt
       end
 
       ### 海底摸月
-      def self.haitei?(tehai, agari); return false; end
+      def self.haitei?(tehai, agari)
+        if agari.is_haitei
+          if agari.is_tsumo
+            return true
+          end
+        end
+        return false
+      end
 
       ### 河底撈魚
-      def self.houtei?(tehai, agari); return false; end
+      def self.houtei?(tehai, agari)
+        if agari.is_haitei
+          if !agari.is_tsumo
+            return true
+          end
+        end
+        return false
+      end
 
       ### 嶺上開花
-      def self.rinshan?(tehai, agari); return false; end
+      def self.rinshan?(tehai, agari)
+        if agari.is_rinshan
+          return true
+        end
+        return false
+      end
 
       ### 槍槓
-      def self.chankan?(tehai, agari); return false; end
+      def self.chankan?(tehai, agari)
+        if agari.is_chankan
+          return true
+        end
+        return false
+      end
+
     end
   end
 end

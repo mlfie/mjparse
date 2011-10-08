@@ -25,11 +25,47 @@ module Mjt
       end
       
       ### 純全帯么九
-      def self.junchan?(tehai, agari); return false; end
-        
+      def self.junchan?(tehai, agari)
+        tehai.mentsu_list.each do | mentsu |
+          if mentsu.mentsu_type = k || mentsu.mentsu_type = t
+		      if mentsu.pai_list[0].type = j
+				return false
+			　 elseif mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
+				return false
+			  end	 
+		  end
+		  
+		  if mentsu.mentsu_type = s
+		     if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "7"
+			   return false
+			 end
+		  end
+		  
+		  if mentsu.mentsu_type = y
+		    return false
+		  end
+		  
+		end  
+		return true
+	  end
+	  
+	  
       ### 混老頭
-      def self.honroutou?(tehai, agari); return false; end
-        
+      def self.honroutou?(tehai, agari)
+        tehai.mentsu_list.each do | mentsu |
+            if mentsu.mentsu_type = k || mentsu.mentsu_type = t
+		      if mentsu.pai_list[0].type != j
+				if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
+				  return false
+				end
+			  end
+			else
+			   return false
+		    end
+		end  
+		return true
+	  end
+	  
       ### 清一色
       def self.chinitsu?(tehai, agari)
         beforetype = nil
@@ -44,6 +80,7 @@ module Mjt
         end
         return true
       end
+	  
     end
   end
 end
