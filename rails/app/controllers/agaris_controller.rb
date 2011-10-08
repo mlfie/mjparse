@@ -48,33 +48,26 @@ class AgarisController < ApplicationController
   def create
     @agari = Agari.new(params[:agari])
 
-logger.debug params[:agari]
-logger.debug @agari.bakaze
-
     #URIから画像を取得する
-logger.debug "horehore"
-logger.debug @agari[:tehai_img].blank?
-logger.debug "img_url = #{@agari.img_url}"
-    logger.debug @agari[:tehai_img].blank? && @agari.img_url
     if @agari[:tehai_img].blank? && @agari.img_url
-logger.debug "korehoge"
       img_fetcher = Mlfielib::Web::ImageFetcher.new
       img_path = img_fetcher.save_image(@agari.img_url)
-logger.debug "img_path = #{img_path}"
       @agari[:tehai_img] = to_base64(img_path)
     end
-
-    # 手配画像を小さくしてモデルにいれなおす
-    #@agari[:tehai_img] = base64_smaller(URI.decode(@agari[:tehai_img]))
     @agari[:tehai_img] = base64_smaller(@agari[:tehai_img])
 
-    
+    #IDを取得するために、いったんセーブ
     respond_to do |format|
       if @agari.save
         @agari.reload
+
+        #取得した画像をローカルに保存する
         make_tehai_img(@agari[:id])
+
         if self.analysis(@agari)
           @agari.save
+          #Clientのレスポンスが悪いため、tehai_imgは消す(暫定対応)
+          @agari[:tehai_img] = nil
 
           format.html { redirect_to(@agari, :notice => 'Agari was successfully created.') }
           format.xml  { render :xml => @agari, :status => :created, :location => @agari }
@@ -92,29 +85,27 @@ logger.debug "img_path = #{img_path}"
   end
 
   def analysis(agari)
+    # イメージを解析し、手牌リストを作成
     tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
     agari.tehai_list = tma.analyze(tehai_img_path(agari.id))
-    agari.save
-    #if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
-    #  twitter = Mjt::Tsumotter.new
-    #  twitter.update(agari)
-    #  return true
-    #else
-    #  return false
-    #end
 
-    #resolver = Mjt::Analysys::MentsuResolver.new
-    #resolver.get_mentsu(agari)
-    agari.total_fu_num = 30
-    agari.total_han_num = 4
-    agari.mangan_scale = 1
-    agari.total_point = 8000
-    agari.parent_point = 4000
-    agari.child_point = 2000
-    #agari.tehai_list = "m4m5m6m7m7p2p3p4s5s6s7s7s8s9"
-    agari.yaku_list << Yaku.find_by_name_kana('タンヤオ')
-    agari.yaku_list << Yaku.find_by_name_kana('ピンフ')
-    agari.yaku_list << Yaku.find_by_name_kana('サンショク')
+    # いったんセーブ
+    # (手牌解析で失敗した場合でも画像解析結果を残したいため)
+    agari.save
+
+    # 手役判定、得点計算、
+    if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+      
+    logger.debug("decider success")
+      # つぶやく
+      #twitter = Mjt::Tsumotter.new
+      #twitter.update(agari)
+      return true
+    else
+    logger.debug("decider failed")
+      return true
+    end
+
   end
 
   # base64形式画像縮小
