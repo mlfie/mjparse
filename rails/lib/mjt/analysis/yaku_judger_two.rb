@@ -167,7 +167,7 @@ module Mjt
         
       ### 小三元
       def self.shousangen?(tehai, agari)
-		if mentsu_list.size == "5"
+		if tehai.mentsu_list.size == "5"
 	      tehai.mentsu_list.each do | mentsu|
 		    if mentsu.pai_list[0].type == "5"
 		      tehai.mentsu_list.each do | mentsu2|
