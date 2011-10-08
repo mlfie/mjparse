@@ -20,25 +20,32 @@
       <label id="infodiv">アガリ写真を撮影or選択してください</label>
     </div>
 
-    <!--写真リストパネル-->
+    <!--サーバ上写真リストパネル-->
     <div class="panel" id="panel_photolist"  style="display: none ;">
       <button class="large" onclick="changePanel('top')">
         topへ戻る
       </button>
-	  <div id="div_photolist">
-	  </div>
+	  <hr>
+	  <div id="div_photolist"></div>
+	  <hr>
       <button class="large" onclick="changePanel('top')">
         topへ戻る
       </button>
     </div>
 
-    <!--写真選択画面パネル-->
+    <!--写真撮影／選択後画面パネル-->
     <div class="panel" id="panel_confirm"  style="display: none ;">
       <center>
         <img id="confirm" width="150" height="150" src="img/nophoto.jpg" alt=""/>
       </center>
       <button class="large" onclick="sendPhoto();">ＹＥＳ</button>
       <button class="large" onclick="changePanel('top');">ＮＯ</button>
+    </div>
+
+    <!--パイ選択画面パネル-->
+    <div class="panel" id="panel_selectpai"  style="display: none ;">
+	  <div id="div_selectpai">
+	  </div>
     </div>
 
     <!--トップ画面パネル-->
@@ -186,11 +193,13 @@
         <div id="chank_analized_img" class="chank">
           <b>画像解析結果</b>
           <div id="div_analized_img"></div>
-          <button id="btn_modAnalize" onclick="modAnalize();" style="width: 200;" disabled >
-            解析結果を訂正
-          </button>
-
         </div>
+
+        <button id="btn_modAnalize" onclick="modAnalize();" style="width: 200;" disabled >
+          ↓↓訂正した解析結果で得点計算↓↓
+        </button>
+
+
         <div id="chank_point" class="chank">
           <b>得点</b>
           <div id="div_point"></div>

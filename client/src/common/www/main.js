@@ -7,6 +7,8 @@ var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
 //写真取得・登録先URL
 var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
 
+var PAI_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
+
 /*変数*/
 
 var pictureSource; // 写真ソース
@@ -144,21 +146,13 @@ function viewPhotoList(jsdata) {
     infomsg("写真を選択してください" );
     var data = eval(jsdata);
     for(var i=0; i<data.length; i++) {
-        $("#div_photolist").append(
-            "<div style='float:left;'>"
-            + data[i].photo.created_at.replace("T"," ").replace("+09:00","")
-            + "<br>"
-            + "<img "  
-            + "id=sphoto" + data[i].photo.id + " "
-            + "alt=\"" + data[i].photo.url + "\" "
-            + "src=\"" + data[i].photo.thum_url + "\" "
-            + "style=border-color:#888888;border-width:2px;border-style:solid"
-            + ">"
-            + "</div>"
-            );
 
-        
-        $("#sphoto" + data[i].photo.id)
+		var jqImg = $("<img/>")
+			.attr("src",data[i].photo.thum_url)
+			.attr("alt",data[i].photo.url)
+			.css("border-color","#888888")
+			.css("border-width","2px")
+			.css("border-style","solid")		
 			.hover(
 				function(){
 					//マウスオーバー時
@@ -180,6 +174,15 @@ function viewPhotoList(jsdata) {
 					changePanel("top");
 				}
 			);
+
+		var jqDiv = $("<div/>")
+			.css("float","left")
+			.html(data[i].photo.created_at.replace("T"," ").replace("+09:00",""))
+			.append("<br>")
+			.append(jqImg);
+
+		$("#div_photolist").append(jqDiv);
+		
 	}//end for
     changePanel("photolist");
 }
@@ -233,7 +236,8 @@ function sendData() {
             infomsg("得点計算リクエスト正常終了");
             dbgmsg("sendData","RESPONSE:" + json2txt(eval(data)));
 
-            $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
+            //$("#div_analized_img").append(agariToAnalizedImgJq(data.agari));
+            $("#div_analized_img").append(agariToEditableImgJq(data.agari));
             $("#div_point").html(agariToPointHtml(data.agari));
             
         },
@@ -245,18 +249,100 @@ function sendData() {
 
 }
 
-function agariToAnalizedImgHtml(a) {
+function agariToAnalizedImgJq(a) {
 
     //HTML生成
-    var html = "";
+    var jqSpan = $("<span/>");
 
     $.each(a.tehai_list, function () {
-        html += "<img style=\"zoom:0.7;\" src=img/pai/" + this.type + "-" + this.direction + ".gif>";
-    });
+			   var jqImg = $("<img/>")
+				   .css("zoom","0.7")
+				   .attr("src","img/pai/" + this.type + "-" + this.direction + ".gif");
+			   jqSpan.append(jqImg);
+		   });
+    return jqSpan;
+}
 
-    return html;
-};
+function agariToEditableImgJq(a) {
 
+    //HTML生成
+    var jqSpan = $("<span/>");
+	var i=0;
+    $.each(a.tehai_list, function () {
+			   var jqImg = $("<img/>")
+				   .attr("id","pai" + i)
+				   .attr("src","img/pai/" + this.type + "-" + this.direction + ".gif")
+				   .attr("alt",this.type + "-" + this.direction)
+			   
+				   .css("zoom","0.7")
+				   .css("border-width","1px")
+				   .css("border-style","solid")		
+				   .css("border-color","#ffffff")		
+				   .hover(
+					   function(){
+						   //マウスオーバー時
+						   $(this).css("border-color","#990000");
+					   },
+					   function(){
+						   //マウスオーバー解除
+						   $(this).css("border-color","#ffffff");
+					   }
+				   )
+				   .click(
+					   function(){
+						   //クリック時
+						   dbgmsg("viewPhotoList","Selected Pai = "
+								  + $(this).attr('id') + ":"
+								  + $(this).attr('alt')
+								 );
+						   createPaiSelectDiv($(this));
+						   changePanel('selectpai');
+					   }
+				   );
+			   
+			   i++;
+			   jqSpan.append(jqImg);
+
+		   });//endeach
+
+    return jqSpan;
+}
+
+function createPaiSelectDiv(jq){
+	$("#div_selectpai").html("");
+    $.each(PAI_LIST, function () {
+			   dbgmsg("createPaiSelectDiv","add pai " + this);
+			   var jqImg = $("<img/>")
+				   .attr("src","img/pai/" + this + "-top.gif")
+				   .attr("alt",this)
+				   .css("border-width","1px")
+				   .css("border-style","solid")		
+				   .css("border-color","#ffffff")		
+				   .hover(
+					   function(){
+						   //マウスオーバー時
+						   $(this).css("border-color","#990000");
+					   },
+					   function(){
+						   //マウスオーバー解除
+						   $(this).css("border-color","#ffffff");
+					   }
+				   )
+				   .click(
+					   function(){
+						   //クリック時
+						   dbgmsg("viewPhotoList","Selected Pai = "
+								  + $(this).attr('alt')
+								 );
+						   //引数のjqueryオブジェクトにパイをセット
+						   jq.attr("src",$(this).attr('src'));
+						   changePanel("top");
+					   }
+				   );
+
+			   $("#div_selectpai").append(jqImg);
+		   });//end each
+}
 
 function agariToPointHtml(a) {
 
