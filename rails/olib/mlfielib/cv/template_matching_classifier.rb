@@ -12,7 +12,7 @@ module Mlfielib
   
       
       DIRPATH = 'olib/mlfielib/cv/base'
-        def classify(img)
+        def classify(img, scale=1.0)
             @pai_list = Array.new
             @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
                     "J2" => CV::PaiEnum.type_e::J2,
@@ -50,7 +50,7 @@ module Mlfielib
                     "S9" => CV::PaiEnum.type_e::S9
                    }
           
-          target_img = IplImage.load(img, CV_LOAD_IMAGE_GRAYSCALE)
+          target_img = CvMat.load(img, CV_LOAD_IMAGE_GRAYSCALE)
           
           Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
             target = target_img.clone
@@ -65,8 +65,11 @@ module Mlfielib
                             end
               
             begin
-              templ_img = IplImage.load(f, CV_LOAD_IMAGE_GRAYSCALE)
+              templ_img = CvMat.load(f, CV_LOAD_IMAGE_GRAYSCALE)
+              templ_img = templ_img.resize(CvSize.new(
+                templ_img.cols * scale, templ_img.rows * scale), :linear)
               result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
+
               min_val, max_val, min_loc, max_loc = result.min_max_loc
               target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
                         CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),

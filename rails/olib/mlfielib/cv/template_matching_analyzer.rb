@@ -19,7 +19,12 @@ module Mlfielib
       def analyze_raw(img_path)
         path = img_path #"lib/cv/test_img/test004.jpg" 
         tmc = CV::TemplateMatchingClassifier.new
-        pais = tmc.classify(path)
+
+        pais_candidate = []
+        pais_candidate << tmc.classify(path)
+        pais_candidate << tmc.classify(path, 0.9)
+        pais_candidate << tmc.classify(path, 0.8)
+        pais = pais_candidate.max_by{|p| p.size}
   
         debug path, pais if @debug
   
