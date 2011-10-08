@@ -113,7 +113,7 @@ module Mjt::Analysis
     def self.calc_mangan_scale(tehai)
       if tehai.han_num <= 4
         return 0
-      elsif (tehai.han_num = 3 && tehai.fu_num >= 70) || (tehai.han_num = 4 && tehai.fu_num >= 40) || tehai.han_num <= 5
+      elsif (tehai.han_num == 3 && tehai.fu_num >= 70) || (tehai.han_num == 4 && tehai.fu_num >= 40) || tehai.han_num <= 5
         return 1
       elsif tehai.han_num <= 7
         return 1.5
