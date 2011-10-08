@@ -59,7 +59,7 @@ module Mjt
       def self.junchan?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
           if mentsu.mentsu_type = "k" || mentsu.mentsu_type = "t"
-		      if mentsu.pai_list[0].type = j
+		      if mentsu.pai_list[0].type = "j"
 				return false
 			　 elseif mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
 				return false

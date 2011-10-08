@@ -36,7 +36,7 @@ module Mjt
           end
         end
         
-        if tehai.atama.type == "j" && (tehai.atama.number == 5 || tehai.atama.number == 6 || tehai.atama.number == 7)
+        if tehai.atama.type == "j" && (tehai.atama.number == "5" || tehai.atama.number == "6" || tehai.atama.number == "7")
           return false
         end
 
@@ -96,7 +96,7 @@ module Mjt
 
       ### 立直
       def self.reach?(tehai, agari)
-        if agari.reach_num == 1
+        if agari.reach_num == "1"
           return true
         end
         return false
