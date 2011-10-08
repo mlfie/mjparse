@@ -27,6 +27,7 @@ module Mjt
         yaku_list << Yaku.find_by_name("churen")        if  churen?(tehai, agari)	
         # 役満は該当したらreturn
         if yaku_list.size > 0
+		  tehai.yaku_list = yaku_list
           return
         end
 
