@@ -47,7 +47,7 @@ module Mjt
         yaku_list << Yaku.find_by_name("rinshan")         if  rinshan?(tehai, agari)
 		yaku_list << Yaku.find_by_name("chankan")         if  chankan?(tehai, agari)
         yaku_list << Yaku.find_by_name("haitei")          if  haitei?(tehai, agari)
-        yaku_list << Yaku.find_by_name("houtei")          if  houtei?(tehai, agari
+        yaku_list << Yaku.find_by_name("houtei")          if  houtei?(tehai, agari)
 		# 2ファン
         yaku_list << Yaku.find_by_name("ikkitsukan")      if  ikkitsukan?(tehai, agari)
         yaku_list << Yaku.find_by_name("chanta")          if  chanta?(tehai, agari)
