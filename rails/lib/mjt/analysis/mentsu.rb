@@ -16,6 +16,7 @@ module Mjt
       def initialize(pai_list, mentsu_type)
         self.pai_list     = pai_list
         self.mentsu_type  = mentsu_type
+        self.furo         = false
       end
     
       # 順子かどうか
