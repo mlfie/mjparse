@@ -275,19 +275,6 @@ function agariToEditableImgJq(a) {
 				   .attr("alt",this.type + "-" + this.direction)
 			   
 				   .css("zoom","0.7")
-				   .css("border-width","1px")
-				   .css("border-style","solid")		
-				   .css("border-color","#ffffff")		
-				   .hover(
-					   function(){
-						   //マウスオーバー時
-						   $(this).css("border-color","#990000");
-					   },
-					   function(){
-						   //マウスオーバー解除
-						   $(this).css("border-color","#ffffff");
-					   }
-				   )
 				   .click(
 					   function(){
 						   //クリック時
@@ -304,7 +291,7 @@ function agariToEditableImgJq(a) {
 			   jqSpan.append(jqImg);
 
 		   });//endeach
-
+	jqSpan.append("<br><font size=-3>牌をタッチすると解析結果を修正できます</font>");
     return jqSpan;
 }
 
