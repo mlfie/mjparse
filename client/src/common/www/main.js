@@ -236,8 +236,8 @@ function sendData() {
             infomsg("得点計算リクエスト正常終了");
             dbgmsg("sendData","RESPONSE:" + json2txt(eval(data)));
 
-            //$("#div_analized_img").append(agariToAnalizedImgJq(data.agari));
-            $("#div_analized_img").append(agariToEditableImgJq(data.agari));
+            //$("#div_analized_img").html(agariToAnalizedImgJq(data.agari));
+            $("#div_analized_img").html(agariToEditableImgJq(data.agari));
             $("#div_point").html(agariToPointHtml(data.agari));
             
         },
