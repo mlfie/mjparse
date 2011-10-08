@@ -96,7 +96,7 @@ module Mjt
 
       ### 立直
       def self.reach?(tehai, agari)
-        if agari.reach_num == "1"
+        if agari.reach_num == 1
           return true
         end
         return false
