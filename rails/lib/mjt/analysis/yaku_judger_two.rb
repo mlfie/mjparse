@@ -14,7 +14,7 @@ module Mjt
 
       ### 七対子
       def self.chitoitsu?(tehai, agari)
-	    if tehai.mentsu_list.size = "7"
+	    if tehai.mentsu_list.size == "7"
            return true
         end
         return false
