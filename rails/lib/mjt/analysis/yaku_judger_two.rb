@@ -52,6 +52,7 @@ module Mjt
 		    return true
 		  end
 		  return false
+		end
 	  end
 
       ### 一気通貫
