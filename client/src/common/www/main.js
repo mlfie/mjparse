@@ -1,11 +1,12 @@
 /*定数*/
 
 //得点計算リクエスト送信先URL
-var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
-//var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
+//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
+var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
 
 //写真取得・登録先URL
-var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
+//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
+var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
 
 var PAI_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
 
@@ -236,8 +237,8 @@ function sendData() {
             infomsg("得点計算リクエスト正常終了");
             dbgmsg("sendData","RESPONSE:" + json2txt(eval(data)));
 
-            //$("#div_analized_img").html(agariToAnalizedImgJq(data.agari));
-            $("#div_analized_img").html(agariToEditableImgJq(data.agari));
+            $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
+            //$("#div_analized_img").html(agariToEditableImgJq(data.agari));
             $("#div_point").html(agariToPointHtml(data.agari));
             
         },
@@ -249,18 +250,24 @@ function sendData() {
 
 }
 
-function agariToAnalizedImgJq(a) {
+function agariToAnalizedImgHtml(a) {
 
     //HTML生成
-    var jqSpan = $("<span/>");
+    var html = "";
 
-    $.each(a.tehai_list, function () {
-			   var jqImg = $("<img/>")
-				   .css("zoom","0.7")
-				   .attr("src","img/pai/" + this.type + "-" + this.direction + ".gif");
-			   jqSpan.append(jqImg);
-		   });
-    return jqSpan;
+
+    for (var i = 0; i < 28; i += 2) {
+		
+        var paistr = a.tehai_list.slice(i, i + 2);
+        if (paistr == "") {
+			
+            //解析に失敗したパイがある場合
+            paistr = "z0"; //失敗画像のファイル名"z0"を指定
+        }
+        html += "<img width=17 src=img/pai/" + paistr + "-top.gif>";
+    }
+		
+    return html;
 }
 
 function agariToEditableImgJq(a) {
