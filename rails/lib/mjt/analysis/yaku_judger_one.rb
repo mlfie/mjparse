@@ -94,14 +94,6 @@ module Mjt
         return false
       end # end def
 
-      ### 立直
-      def self.reach?(tehai, agari)
-        if agari.reach_num == 1
-          return true
-        end
-        return false
-      end
-
       ### 一発
       def self.ippatsu?(tehai, agari)
         if agari.is_ippatsu
