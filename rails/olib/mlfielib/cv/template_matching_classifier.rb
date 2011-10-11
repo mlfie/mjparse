@@ -9,8 +9,10 @@ module Mlfielib
   module CV
     class TemplateMatchingClassifier
       include OpenCV
-
-      def initialize()
+  
+      DIRPATH = 'olib/mlfielib/cv/base'
+        def classify(img, scale=1.0)
+            @pai_list = Array.new
             @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
                     "J2" => CV::PaiEnum.type_e::J2,
                     "J3" => CV::PaiEnum.type_e::J3,
@@ -46,15 +48,11 @@ module Mlfielib
                     "S8" => CV::PaiEnum.type_e::S8,
                     "S9" => CV::PaiEnum.type_e::S9
                    }
-      end
-      
-      DIRPATH = 'olib/mlfielib/cv/base'
-        def classify(img, scale=1.0)
-
+          
           target_img = CvMat.load(img, CV_LOAD_IMAGE_GRAYSCALE)
-          pai_list = []
           
           Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
+            target = target_img.clone
             pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
             pai_direction = case File.basename(f).split('.')[1]
                             when 't'
@@ -64,49 +62,28 @@ module Mlfielib
                             else
                               :top
                             end
-            pai_list = pai_list.concat(search_pai(target_img, f, pai_type, pai_direction, scale))
-            pai_list = pai_list.concat(search_pai_fliped(target_img, f, pai_type, pai_direction, scale))
-          
+              
+            begin
+              templ_img = CvMat.load(f, CV_LOAD_IMAGE_GRAYSCALE)
+              templ_img = templ_img.resize(CvSize.new(
+                templ_img.cols * scale, templ_img.rows * scale), :linear)
+              result = target.match_template(templ_img, CV_TM_CCOEFF_NORMED)
+
+              min_val, max_val, min_loc, max_loc = result.min_max_loc
+              target.rectangle!(CvPoint.new(max_loc.x, max_loc.y), 
+                        CvPoint.new(max_loc.x + templ_img.cols, max_loc.y + templ_img.rows),
+                       :color => CvColor::White, :thickness => -1)
+              if(max_val > 0.6)        
+                pai = CV::Pai.new(max_loc.x, max_loc.y, templ_img.cols, templ_img.rows, max_val, pai_type, pai_direction)
+                @pai_list.push(pai)
+               
+                puts "val = #{pai.value}, type = #{pai.type}"
+              end
+            end while (max_val > 0.6)
+            
           }
-          return pai_list
+          return @pai_list
           
-        end
-
-        def search_pai_fliped(target_img, template_img_path, pai_type, pai_direction, scale)
-          pai_list = search_pai(target_img.flip(:xy), template_img_path, pai_type, pai_direction, scale)
-          pai_list.map{|pai|
-            pai.x = target_img.cols - pai.x
-            pai.y = target_img.rows - pai.y
-            pai
-          }
-        end
-          
-
-        def search_pai(target_img, template_img_path, pai_type, pai_direction, scale)
-          target = target_img.clone
-          pai_list = []
-
-          template_img = CvMat.load(template_img_path, CV_LOAD_IMAGE_GRAYSCALE)
-          template_img = template_img.resize(
-            CvSize.new(template_img.cols * scale, template_img.rows * scale),
-            :linear)
-          result = target.match_template(template_img, CV_TM_CCOEFF_NORMED)
-
-          begin
-            min_val, max_val, min_loc, max_loc = result.min_max_loc
-            result.rectangle!(
-              CvPoint.new(max_loc.x, max_loc.y),
-              CvPoint.new(max_loc.x + template_img.cols, max_loc.y + template_img.rows),
-              :color => CvColor::Black,
-              :thickness => -1
-            )
-            if(max_val > 0.6)
-              pai = CV::Pai.new(max_loc.x, max_loc.y, template_img.cols, template_img.rows,max_val, pai_type, pai_direction)
-              pai_list.push(pai)
-            end
-          end while(max_val > 0.6)
-
-          return pai_list
         end
     end
   end
