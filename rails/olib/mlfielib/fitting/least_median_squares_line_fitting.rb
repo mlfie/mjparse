@@ -11,7 +11,7 @@ module Mlfielib
       end
   
       def estimated_step_num
-        return 2000
+        return 100
       end
   
       def search
