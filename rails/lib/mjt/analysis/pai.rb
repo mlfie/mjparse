@@ -2,19 +2,21 @@ module Mjt
   module Analysis
     class Pai
       # 牌の種類
-      PAI_TYPE_MANZU  = 'm'
-      PAI_TYPE_SOUZU  = 's'
-      PAI_TYPE_PINZU  = 'p'
-      PAI_TYPE_JIHAI  = 'j'
+      PAI_TYPE_MANZU      = 'm'
+      PAI_TYPE_SOUZU      = 's'
+      PAI_TYPE_PINZU      = 'p'
+      PAI_TYPE_JIHAI      = 'j'
+      PAI_TYPE_REVERSE    = 'r' 
       
       # 字牌を表現する数字
-      PAI_NUMBER_TON    = 1
-      PAI_NUMBER_NAN    = 2
-      PAI_NUMBER_SHA    = 3
-      PAI_NUMBER_PEI    = 4
-      PAI_NUMBER_HAKU   = 5
-      PAI_NUMBER_HATSU  = 6
-      PAI_NUMBER_CHUN   = 7
+      PAI_NUMBER_TON      = 1
+      PAI_NUMBER_NAN      = 2
+      PAI_NUMBER_SHA      = 3
+      PAI_NUMBER_PEI      = 4
+      PAI_NUMBER_HAKU     = 5
+      PAI_NUMBER_HATSU    = 6
+      PAI_NUMBER_CHUN     = 7
+      PAI_NUMBER_REVERSE  = 0
 
       attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
                     :number,  # 数字(字牌の場合、1:東 2:南 3:西 4:北 5:白 6:發 7:中)

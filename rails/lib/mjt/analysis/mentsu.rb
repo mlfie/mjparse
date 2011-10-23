@@ -13,10 +13,10 @@ module Mjt
                     :furo         # 副露面子かどうか(true:副露, false:門前)
       
       # 初期化メソッド
-      def initialize(pai_list, mentsu_type)
+      def initialize(pai_list, mentsu_type, furo)
         self.pai_list     = pai_list
         self.mentsu_type  = mentsu_type
-        self.furo         = false
+        self.furo         = furo
       end
     
       # 順子かどうか
