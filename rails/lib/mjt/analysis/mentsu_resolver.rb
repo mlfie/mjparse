@@ -51,32 +51,36 @@ module Mjt::Analysis
       
       # step3. アガリ牌を設定する
       @pai_list[0].agari = true   # Pai配列が逆さになっているため、先頭がアガリ牌
+      
+      # step4. 暗槓を取得する
+      @pai_list.reverse!      # Pai配列の並びを元に戻す
+      get_ankan
 
-      # step4. 雀頭候補を取得する
+      # step5. 雀頭候補を取得する
       @pai_list.sort_by! { |pai| [pai.type, pai.number] }
       @atama_queue = Array.new
       get_atama_queue
       
-      # step5. 雀頭候補を仮定して門前面子の状況を走査する(以降、@pai_listに対する編集は禁止)
+      # step6. 雀頭候補を仮定して門前面子の状況を走査する(以降、@pai_listに対する編集は禁止)
       if @atama_queue.size != 0
         # for atama_pos in @atama_queue
         @atama_queue.each do |_atama_pos|
           @atama = @pai_list[_atama_pos].clone
-          # step5-1. 雀頭を除く門前手牌を牌の種類毎に集計する
+          # step6-1. 雀頭を除く門前手牌を牌の種類毎に集計する
           @pai_counts = Array.new
           count_same_pai(_atama_pos)
           
-          # step5-2. 手牌候補として門前手牌を面子の組み合わせ分だけ作成する
+          # step6-2. 手牌候補として門前手牌を面子の組み合わせ分だけ作成する
           @mentsu_list = Array.new
           set_tehai_normal(@pai_counts)            
         end
         
-        # step6. 雀頭候補が7枚の場合、七対子の可能性がある
+        # step7. 雀頭候補が7枚の場合、七対子の可能性がある
         if !@furo_flag && @pai_list.size == 14 && @atama_queue.size == 7 then
           set_tehai_7toitsu
         end
 
-        # step7. 雀頭が存在して面子が完全に揃わない場合、国士無双 or　十三不塔の可能性がある
+        # step8. 雀頭が存在して面子が完全に揃わない場合、国士無双 or　十三不塔の可能性がある
         if !@furo_flag && @pai_list.size == 14 && @atama_queue.size == 1 && self.tehai_list.size == 0 then
           set_tehai_tokusyu
         end
@@ -249,7 +253,38 @@ module Mjt::Analysis
     end
 
 #*****************************************************************#
-# step4. 雀頭候補を取得する
+# step4. 暗槓を取得する
+#*****************************************************************#
+    def get_ankan
+      for i in 0..(@pai_list.size-3)
+        if @pai_list[i].type == Mjt::Analysis::Pai::PAI_TYPE_REVERSE then
+          # パターン1. 背面牌に挟まれてる場合
+          if i < (@pai_list.size - 4) && @pai_list[i+1].type != Mjt::Analysis::Pai::PAI_TYPE_REVERSE && @pai_list[i+1] == @pai_list[i+2] && @pai_list[i+3].type == Mjt::Analysis::Pai::PAI_TYPE_REVERSE then
+            add_ankan(@pai_list[i+1])
+            @pai_list.slice!(i,4)
+          # パターン2. 背面牌を挟んでいる場合
+          elsif 0 < i && @pai_list[i-1].type != Mjt::Analysis::Pai::PAI_TYPE_REVERSE && @pai_list[i-1] == @pai_list[i+2] && @pai_list[i+1].type == Mjt::Analysis::Pai::PAI_TYPE_REVERSE then
+            add_ankan(@pai_list[i-1])
+            @pai_list.slice!(i-1,4)
+          end
+        end
+      end
+    end
+
+    #-------------------------------------------------#
+    # 暗槓面子(裏向きのパターン)を取得する
+    #-------------------------------------------------#
+    def add_ankan(pai)
+        pai_list = Array.new
+        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_KANTSU, false)
+    end
+
+#*****************************************************************#
+# step5. 雀頭候補を取得する
 #*****************************************************************#
     #-------------------------------------------------#
     # 雀頭候補を取得する
@@ -264,7 +299,7 @@ module Mjt::Analysis
     end
       
 #*****************************************************************#
-# step5-1. 雀頭を除く門前手牌を牌の種類毎に集計する
+# step6-1. 雀頭を除く門前手牌を牌の種類毎に集計する
 #*****************************************************************#
     #-------------------------------------------------#
     # 各牌の個数を調べる
@@ -296,7 +331,7 @@ module Mjt::Analysis
     end
     
 #*****************************************************************#
-# step5-2. 手牌候補として門前手牌を面子の組み合わせ分だけ作成する
+# step6-2. 手牌候補として門前手牌を面子の組み合わせ分だけ作成する
 #*****************************************************************#
     #-------------------------------------------------#
     # 再帰呼び出しで面子候補リストを分解していく。
@@ -314,7 +349,7 @@ module Mjt::Analysis
         # _pai_count_list = _pai_count_list.sort_by { |pc| [pc.type, pc.number] }
         _pai_count_list.sort_by! { |pc| [pc.type, pc.number] }
         if is_kantsu?(_pai_count_list[0]) then
-          @mentsu_list.push(get_kantsu_mentsu(_pai_count_list[0]))
+          @mentsu_list.push(add_kantsu(_pai_count_list[0]))
           _pai_count_list.shift
           set_tehai_normal(_pai_count_list)
           _pai_count_list.unshift(pai_count)
@@ -325,7 +360,7 @@ module Mjt::Analysis
         # _pai_count_list = _pai_count_list.sort_by { |pc| [pc.type, pc.number] }
         _pai_count_list.sort_by! { |pc| [pc.type, pc.number] }
         if is_koutsu?(_pai_count_list[0]) then
-          @mentsu_list.push(get_koutsu_mentsu(_pai_count_list[0]))
+          @mentsu_list.push(add_koutsu(_pai_count_list[0]))
           if _pai_count.count == 3 then
             _pai_count_list.shift
             set_tehai_normal(_pai_count_list)
@@ -345,7 +380,7 @@ module Mjt::Analysis
           pai_count1 = _pai_count_list[0]
           pai_count2 = _pai_count_list[1]
           pai_count3 = _pai_count_list[2]
-          @mentsu_list.push(get_shuntsu_mentsu(pai_count1, pai_count2, pai_count3))
+          @mentsu_list.push(add_shuntsu(pai_count1, pai_count2, pai_count3))
           _is_shift1 = false
           _is_shift2 = false
           _is_shift3 = false
@@ -392,9 +427,9 @@ module Mjt::Analysis
     end
     
     #-------------------------------------------------#
-    # 暗槓面子を取得する
+    # 暗槓面子(表向きのパターン)を取得する
     #-------------------------------------------------#
-    def get_kantsu_mentsu(pai)
+    def add_kantsu(pai)
         pai_list = Array.new
         pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
         pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
@@ -406,7 +441,7 @@ module Mjt::Analysis
     #-------------------------------------------------#
     # 刻子面子を取得する
     #-------------------------------------------------#
-    def get_koutsu_mentsu(pai)
+    def add_koutsu(pai)
         pai_list = Array.new
         pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
         pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
@@ -417,7 +452,7 @@ module Mjt::Analysis
     #-------------------------------------------------#
     # 順子面子を取得する
     #-------------------------------------------------#
-    def get_shuntsu_mentsu(pai1, pai2, pai3)
+    def add_shuntsu(pai1, pai2, pai3)
         pai_list = Array.new
         pai_list << Pai.new(pai1.type + pai1.number.to_s, pai1.is_naki, pai1.is_agari)
         pai_list << Pai.new(pai2.type + pai2.number.to_s, pai2.is_naki, pai2.is_agari)
@@ -465,7 +500,7 @@ module Mjt::Analysis
     end
 
 #*****************************************************************#
-# step6. 雀頭候補が7枚の場合、七対子の可能性がある
+# step7. 雀頭候補が7枚の場合、七対子の可能性がある
 #*****************************************************************#
     #-------------------------------------------------#
     # 七対子面子かどうかを判断して手牌候補に加える
@@ -501,7 +536,7 @@ module Mjt::Analysis
     end
 
 #*****************************************************************#
-# step7. 雀頭が存在して面子が完全に揃わない場合、国士無双 or　十三不塔の可能性がある
+# step8. 雀頭が存在して面子が完全に揃わない場合、国士無双 or　十三不塔の可能性がある
 #*****************************************************************#
     #-------------------------------------------------#
     # 雀頭を除く全ての牌を12枚の面子として手牌候補に加える
