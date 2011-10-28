@@ -1,4 +1,4 @@
-module Mjt
+module Mlfielib
   module Analysis
     class Pai
       # 牌の種類
@@ -17,6 +17,12 @@ module Mjt
       PAI_NUMBER_HATSU    = 6
       PAI_NUMBER_CHUN     = 7
       PAI_NUMBER_REVERSE  = 0
+      
+      # 牌の向き
+      PAI_DIRECT_TOP      = 't'
+      PAI_DIRECT_LEFT     = 'l'
+      PAI_DIRECT_BUTTOM   = 'b'
+      PAI_DIRECT_RIGHT    = 'r'
 
       attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
                     :number,  # 数字(字牌の場合、1:東 2:南 3:西 4:北 5:白 6:發 7:中)

@@ -1,12 +1,12 @@
-module Mjt
+module Mlfielib
   module Analysis 
     class Mentsu
       # 面子の種類
-      MENTSU_TYPE_SHUNTSU = 's'
-      MENTSU_TYPE_KOUTSU  = 'k'
-      MENTSU_TYPE_KANTSU  = '4'
-      MENTSU_TYPE_TOITSU  = 't'
-      MENTSU_TYPE_TOKUSYU = 'y'
+      MENTSU_TYPE_SHUNTSU = 's'   # 順子系面子(順子, チー)
+      MENTSU_TYPE_KOUTSU  = 'k'   # 刻子系面子(刻子、ポン)
+      MENTSU_TYPE_KANTSU  = '4'   # 槓子系面子(暗槓、明槓)
+      MENTSU_TYPE_TOITSU  = 't'   # 対子系面子(対子)
+      MENTSU_TYPE_TOKUSYU = 'y'   # 特殊系面子(国士無双、十三不塔)
 
       attr_accessor :pai_list,    # 牌(Paiクラス)のリスト
                     :mentsu_type, # 面子の種類(s:順子, k:刻子, 4:槓子, t:対子, y:特殊形)

@@ -1,4 +1,4 @@
-module Mjt::Analysis
+module Mlfielib::Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
                   :atama,         # 雀頭(1枚)
@@ -14,6 +14,12 @@ module Mjt::Analysis
       self.mentsu_list = mentsu_list
       self.atama = atama
       self.yaku_list = Array.new
+      self.fu_num = 0
+      self.han_num = 0
+      self.mangan_scale = 0
+      self.total_point = 0
+      self.parent_point = 0
+      self.child_point = 0
     end
   end
 end
