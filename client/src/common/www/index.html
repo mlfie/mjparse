@@ -25,25 +25,40 @@
 
       <div data-role="content">
         <center>
-          <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
+          <div data-role="collapsible"  data-collapsed="false" 
+               data-content-theme="c">
             <h3>アガリ写真</h3>
-            <img id="img_top_photo" width="150" height="150" src="img/nophoto.jpg" alt=""/>
+            <img id="img_top_photo" width="150" height="150" 
+                 src="img/nophoto.jpg" alt=""/>
             <div data-role="controlgroup" data-type="horizontal">
               <a onclick="capturePhoto()" data-role="button" >撮影</a>
               <a onclick="selectPhoto();" data-role="button">選択</a>
-              <a onclick="showServerPhotoList()" data-role="button">サーバ</a>
+              <a onclick="showServerPhotoList()" data-role="button">
+                サーバ
+              </a>
             </div>
-            <input id="img_url" type="text" name="img_url" style="display:none;">
+            <input id="img_url" type="text" name="img_url" 
+                   style="display:none;">
           </div>
-          <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
+          <div data-role="collapsible"  data-collapsed="false" 
+               data-content-theme="c">
             <h3>アガリ状況</h3>
             <div id="div_state_str"></div>
 
             <a href="#state" data-role="button">状況を変更</a>
           </div>
-          <a data-role="button" data-theme="e" onclick="calcPoint();">得点計算</a>
+          <a data-role="button" data-theme="e" onclick="calcPoint();">
+            得点計算
+          </a>
           <a data-role="button" onclick="clearAll();" >全てクリア</a>
         </center>
+
+
+        <img id="hoge" src="img/pai/p3-top.gif">
+
+
+
+
       </div>
 
       <div data-role="footer">
@@ -153,29 +168,46 @@
 
       <div data-role="content">
         <center>
-          <div data-role="collapsible"  data-collapsed="false" 
-               data-content-theme="c">
-            <h2>画像解析結果</h2>
-            <img id="img_result_photo" width="150" height="150" 
-                 src="img/nophoto.jpg" alt=""/>
-            <div id="div_analized_img"></div>
-          </div>
+
           <div data-role="collapsible"  data-collapsed="false" 
                data-content-theme="c">
             <h2>得点</h2>
             <div id="div_point"></div>
           </div>
-          <a href="#index">戻る</a>
 
+          <div data-role="collapsible"  data-collapsed="false" 
+               data-content-theme="c">
+            <h2>画像解析結果</h2>
+            <img id="img_result_photo" width="150" height="150" 
+                 src="img/nophoto.jpg" alt=""/>
+            <p>↓</p>
+            <div id="div_analized_img"></div>
+            <a data-role="button" href="#fix">解析結果訂正</a>
+          </div>
+          <a data-role="button" data-rel="back">戻る</a>
         </center>
       </div>
 
       <div data-role="footer">
-        <a href="#debug">debug</a>
+        <a data-role="button" href="#debug">debug</a>
       </div>
     </div>
 
 
+
+    <!--画像解析訂正画面-->
+    <div data-role="page" id="fix" data-theme="c">
+      <div data-role="header">
+        <h1>画像解析訂正</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+      <div data-role="content">
+        <div id="dic_fix"></div>
+      </div>
+      <div data-role="footer">
+        <a data-role="button" href="#debug">debug</a>
+      </div>
+    </div>
 
     <!--デバッグ画面-->
     <div data-role="page" id="debug" data-theme="c">

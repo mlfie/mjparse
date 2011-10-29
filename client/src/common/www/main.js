@@ -17,7 +17,7 @@ var NO_IMAGE="img/nophoto.jpg";
 
 var PHOTO_TYPE_NONE = "none";
 var PHOTO_TYPE_BASE64 = "base64";
-var PHOTO_TYPE_URL = "url;"
+var PHOTO_TYPE_URL = "url";
 
 /*変数*/
 
@@ -38,6 +38,7 @@ var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
  */
 $(document).ready(function(){
     updateStateStr();
+                      $("#hoge").draggable();
 });
 
 function infomsg(message) {
@@ -393,14 +394,16 @@ function sendCalcData(){
             success: function (data, textStatus, xhr) {
                 dbgmsg("sendCalcData","RESPONSE:" + json2txt(eval(data)));
 
+                //アガリ結果表示
+                $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
+                $("#div_point").html(agariToPointHtml(data.agari));
+
+                //画像解析訂正画面にも表示
+                $("#div_fix").html(agariToEditableImgJq(data.agari));
+                
                 //ロード中メッセージ除去
                 hideLoadMsg();
 
-                //アガリ結果表示
-                $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
-                //$("#div_analized_img").html(agariToEditableImgJq(data.agari));
-                $("#div_point").html(agariToPointHtml(data.agari));
-                
                 //画面遷移
                 $.mobile.changePage('#result');
             },
@@ -416,7 +419,6 @@ function agariToAnalizedImgHtml(agari) {
 
     //HTML生成
     var html = "";
-
 
     for (var i = 0; i < 28; i += 2) {
         
@@ -485,22 +487,30 @@ function agariToPointHtml(a) {
     return html;
 };
 
-
 /**********************************************
- * 画像解析結果編集
+ * 画像解析訂正
  **********************************************/
 
-function agariToEditableImgJq(a) {
+function agariToEditableImgJq(agari) {
 
     //HTML生成
     var jqSpan = $("<span/>");
-    var i=0;
-    $.each(a.tehai_list, function () {
-        var jqImg = $("<img/>")
-        .attr("id","pai" + i)
-        .attr("src","img/pai/" + this.type + "-" + this.direction + ".gif")
-        .attr("alt",this.type + "-" + this.direction)
+    var j=0;
+
+
+
+    for (var i = 0; i < 28; i += 2) {
         
+        var paistr = agari.tehai_list.slice(i, i + 2);
+        if (paistr == "") {     
+            //解析に失敗したパイがある場合
+            paistr = "z0"; //失敗画像のファイル名"z0"を指定
+        }
+       
+        var jqImg = $("<img/>")
+        .attr("id","pai" + j)
+        .attr("src","img/pai/" + paistr + "-top.gif")
+        .attr("alt",paistr)
         .css("zoom","0.7")
         .click(
             function(){
@@ -510,15 +520,13 @@ function agariToEditableImgJq(a) {
                        + $(this).attr('alt')
                       );
                 createPaiSelectDiv($(this));
-                changePanel('selectpai');
+                $.mobile.changePage("#paiselect","pop",false,false);
             }
         );
         
-        i++;
+        j++;
         jqSpan.append(jqImg);
-
-    });//endeach
-    jqSpan.append("<br><font size=-3>牌をタッチすると解析結果を修正できます</font>");
+    }//endfor
     return jqSpan;
 }
 
@@ -550,7 +558,7 @@ function createPaiSelectDiv(jq){
                       );
                 //引数のjqueryオブジェクトにパイをセット
                 jq.attr("src",$(this).attr('src'));
-                changePanel("top");
+                $.mobile.changePage("#fix","pop",true,false);
             }
         );
 
