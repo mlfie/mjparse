@@ -12,6 +12,7 @@
     <script type="text/javascript" src="jquery.mobile-1.0rc2.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="jquery.jdragdrop.js"></script>
   </head>
 
   <body>
@@ -25,39 +26,36 @@
 
       <div data-role="content">
         <center>
-          <div data-role="collapsible"  data-collapsed="false" 
-               data-content-theme="c">
+          <div data-role="collapsible" data-collapsed="false" data-content-theme="c">
             <h3>アガリ写真</h3>
-            <img id="img_top_photo" width="150" height="150" 
-                 src="img/nophoto.jpg" alt=""/>
-            <div data-role="controlgroup" data-type="horizontal">
-              <a onclick="capturePhoto()" data-role="button" >撮影</a>
-              <a onclick="selectPhoto();" data-role="button">選択</a>
-              <a onclick="showServerPhotoList()" data-role="button">
-                サーバ
-              </a>
-            </div>
-            <input id="img_url" type="text" name="img_url" 
-                   style="display:none;">
+            <fieldset class="ui-grid-a">
+              <div class="ui-block-a">
+                <img id="img_top_photo" width="130" height="130" 
+                     src="img/nophoto.jpg" alt=""/>
+                <input id="img_url" type="text" name="img_url" 
+                       style="display:none;">
+              </div>
+              <div class="ui-block-b">
+                <div data-role="controlgroup">
+                  <a onclick="capturePhoto()" data-role="button" >撮影</a>
+                  <a onclick="selectPhoto();" data-role="button">選択</a>
+                  <a onclick="showServerPhotoList()" data-role="button">サーバ</a>
+                </div>
+              </div>
+            </fieldset>
           </div>
-          <div data-role="collapsible"  data-collapsed="false" 
-               data-content-theme="c">
+          <div data-role="collapsible" data-collapsed="false" data-content-theme="c">
             <h3>アガリ状況</h3>
             <div id="div_state_str"></div>
-
-            <a href="#state" data-role="button">状況を変更</a>
+            <div data-role="controlgroup">
+              <a href="#state" data-role="button">変更</a>
+            </div>
           </div>
           <a data-role="button" data-theme="e" onclick="calcPoint();">
             得点計算
           </a>
           <a data-role="button" onclick="clearAll();" >全てクリア</a>
         </center>
-
-
-        <img id="hoge" src="img/pai/p3-top.gif">
-
-
-
 
       </div>
 
@@ -193,8 +191,6 @@
       </div>
     </div>
 
-
-
     <!--画像解析訂正画面-->
     <div data-role="page" id="fix" data-theme="c">
       <div data-role="header">
@@ -202,7 +198,7 @@
         <a data-role="button" data-rel="back">戻る</a>
       </div>
       <div data-role="content">
-        <div id="dic_fix"></div>
+        <div id="div_fix"></div>
       </div>
       <div data-role="footer">
         <a data-role="button" href="#debug">debug</a>

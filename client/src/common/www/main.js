@@ -37,9 +37,8 @@ var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
  * DOMロード完了
  */
 $(document).ready(function(){
-    updateStateStr();
-                      $("#hoge").draggable();
-});
+					  updateStateStr();
+				  });
 
 function infomsg(message) {
     $("<div/>")
@@ -497,8 +496,6 @@ function agariToEditableImgJq(agari) {
     var jqSpan = $("<span/>");
     var j=0;
 
-
-
     for (var i = 0; i < 28; i += 2) {
         
         var paistr = agari.tehai_list.slice(i, i + 2);
@@ -565,10 +562,6 @@ function createPaiSelectDiv(jq){
         $("#div_selectpai").append(jqImg);
     });//end each
 }
-
-
-
-
 
 /**********************************************
  * テスト・デバッグ用
