@@ -21,60 +21,42 @@
 
       <div data-role="header">
         <h1>Mj-Tsumotter</h1>
-        <a data-role="button" onclick="$.mobile.changePage('#result');calcPointDummy();">
-          得点計算ダミー
-        </a>
       </div>
 
       <div data-role="content">
         <center>
-
           <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
             <h3>アガリ写真</h3>
-            <img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
+            <img id="img_top_photo" width="150" height="150" src="img/nophoto.jpg" alt=""/>
             <div data-role="controlgroup" data-type="horizontal">
-              <a data-role="button" href="#confirm" data-inline="true" 
-                 data-rel="dialog" data-dransition="pop"  >撮影</a>
+              <a onclick="capturePhoto()" data-role="button" >撮影</a>
               <a onclick="selectPhoto();" data-role="button">選択</a>
               <a onclick="showServerPhotoList()" data-role="button">サーバ</a>
             </div>
-
             <input id="img_url" type="text" name="img_url" style="display:none;">
           </div>
-
           <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
             <h3>アガリ状況</h3>
             <div id="div_state_str"></div>
-            <a href="#state" data-role="button">状況の変更</a>
+
+            <a href="#state" data-role="button">状況を変更</a>
           </div>
-
-          <a data-role="button" data-theme="e" onclick="calcPoint();">
-            得点計算
-          </a>
-
+          <a data-role="button" data-theme="e" onclick="calcPoint();">得点計算</a>
+          <a data-role="button" onclick="clearAll();" >全てクリア</a>
         </center>
       </div>
+
       <div data-role="footer">
         <a href="#debug">debug</a>
+        <a data-role="button" onclick="dummyPhoto();">
+          ダミー写真
+        </a>
+        <a data-role="button" onclick="calcPointDummy();">
+          得点計算ダミー
+        </a>
       </div>
+
     </div>
-
-
-
-    <!--画像確認画面-->
-    <div data-role="page" id="confirm" data-theme="c">
-      <div data-role="header">
-        <h1>画像確認</h1>
-        <a data-role="button" data-rel="back">戻る</a>
-      </div>
-      <div data-role="content">
-        <div id="div_confirm"></div>
-      </div>
-      <div data-role="footer">
-        <a href="#debug">debug</a>
-      </div>
-    </div>
-
 
     <!--サーバから選択-->
     <div data-role="page" id="serverselect" data-theme="c">
@@ -152,6 +134,8 @@
             </fieldset>
           </div>
           <a data-role="button" data-theme="e" onclick="changeState()">変更</a>
+          <a data-role="button" data-rel="back">キャンセル</a>
+          <a data-role="button" onclick="clearState()">クリア</a>
         </form>
       </div>
       <div data-role="footer">
@@ -166,12 +150,13 @@
         <h1>得点計算結果</h1>
         <a data-role="button" data-rel="back">戻る</a>
       </div>
+
       <div data-role="content">
         <center>
           <div data-role="collapsible"  data-collapsed="false" 
                data-content-theme="c">
             <h2>画像解析結果</h2>
-            <img id="div_photo_img" width="150" height="150" 
+            <img id="img_result_photo" width="150" height="150" 
                  src="img/nophoto.jpg" alt=""/>
             <div id="div_analized_img"></div>
           </div>
@@ -180,8 +165,11 @@
             <h2>得点</h2>
             <div id="div_point"></div>
           </div>
+          <a href="#index">戻る</a>
+
         </center>
       </div>
+
       <div data-role="footer">
         <a href="#debug">debug</a>
       </div>
