@@ -119,8 +119,12 @@ function capturePhoto() {
 
 function selectPhoto() {
     dbgmsg("selectPhoto","start");
-    navigator.camera.getPicture(cameraSuccess,cameraFail,
-                                {quality: 50, sourceType: pictureSource.PHOTOLIBRARY});
+    navigator.camera.getPicture(
+        cameraSuccess,
+        cameraFail,
+        {quality: 50, 
+         sourceType: 0,
+         targetWidth: 100});
 }
 
 function cameraSuccess(imageData){
