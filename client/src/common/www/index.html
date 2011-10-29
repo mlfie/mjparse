@@ -1,243 +1,206 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="ja-JP">
+<!DOCTYPE html>
+
+<html>
+
   <head>
+    <meta charset="UTF-8">
     <title>Mj-Tsumotter</title>
-    <meta http-equiv="Content-Script-Type" content="text/javascript">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="user-scalable=no, width=device-width">
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
-    <script type="text/javascript" charset="utf-8" src="jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="util.js"></script>
-    <script type="text/javascript" charset="utf-8" src="main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="jquery.mobile-1.0rc2.min.css" type="text/css" />
+    <script type="text/javascript" src="phonegap-1.0.0.js"></script>
+    <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="jquery.mobile-1.0rc2.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="util.js"></script>
   </head>
 
-  <body onload="onLoad()">
+  <body>
 
-    <!--メッセージ-->
-    <div>
-      <img src="img/logo.jpg" alt="tsumotter" height="15px" >
-      <label id="infodiv">アガリ写真を撮影or選択してください</label>
-    </div>
+    <!--トップ画面-->
+    <div data-role="page" id="index" data-theme="c">
 
-    <!--サーバ上写真リストパネル-->
-    <div class="panel" id="panel_photolist"  style="display: none ;">
-      <button class="large" onclick="changePanel('top')">
-        topへ戻る
-      </button>
-	  <hr>
-	  <div id="div_photolist"></div>
-	  <hr>
-      <button class="large" onclick="changePanel('top')">
-        topへ戻る
-      </button>
-    </div>
+      <div data-role="header">
+        <h1>Mj-Tsumotter</h1>
+        <a data-role="button" onclick="$.mobile.changePage('#result');calcPointDummy();">
+          得点計算ダミー
+        </a>
+      </div>
 
-    <!--写真撮影／選択後画面パネル-->
-    <div class="panel" id="panel_confirm"  style="display: none ;">
-      <center>
-        <img id="confirm" width="150" height="150" src="img/nophoto.jpg" alt=""/>
-      </center>
-      <button class="large" onclick="sendPhoto();">ＹＥＳ</button>
-      <button class="large" onclick="changePanel('top');">ＮＯ</button>
-    </div>
+      <div data-role="content">
+        <center>
 
-    <!--パイ選択画面パネル-->
-    <div class="panel" id="panel_selectpai"  style="display: none ;">
-	  <div id="div_selectpai">
-	  </div>
-    </div>
+          <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
+            <h3>アガリ写真</h3>
+            <img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
+            <div data-role="controlgroup" data-type="horizontal">
+              <a data-role="button" href="#confirm" data-inline="true" 
+                 data-rel="dialog" data-dransition="pop"  >撮影</a>
+              <a onclick="selectPhoto();" data-role="button">選択</a>
+              <a onclick="showServerPhotoList()" data-role="button">サーバ</a>
+            </div>
 
-    <!--トップ画面パネル-->
-    <div class="panel" id="panel_top" >
-
-      <!-- 左側 -->
-      <div style="float:left;width:48%">
-        <!--アガリ写真チャンク-->
-        <div id="chank_photo" class="chank" >
-          <b>アガリ写真</b>
-          <br>
-          <button class="large" onclick="capturePhoto();" >撮影</button>
-          <button class="large" onclick="selectPhoto();">選択</button>
-          <button class="large" onclick="dlPhoto();">サーバ</button>
-          <center>
-			<img id="image" width="150" height="150" src="img/nophoto.jpg" alt=""/>
-          </center>
-          <!--<font size=-4>URL
-            <input id="img_url" type="text" name="img_url">
-          </font>-->
-		  <input id="img_url" type="text" name="img_url" style="display:none;">
-        </div><!-- end chank -->
-        
-        <!--アガリ条件チャンク-->
-        <div id="chank_cond" class="chank">
-          <b>アガリ条件</b>
-          <div id="main_cond">
-            <label for="bakaze">
-              場風
-              <select id="bakaze" name="bakaze">
-                <option value="ton">東</option>
-                <option value="nan">南</option>
-                <option value="sha">西</option>
-                <option value="pei">北</option>
-              </select>
-            </label>
-            
-			<label for="jikaze">
-              自風
-              <select id="jikaze" name="jikaze">
-                <option value="ton">東</option>
-                <option value="nan">南</option>
-                <option value="sha">西</option>
-                <option value="pei">北</option>
-              </select>
-            </label>
-
-            <br>   
-
-            <label for="honba_num">
-              本場
-              <select id="honba_num" name="honba_num">
-                <script type="text/javascript" charset="utf-8">
-                  <!--
-                     for(i=0;i<10;i++) {
-                                       document.write("<option value=" + i + ">" + i + " <\/option>");
-                                       }
-                                       -->
-                     </script>
-              </select>
-            </label>
-            
-            <label for="is_tsumo">
-              アガリ
-              <select id="is_tsumo" name="is_tsumo">
-                <option value="true">ツモ</option>
-                <option value="false">ロン</option>
-              </select>
-            </label>
-
-            <br>   
-
-            <label for="dora_num">
-              ドラ
-              <select id="dora_num" name="dora_num">
-                <script type="text/javascript" charset="utf-8">
-                  <!--
-                     for(i=0;i<30;i++) {
-                                       document.write("<option value=" + i + ">" + i + " <\/option>");
-                                       }
-                                       -->
-                     </script>
-              </select>
-            </label>
-
-            <label for="reach_num"> 
-              リーチ
-              <select id="reach_num" name="reach_num">
-                <option value="0">なし</option>
-                <option value="1">ノーマル</option>
-                <option value="2">ダブリー</option>
-              </select>
-            </label>
-            
-            <br>
-
-            <label for="is_ippatsu">
-              一発
-              <input type="checkbox" id="is_ippatsu" name="is_ippatsu" class="checkbox">
-            </label>
-
-            <label for="is_haitei">
-              海底
-              <input type="checkbox" id="is_haitei" name="is_haitei" class="checkbox">
-            </label>
-
-            <br>
-
-            <label for="is_rinshan">
-              嶺上
-              <input type="checkbox" id="is_rinshan" name="is_rinshan" class="checkbox">
-            </label>
-
-            <label for="is_chankan">
-              槍槓
-              <input type="checkbox" id="is_chankan" name="is_chankan" class="checkbox">
-            </label>
-
-            <br>
-
-            <label for="is_tenho">
-              天和
-              <input type="checkbox" id="is_tenho" name="is_tenho" class="checkbox">
-            </label>
-
-            <label for="is_chiho">
-              地和
-              <input type="checkbox" id="is_chiho" name="is_chiho" class="checkbox">
-            </label>
-            
+            <input id="img_url" type="text" name="img_url" style="display:none;">
           </div>
 
-        </div><!-- end chank -->
+          <div data-role="collapsible"  data-collapsed="false" data-content-theme="c">
+            <h3>アガリ状況</h3>
+            <div id="div_state_str"></div>
+            <a href="#state" data-role="button">状況の変更</a>
+          </div>
 
+          <a data-role="button" data-theme="e" onclick="calcPoint();">
+            得点計算
+          </a>
+
+        </center>
+      </div>
+      <div data-role="footer">
+        <a href="#debug">debug</a>
+      </div>
     </div>
 
-      <div style="float:left;width:6%;">
-        <button  id="btn_send" disabled  class="large" onclick="sendData();" style="width:30px;height:250px;">
-          →<br>→<br>得<br>点<br>計<br>算<br>→<br>→<br>
-        </button>
+
+
+    <!--画像確認画面-->
+    <div data-role="page" id="confirm" data-theme="c">
+      <div data-role="header">
+        <h1>画像確認</h1>
+        <a data-role="button" data-rel="back">戻る</a>
       </div>
-
-      <!-- 右側 -->
-      <div style="float:left;width:46%;">  
-        <div id="chank_analized_img" class="chank">
-          <b>画像解析結果</b>
-          <div id="div_analized_img"></div>
-        </div>
-
-        <button id="btn_modAnalize" onclick="modAnalize();" style="width: 200;" disabled >
-          ↓↓訂正した解析結果で得点計算↓↓
-        </button>
-
-
-        <div id="chank_point" class="chank">
-          <b>得点</b>
-          <div id="div_point"></div>
-        </div>
+      <div data-role="content">
+        <div id="div_confirm"></div>
       </div>
-
-    </div><!-- end panel -->
-
-
-    <!-- 下側（デバッグ用） -->
-    <div style="clear:both;">
-      <button class="small" onclick="changePanel('debug')">
-        show debug message
-      </button>
+      <div data-role="footer">
+        <a href="#debug">debug</a>
+      </div>
     </div>
-    
-    
-
-    <button onclick="sendDummy();" >
-      写真投稿ダミー
-    </button>
-
-    <button  id="btn_send"  class="large" onclick="setImgUrl('http://fetaro-mjt.fedc.biz/img/22.jpg');sendData();">
-      得点計算ダミー
-    </button>
-    
 
 
-    <div class="panel" id="panel_debug"  style="display: none ;">
-      <button class="small" onclick="changePanel('top')">
-        topへ戻る
-      </button>
-      <br>
-      <label type="text" id="dbgdiv"></label>
-      <br>
-      <button class="small" onclick="changePanel('top')">
-        topへ戻る
-      </button>
+    <!--サーバから選択-->
+    <div data-role="page" id="serverselect" data-theme="c">
+      <div data-role="header">
+        <h1>サーバから選択</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+      <div data-role="content">
+        <div id="div_photolist"></div>
+      </div>
+      <div data-role="footer">
+        <a href="#debug">debug</a>
+      </div>
+    </div>
+
+
+    <!--アガリ状況-->
+    <div data-role="page" id="state" data-theme="c">
+      <div data-role="header">
+        <h1>アガリ状況</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+      <div data-role="content">
+        <form>
+          <div data-role="fieldcontain">
+            <label for="bakaze" class="select">場風:</label>
+            <select id="bakaze" name="bakaze">
+              <option value="ton">東</option>
+              <option value="nan">南</option>
+              <option value="sha">西</option>
+              <option value="pei">北</option>
+            </select>
+          </div>
+          <div data-role="fieldcontain">
+            <label for="honba_num">本場:</label>
+            <input type="range" name="honba_num" id="honba_num" value="0" min="0" max="8"  />
+          </div>
+          <div data-role="fieldcontain">
+            <label for="jikaze" class="select">自風:</label>
+            <select id="jikaze" name="jikaze">
+              <option value="ton">東</option>
+              <option value="nan">南</option>
+              <option value="sha">西</option>
+              <option value="pei">北</option>
+            </select>
+          </div>
+          <div data-role="fieldcontain">
+            <label for="is_tsumo">アガリ:</label>
+            <select id="is_tsumo" name="is_tsumo" data-role="slider">
+              <option value="true">ツモ</option>
+              <option value="false">ロン</option>
+            </select>
+          </div>
+          <div data-role="fieldcontain">
+            <label for="dora_num">ドラ枚数:</label>
+            <input type="range" name="dora_num" id="dora_num" value="0" min="0" max="10"  />
+          </div>
+          <div  data-role="fieldcontain"> 
+            <fieldset data-role="controlgroup"> 
+              <legend>その他役:</legend> 
+              <label for="is_reach">リーチ</label>
+              <input type="checkbox" id="is_reach" name="is_reach" class="checkbox">
+              <label for="is_ippatsu">一発</label>
+              <input type="checkbox" id="is_ippatsu" name="is_ippatsu" class="checkbox">
+              <label for="is_haitei">海底</label>
+              <input type="checkbox" id="is_haitei" name="is_haitei" class="checkbox">
+              <label for="is_rinshan">嶺上</label>
+              <input type="checkbox" id="is_rinshan" name="is_rinshan" class="checkbox">
+              <label for="is_chankan">槍槓</label>
+              <input type="checkbox" id="is_chankan" name="is_chankan" class="checkbox">
+              <label for="is_tenho">天和</label>
+              <input type="checkbox" id="is_tenho" name="is_tenho" class="checkbox">
+              <label for="is_chiho">地和</label>
+              <input type="checkbox" id="is_chiho" name="is_chiho" class="checkbox">
+            </fieldset>
+          </div>
+          <a data-role="button" data-theme="e" onclick="changeState()">変更</a>
+        </form>
+      </div>
+      <div data-role="footer">
+        <a href="#debug">debug</a>
+      </div>
+    </div>
+
+
+    <!--得点計算結果画面-->
+    <div data-role="page" id="result" data-theme="c">
+      <div data-role="header">
+        <h1>得点計算結果</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+      <div data-role="content">
+        <center>
+          <div data-role="collapsible"  data-collapsed="false" 
+               data-content-theme="c">
+            <h2>画像解析結果</h2>
+            <img id="div_photo_img" width="150" height="150" 
+                 src="img/nophoto.jpg" alt=""/>
+            <div id="div_analized_img"></div>
+          </div>
+          <div data-role="collapsible"  data-collapsed="false" 
+               data-content-theme="c">
+            <h2>得点</h2>
+            <div id="div_point"></div>
+          </div>
+        </center>
+      </div>
+      <div data-role="footer">
+        <a href="#debug">debug</a>
+      </div>
+    </div>
+
+
+
+    <!--デバッグ画面-->
+    <div data-role="page" id="debug" data-theme="c">
+      <div data-role="header">
+        <h1>debug</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+      <div data-role="content">
+        <div id="content_debug"></div>
+      </div>
+      <div data-role="footer">
+        <a href="#index">index</a>
+      </div>
     </div>
 
 
