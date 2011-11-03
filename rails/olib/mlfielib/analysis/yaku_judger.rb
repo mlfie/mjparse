@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'mlfielib/analysis/yaku_specimen'
-load 'mlfielib/analysis/yaku_judger_one'
-load 'mlfielib/analysis/yaku_judger_two'
-load 'mlfielib/analysis/yaku_judger_three_six'
-load 'mlfielib/analysis/yaku_judger_man'
+load 'mlfielib/analysis/yaku_judger_one.rb'
+load 'mlfielib/analysis/yaku_judger_two.rb'
+load 'mlfielib/analysis/yaku_judger_three_six.rb'
+load 'mlfielib/analysis/yaku_judger_man.rb'
 	
 module Mlfielib
   module Analysis
