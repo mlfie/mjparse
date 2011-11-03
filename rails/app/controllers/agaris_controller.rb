@@ -1,7 +1,9 @@
 #encoding:utf-8
 require 'mlfielib/cv/template_matching_analyzer'
 require 'mlfielib/web/image_fetcher'
-require 'mjt/analysis/teyaku_decider'
+require 'mlfielib/analysis/teyaku_decider'
+require 'mlfielib/analysis/yaku_specimen'
+require 'mlfielib/analysis/kyoku'
 require 'RMagick'
 require 'base64'
 
@@ -93,10 +95,44 @@ class AgarisController < ApplicationController
     # (手牌解析で失敗した場合でも画像解析結果を残したいため)
     agari.save
 
+    # 役リストを設定
+    yaku_specimen = Hash.new
+    yaku_list = Yaku.all
+    yaku_list.each do |yaku|
+      yaku_specimen[yaku.name] = YakuSpecimen.new(yaku.name_kanji, yaku.han_num, yaku.naki_han_num)
+    end
+    
+    # 局情報を設定
+    kyoku = Kyoku.new
+    kyoku.is_tsumo      = agari.is_tsumo
+    kyoku.is_haitei     = agari.is_haitei
+    kyoku.dora_num      = agari.dora_num
+    kyoku.bakaze        = agari.bakaze
+    kyoku.jikaze        = agari.jikaze
+    kyoku.honba_num     = agari.honban_num
+    kyoku.is_rinshan    = agari.is_rinshan
+    kyoku.is_chankan    = agari.is_chankan
+    kyoku.reach_num     = agari.reach_num
+    kyoku.is_ippatsu    = agari.is_ippatsu
+    kyoku.is_tenho      = agari.is_tenho
+    kyoku.is_chiho      = agari.is_chiho
+    kyoku.is_parent     = agari.is_parent
+    
     # 手役判定、得点計算、
-    if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
-      
+    # if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
+    teyaku_decider = TeyakuDecider.new
+    teyaku_decider.get_agari_teyaku(agari.tehai_list, kyoku, yaku_specimen)
+    
+    if teyaku_decider.result_code == TeyakuDecider::RESULT_SUCCESS then
     logger.debug("decider success")
+      agari.total_fu_num    = teyaku_decider.teyaku.fu_num
+      agari.total_han_num   = teyaku_decider.teyaku.han_num
+      agari.yaku_list       = teyaku_decider.teyaku.yaku_list
+      agari.mangan_scale    = teyaku_decider.teyaku.mangan_scale
+      agari.total_point     = teyaku_decider.teyaku.total_point
+      agari.parent_point    = teyaku_decider.teyaku.parent_point
+      agari.child_point     = teyaku_decider.teyaku.child_point
+      
       # つぶやく
       #twitter = Mjt::Tsumotter.new
       #twitter.update(agari)

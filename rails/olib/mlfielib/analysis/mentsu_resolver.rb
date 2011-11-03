@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
 require 'mlfielib/analysis/tehai'
@@ -115,13 +116,20 @@ module Analysis
     # 文字列pai_itemsを牌クラス(Pai)のリストとして取得する
     #-------------------------------------------------#
     def get_pai_list(_pai_items)
-      _tehai_items = _pai_items.scan(/[mspjr][0-9][tlbr]/)
-      _pai_list = Array.new
-      _tehai_items.each do |_item|
-        _pai_list << Pai.new(_item)
-      end
-      if _pai_list.size < 14 then
-        self.result_code = RESULT_ERROR_INTERFACE
+      _pai_list = nil
+      if String === _pai_items then
+        _tehai_items = _pai_items.scan(/[mspjr][0-9][tlbr]/)
+        _pai_list = Array.new
+        _tehai_items.each do |_item|
+          _pai_list << Pai.new(_item)
+        end
+        if _pai_list.size < 14 then
+          self.result_code = RESULT_ERROR_INTERFACE
+        end
+      elsif Array === _pai_items then
+        _pai_list = _pai_items
+      else
+        self.result_code = RESULT_ERROR_INTERNAL
       end
       return _pai_list
     end

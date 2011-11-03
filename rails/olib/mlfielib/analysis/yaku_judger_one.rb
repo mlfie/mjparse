@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+require 'mlfielib/analysis/pai'
+require 'mlfielib/analysis/mentsu'
 
 ### 役判定（1飜）を行うクラスメソッド群
-module Mjt
+module Mlfielib
   module Analysis
     class YakuJudger
 	

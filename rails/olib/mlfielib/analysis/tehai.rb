@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 module Mlfielib::Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
