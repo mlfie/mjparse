@@ -83,7 +83,7 @@ module Mlfielib
           end
         end
         # 単騎待ちの場合
-        if tehai.atama.kyoku
+        if tehai.atama.agari
           total_fu += 2
         end
 
