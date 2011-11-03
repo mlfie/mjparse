@@ -24,22 +24,28 @@ module Mlfielib
       PAI_DIRECT_BUTTOM   = 'b'
       PAI_DIRECT_RIGHT    = 'r'
 
-      attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
-                    :number,  # 数字(字牌の場合、1:東 2:南 3:西 4:北 5:白 6:發 7:中)
+      attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌 r:背面牌)
+                    :number,  # 数字(字牌の場合 1:東 2:南 3:西 4:北 5:白 6:發 7:中、背面牌の場合 0:背面牌)
                     :naki,    # 鳴き牌かどうか(true, false)
                     :agari    # アガリ牌かどうか(true, false)
 
       # 初期化メソッド
-      def initialize(tehai_st, naki, agari)
-        self.type     = tehai_st[0, 1]
-        self.number   = tehai_st[1, 1].to_i
-        self.naki     = naki
-        self.agari    = agari
+      def initialize(tehai_str)
+        self.type     = tehai_str[0,1]
+        self.number   = tehai_str[1,1].to_i
+        if tehai_str[2,1] == Pai::PAI_DIRECT_TOP || tehai_str[2,1] == Pai::PAI_DIRECT_BUTTOM then
+          self.naki   = false
+        elsif tehai_str[2,1] == Pai::PAI_DIRECT_LEFT || tehai_str[2,1] == Pai::PAI_DIRECT_RIGHT then
+          self.naki   = true
+        end
+        self.agari    = false
       end
     
       def ==(pai)
-        if self.type == pai.type && self.number == pai.number
-          return true
+        if pai != nil then
+          if self.type == pai.type && self.number == pai.number then
+            return true
+          end
         end
         return false
       end

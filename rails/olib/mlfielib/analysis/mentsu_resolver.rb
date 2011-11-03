@@ -2,7 +2,6 @@ require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
 require 'mlfielib/analysis/tehai'
 
-
 module Mlfielib
 module Analysis
   #############################
@@ -31,16 +30,12 @@ module Analysis
     class PaiCount
       attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌)
                     :number,  # 数字(字牌の場合、1:東 2:南 3:西 4:北 5:白 6:發 7:中)
-                    :count,   # 牌の数
-                    :is_naki, # 鳴き牌
-                    :is_agari # アガリ牌
+                    :count    # 牌の数
       
-      def initialize(type, number, is_naki, is_agari)
+      def initialize(type, number)
         self.type     = type
         self.number   = number
         self.count    = 1
-        self.is_naki  = is_naki
-        self.is_agari = is_agari
       end
     end
     
@@ -55,18 +50,18 @@ module Analysis
         # step2. 副露面子を取得する
         @furo_flag = false      # 副露面子が存在した場合、trueとなる
         @furo_list = Array.new  # 副露面子の配列
+        @ankan_list = Array.new # 暗槓面子の配列
         @pai_list.reverse!      # Pai配列を逆さにする(副露面子の解析は後ろから行うため)
         get_furo
       
         if self.result_code == RESULT_SUCCESS then
           # step3. 暗槓を取得する
           @pai_list.reverse!      # Pai配列の並びを元に戻す
-          @ankan_list = Array.new # 暗槓面子の配列
           get_ankan
         
           if self.result_code == RESULT_SUCCESS then
-            # step4. アガリ牌を設定する
-            set_agari
+            # step4. アガリ牌を退避させる（後ほど全ての面子が確定した後にアガリ牌が決定される）
+            @agari_pai = @pai_list[@pai_list.size - 1].clone
       
             # step5. 雀頭候補を取得する
             @pai_list.sort_by! { |pai| [pai.type, pai.number] }
@@ -77,7 +72,7 @@ module Analysis
             if @atama_queue.size != 0
               # for atama_pos in @atama_queue
               @atama_queue.each do |_atama_pos|
-                @atama = @pai_list[_atama_pos].clone
+                @atama_pai = @pai_list[_atama_pos].clone
               
                 # step6-1. 雀頭を除く門前手牌を牌の種類毎に集計する
                 @pai_counts = Array.new
@@ -123,13 +118,7 @@ module Analysis
       _tehai_items = _pai_items.scan(/[mspjr][0-9][tlbr]/)
       _pai_list = Array.new
       _tehai_items.each do |_item|
-        if _item.slice(2) == Pai::PAI_DIRECT_TOP || _item.slice(2) == Pai::PAI_DIRECT_BUTTOM then
-          _pai_list << Pai.new(_item.slice(0,2), false, false)
-        elsif _item.slice(2) == Pai::PAI_DIRECT_LEFT || _item.slice(2) == Pai::PAI_DIRECT_RIGHT then
-          _pai_list << Pai.new(_item.slice(0,2), true, false)
-        else
-          self.result_code = RESULT_ERROR_INTERNAL
-        end
+        _pai_list << Pai.new(_item)
       end
       if _pai_list.size < 14 then
         self.result_code = RESULT_ERROR_INTERFACE
@@ -239,6 +228,21 @@ module Analysis
           else
             self.result_code = RESULT_ERROR_NAKI
           end
+        # step3. 暗槓が含まれる場合
+        elsif @pai_list[0].type == Pai::PAI_TYPE_REVERSE || @pai_list[1].type == Pai::PAI_TYPE_REVERSE then
+          # step3-1. 背面牌で挟んだ暗槓の場合
+          if @pai_list[0].type == Pai::PAI_TYPE_REVERSE && @pai_list[1].type != Pai::PAI_TYPE_REVERSE && @pai_list[1] == @pai_list[2] && @pai_list[0] == @pai_list[3] then
+            add_ankan(@pai_list[1])
+            @pai_list.slice!(0,4)
+            get_furo
+          # step3-2. 背面牌を挟んだ暗槓の場合
+          elsif @pai_list[0].type != Pai::PAI_TYPE_REVERSE && @pai_list[1].type == Pai::PAI_TYPE_REVERSE && @pai_list[0] == @pai_list[3] && @pai_list[1] == @pai_list[2] then
+            add_ankan(@pai_list[0])
+            @pai_list.slice!(0,4)
+            get_furo
+          else
+            self.result_code = RESULT_ERROR_INTERFACE
+          end
         end
       end
     end
@@ -265,6 +269,18 @@ module Analysis
     def add_minkan(_pai_list)
       @furo_list << Mentsu.new(_pai_list, Mentsu::MENTSU_TYPE_KANTSU, true)
       @furo_flag = true
+    end
+
+    #-------------------------------------------------#
+    # 暗槓面子(裏向きのパターン)を取得する
+    #-------------------------------------------------#
+    def add_ankan(pai)
+        pai_list = Array.new
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        @ankan_list << Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_KANTSU, false)
     end
     
     #-------------------------------------------------#
@@ -306,28 +322,6 @@ module Analysis
       end
     end
 
-    #-------------------------------------------------#
-    # 暗槓面子(裏向きのパターン)を取得する
-    #-------------------------------------------------#
-    def add_ankan(pai)
-        pai_list = Array.new
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.naki, pai.agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.naki, pai.agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.naki, pai.agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.naki, pai.agari)
-        @ankan_list << Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_KANTSU, false)
-    end
-
-#*****************************************************************#
-# step4. アガリ牌を設定する
-#*****************************************************************#
-    #-------------------------------------------------#
-    # アガリ牌を設定する
-    #-------------------------------------------------#
-    def set_agari
-      @pai_list[@pai_list.size - 1].agari = true
-    end
-
 #*****************************************************************#
 # step5. 雀頭候補を取得する
 #*****************************************************************#
@@ -335,12 +329,21 @@ module Analysis
     # 雀頭候補を取得する
     #-------------------------------------------------#
     def get_atama_queue
-      (@pai_list.size - 1).times { |i|
-        # if @pai_list[i].type == @pai_list[i+1].type && @pai_list[i].number == @pai_list[i+1].number
+      i = 0
+      while i < @pai_list.size - 1 do
         if @pai_list[i] == @pai_list[i+1] && @pai_list[i].type != Pai::PAI_TYPE_REVERSE then
           @atama_queue << i
+          j = i
+          for k in i..(@pai_list.size - 2)
+            if @pai_list[j] != @pai_list[k+1] then
+              break
+            else
+              i += 1
+            end
+          end
         end
-      }
+        i += 1
+      end
     end
       
 #*****************************************************************#
@@ -359,7 +362,7 @@ module Analysis
       _pai_list.each_with_index { |pai, idx|
         # 最初だけ特別処理
         if idx == 0
-          __pai_count = PaiCount.new(pai.type, pai.number, pai.naki, pai.agari)
+          __pai_count = PaiCount.new(pai.type, pai.number)
           @pai_counts << __pai_count
           _last_pai_count = __pai_count
           next
@@ -368,7 +371,7 @@ module Analysis
         if pai.type == _last_pai_count.type && pai.number == _last_pai_count.number
           _last_pai_count.count += 1
         else
-          __pai_count = PaiCount.new(pai.type, pai.number, pai.naki, pai.agari)
+          __pai_count = PaiCount.new(pai.type, pai.number)
           @pai_counts << __pai_count
           _last_pai_count = __pai_count
         end
@@ -386,8 +389,51 @@ module Analysis
       if _pai_count_list.size == 0
         # 副露面子と合わせて、4面子構成になっていない場合は、手牌リストに追加しない
         if (@mentsu_list.size + @ankan_list.size + @furo_list.size) == 4 then
-          # self.tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)), @atama)
-          self.tehai_list << Tehai.new(@mentsu_list.clone + @ankan_list + @furo_list, @atama.clone)
+          _mentsu_list = Marshal.load(Marshal.dump(@mentsu_list))
+          _atama_pai   = @atama_pai.clone
+          # アガリ牌をセットする
+          # 単騎待ちの場合
+          if _atama_pai == @agari_pai then
+            _atama_pai.agari = true
+          else
+            # 嵌張待ち、辺張待ちの場合
+            _agari_set = false
+            _mentsu_list.each do |_mentsu|
+              # 嵌張待ちの場合
+              if _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[1] == @agari_pai then
+                _mentsu.pai_list[1].agari = true
+                _agari_set = true
+                break
+              # 辺張待ちの場合（123のパターン）
+              elsif _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[0].number == 1 && _mentsu.pai_list[2] == @agari_pai then
+                _mentsu.pai_list[2].agari = true
+                _agari_set = true
+                break
+              # 辺張待ちの場合（789のパターン）
+              elsif _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[2].number == 9 && _mentsu.pai_list[0] == @agari_pai then
+                _mentsu.pai_list[0].agari = true
+                _agari_set = true
+                break
+              end
+            end
+            # この時点でアガリ牌が設定されていない場合は、両面待ち or 双ポン待ち
+            if !_agari_set then
+              _mentsu_list.each do |_mentsu|
+                if _mentsu.pai_list[0] == @agari_pai then
+                  _mentsu.pai_list[0].agari = true
+                  break
+                elsif _mentsu.pai_list[1] == @agari_pai then
+                  _mentsu.pai_list[1].agari = true
+                  break
+                elsif _mentsu.pai_list[2] == @agari_pai then
+                  _mentsu.pai_list[2].agari = true
+                  break
+                end
+              end
+            end
+          end
+
+          self.tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, _atama_pai)
         end
       else
         # 槓子の判定へ
@@ -478,10 +524,10 @@ module Analysis
     #-------------------------------------------------#
     def get_kantsu(pai)
         pai_list = Array.new
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_KANTSU, false)
     end
     
@@ -490,9 +536,9 @@ module Analysis
     #-------------------------------------------------#
     def get_koutsu(pai)
         pai_list = Array.new
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_KOUTSU, false)
     end
 
@@ -501,9 +547,9 @@ module Analysis
     #-------------------------------------------------#
     def get_shuntsu(pai1, pai2, pai3)
         pai_list = Array.new
-        pai_list << Pai.new(pai1.type + pai1.number.to_s, pai1.is_naki, pai1.is_agari)
-        pai_list << Pai.new(pai2.type + pai2.number.to_s, pai2.is_naki, pai2.is_agari)
-        pai_list << Pai.new(pai3.type + pai3.number.to_s, pai3.is_naki, pai3.is_agari)
+        pai_list << Pai.new(pai1.type + pai1.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai2.type + pai2.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai3.type + pai3.number.to_s + Pai::PAI_DIRECT_TOP)
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_SHUNTSU, false)
     end
 
@@ -554,21 +600,32 @@ module Analysis
     #-------------------------------------------------#
     def set_tehai_7toitsu
       # 1番目の牌を頭と仮定して、牌の種類ごとの数を集計する
-      @atama = @pai_list[@atama_queue[0]].clone
-      @pai_counts = Array.new
-      count_same_pai(@atama_queue[0])
-      
-      # 牌の種類が6種類であり、かつ全ての集計数が2個ずつの場合、七対子面子となる
-      mentsu_list = Array.new
-      if @pai_counts.size == 6 then
-        @pai_counts.each do |pai_count|
-          if pai_count.count == 2 then
-            mentsu_list << get_toitsu_mentsu(pai_count)
-          end
+      _atama_pai = nil
+      _atama_pos = -1
+      for i in 0..6
+        if @pai_list[@atama_queue[i]] == @agari_pai then
+          _atama_pos = @atama_queue[i]
+          _atama_pai = @pai_list[_atama_pos].clone
+          _atama_pai.agari = true
         end
       end
-      if mentsu_list.size == 6 then
-        self.tehai_list << Tehai.new(mentsu_list, @atama.clone)
+      
+      if _atama_pai != nil && _atama_pos != -1 then
+        @pai_counts = Array.new
+        count_same_pai(_atama_pos)
+
+        # 牌の種類が6種類であり、かつ全ての集計数が2個ずつの場合、七対子面子となる
+        mentsu_list = Array.new
+        if @pai_counts.size == 6 then
+          @pai_counts.each do |pai_count|
+            if pai_count.count == 2 then
+              mentsu_list << get_toitsu_mentsu(pai_count)
+            end
+          end
+        end
+        if mentsu_list.size == 6 then
+          self.tehai_list << Tehai.new(mentsu_list, _atama_pai)
+        end
       end
     end
   
@@ -577,8 +634,8 @@ module Analysis
     #-------------------------------------------------#
     def get_toitsu_mentsu(pai)
         pai_list = Array.new
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
-        pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
+        pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_TOITSU, false)
     end
 
@@ -589,16 +646,27 @@ module Analysis
     # 雀頭を除く全ての牌を12枚の面子として手牌候補に加える
     #-------------------------------------------------#
     def set_tehai_tokusyu
-      @atama = @pai_list[@atama_queue[0]].clone
+      _atama_pai = @pai_list[@atama_queue[0]].clone
       @pai_counts = Array.new
       count_same_pai(@atama_queue[0])
       
-      mentsu_list = Array.new
-      mentsu_list << get_tokusyu_mentsu(@pai_counts)
+      _mentsu_list = Array.new
+      _mentsu_list << get_tokusyu_mentsu(@pai_counts)
       
       # 牌の種類が12種類の場合、特殊系面子となる
       if @pai_counts.size == 12 then
-        self.tehai_list << Tehai.new(mentsu_list, @atama.clone)
+        # あがり牌の設定
+        if _atama_pai == @agari_pai then
+          _atama_pai.agari = true
+        else
+          _mentsu_list.each do |_mentsu|
+            if _mentsu.pai_list[0] == @agari_pai then
+              _mentsu.pai_list[0].agari = true
+            end
+          end
+        end
+
+        self.tehai_list << Tehai.new(_mentsu_list, _atama_pai)
       end
     end
 
@@ -608,7 +676,7 @@ module Analysis
     def get_tokusyu_mentsu(pai_counts)
         pai_list = Array.new
         pai_counts.each do |pai|
-          pai_list << Pai.new(pai.type + pai.number.to_s, pai.is_naki, pai.is_agari)
+          pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
         end
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_TOKUSYU, false)
     end
