@@ -14,14 +14,13 @@ module Mlfielib
       RESULT_ERROR_INTERNAL   = 9     # 不明な内部エラー
 
       attr_accessor :yaku_list,       # 役のリスト
-                    :result_code      # 処理結果
+                    :result_code,     # 処理結果
+                    :yaku_specimen    # 役の標本(Hash形式)
       
-      yaku_specimen         = nil     # 役の標本(Hash形式)
-      
-      def initialize(yaku_specimen=nil)
+      def initialize(_yaku_specimen)
         self.yaku_list      = Array.new
         self.result_code    = RESULT_SUCCESS
-        self.yaku_specimen  = yaku_specimen
+        self.yaku_specimen  = _yaku_specimen
       end
 
       def set_yaku_list(tehai, kyoku)
