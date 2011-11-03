@@ -423,22 +423,26 @@ function agariToAnalizedImgHtml(agari) {
 
     //HTML生成
     var html = "";
-
-    $.each(agari.tehai_list,function(){
-               paistr = this.type + this.number + "-" + this.direction ;
-               html += "<img src=img/pai/" + paistr + ".gif>";
-           });
-
-    // for (var i = 0; i < 28; i += 2) {
-   
-        // var paistr = agari.tehai_list.slice(i, i + 2);
-        // if (paistr == "") {
-           
-           // //解析に失敗したパイがある場合
-           // paistr = "z0"; //失敗画像のファイル名"z0"を指定
-        // }
-        // html += "<img width=17 src=img/pai/" + paistr + "-top.gif>";
-    // }
+    
+    if(typeof agari.tehai_list == "string" ){
+        //tehai_listが文字列形の場合
+        for (var i = 0; i < 28; i += 2) {
+            
+            var paistr = agari.tehai_list.slice(i, i + 2);
+            if (paistr == "") {
+                
+                //解析に失敗したパイがある場合
+                paistr = "z0"; //失敗画像のファイル名"z0"を指定
+            }
+            html += "<img src=img/pai/" + paistr + "-top.gif>";
+        }
+    }else{
+        //tehai_listが配列の場合
+        $.each(agari.tehai_list,function(){
+                   paistr = this.type + this.number + "-" + this.direction ;
+                   html += "<img src=img/pai/" + paistr + ".gif>";
+               });
+    }
     
     return html;
 }
@@ -581,11 +585,11 @@ function createPaiSelectDiv(jq){
 function dbgmsg(tag, msg) {
     if (msg.length > 1000) {
         printmsg = msg.substring(0,1000)
-            + "<button class=small onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
+            + "<button data-role='none' onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
     }else{
         printmsg=msg;
     }
-    $("#content_debug").append("<b>" + dbgno + "." + tag + "</b><pre>" + printmsg +"</pre>");
+    $("#content_debug").append("<b>" + dbgno + "." + tag + "</b><p>" + printmsg +"</p>");
     dbgarray[dbgno]=msg;
     dbgno++;
 }
