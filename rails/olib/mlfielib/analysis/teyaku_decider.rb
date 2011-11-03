@@ -23,7 +23,7 @@ module Mlfielib
         self.result_code  = RESULT_SUCCESS
       end
 
-      def self.get_agari_teyaku(pai_list=nil, kyoku=nil, yaku_specimen=nil)
+      def get_agari_teyaku(pai_list=nil, kyoku=nil, yaku_specimen=nil)
         resolver = MentsuResolver.new
         resolver.get_mentsu(pai_list)
         
