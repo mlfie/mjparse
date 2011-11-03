@@ -80,8 +80,8 @@ module Mlfielib
         def search_pai_fliped(target_img, template_img, pai_type, pai_direction, scale)
           pai_list = search_pai(target_img.flip(:xy), template_img, pai_type, pai_direction, scale)
           pai_list.map{|pai|
-            pai.x = target_img.cols - pai.x
-            pai.y = target_img.rows - pai.y
+            pai.x = target_img.cols - pai.x - template_img.cols
+            pai.y = target_img.rows - pai.y - template_img.rows
             pai
           }
         end
