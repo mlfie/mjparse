@@ -423,16 +423,21 @@ function agariToAnalizedImgHtml(agari) {
     //HTML生成
     var html = "";
 
-    for (var i = 0; i < 28; i += 2) {
-        
-        var paistr = agari.tehai_list.slice(i, i + 2);
-        if (paistr == "") {
-            
-            //解析に失敗したパイがある場合
-            paistr = "z0"; //失敗画像のファイル名"z0"を指定
-        }
-        html += "<img width=17 src=img/pai/" + paistr + "-top.gif>";
-    }
+    $.each(agari.tehai_list,function(){
+               paistr = this.type + this.number + "-" + this.direction ;
+               html += "<img src=img/pai/" + paistr + ".gif>";
+           });
+
+    // for (var i = 0; i < 28; i += 2) {
+   
+        // var paistr = agari.tehai_list.slice(i, i + 2);
+        // if (paistr == "") {
+           
+           // //解析に失敗したパイがある場合
+           // paistr = "z0"; //失敗画像のファイル名"z0"を指定
+        // }
+        // html += "<img width=17 src=img/pai/" + paistr + "-top.gif>";
+    // }
     
     return html;
 }
@@ -500,34 +505,34 @@ function agariToEditableImgJq(agari) {
     var jqSpan = $("<span/>");
     var j=0;
 
-    for (var i = 0; i < 28; i += 2) {
-        
-        var paistr = agari.tehai_list.slice(i, i + 2);
-        if (paistr == "") {     
-            //解析に失敗したパイがある場合
-            paistr = "z0"; //失敗画像のファイル名"z0"を指定
-        }
-       
-        var jqImg = $("<img/>")
-        .attr("id","pai" + j)
-        .attr("src","img/pai/" + paistr + "-top.gif")
-        .attr("alt",paistr)
-        .css("zoom","0.7")
-        .click(
-            function(){
-                //クリック時
-                dbgmsg("viewPhotoList","Selected Pai = "
-                       + $(this).attr('id') + ":"
-                       + $(this).attr('alt')
-                      );
-                createPaiSelectDiv($(this));
-                $.mobile.changePage("#paiselect","pop",false,false);
-            }
-        );
-        
-        j++;
-        jqSpan.append(jqImg);
-    }//endfor
+
+    $.each(agari.tehai_list,function(){
+               paistr = this.type + this.number + "-" + this.direction ;
+               
+               if (paistr == "") { //解析に失敗したパイがある場合
+                   paistr = "z0"; //失敗画像のファイル名"z0"を指定
+               }
+               
+               var jqImg = $("<img/>")
+                   .attr("id","pai" + j)
+                   .attr("src","img/pai/" + paistr + ".gif")
+                   .attr("alt",paistr)
+                   .css("zoom","0.7")
+                   .click(
+                       function(){
+                           //クリック時
+                           dbgmsg("viewPhotoList","Selected Pai = "
+                                  + $(this).attr('id') + ":"
+                                  + $(this).attr('alt')
+                                 );
+                           createPaiSelectDiv($(this));
+                           $.mobile.changePage("#paiselect","pop",false,false);
+                       }
+                   );
+               
+               j++;
+               jqSpan.append(jqImg);
+           });//end each
     return jqSpan;
 }
 
