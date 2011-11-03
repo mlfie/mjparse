@@ -8,18 +8,20 @@ module Mlfielib
     class YakuJudger
 
       # 国士無双
-      def self.kokushi?(tehai, agari); return false; end
+      def self.kokushi?(tehai, agari);
+        return false;
+      end
 
       # 四暗刻
       def self.suankou?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           if mentsu.mentsu_type != 'k' 
             return false
-	      elseif !(mentsu.furo)
-              return false	  
+          elsif !(mentsu.furo)
+            return false	  
           end
         end
-		return true
+		    return true
       end
 	  
       # 大三元
@@ -133,7 +135,7 @@ module Mlfielib
 	      if mentsu.pai_list[0].type != "j"
 		    if mentsu.mentsu_type != "k" && mentsu.mentsu_type != "t" 
 			  return false
-			elseif mentsu.pai_list[0].type != "1" || mentsu.pai_list[0].type != "9"
+			elsif mentsu.pai_list[0].type != "1" || mentsu.pai_list[0].type != "9"
 			    return false
 			end
 	      end
