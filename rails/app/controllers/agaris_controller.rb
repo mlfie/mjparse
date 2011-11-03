@@ -109,7 +109,7 @@ class AgarisController < ApplicationController
     kyoku.dora_num      = agari.dora_num
     kyoku.bakaze        = agari.bakaze
     kyoku.jikaze        = agari.jikaze
-    kyoku.honba_num     = agari.honban_num
+    kyoku.honba_num     = agari.honba_num
     kyoku.is_rinshan    = agari.is_rinshan
     kyoku.is_chankan    = agari.is_chankan
     kyoku.reach_num     = agari.reach_num
