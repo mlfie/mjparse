@@ -26,10 +26,14 @@ module Mlfielib
 
       def get_agari_teyaku(pai_list=nil, kyoku=nil, yaku_specimen=nil)
         logger = Logger.new('/app/mj_tsumotter/log/ruby.log')
+        logger.level = Logger::DEBUG
+logger.fatal("TeyakuDecider Logger OK.")
         
         resolver = MentsuResolver.new
         resolver.get_mentsu(pai_list)
         
+logger.fatal("TeyakuDecider tehai_list.size is " + tehai_list.size.to_s)
+
         # 面子解析処理が正常であった場合
         if resolver.result_code == MentsuResolver::RESULT_SUCCESS then
           judger = YakuJudger.new(yaku_specimen)
@@ -65,10 +69,12 @@ logger.fatal("TeyakuDecider best_tehai.fu_num is " + best_tehai.fu_num.to_s)
             else
               self.result_code = RESULT_ERROR_INTERNAL
             end
-          # 面子解析処理が異常の場合
           else
-            self.result_code = RESULT_ERROR_MENTSU_RESOLVE
+            self.result_code = RESULT_ERROR_SCORE_CALCULATE
           end
+        # 面子解析処理が異常の場合
+        else
+          self.result_code = RESULT_ERROR_MENTSU_RESOLVE
         end
       end
     end
