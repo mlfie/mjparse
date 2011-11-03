@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test/unit'
 require 'test_helper'
 require 'mlfielib/analysis/mentsu_resolver'
@@ -399,9 +400,9 @@ class MentsuResolverTest < Test::Unit::TestCase
 #*****************************************************************#
   # get_ankan正常系
   def test_normal_get_ankan
-    pai_items = "m1tm1tr0ts7ts7tr0ts8tr0tr0ts8tp4tp5tp6tr0ts9ts9tr0t"
+    pai_items = "m1tr0ts7ts7tr0ts8tr0tr0ts8tp4tp5tp6tr0ts9ts9tr0tm1t"
     @resolver.get_mentsu(pai_items)
-    
+        
     ankan_list = @resolver.tehai_list[0].mentsu_list.select { |mentsu| 
       mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo
     }
@@ -482,9 +483,8 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm2tm2tm2tm3tm3tm4ts4ts5ts6tp7tp7tp7tm2t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal 1, @resolver.tehai_list.size
-    tehai = @resolver.tehai_list[0]
-    assert_equal true, tehai.atama.agari
+    assert_equal 3, @resolver.tehai_list.size
+    # stdout_debug
   end
 
 #*****************************************************************#
@@ -494,8 +494,8 @@ class MentsuResolverTest < Test::Unit::TestCase
   def test_normal_set_tehai_7toitsu
     pai_items = "m1tm1ts4ts5ts6ts4ts5ts6tp7tp9tp7tp8tp8tp9t"
     @resolver.get_mentsu(pai_items)
-    
-    assert_equal 2, @resolver.tehai_list.size
+
+    assert_equal 3, @resolver.tehai_list.size
     tehai = @resolver.tehai_list.select { |tehai| tehai.mentsu_list.size == 6 }
     assert_not_equal nil, tehai[0]
     tehai[0].mentsu_list.each do |mentsu|
@@ -512,7 +512,7 @@ class MentsuResolverTest < Test::Unit::TestCase
   def test_normal_set_tehai_tokusyu_1
     pai_items = "m1tm9ts1ts9tp1tp9tj1tj2tj3tj4tj5tj6tj7tj7t"
     @resolver.get_mentsu(pai_items)
-    
+
     assert_not_equal nil, @resolver.tehai_list
     assert_equal 1, @resolver.tehai_list.size
     
@@ -542,6 +542,23 @@ class MentsuResolverTest < Test::Unit::TestCase
     mentsu = tehai.mentsu_list[0]
     assert_equal 12, mentsu.pai_list.size
     assert_equal Mlfielib::Analysis::Mentsu::MENTSU_TYPE_TOKUSYU, mentsu.mentsu_type
+  end
+  
+  # デバッグ用
+  def stdout_debug
+    p "======================================================================================================"
+    p "@resolver.tehai_list.size = " + @resolver.tehai_list.size.to_s
+    @resolver.tehai_list.each do |tehai|
+      p "------------------------------------------------------------------------------------------------------"
+      tehai.mentsu_list.each do |mentsu|
+        mentsu.pai_list.each do |pai|
+          p pai
+        end
+        p ""
+      end
+      p tehai.atama
+    end
+    p "======================================================================================================"
   end
 
 end

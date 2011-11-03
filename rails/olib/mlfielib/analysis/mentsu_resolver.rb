@@ -54,12 +54,12 @@ module Analysis
         @ankan_list = Array.new # 暗槓面子の配列
         @pai_list.reverse!      # Pai配列を逆さにする(副露面子の解析は後ろから行うため)
         get_furo
-      
+        
         if self.result_code == RESULT_SUCCESS then
           # step3. 暗槓を取得する
           @pai_list.reverse!      # Pai配列の並びを元に戻す
           get_ankan
-        
+          
           if self.result_code == RESULT_SUCCESS then
             # step4. アガリ牌を退避させる（後ほど全ての面子が確定した後にアガリ牌が決定される）
             @agari_pai = @pai_list[@pai_list.size - 1].clone
@@ -248,6 +248,9 @@ module Analysis
             add_ankan(@pai_list[0])
             @pai_list.slice!(0,4)
             get_furo
+          # step3-3. アガリ牌＋背面牌で挟んだ暗槓の場合(本来ここでは検知したくないパターン)
+          elsif @pai_list[1].type == Pai::PAI_TYPE_REVERSE && @pai_list[2].type != Pai::PAI_TYPE_REVERSE && @pai_list[2] == @pai_list[3] && @pai_list[1] == @pai_list[4] then
+            # 何もしない。再起呼び出しも行わない。
           else
             self.result_code = RESULT_ERROR_INTERFACE
           end
@@ -318,7 +321,7 @@ module Analysis
               i -= 3
             # パターン2. 背面牌を挟んでいる場合
             elsif 1 < i && @pai_list[i+1].type != Pai::PAI_TYPE_REVERSE && @pai_list[i+1] == @pai_list[i-2] && @pai_list[i-1].type == Pai::PAI_TYPE_REVERSE then
-              add_ankan(@pai_list[i-1])
+              add_ankan(@pai_list[i+1])
               @pai_list.slice!(i-2,4)
               i -= 2
             else
@@ -397,51 +400,8 @@ module Analysis
       if _pai_count_list.size == 0
         # 副露面子と合わせて、4面子構成になっていない場合は、手牌リストに追加しない
         if (@mentsu_list.size + @ankan_list.size + @furo_list.size) == 4 then
-          _mentsu_list = Marshal.load(Marshal.dump(@mentsu_list))
-          _atama_pai   = @atama_pai.clone
-          # アガリ牌をセットする
-          # 単騎待ちの場合
-          if _atama_pai == @agari_pai then
-            _atama_pai.agari = true
-          else
-            # 嵌張待ち、辺張待ちの場合
-            _agari_set = false
-            _mentsu_list.each do |_mentsu|
-              # 嵌張待ちの場合
-              if _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[1] == @agari_pai then
-                _mentsu.pai_list[1].agari = true
-                _agari_set = true
-                break
-              # 辺張待ちの場合（123のパターン）
-              elsif _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[0].number == 1 && _mentsu.pai_list[2] == @agari_pai then
-                _mentsu.pai_list[2].agari = true
-                _agari_set = true
-                break
-              # 辺張待ちの場合（789のパターン）
-              elsif _mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && _mentsu.pai_list[2].number == 9 && _mentsu.pai_list[0] == @agari_pai then
-                _mentsu.pai_list[0].agari = true
-                _agari_set = true
-                break
-              end
-            end
-            # この時点でアガリ牌が設定されていない場合は、両面待ち or 双ポン待ち
-            if !_agari_set then
-              _mentsu_list.each do |_mentsu|
-                if _mentsu.pai_list[0] == @agari_pai then
-                  _mentsu.pai_list[0].agari = true
-                  break
-                elsif _mentsu.pai_list[1] == @agari_pai then
-                  _mentsu.pai_list[1].agari = true
-                  break
-                elsif _mentsu.pai_list[2] == @agari_pai then
-                  _mentsu.pai_list[2].agari = true
-                  break
-                end
-              end
-            end
-          end
-
-          self.tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, _atama_pai)
+          # アガリ牌の可能性ごとに全パターンの手牌候補を洗い出す
+          self.tehai_list.concat(get_agari_tehai)
         end
       else
         # 槓子の判定へ
@@ -525,6 +485,41 @@ module Analysis
           @mentsu_list.pop
         end
       end
+    end
+    
+    #-------------------------------------------------#
+    # アガリ牌の設定を行う
+    #-------------------------------------------------#
+    def get_agari_tehai
+      # アガリ牌設定済みのTehaiリスト
+      tehai_list = Array.new
+      
+      # 雀頭がアガリ牌となるパターン(単騎待ちの場合)
+      if @atama_pai == @agari_pai then
+        _atama_pai = @atama_pai.clone
+        _atama_pai.agari = true
+        tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)) + @ankan_list + @furo_list, _atama_pai)
+      end
+      
+      # 各面子でアガリ牌となるパターン(両面待ち、辺張待ち、嵌張待ち、双ポン待ち)
+      for i in 0..(@mentsu_list.size-1)
+        # 面子の牌を一つずつ調べて、一つでもアガリ牌と合致したら手牌リストに追加して次の面子に処理を移す
+        for j in 0..(@mentsu_list[i].pai_list.size-1)
+          if @mentsu_list[i].pai_list[j] == @agari_pai then
+            _mentsu_list = Marshal.load(Marshal.dump(@mentsu_list))
+            _mentsu_list[i].pai_list[j].agari = true
+            tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, @atama_pai)
+            break
+          end
+        end
+      end
+      
+      # この時点で手牌リストが空である場合、アガリ牌の設定が正しく行えていない
+      if tehai_list.size == 0 then
+        self.result_code = RESULT_ERROR_INTERNAL
+      end
+      
+      return tehai_list
     end
     
     #-------------------------------------------------#
@@ -687,6 +682,41 @@ module Analysis
           pai_list << Pai.new(pai.type + pai.number.to_s + Pai::PAI_DIRECT_TOP)
         end
         return Mentsu.new(pai_list, Mentsu::MENTSU_TYPE_TOKUSYU, false)
+    end
+    
+    
+    # デバッグ用
+    def stdout_debug
+      p "========================================================="
+      p "result_code = " + self.result_code.to_s
+      p "---------------------------------------------------------"
+      @pai_list.each do |pai|
+        p pai
+      end
+      p "---------------------------------------------------------"
+      @mentsu_list.each do |mentsu|
+        mentsu.pai_list.each do |pai|
+          p pai
+        end
+        p ""
+      end
+      p "---------------------------------------------------------"
+      @furo_list.each do |furo|
+        furo.pai_list.each do |pai|
+          p pai
+        end
+        p ""
+      end
+      p "---------------------------------------------------------"
+      @ankan_list.each do |ankan|
+        ankan.pai_list.each do |pai|
+          p pai
+        end
+        p ""
+      end
+      p "---------------------------------------------------------"
+      p @atama_pai
+      p "========================================================="
     end
   end
 end
