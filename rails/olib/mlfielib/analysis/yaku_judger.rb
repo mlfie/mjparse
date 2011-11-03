@@ -24,7 +24,7 @@ module Mlfielib
         self.yaku_specimen  = yaku_specimen
       end
 
-      def set_self.yaku_list(tehai, kyoku)
+      def set_yaku_list(tehai, kyoku)
 #*****************************************************************#
 # 役満の判定を行う
 #*****************************************************************#
