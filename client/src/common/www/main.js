@@ -480,15 +480,23 @@ function agariToAnalizedImgHtml(agari) {
     
     if(typeof agari.tehai_list == "string" ){
         //tehai_listが文字列形の場合
-        for (var i = 0; i < 28; i += 2) {
+        for (var i = 0; i < 14 * 3 ; i += 3) {
             
             var paistr = agari.tehai_list.slice(i, i + 2);
+            var dstr = agari.tehai_list.slice(i + 2, i + 3);
+            var tmp={
+                "t" : "top",
+                "l" : "left",
+                "r" : "right",
+                "b" : "bottom"
+            };
+            
             if (paistr == "") {
                 
                 //解析に失敗したパイがある場合
                 paistr = "z0"; //失敗画像のファイル名"z0"を指定
             }
-            html += "<img src=img/pai/" + paistr + "-top.gif>";
+            html += "<img src=img/pai/" + paistr + "-" + tmp[dstr] + ".gif>";
         }
     }else{
         //tehai_listが配列の場合
