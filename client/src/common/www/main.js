@@ -356,6 +356,7 @@ function sendCalcData(){
         agari: {}
     };
 
+    param["agari"]["img_url"] = $("#img_url").val();
     param["agari"]["bakaze"] = $("#bakaze").val();
     param["agari"]["jikaze"] = $("#jikaze").val();
     param["agari"]["honba_num"] = parseInt($("#honba_num").val());
