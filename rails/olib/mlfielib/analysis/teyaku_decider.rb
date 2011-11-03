@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'logger'
 require 'mlfielib/analysis/mentsu_resolver'
 require 'mlfielib/analysis/score_calculator'
 require 'mlfielib/analysis/yaku_judger'
@@ -42,18 +43,18 @@ module Mlfielib
             end
           end
           
-p "TeyakuDecider tehai_list.size is " + tehai_list.size.to_s
+pp "TeyakuDecider tehai_list.size is " + tehai_list.size.to_s
           
           if self.result_code == RESULT_SUCCESS then
             # 最も点数が高くなるものを採用する
             max_point = 0
             best_tehai = nil
             resolver.tehai_list.each do |tehai|
-p "TeyakuDecider tehai.fu_num is " + tehai.fu_num.to_s
+pp "TeyakuDecider tehai.fu_num is " + tehai.fu_num.to_s
               if max_point < tehai.total_point then
                 max_point = tehai.total_point
                 best_tehai = tehai
-p "TeyakuDecider best_tehai.fu_num is " + best_tehai.fu_num.to_s
+pp "TeyakuDecider best_tehai.fu_num is " + best_tehai.fu_num.to_s
               end
             end
             # 最良な手役が取得できた場合
