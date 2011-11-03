@@ -47,6 +47,41 @@ module Mlfielib
                     "S8" => CV::PaiEnum.type_e::S8,
                     "S9" => CV::PaiEnum.type_e::S9
                    }
+            @is_symmetric = {"J1" => false,
+                    "J2" => false,
+                    "J3" => false,
+                    "J4" => false,
+                    "J5" => false,
+                    "J6" => false,
+                    "J7" => false,
+                    "M1" => false,
+                    "M2" => false,
+                    "M3" => false,
+                    "M4" => false,
+                    "M5" => false,
+                    "M6" => false,
+                    "M7" => false,
+                    "M8" => false,
+                    "M9" => false,
+                    "P1" => true,
+                    "P2" => true,
+                    "P3" => true,
+                    "P4" => true,
+                    "P5" => true,
+                    "P6" => false,
+                    "P7" => false,
+                    "P8" => true,
+                    "P9" => true,
+                    "S1" => false,
+                    "S2" => true,
+                    "S3" => false,
+                    "S4" => true,
+                    "S5" => true,
+                    "S6" => true,
+                    "S7" => false,
+                    "S8" => true,
+                    "S9" => true
+                   }
           @pais = []
           Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
             pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
@@ -58,8 +93,9 @@ module Mlfielib
                             else
                               :top
                             end
+            symmetric = @is_symmetric[File.basename(f).split('.')[0].upcase]
             img = CvMat.load(f, CV_LOAD_IMAGE_GRAYSCALE)
-            @pais << {:img => img, :pai_type => pai_type, :pai_direction => pai_direction}
+            @pais << {:img => img, :pai_type => pai_type, :pai_direction => pai_direction, :symmetric => symmetric}
           }
       end
       
@@ -70,7 +106,7 @@ module Mlfielib
           
           @pais.each {|pai|
             pai_list = pai_list.concat(search_pai(target_img, pai[:img], pai[:pai_type], pai[:pai_direction], scale))
-            pai_list = pai_list.concat(search_pai_fliped(target_img, pai[:img], pai[:pai_type], pai[:pai_direction], scale))
+            pai_list = pai_list.concat(search_pai_fliped(target_img, pai[:img], pai[:pai_type], pai[:pai_direction], scale)) unless pai[:symmetric]
           
           }
           return pai_list
@@ -79,11 +115,17 @@ module Mlfielib
 
         def search_pai_fliped(target_img, template_img, pai_type, pai_direction, scale)
           pai_list = search_pai(target_img.flip(:xy), template_img, pai_type, pai_direction, scale)
-          pai_list.map{|pai|
-            pai.x = target_img.cols - pai.x - template_img.cols
-            pai.y = target_img.rows - pai.y - template_img.rows
-            pai
-          }
+
+          scaled_img = template_img.resize(
+            CvSize.new(template_img.cols * scale, template_img.rows * scale), :linear)
+          #pai_list = pai_list.map{|pai|
+          #  puts "before = (#{pai.x}, #{pai.y})"
+          #  pai.x = target_img.cols - pai.x - scaled_img.cols
+          #  pai.y = target_img.rows - pai.y - scaled_img.rows
+          #  puts "after = (#{pai.x}, #{pai.y})"
+          #  pai
+          #}
+          pai_list
         end
           
 
