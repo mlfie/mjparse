@@ -8,8 +8,8 @@ module Mlfielib
     class YakuJudger
 
       # 国士無双
-      def self.kokushi?(tehai, agari);
-        return false;
+      def self.kokushi?(tehai, agari)
+        return false
       end
 
       # 四暗刻
@@ -40,9 +40,9 @@ module Mlfielib
               has_hatsu = true
             end
           end
-      end
+        end
           
-		if has_haku && has_chun && has_hatsu
+		    if has_haku && has_chun && has_hatsu
           return true
         end
         return false
