@@ -7,7 +7,7 @@ module Mlfielib
   module Analysis
     class YakuJudger
       ### ダブル立直
-      def self.doublereach?(tehai, agari)
+      def doublereach?(tehai, agari)
         if agari.reach_num == 2
           return true
         end
@@ -15,7 +15,7 @@ module Mlfielib
       end
 
       ### 七対子
-      def self.chitoitsu?(tehai, agari)
+      def chitoitsu?(tehai, agari)
 	    if tehai.mentsu_list.size == "7"
            return true
         end
@@ -23,7 +23,7 @@ module Mlfielib
       end
 
       ### 混全帯么九
-      def self.chanta?(tehai, agari)
+      def chanta?(tehai, agari)
 	    jihai_count = 0
 		kotsu_count = 0
         tehai.mentsu_list.each do | mentsu |
@@ -58,7 +58,7 @@ module Mlfielib
 	  end
 
       ### 一気通貫
-      def self.ikkitsukan?(tehai, agari)
+      def ikkitsukan?(tehai, agari)
         tehai.mentsu_list.each do | mentsu|
           if mentsu.mentsu_type == "s" && mentsu.pai_list[0].number == "1"
             tehai.mentsu_list.each do | mentsu2|
@@ -76,7 +76,7 @@ module Mlfielib
       end
 
       ### 三色同順
-      def self.sanshoku?(tehai, agari)
+      def sanshoku?(tehai, agari)
         tehai.mentsu_list.each do | mentsu|
           if mentsu.mentsu_type == "s"
             tehai.mentsu_list.each do | mentsu2|
@@ -98,7 +98,7 @@ module Mlfielib
       end
       
       ### 三色同刻
-      def self.sanshokudouko?(tehai, agari)
+      def sanshokudouko?(tehai, agari)
 	    tehai.mentsu_list.each do | mentsu |
           if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "4"
             tehai.mentsu_list.each do | mentsu2 |
@@ -124,7 +124,7 @@ module Mlfielib
       end
 
       ### 対々和
-      def self.toitoihou?(tehai, agari)
+      def toitoihou?(tehai, agari)
         if tehai.mentsu_list.size == "4"
 		  tehai.mentsu_list.each do | mentsu| 
 		    if mentsu.mentsu_type != "k"
@@ -139,7 +139,7 @@ module Mlfielib
       end
 
       ### 三暗刻
-      def self.sanankou?(tehai, agari)
+      def sanankou?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
           if mentsu.mentsu_type == "k" && mentsu.furo == false
@@ -153,7 +153,7 @@ module Mlfielib
 	  end
         
       ### 三槓子
-      def self.sankantsu?(tehai, agari)
+      def sankantsu?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
           if mentsu.mentsu_type == "4"
@@ -168,7 +168,7 @@ module Mlfielib
 	  
         
       ### 小三元
-      def self.shousangen?(tehai, agari)
+      def shousangen?(tehai, agari)
 		if tehai.mentsu_list.size == "4"
 	      tehai.mentsu_list.each do | mentsu|
 		    if mentsu.pai_list[0].type == "5"

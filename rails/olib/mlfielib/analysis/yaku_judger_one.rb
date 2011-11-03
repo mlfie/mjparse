@@ -8,7 +8,7 @@ module Mlfielib
     class YakuJudger
 	
 	  ### リーチ
-      def self.reach?(tehai, agari)
+      def reach?(tehai, agari)
 	     if agari.reach_num == 1
 		   return true
 		 end
@@ -16,7 +16,7 @@ module Mlfielib
 	  end
 	
       ### 平和
-      def self.pinfu?(tehai, agari)
+      def pinfu?(tehai, agari)
         #コーツなし判定
         tehai.mentsu_list.each do |mentsu|
           if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
@@ -62,7 +62,7 @@ module Mlfielib
       end
 
       ### 断么九
-      def self.tanyao?(tehai, agari)
+      def tanyao?(tehai, agari)
         if tehai.atama.yaochu?
           return false
         end
@@ -77,7 +77,7 @@ module Mlfielib
       end
 
       ### 一盃口
-      def self.iipeikou?(tehai, agari) 
+      def iipeikou?(tehai, agari) 
         tehai.mentsu_list.each_with_index do |mentsu_1,i|
           tehai.mentsu_list.each_with_index do |mentsu_2,j|
             if i != j
@@ -97,7 +97,7 @@ module Mlfielib
       end # end def
 
       ### 一発
-      def self.ippatsu?(tehai, agari)
+      def ippatsu?(tehai, agari)
         if agari.is_ippatsu
           return true
         end
@@ -105,7 +105,7 @@ module Mlfielib
       end
         
       ### 門前清自摸和
-      def self.tsumo?(tehai, agari)
+      def tsumo?(tehai, agari)
         if agari.is_tsumo
           return true
         end
@@ -113,7 +113,7 @@ module Mlfielib
       end
 
       ### 東
-      def self.ton?(tehai, agari)
+      def ton?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -125,7 +125,7 @@ module Mlfielib
       end
 
       ### 南
-      def self.nan?(tehai, agari)
+      def nan?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -137,7 +137,7 @@ module Mlfielib
       end
 
       ### 西
-      def self.sha?(tehai, agari)
+      def sha?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -149,7 +149,7 @@ module Mlfielib
       end
 
       ### 北
-      def self.pei?(tehai, agari)
+      def pei?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -161,7 +161,7 @@ module Mlfielib
       end
 
       ### 白
-      def self.haku?(tehai, agari)
+      def haku?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -173,7 +173,7 @@ module Mlfielib
       end
       
       ### 發
-      def self.hatsu?(tehai, agari)
+      def hatsu?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -185,7 +185,7 @@ module Mlfielib
       end
 
       ### 中
-      def self.chun?(tehai, agari)
+      def chun?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -197,7 +197,7 @@ module Mlfielib
       end
 
       ### 海底摸月
-      def self.haitei?(tehai, agari)
+      def haitei?(tehai, agari)
         if agari.is_haitei
           if agari.is_tsumo
             return true
@@ -207,7 +207,7 @@ module Mlfielib
       end
 
       ### 河底撈魚
-      def self.houtei?(tehai, agari)
+      def houtei?(tehai, agari)
         if agari.is_haitei
           if !agari.is_tsumo
             return true
@@ -217,7 +217,7 @@ module Mlfielib
       end
 
       ### 嶺上開花
-      def self.rinshan?(tehai, agari)
+      def rinshan?(tehai, agari)
         if agari.is_rinshan
           return true
         end
@@ -225,7 +225,7 @@ module Mlfielib
       end
 
       ### 槍槓
-      def self.chankan?(tehai, agari)
+      def chankan?(tehai, agari)
         if agari.is_chankan
           return true
         end

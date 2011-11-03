@@ -7,10 +7,10 @@ module Mlfielib
   module Analysis
     class YakuJudger
       ### 二盃口
-      def self.ryanpeikou?(tehai, agari); return false; end
+      def ryanpeikou?(tehai, agari); return false; end
       
       ### 混一色
-      def self.honitsu?(tehai, agari)
+      def honitsu?(tehai, agari)
 		fetchtype = nil
         tehai.mentsu_list.each do | mentsu |		
 			if mentsu.pai_list[0].type != "j"
@@ -58,7 +58,7 @@ module Mlfielib
 #      end
       
       ### 純全帯么九
-      def self.junchan?(tehai, agari)
+      def junchan?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
           if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
 		        if mentsu.pai_list[0].type == "j"
@@ -81,7 +81,7 @@ module Mlfielib
 	  
 	  
       ### 混老頭
-      def self.honroutou?(tehai, agari)
+      def honroutou?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
             if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
 		      if mentsu.pai_list[0].type != "j"
@@ -97,7 +97,7 @@ module Mlfielib
 	  end
 	  
       ### 清一色
-      def self.chinitsu?(tehai, agari)
+      def chinitsu?(tehai, agari)
         beforetype = nil
         tehai.mentsu_list.each do |mentsu|
           mentsu.pai_list.each do |pai|
