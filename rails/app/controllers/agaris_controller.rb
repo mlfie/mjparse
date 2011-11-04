@@ -99,7 +99,7 @@ class AgarisController < ApplicationController
     yaku_specimen = Hash.new
     yaku_list = Yaku.all
     yaku_list.each do |yaku|
-      yaku_specimen[yaku.name] = Mlfielib::Analysis::YakuSpecimen.new(yaku.name_kanji, yaku.han_num, yaku.naki_han_num)
+      yaku_specimen[yaku.name] = Mlfielib::Analysis::YakuSpecimen.new(yaku.name, yaku.name_kanji, yaku.han_num, yaku.naki_han_num)
     end
     
     # 局情報を設定
@@ -122,6 +122,8 @@ class AgarisController < ApplicationController
     # if Mjt::Analysis::TeyakuDecider.get_agari_teyaku(agari)
     teyaku_decider = Mlfielib::Analysis::TeyakuDecider.new
     teyaku_decider.get_agari_teyaku(agari.tehai_list, kyoku, yaku_specimen)
+    
+    logger.debug("TeyakuDecider result_code is " + teyaku_decider.result_code.to_s)
     
     if teyaku_decider.result_code == Mlfielib::Analysis::TeyakuDecider::RESULT_SUCCESS then
     logger.debug("decider success")
