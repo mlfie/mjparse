@@ -457,7 +457,7 @@ function sendCalcData(){
                 $("#div_point").html(agariToPointHtml(data.agari));
 
                 //画像解析訂正画面にも表示
-                $("#div_fix").html(agariToEditableImgJq(data.agari));
+                //$("#div_fix").html(agariToEditableImgJq(data.agari));
                 
                 //ロード中メッセージ除去
                 hideLoadMsg();
@@ -494,7 +494,7 @@ function agariToAnalizedImgHtml(agari) {
             if (paistr == "") {
                 
                 //解析に失敗したパイがある場合
-                paistr = "z0"; //失敗画像のファイル名"z0"を指定
+                paistr = "z0-top"; //失敗画像のファイル名"z0"を指定
             }
             html += "<img src=img/pai/" + paistr + "-" + tmp[dstr] + ".gif>";
         }
