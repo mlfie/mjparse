@@ -158,7 +158,7 @@ module Mlfielib
       # 双ポン待ちでのアガリ面子であるか？
       def shanpon?
         if self.koutsu?
-          if self.pai_list[0].agari
+          if self.pai_list[0].agari || self.pai_list[1].agari || self.pai_list[2].agari then
             return true
           end
         end

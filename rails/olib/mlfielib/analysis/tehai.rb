@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-module Mlfielib::Analysis
+module Mlfielib
+module Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
                   :atama,         # 雀頭(1枚)
-                  :yaku_list,     # 役(Yaku)のリスト
+                  :yaku_list,     # 役(YakuSpecimen)のリスト
                   :fu_num,        # 符数
                   :han_num,       # 飜数
                   :mangan_scale,  # 満貫の倍数(0:なし 1:満貫 1.5:跳萬 2:倍萬 3:３倍萬 4:役萬 8:ダブル役萬)
@@ -23,5 +24,55 @@ module Mlfielib::Analysis
       self.parent_point = 0
       self.child_point = 0
     end
+    
+    # 手牌が両面アガリかどうかを判定
+    def ryanmen_agari?
+      self.mentsu_list.each do |mentsu|
+        if mentsu.ryanmen? then
+          return true
+        end
+      end
+      return false
+    end
+    
+    # 手牌が辺張アガリかどうかを判定
+    def penchan_agari?
+      self.mentsu_list.each do |mentsu|
+        if mentsu.penchan? then
+          return true
+        end
+      end
+      return false
+    end
+
+    # 手牌が嵌張アガリかどうかを判定
+    def kanchan_agari?
+      self.mentsu_list.each do |mentsu|
+        if mentsu.kanchan? then
+          return true
+        end
+      end
+      return false
+    end
+    
+    # 手牌が双ポンアガリかどうかを判定
+    def shanpon_agari?
+      self.mentsu_list.each do |mentsu|
+        if mentsu.shanpon? then
+          return true
+        end
+      end
+      return false
+    end
+    
+    # 手牌が単騎アガリかどうかを判定
+    def tanki_agari?
+      if self.atama.agari then
+        return true
+      end
+      return false
+    end
+    
   end
+end
 end

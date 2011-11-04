@@ -3,6 +3,12 @@
 module Mlfielib
  module Analysis
   class Kyoku
+    # 風牌の種類
+    KYOKU_KAZE_TON          = 'ton';
+    KYOKU_KAZE_NAN          = 'nan';
+    KYOKU_KAZE_SHA          = 'sha';
+    KYOKU_KAZE_PEI          = 'pei';
+    
     attr_accessor :is_tsumo,      # ツモ(true)かロン(false)かを示す  false
                   :is_haitei,     # 海底摸月かどうかを示す            false
                   :dora_num,      # ドラ牌の枚数を示す               0               
