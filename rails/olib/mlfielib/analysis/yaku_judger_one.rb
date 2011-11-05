@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
+require 'mlfielib/analysis/kyoku'
 
 ### 役判定（1飜）を行うクラスメソッド群
 module Mlfielib
@@ -33,7 +34,10 @@ module Mlfielib
         end
       
         #対子が風・三元牌でナシ判定
-        kazemap = [["ton", 1], ["nan", 2], ["sya", 3], ["pei", 4]]
+        kazemap = [[Kyoku::KYOKU_KAZE_TON, 1], 
+                  [Kyoku::KYOKU_KAZE_NAN, 2], 
+                  [Kyoku::KYOKU_KAZE_SHA, 3], 
+                  [Kyoku::KYOKU_KAZE_PEI, 4]]
         kazemap.each do | ibakaze |
           if agari.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] 
             return false
@@ -130,6 +134,10 @@ module Mlfielib
 
       ### 東
       def ton?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_TON and agari.jikaze != Kyoku::KYOKU_KAZE_TON
+          return false
+        end
+        
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -142,6 +150,10 @@ module Mlfielib
 
       ### 南
       def nan?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_NAN and agari.jikaze != Kyoku::KYOKU_KAZE_NAN
+          return false
+        end
+        
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -154,6 +166,10 @@ module Mlfielib
 
       ### 西
       def sha?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_SHA and agari.jikaze != Kyoku::KYOKU_KAZE_SHA
+          return false
+        end
+        
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
@@ -166,6 +182,10 @@ module Mlfielib
 
       ### 北
       def pei?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_PEI and agari.jikaze != Kyoku::KYOKU_KAZE_PEI
+          return false
+        end
+        
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
