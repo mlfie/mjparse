@@ -45,8 +45,7 @@ module Mlfielib
             return false
           end
         end
-        
-        if tehai.atama.type == "j" && (tehai.atama.number == "5" || tehai.atama.number == "6" || tehai.atama.number == "7")
+        if tehai.atama.type == "j" && (tehai.atama.number == 5 || tehai.atama.number == 6 || tehai.atama.number == 7)
           return false
         end
 
