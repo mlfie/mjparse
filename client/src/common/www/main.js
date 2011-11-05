@@ -57,8 +57,8 @@ function infomsg(message) {
         top: window.pageYOffset+100
     })
     .html("<h1>" + message + "<h1>")
-    .appendTo("body").delay(800)
-    .fadeOut(1000, function(){
+    .appendTo("body").delay(500)
+    .fadeOut(500, function(){
         $(this).remove();
     });
 }
@@ -66,20 +66,26 @@ function infomsg(message) {
 /**
  * エラーメッセージ
  */
-function errmsg(message) {
+function errormsg(message,detail) {
+    $("#div_error").html("<p>" + detail +"</p>");
+
     $("<div/>")
+    .attr("id","div_errormsg")
     .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
     .css({
         display: "block",
-        opacity: 0.8,
+        opacity: 0.9,
         top: window.pageYOffset+100
     })
-    .html("<h1>エラー</h1>" + message)
-    .appendTo("body").delay(800)
-    .fadeOut(2000, function(){
-        $(this).remove();
-    })
-    .click(function(){
+    .html("<h1>エラー</h1>")
+    .append("<p>" + message +"</p>") 
+    .append("<button onclick='removeErrorMsg()'>OK</button>")
+    .append("<button onclick='removeErrorMsg();$.mobile.changePage(\"#error\")'>詳細</button>")
+    .appendTo("body").delay(500);
+}
+
+function removeErrorMsg(){
+    $("#div_errormsg").fadeOut(500, function(){
         $(this).remove();
     });
 }
@@ -209,7 +215,7 @@ function showServerPhotoList() {
             },
             error: function (data) {
                 hideLoadMsg();
-                errormsg("写真リスト取得失敗:" + data.status);
+                errormsg("写真リスト取得失敗:" + data.status,data.responseText);
                 dbgmsg("dlPhoto","RESPONSE=" + data.responseText);
             }
         });
@@ -360,7 +366,7 @@ function calcPoint(){
     }else if(photoType == PHOTO_TYPE_URL){
         sendCalcData();
     }else{
-        errmsg("解析対象の写真がありません");
+        errormsg("解析対象の写真がありません");
         dbgmsg("calcPoint","img_url is empty");
         return ;
     }
@@ -391,7 +397,7 @@ function sendPhoto() {
         },
         error: function (data) {
             hideLoadMsg();
-            errormsg("写真の登録失敗 " + data.status);
+            errormsg("写真の登録失敗 " + data.status, data.responseText);
             dbgmsg("sendPhoto","RESPONSE=" + data.responseText);
         }
     });
@@ -468,7 +474,7 @@ function sendCalcData(){
             error: function (data) {
                 hideLoadMsg();
                 dbgmsg("calcPoint","RESPONSE:" + data.responseText);
-                errormsg("得点計算リクエストが失敗しました:" + data.status);
+                errormsg("得点計算リクエストが失敗しました:" + data.status, data.responseText);
             }
         });
 }
