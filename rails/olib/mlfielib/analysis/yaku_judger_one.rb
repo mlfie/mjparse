@@ -17,6 +17,14 @@ module Mlfielib
 	
       ### 平和
       def pinfu?(tehai, agari)
+        #鳴きなし判定
+        tehai.mentsu_list.each do |mentsu|
+          mentsu.pai_list.each do |pai|
+            if pai.naki
+              return false
+             end
+          end
+        end
         #コーツなし判定
         tehai.mentsu_list.each do |mentsu|
           if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
