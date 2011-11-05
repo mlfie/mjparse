@@ -255,7 +255,9 @@ module Mlfielib
       ### 嶺上開花
       def rinshan?(tehai, agari)
         if agari.is_rinshan
-          return true
+          if agari.is_tsumo
+            return true
+          end
         end
         return false
       end
@@ -263,7 +265,9 @@ module Mlfielib
       ### 槍槓
       def chankan?(tehai, agari)
         if agari.is_chankan
-          return true
+          if !agari.is_tsumo
+            return true
+          end
         end
         return false
       end
