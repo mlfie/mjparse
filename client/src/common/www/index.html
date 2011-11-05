@@ -184,10 +184,9 @@
                  src="img/nophoto.jpg" alt=""/>
             <p>↓</p>
             <div id="div_analized_img"></div>
-            <!--
-               <a data-role="button" href="#fix">解析結果訂正</a>
-               -->
+            <p>画像解析結果を訂正する場合は牌をタッチ</p>
           </div>
+          <a data-role="button" onclick="retry()">訂正後の手牌で得点計算</a>
           <a data-role="button" data-rel="back">戻る</a>
         </center>
       </div>
@@ -197,19 +196,6 @@
       </div>
     </div>
 
-    <!--画像解析訂正画面-->
-    <div data-role="page" id="fix" data-theme="c">
-      <div data-role="header">
-        <h1>画像解析訂正</h1>
-        <a data-role="button" data-rel="back">戻る</a>
-      </div>
-      <div data-role="content">
-        <div id="div_fix"></div>
-      </div>
-      <div data-role="footer">
-        <a data-role="button" href="#debug">debug</a>
-      </div>
-    </div>
 
 
     <!--エラー詳細画面-->

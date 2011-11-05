@@ -1,19 +1,137 @@
+PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
+
+
+var Pai = function(type,direction){
+    dbgmsg("Pai.new", this.type + this.direction);
+
+    this.type = type;
+    this.direction = direction;
+
+    this.imgUrl = function(){
+        return "img/pai/" + this.type + "-" + this.direction +".gif";
+    };
+   
+
+    this.jq = $("<img/>")
+        .attr('type',this.type)
+        .attr('direction',this.direction)
+        .attr('src',this.imgUrl())
+        .hover(
+            function(){
+                //マウスオーバー時
+                $(this).css("border-color","#990000");
+            },
+            function(){
+                //マウスオーバー解除
+                $(this).css("border-color","#ffffff");
+            }
+        );
+
+    this.imgJq = function(){
+        return this.jq;
+    };
+
+    this.changeType = function(type){
+        dbgmsg("Pai.changeType",type);
+        this.type=type;
+        this.jq.attr('src',this.imgUrl());
+    };
+
+};
+
+var Tehai = function(tehaiList) {
+
+    this.DIRE_MAP={
+        "t" : "top",
+        "l" : "left",
+        "r" : "right",
+        "b" : "bottom"
+    };
+
+    this.DIRE_R_MAP={
+        "top" : "t",
+        "left" : "l",
+        "right" : "r",
+        "bottom" : "b"
+    };
+
+    this.paiList = new Array();
+    this.changeIndex = -1;
+
+    if(typeof tehaiList == "string" ){
+        dbgmsg("makePaiImgUrlList","type is string = " + tehaiList);
+        //tehai_listが文字列形の場合
+        //3文字ごとに分ける ex)"s6ts7ts8t"
+        for (var i = 0; i < 14 * 3 ; i += 3) {
+            var paistr = tehaiList.slice(i, i + 2);
+            var dstr = tehaiList.slice(i + 2, i + 3);
+            if (paistr == "") {
+                //解析に失敗したパイがある場合
+                paistr = "z0";
+                dstr="t";
+            }
+            this.paiList.push(new Pai(paistr,this.DIRE_MAP[dstr]));
+        }
+    }else{
+        dbgmsg("makePaiImgUrlList","type is list ");
+        //tehai_listが配列の場合
+        $.each(tehaiList,function(){
+                   this.paiList.push(
+                       new Pai(this.type + this.number,this.direction)
+                       );
+               });
+    }
+
+    this.toJq = function(){
+        var divJq = $("<div/>");
+        for(var i = 0 ; i<this.paiList.length ; i++){
+            var imgJq = this.paiList[i].imgJq()
+                .attr("id","tehai" + i)
+                .attr("index",i)
+                .click(
+                function(){
+                    //牌がクリックされた場合、自分のindexをグローバル変数に渡す
+                    changeTargetPaiIndex = $(this).attr("index");
+                    $("#div_selectpanel").show();
+                });
+            
+            divJq.append(imgJq); 
+            
+        }
+
+        return divJq;
+    };
+
+    this.changePai = function(index,type){
+        dbgmsg("Tehai.changePai",index + " " + type);
+        this.paiList[index].changeType(type);
+    };
+
+    this.toString = function(){
+        var str = "";
+        $.each(this.paiList,function(){
+                   str += this.type + DIRE_R_MAP[this.direction];
+               });
+        return str;
+    };
+};
+
+
+
 /**
  * 定数
  */
 
 //得点計算リクエスト送信先URL
-//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
-//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/dummy/agaris.json";
-var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
+var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
+//var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
 //var  MJT_AGARI_URL= "http://localhost:8080/agaris.json";
 
 //写真取得・登録先URL
-//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
-var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
+var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
+//var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
 //var MJT_PHOTO_URL = "http://localhost:8080/photos.json";
 
-var PAI_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
 
 var NO_IMAGE="img/nophoto.jpg";//「手牌画像なし」と書いた画像
 
@@ -30,10 +148,10 @@ var destinationType; // 戻り値のフォーマット
 var photoBase64="";//写真のbase64ストリング
 var photoListDlFlag=false;//サーバから写真をダウンロードしたかどうか
 var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
-
+var changeTargetPaiIndex = -1;//変更対象の牌のindex
 var dbgno=0; //デバッグメッセージの行数
 var dbgarray = new Array();//デバッグメッセージ格納配列
-
+var tehai = null;
 /**********************************************
  * 共通関数
  **********************************************/
@@ -43,6 +161,7 @@ var dbgarray = new Array();//デバッグメッセージ格納配列
  */
 $(document).ready(function(){
 					  updateStateStr();
+                      makeSelectPanel();
 				  });
 
 /**
@@ -458,12 +577,13 @@ function sendCalcData(){
             success: function (data, textStatus, xhr) {
                 dbgmsg("sendCalcData","RESPONSE:" + json2txt(eval(data)));
 
-                //アガリ結果表示
-                $("#div_analized_img").html(agariToAnalizedImgHtml(data.agari));
-                $("#div_point").html(agariToPointHtml(data.agari));
+                //得点表示
+                $("#div_point").html(makePointHtml(data.agari));
 
-                //画像解析訂正画面にも表示
-                //$("#div_fix").html(agariToEditableImgJq(data.agari));
+                //画像解析結果表示
+                //$("#div_analized_img").html(makePaiImgJq(data.agari.tehai_list));
+                tehai = new Tehai(data.agari.tehai_list);
+                $("#div_analized_img").html(tehai.toJq());
                 
                 //ロード中メッセージ除去
                 hideLoadMsg();
@@ -479,44 +599,8 @@ function sendCalcData(){
         });
 }
 
-function agariToAnalizedImgHtml(agari) {
 
-    //HTML生成
-    var html = "";
-    
-    if(typeof agari.tehai_list == "string" ){
-        //tehai_listが文字列形の場合
-        for (var i = 0; i < 14 * 3 ; i += 3) {
-            
-            var paistr = agari.tehai_list.slice(i, i + 2);
-            var dstr = agari.tehai_list.slice(i + 2, i + 3);
-            var tmp={
-                "t" : "top",
-                "l" : "left",
-                "r" : "right",
-                "b" : "bottom"
-            };
-            
-            if (paistr == "") {
-                
-                //解析に失敗したパイがある場合
-                paistr = "z0-top"; //失敗画像のファイル名"z0"を指定
-            }
-            html += "<img src=img/pai/" + paistr + "-" + tmp[dstr] + ".gif>";
-        }
-    }else{
-        //tehai_listが配列の場合
-        $.each(agari.tehai_list,function(){
-                   paistr = this.type + this.number + "-" + this.direction ;
-                   html += "<img src=img/pai/" + paistr + ".gif>";
-               });
-    }
-    
-    return html;
-}
-
-
-function agariToPointHtml(a) {
+function makePointHtml(a) {
 
     var manganStr = "";
     switch (a.mangan_scale) {
@@ -568,82 +652,42 @@ function agariToPointHtml(a) {
     return html;
 };
 
+
 /**********************************************
- * 画像解析訂正
+ * 画像解析
  **********************************************/
 
-function agariToEditableImgJq(agari) {
+function makeSelectPanel(paiImgJq) {
 
-    //HTML生成
-    var jqSpan = $("<span/>");
-    var j=0;
+    var jq = $("<div/>")
+    .attr("id","div_selectpanel")
+    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
+    .css({
+        display: "block",
+        opacity: 0.9,
+        top: window.pageYOffset+100
+    })
+    .html("<h1>牌を選んでください</h1>");
 
-
-    $.each(agari.tehai_list,function(){
-               paistr = this.type + this.number + "-" + this.direction ;
-               
-               if (paistr == "") { //解析に失敗したパイがある場合
-                   paistr = "z0"; //失敗画像のファイル名"z0"を指定
-               }
-               
-               var jqImg = $("<img/>")
-                   .attr("id","pai" + j)
-                   .attr("src","img/pai/" + paistr + ".gif")
-                   .attr("alt",paistr)
-                   .css("zoom","0.7")
+    $.each(PAI_TYPE_LIST,function(){
+               var imgJq = new Pai(this,"top")
+                   .imgJq()
                    .click(
                        function(){
-                           //クリック時
-                           dbgmsg("viewPhotoList","Selected Pai = "
-                                  + $(this).attr('id') + ":"
-                                  + $(this).attr('alt')
-                                 );
-                           createPaiSelectDiv($(this));
-                           $.mobile.changePage("#paiselect","pop",false,false);
-                       }
-                   );
-               
-               j++;
-               jqSpan.append(jqImg);
-           });//end each
-    return jqSpan;
+                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
+                           //外部変数changeTargetPaiIndexに変更対象の牌が入っている
+                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
+                           jq.hide();
+                       });
+
+               jq.append(imgJq);
+           });
+
+    jq.appendTo("body").hide();
+
 }
 
-function createPaiSelectDiv(jq){
-    $("#div_selectpai").html("");
-    $.each(PAI_LIST, function () {
-        dbgmsg("createPaiSelectDiv","add pai " + this);
-        var jqImg = $("<img/>")
-        .attr("src","img/pai/" + this + "-top.gif")
-        .attr("alt",this)
-        .css("border-width","1px")
-        .css("border-style","solid")     
-        .css("border-color","#ffffff")       
-        .hover(
-            function(){
-                //マウスオーバー時
-                $(this).css("border-color","#990000");
-            },
-            function(){
-                //マウスオーバー解除
-                $(this).css("border-color","#ffffff");
-            }
-        )
-        .click(
-            function(){
-                //クリック時
-                dbgmsg("viewPhotoList","Selected Pai = "
-                       + $(this).attr('alt')
-                      );
-                //引数のjqueryオブジェクトにパイをセット
-                jq.attr("src",$(this).attr('src'));
-                $.mobile.changePage("#fix","pop",true,false);
-            }
-        );
 
-        $("#div_selectpai").append(jqImg);
-    });//end each
-}
 
 /**********************************************
  * テスト・デバッグ用
@@ -680,8 +724,9 @@ function dummyPhoto(){
 }
 
 function calcPointDummy(){
-    setImgUrl("http://fetaro-mjt.fedc.biz/img/1.jpg");
-    setImg("http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
-    photoType=PHOTP_TYPE_URL;
+    $("#img_url").val($(this).attr('http://fetaro-mjt.fedc.biz/img/1.jpg'));
+    $("#img_top_photo").attr("src", "http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
+    $("#img_result_photo").attr("src", "http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
+    photoType=PHOTO_TYPE_URL;
     calcPoint();
 }
