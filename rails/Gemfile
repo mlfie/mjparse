@@ -12,6 +12,7 @@ gem 'twitter'
 gem 'opencv', '0.0.6'
 gem 'rmagick'
 gem 'paperclip'
+gem 'rcov'
 
 # Use unicorn as the web server
 # gem 'unicorn'
