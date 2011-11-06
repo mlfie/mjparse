@@ -13,7 +13,7 @@ module Mlfielib
   
       def analyze(img_path)
         pais = analyze_raw(img_path)
-        pais.map {|e| e.type}.join
+        pais.map {|e| e.to_str}.join
       end
   
       def analyze_raw(img_path)

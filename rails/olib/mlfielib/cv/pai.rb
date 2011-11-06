@@ -24,6 +24,10 @@ module Mlfielib
         def position
           @rect.position
         end
+        def to_str
+          return "#{@type}t" if @direction == :top
+          return "#{@type}r"
+        end
     end
   end
 end
