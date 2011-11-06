@@ -386,7 +386,7 @@ module Mlfielib
 #*****************************************************************#
 # step4. 満貫の倍数を計算する
 #*****************************************************************#
-      def self.calc_mangan_scale(base_point)
+      def self.calc_mangan_scale(base_point, kyoku)
         if kyoku.is_parent then
           return base_point / 12000
         end

@@ -1,4 +1,75 @@
+require 'mlfielib/cv/template_matching_analyzer'
+require 'mlfielib/analysis/yaku_specimen'
+require 'mlfielib/analysis/kyoku'
+require 'mlfielib/analysis/teyaku_decider'
+
 class Agari < ActiveRecord::Base
+  include Mlfielib::Analysis
+
   has_and_belongs_to_many :yaku_list, :class_name => 'Yaku'
   #has_many :tehai_list, :class_name => 'AgariPai', :order => "index"
+
+  attr_accessor :local_img_path
+
+  def img_analysis
+    tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
+    self.tehai_list = tma.analyze(self.local_img_path)
+  end
+
+  def teyaku_analysis
+    teyaku_decider = TeyakuDecider.new
+    teyaku_decider.get_agari_teyaku(
+      self.tehai_list,
+      self.kyoku,
+      self.yaku_specimen
+    )
+
+    logger.debug("TeyakuDecider result_code is " + teyaku_decider.result_code.to_s)
+
+    case teyaku_decider.result_code
+      when TeyakuDecider::RESULT_SUCCESS
+        set_teyaku_result(teyaku_decider)
+        logger.debug("decider success")
+      else
+        logger.debug("decider failed")
+    end
+    return true
+  end
+
+  def set_teyaku_result(teyaku_decider)
+    self.total_fu_num    = teyaku_decider.teyaku.fu_num
+    self.total_han_num   = teyaku_decider.teyaku.han_num
+    self.yaku_list       = teyaku_decider.teyaku.yaku_list
+    self.mangan_scale    = teyaku_decider.teyaku.mangan_scale
+    self.total_point     = teyaku_decider.teyaku.total_point
+    self.parent_point    = teyaku_decider.teyaku.parent_point
+    self.child_point     = teyaku_decider.teyaku.child_point
+  end
+
+  def yaku_specimen
+    yaku_specimen = Hash.new
+    Yaku.all.each do |yaku|
+      yaku_specimen[yaku.name] =
+        YakuSpecimen.new(yaku.name, yaku.name_kanji, yaku.han_num, yaku.naki_han_num)
+    end
+    return yaku_specimen
+  end
+
+  def kyoku
+    kyoku = Kyoku.new
+    kyoku.is_tsumo      = self.is_tsumo
+    kyoku.is_haitei     = self.is_haitei
+    kyoku.dora_num      = self.dora_num
+    kyoku.bakaze        = self.bakaze
+    kyoku.jikaze        = self.jikaze
+    kyoku.honba_num     = self.honba_num
+    kyoku.is_rinshan    = self.is_rinshan
+    kyoku.is_chankan    = self.is_chankan
+    kyoku.reach_num     = self.reach_num
+    kyoku.is_ippatsu    = self.is_ippatsu
+    kyoku.is_tenho      = self.is_tenho
+    kyoku.is_chiho      = self.is_chiho
+    kyoku.is_parent     = self.is_parent
+    return kyoku
+  end
 end
