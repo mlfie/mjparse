@@ -16,13 +16,13 @@ class ImagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create image" do
-    assert_difference('Image.count') do
-      post :create, :image => @image.attributes
-    end
+  #test "should create image" do
+  #  assert_difference('Image.count') do
+  #    post :create, :image => @image.attributes
+  #  end
 
-    assert_redirected_to image_path(assigns(:image))
-  end
+  #  assert_redirected_to image_path(assigns(:image))
+  #end
 
   test "should show image" do
     get :show, :id => @image.to_param
