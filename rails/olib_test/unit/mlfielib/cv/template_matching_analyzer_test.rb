@@ -20,8 +20,7 @@ class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
   end
 
   def test_analyze
-    #path = "olib_test/unit/mlfielib/cv/test_img/test_komagahouse3.jpg"
-    path = "olib_test/unit/mlfielib/cv/test_img/IMG_1009.jpg"
+    path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
 
     pais = @tma.analyze_raw(path)

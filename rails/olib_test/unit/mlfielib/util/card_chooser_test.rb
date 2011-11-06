@@ -9,12 +9,16 @@ class CardChooserTest < Test::Unit::TestCase
   end
 
   def test_current_size
+    @size = 10
+    @chooser = Mlfielib::Util::CardChooser.new(@size)
     assert_equal @size, @chooser.current_size
     @chooser.choose(0)
     assert_equal @size-1, @chooser.current_size
   end
 
   def test_choose_and_undo
+    @size = 10
+    @chooser = Mlfielib::Util::CardChooser.new(@size)
     choosed = []
     @size.times do
       choosed << @chooser.choose(rand(@chooser.current_size))
