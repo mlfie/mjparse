@@ -68,9 +68,11 @@ class AgarisController < ApplicationController
   # PUT /agaris/1.xml
   def update
     @agari = Agari.find(params[:id])
+    @agari.attributes = params[:agari]
 
+    @agari.teyaku_analysis
     respond_to do |format|
-      if @agari.update_attributes(params[:agari])
+      if @agari.save
         @agari.reload
         format.html { redirect_to(@agari, :notice => 'Agari was successfully updated.') }
         format.xml  { head :ok }

@@ -6,10 +6,15 @@ require 'mlfielib/analysis/teyaku_decider'
 class Agari < ActiveRecord::Base
   include Mlfielib::Analysis
 
+  attr_protected :total_fu_num, :total_han_num, :mangan_scale, :total_point, :parent_point, :child_point
+  attr_accessor :local_img_path
+
   has_and_belongs_to_many :yaku_list, :class_name => 'Yaku'
   #has_many :tehai_list, :class_name => 'AgariPai', :order => "index"
 
-  attr_accessor :local_img_path
+  STATUS_SUCCESS = 200
+  STATUS_BAD_REQUEST = 400
+  STATUS_INTERNAL_ERROR = 500
 
   def img_analysis
     tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
@@ -28,9 +33,11 @@ class Agari < ActiveRecord::Base
 
     case teyaku_decider.result_code
       when TeyakuDecider::RESULT_SUCCESS
+        self.status_code = STATUS_SUCCESS
         set_teyaku_result(teyaku_decider)
         logger.debug("decider success")
       else
+        self.status_code = STATUS_INTERNAL_ERROR
         logger.debug("decider failed")
     end
     return true
