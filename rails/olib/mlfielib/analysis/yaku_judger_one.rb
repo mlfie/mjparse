@@ -49,7 +49,7 @@ module Mlfielib
             return false
           end
         end
-        if tehai.atama.type == "j" && (tehai.atama.number == 5 || tehai.atama.number == 6 || tehai.atama.number == 7)
+        if tehai.atama.type == Pai::PAI_TYPE_JIHAI && (tehai.atama.number == Pai::PAI_NUMBER_HAKU || tehai.atama.number == Pai::PAI_NUMBER_HATSU || tehai.atama.number == Pai::PAI_NUMBER_CHUN)
           return false
         end
 
@@ -141,7 +141,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 1
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_TON
           end 
           return true if count == 3
         end
@@ -157,7 +157,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 2
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_NAN
           end 
           return true if count == 3
         end
@@ -173,7 +173,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 3
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_SHA
           end 
           return true if count == 3
         end
@@ -189,7 +189,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 4
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_PEI
           end 
           return true if count == 3
         end
@@ -201,7 +201,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 5
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_HAKU
           end 
           return true if count == 3
         end
@@ -213,7 +213,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 6
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_HATSU
           end 
           return true if count == 3
         end
@@ -225,7 +225,7 @@ module Mlfielib
         tehai.mentsu_list.each do |mentsu|
           count = 0 
           mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == "j" && pai.number == 7
+            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_CHUN
           end 
           return true if count == 3
         end
