@@ -16,7 +16,7 @@ module Mlfielib
 
       ### 七対子
       def chitoitsu?(tehai, agari)
-	    if tehai.mentsu_list.size == "7"
+	    if tehai.mentsu_list.size == 6
            return true
         end
         return false
