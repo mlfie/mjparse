@@ -74,6 +74,24 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
     
+    #ペンチャンであがり  --> false
+    pai_items = "m1tm2tp1tp2tp3ts1ts2ts3ts6ts7ts8tj2tj2tm3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|  
+      assert_equal false, @judger.pinfu?(tehai, agari)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    #単キであがり  --> false
+    pai_items = "m1tm2tm3tp1tp2tp3ts1ts2ts3ts6ts7ts8tj2tj2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|  
+      assert_equal false, @judger.pinfu?(tehai, agari)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
     #あんこうが存在  --> false
     pai_items = "m2tm3tp2tp2tp2ts1ts2ts3ts6ts7ts8tj2tj2tm1t"    
     @resolver.get_mentsu(pai_items)
