@@ -26,36 +26,44 @@ module Mlfielib
       def chanta?(tehai, agari)
 	    jihai_count = 0
 		kotsu_count = 0
+		
+	    #雀頭に字牌が含まれているかをチェック
+	    if tehai.atama.type == Pai::PAI_TYPE_JIHAI
+		  jihai_count += 1
+		end
+        
         tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
-		     if mentsu.pai_list[0].type != "j"
-                if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
-				   return false
-				else
-					kotsu_count += 1
-				end
-             else
-                jihai_count += 1
-				kotsu_count += 1
-             end			 
+          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_TOITSU
+		    if mentsu.pai_list[0].type != Pai::PAI_TYPE_JIHAI 
+              if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
+                return false
+		  	  else
+                kotsu_count += 1
+			  end
+		    else
+              jihai_count += 1
+		      kotsu_count += 1
+            end			 
+	      end
+		  
+		  if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
+		    if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 7
+		      return false
+		    end
 		  end
 		  
-		  if mentsu.mentsu_type == "s"
-		     if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "7"
-			   return false
-			 end
-		  end
-		  
-		  if mentsu.mentsu_type == "y"
+		  if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_TOKUSYU
 		    return false
 		  end
-		  ### ホンラオトーでないかつ、ジュンチャンでない
-		  if jihai_count != 0 && kotsu_count != 5
+        end #each end
+
+        ### ホンラオトーでないかつ、ジュンチャンでない
+        if jihai_count != 0 && kotsu_count != 5
 		    return true
 		  end
-		  return false
-		end
-	  end
+		return false
+        
+      end #method end
 
       ### 一気通貫
       def ikkitsukan?(tehai, agari)
