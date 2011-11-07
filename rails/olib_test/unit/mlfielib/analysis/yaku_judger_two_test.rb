@@ -47,13 +47,37 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.get_mentsu(pai_items)
     
     @resolver.tehai_list.each do |tehai|
-      tehai.mentsu_list.each do |mentsu|
-        mentsu.pai_list.each do |pai|
-          p pai
-        end
-      end
       assert_equal true, @judger.chanta?(tehai, nil)
     end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 安め --> false
+    pai_items = "m1tm2tm3tp7tp8ts1ts1ts1ts7ts8ts9tj1tj1tp6t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.chanta?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+ 
+    # 鳴きあり --> true
+    pai_items = "m1tm2tm3tp7tp8ts7ts8ts9tj2tj2tp9ts1ts1rs1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.chanta?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new   
+
+    # 単キ --> true
+    pai_items = "m1tm2tm3tp7tp8tp9ts1ts1ts1ts7ts8ts9tj1tj1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.chanta?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new 
+
   end
   
   
