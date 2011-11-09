@@ -47,7 +47,10 @@ class Agari < ActiveRecord::Base
     if teyaku_decider.teyaku != nil then
       self.total_fu_num    = teyaku_decider.teyaku.fu_num
       self.total_han_num   = teyaku_decider.teyaku.han_num
-      self.yaku_list       = teyaku_decider.teyaku.yaku_list
+      self.yaku_list = Array.new
+      teyaku_decider.teyaku.yaku_list.each do |specimen|
+        self.yaku_list << Yaku.find_by_name(specimen.name)
+      end
       self.mangan_scale    = teyaku_decider.teyaku.mangan_scale
       self.total_point     = teyaku_decider.teyaku.total_point
       self.parent_point    = teyaku_decider.teyaku.parent_point
