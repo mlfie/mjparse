@@ -44,13 +44,18 @@ class Agari < ActiveRecord::Base
   end
 
   def set_teyaku_result(teyaku_decider)
-    self.total_fu_num    = teyaku_decider.teyaku.fu_num
-    self.total_han_num   = teyaku_decider.teyaku.han_num
-    self.yaku_list       = teyaku_decider.teyaku.yaku_list
-    self.mangan_scale    = teyaku_decider.teyaku.mangan_scale
-    self.total_point     = teyaku_decider.teyaku.total_point
-    self.parent_point    = teyaku_decider.teyaku.parent_point
-    self.child_point     = teyaku_decider.teyaku.child_point
+    if teyaku_decider.teyaku != nil then
+      self.total_fu_num    = teyaku_decider.teyaku.fu_num
+      self.total_han_num   = teyaku_decider.teyaku.han_num
+      self.yaku_list       = teyaku_decider.teyaku.yaku_list
+      self.mangan_scale    = teyaku_decider.teyaku.mangan_scale
+      self.total_point     = teyaku_decider.teyaku.total_point
+      self.parent_point    = teyaku_decider.teyaku.parent_point
+      self.child_point     = teyaku_decider.teyaku.child_point
+      logger.debug("teyaku is fu:"+self.total_fu_num.to_s+" han:"+self.total_han_num.to_s+" total_point:"+self.total_point.to_s)
+    else
+      logger.error("teyaku was not decided.")
+    end  
   end
 
   def yaku_specimen
@@ -59,6 +64,7 @@ class Agari < ActiveRecord::Base
       yaku_specimen[yaku.name] =
         YakuSpecimen.new(yaku.name, yaku.name_kanji, yaku.han_num, yaku.naki_han_num)
     end
+    logger.debug("The number of YakuSpecimen is "+yaku_specimen.size.to_s)
     return yaku_specimen
   end
 
