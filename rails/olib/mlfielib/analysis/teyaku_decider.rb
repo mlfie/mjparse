@@ -23,6 +23,7 @@ module Mlfielib
         self.result_code  = RESULT_SUCCESS
       end
 
+      # 最適な手役結果を取得する
       def get_agari_teyaku(pai_list=nil, kyoku=nil, yaku_specimen=nil)
         resolver = MentsuResolver.new
         resolver.get_mentsu(pai_list)
@@ -36,7 +37,7 @@ module Mlfielib
             judger.set_yaku_list(tehai, kyoku)
             if judger.result_code == YakuJudger::RESULT_SUCCESS then
               # 得点を計算する
-              ScoreCalculator.calculate_point(tehai, kyoku)
+              tehai = ScoreCalculator.calculate_point(tehai, kyoku)
             else
               self.result_code = RESULT_ERROR_YAKU_JUDGE
             end
