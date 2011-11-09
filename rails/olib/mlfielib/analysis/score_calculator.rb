@@ -188,11 +188,13 @@ module Mlfielib
         if menzen_flg then
           tehai.yaku_list.each do |yaku|
             total_han += yaku.han_num
+            STDERR.puts "合計飜:" + total_han.to_s + " 役名:" + yaku.kanji + " 飜数:" + yaku.han_num.to_s + "が加算されました。"
           end
         # 副露面子を含む場合(食い下がりが発生)
         else
           tehai.yaku_list.each do |yaku|
             total_han += yaku.naki_han_num
+            STDERR.puts "合計飜:" + total_han.to_s + " 役名:" + yaku.kanji + "(食い下がり) 飜数:" + yaku.naki_han_num.to_s + "が加算されました。"
           end
         end
         
