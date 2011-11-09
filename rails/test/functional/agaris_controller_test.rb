@@ -3,7 +3,7 @@ require 'test_helper'
 class AgarisControllerTest < ActionController::TestCase
   test "create new agari" do
     agari = Hash.new
-    agari["img_url"] = 'http://mjt.fedc.biz/img/2.jpg'
+    agari["img_url"] = 'http://mjt.fedc.biz/img/42.jpg'
     agari["bakaze"] = :ton
     agari["jikaze"] = :ton
 
