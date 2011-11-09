@@ -29,32 +29,51 @@ module Mlfielib
         resolver = MentsuResolver.new
         resolver.get_mentsu(pai_list)
         
-        # 面子解析処理が正常であった場合
-        if resolver.result_code == MentsuResolver::RESULT_SUCCESS then
-          judger = YakuJudger.new(yaku_specimen)
-        # 面子解析処理が異常の場合
-        else
-          self.result_code = RESULT_ERROR_MENTSU_RESOLVE
-          STDERR.puts "MentsuResolver was failed because of " + resolver.result_code.to_s + "."
+        case resolver.result_code
+          when MentsuResolver::RESULT_SUCCESS then
+            STDERR.puts "取得された手牌の組み合わせは" + resolver.tehai_list.size.to_s + "個です。"
+          when MentsuResolver::RESULT_ERROR_NAKI then
+            self.result_code = RESULT_ERROR_MENTSU_RESOLVE
+            STDERR.puts "鳴き面子の構成が不正です(" + pai_list + ")。"
+          when MentsuResolver::RESULT_ERROR_NOAGARI then
+            self.result_code = RESULT_ERROR_MENTSU_RESOLVE
+            STDERR.puts "指定された手牌はアガリ形ではありません(" + pai_list + ")。"
+          when MentsuResolver::RESULT_ERROR_INTERFACE then
+            self.result_code = RESULT_ERROR_MENTSU_RESOLVE
+            STDERR.puts "内部インタフェースで不明なエラーが発生しました(" + pai_list + ")。"
+          else
+            self.result_code = RESULT_ERROR_MENTSU_RESOLVE
+            STDERR.puts "不明なエラーが発生しました(" + pai_list + ")。"
         end
-          
+        
+        # 取得した面子に対して役の判定、得点計算を行う。
         if self.result_code == RESULT_SUCCESS then
+          yaku_established = false
           resolver.tehai_list.each do | tehai |
             # 役を取得する
+            judger = YakuJudger.new(yaku_specimen)
             judger.set_yaku_list(tehai, kyoku)
-            STDERR.puts "The size of set yaku list is " + tehai.yaku_list.size.to_s + "."
-            if judger.result_code == YakuJudger::RESULT_SUCCESS then
-              # 得点を計算する
-              tehai = ScoreCalculator.calculate_point(tehai, kyoku)
-            else
-              self.result_code = RESULT_ERROR_YAKU_JUDGE
-              STDERR.puts "Yaku Judger was failed because of " + judger.result_code.to_s + "."
+            case judger.result_code
+              when YakuJudger::RESULT_SUCCESS then
+                tehai.yaku_list = judger.yaku_list
+                yaku_established = true
+                # 得点を計算する
+                tehai = ScoreCalculator.calculate_point(tehai, kyoku)
+              when YakuJudger::RESULT_ERROR_YAKUNASHI then
+                STDERR.puts "判定した結果が役無しでした。ただし、この時点ではエラーではありません。"
+              else
+                self.result_code = RESULT_ERROR_YAKU_JUDGE
+                STDERR.puts "役判定処理にて不明なエラーが発生しました。"
             end
           end
+          # 役が一つも成立していない場合
+          if !yaku_established then
+            self.result_code = RESULT_ERROR_YAKU_JUDGE
+          end
         end
-          
+
+        # 最も点数が高くなるものを採用する
         if self.result_code == RESULT_SUCCESS then
-          # 最も点数が高くなるものを採用する
           max_point = 0
           best_tehai = nil
           resolver.tehai_list.each do |tehai|
@@ -69,10 +88,12 @@ module Mlfielib
           # 最良な手役が取得できなかった場合
           else
             self.result_code = RESULT_ERROR_INTERNAL
-            STDERR.puts "TeyakuDecider was failed, because we cannot find the best tehai."
+            STDERR.puts "最適な手役を見つけることができませんでした。"
           end
         end
+        
       end
+
     end
   end
 end

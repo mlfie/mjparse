@@ -11,87 +11,111 @@ module Mlfielib
       
       ### 処理結果
       RESULT_SUCCESS          = 0     # 正常終了
+      RESULT_ERROR_YAKUNASHI  = 1     # 役無しの場合
       RESULT_ERROR_INTERNAL   = 9     # 不明な内部エラー
 
       attr_accessor :yaku_list,       # 役のリスト
                     :result_code,     # 処理結果
                     :yaku_specimen    # 役の標本(Hash形式)
       
-      def initialize(_yaku_specimen)
+      # 初期化メソッド
+      def initialize(yaku_specimen)
         self.yaku_list      = Array.new
         self.result_code    = RESULT_SUCCESS
-        self.yaku_specimen  = _yaku_specimen
+        self.yaku_specimen  = yaku_specimen
       end
 
+      # 成立している役の判定を行う。
       def set_yaku_list(tehai, kyoku)
 #*****************************************************************#
 # 役満の判定を行う
 #*****************************************************************#
-        self.yaku_list << self.yaku_specimen["daisangen"]       if  daisangen?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["kokushi"]         if  kokushi?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["suankou"]         if  suankou?(tehai, kyoku)		
-		    self.yaku_list << self.yaku_specimen["sukantsu"]        if  sukantsu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["tenho"]           if  tenho?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["chiho"]           if  chiho?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["tasushi"]         if  tasushi?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["shosushi"]        if  shosushi?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["tsuiso"]          if  tsuiso?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["chinraoto"]       if  chinraoto?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["ryuiso"]          if  ryuiso?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["churen"]          if  churen?(tehai, kyoku)	
-        # 役満は該当したらreturn
-        if self.yaku_list.size > 0
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_DAISANGEN]       if  daisangen?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_KOKUSHI]         if  kokushi?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SUANKOU]         if  suankou?(tehai, kyoku)		
+		    self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SUKANTSU]        if  sukantsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TENHO]           if  tenho?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHIHO]           if  chiho?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TASUSHI]         if  tasushi?(tehai, kyoku)
+        # 小四喜は大四喜の下位役のため
+        if self.yaku_list.index(self.yaku_specimen[YakuSpecimen::YAKU_NAME_TASUSHI]) == nil && shosushi?(tehai, kyoku) then
+          self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SHOSUSHI]
+        end
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TSUISO]          if  tsuiso?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHINRAOTO]       if  chinraoto?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_RYUISO]          if  ryuiso?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHUREN]          if  churen?(tehai, kyoku)	
+        # 役満が1つでも該当した場合は、通常の役判定は行わない.
+        if self.yaku_list.size > 0 then
           return
         end
 
 #*****************************************************************#
-# 一翻役の判定を行う
+# 六翻役の判定を行う
 #*****************************************************************#
-		    self.yaku_list << self.yaku_specimen["reach"]           if  reach?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["ippatsu"]         if  ippatsu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["tanyao"]          if  tanyao?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["pinfu"]           if  pinfu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["iipeikou"]        if  iipeikou?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["tsumo"]           if  tsumo?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["haku"]            if  haku?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["hatsu"]           if  hatsu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["chun"]            if  chun?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["ton"]             if  ton?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["nan"]             if  nan?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["sha"]             if  sha?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["pei"]             if  pei?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["rinshan"]         if  rinshan?(tehai, kyoku)
-		    self.yaku_list << self.yaku_specimen["chankan"]         if  chankan?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["haitei"]          if  haitei?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["houtei"]          if  houtei?(tehai, kyoku)
-
-#*****************************************************************#
-# 二翻役の判定を行う
-#*****************************************************************#
-        self.yaku_list << self.yaku_specimen["ikkitsukan"]      if  ikkitsukan?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["chanta"]          if  chanta?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["toitoihou"]       if  toitoihou?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["sanankou"]        if  sanankou?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["sankantsu"]       if  sankantsu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["shousangen"]      if  shousangen?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["doublereach"]     if  doublereach?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["chitoitsu"]       if  chitoitsu?(tehai, kyoku)
-		    self.yaku_list << self.yaku_specimen["sanshoku"]        if  sanshoku?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["sanshokudouko"]   if  sanshokudouko?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["honroutou"]       if  honroutou?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHINITSU]        if  chinitsu?(tehai, kyoku)
 
 #*****************************************************************#
 # 三翻役の判定を行う
 #*****************************************************************#
-        self.yaku_list << self.yaku_specimen["honitsu"]         if  honitsu?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["junchan"]         if  junchan?(tehai, kyoku)
-        self.yaku_list << self.yaku_specimen["ryanpeikou"]      if  ryanpeikou?(tehai, kyoku)
+        # 混一色は清一色の下位役
+        if self.yaku_list.index(self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHINITSU]) == nil && honitsu?(tehai, kyoku) then
+          self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HONITSU]
+        end
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_JUNCHAN]         if  junchan?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_RYANPEIKOU]      if  ryanpeikou?(tehai, kyoku)
 
 #*****************************************************************#
-# 六翻役の判定を行う
+# 二翻役の判定を行う
 #*****************************************************************#
-        self.yaku_list << self.yaku_specimen["chinitsu"]        if  chinitsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_IKKITSUKAN]      if  ikkitsukan?(tehai, kyoku)
+        # 混全帯么九は純全帯么九の下位役のため
+        if self.yaku_list.index(self.yaku_specimen[YakuSpecimen::YAKU_NAME_JUNCHAN]) == nil && chanta?(tehai, kyoku) then
+          self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHANTA]
+        end
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TOITOIHOU]       if  toitoihou?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANANKOU]        if  sanankou?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANKANTSU]       if  sankantsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SHOUSANGEN]      if  shousangen?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_DOUBLEREACH]     if  doublereach?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHITOITSU]       if  chitoitsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANSHOKU]        if  sanshoku?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANSHOKUDOUKO]   if  sanshokudouko?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HONROUTOU]       if  honroutou?(tehai, kyoku)
+
+#*****************************************************************#
+# 一翻役の判定を行う
+#*****************************************************************#
+        # 立直はダブル立直の下位役のため
+        if self.yaku_list.index(self.yaku_specimen[YakuSpecimen::YAKU_NAME_DOUBLEREACH]) == nil && reach?(tehai, kyoku) then
+  		    self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_REACH]
+        end
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_IPPATSU]         if  ippatsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TANYAO]          if  tanyao?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_PINFU]           if  pinfu?(tehai, kyoku)
+        # 一盃口は二盃口の下位役のため
+        if self.yaku_list.index(self.yaku_specimen[YakuSpecimen::YAKU_NAME_RYANPEIKOU]) == nil && iipeikou?(tehai, kyoku) then
+          self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_IIPEIKOU]
+        end
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TSUMO]           if  tsumo?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HAKU]            if  haku?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HATSU]           if  hatsu?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHUN]            if  chun?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_TON]             if  ton?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_NAN]             if  nan?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SHA]             if  sha?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_PEI]             if  pei?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_RINSHAN]         if  rinshan?(tehai, kyoku)
+		    self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHANKAN]         if  chankan?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HAITEI]          if  haitei?(tehai, kyoku)
+        self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HOUTEI]          if  houtei?(tehai, kyoku)
+
+        # 役の判定結果を返す
+        if self.yaku_list.size < 1 then
+          self.result_code = RESULT_ERROR_YAKUNASHI
+        end
       end
+      
     end
   end
 end

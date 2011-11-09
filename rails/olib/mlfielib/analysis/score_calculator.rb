@@ -3,6 +3,7 @@ require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
 require 'mlfielib/analysis/tehai'
 require 'mlfielib/analysis/kyoku'
+require 'mlfielib/analysis/yaku_specimen'
 
 module Mlfielib
   module Analysis
@@ -35,7 +36,7 @@ module Mlfielib
       def self.calc_fu(tehai, kyoku)
         ###--------------- 七対子 ---------------###
         tehai.yaku_list.each do |yaku|
-          if yaku.name == 'chitoitsu' then
+          if yaku.name == YakuSpecimen::YAKU_NAME_CHITOITSU then
              return 25
           end
         end
@@ -156,7 +157,7 @@ module Mlfielib
         if kyoku.is_tsumo then
           pinfu_flg = false
           tehai.yaku_list.each do |yaku|
-            if yaku.name == 'pinfu' then
+            if yaku.name == YakuSpecimen::YAKU_NAME_PINFU then
               pinfu = true
               break
             end
