@@ -174,18 +174,9 @@ module Mlfielib
 # step2. 飜を計算する
 #*****************************************************************#
       def self.calc_han(tehai)
-        # 副露があったかどうかを調べる
-        menzen_flg = true
-        tehai.mentsu_list.each do |mentsu|
-          if mentsu.furo then
-            menzen_flg = false
-            break
-          end
-        end
-        
         total_han = 0
         # 全て門前面子の場合
-        if menzen_flg then
+        if !tehai.furo then
           tehai.yaku_list.each do |yaku|
             total_han += yaku.han_num
           end
@@ -195,7 +186,7 @@ module Mlfielib
             total_han += yaku.naki_han_num
           end
         end
-        
+
         return total_han
       end
     

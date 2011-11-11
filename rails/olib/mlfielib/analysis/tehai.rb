@@ -5,6 +5,7 @@ module Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
                   :atama,         # 雀頭(1枚)
+                  :furo,          # 副露してるかどうか(してる場合はtrue)
                   :yaku_list,     # 役(YakuSpecimen)のリスト
                   :fu_num,        # 符数
                   :han_num,       # 飜数
@@ -13,9 +14,10 @@ module Analysis
                   :parent_point,  # 親が払う点数
                   :child_point    # 子が払う点数
                   
-    def initialize(mentsu_list, atama)
+    def initialize(mentsu_list, atama, furo)
       self.mentsu_list = mentsu_list
       self.atama = atama
+      self.furo = furo
       self.yaku_list = Array.new
       self.fu_num = 0
       self.han_num = 0

@@ -498,7 +498,7 @@ module Analysis
       if @atama_pai == @agari_pai then
         _atama_pai = @atama_pai.clone
         _atama_pai.agari = true
-        tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)) + @ankan_list + @furo_list, _atama_pai)
+        tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)) + @ankan_list + @furo_list, _atama_pai, @furo_flg)
       end
       
       # 各面子でアガリ牌となるパターン(両面待ち、辺張待ち、嵌張待ち、双ポン待ち)
@@ -508,7 +508,7 @@ module Analysis
           if @mentsu_list[i].pai_list[j] == @agari_pai then
             _mentsu_list = Marshal.load(Marshal.dump(@mentsu_list))
             _mentsu_list[i].pai_list[j].agari = true
-            tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, @atama_pai)
+            tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, @atama_pai, @furo_flg)
             break
           end
         end
@@ -627,7 +627,7 @@ module Analysis
           end
         end
         if mentsu_list.size == 6 then
-          self.tehai_list << Tehai.new(mentsu_list, _atama_pai)
+          self.tehai_list << Tehai.new(mentsu_list, _atama_pai, false)
         end
       end
     end
@@ -669,7 +669,7 @@ module Analysis
           end
         end
 
-        self.tehai_list << Tehai.new(_mentsu_list, _atama_pai)
+        self.tehai_list << Tehai.new(_mentsu_list, _atama_pai, false)
       end
     end
 
