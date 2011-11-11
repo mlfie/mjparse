@@ -57,8 +57,8 @@ module Mlfielib
               when YakuJudger::RESULT_SUCCESS then
                 tehai.yaku_list = judger.yaku_list
                 yaku_established = true
-		STDERR.puts "判定した結果、以下の役が得られました。"
-		tehai.yaku_list.each do |yaku|
+            		STDERR.puts "判定した結果、以下の役が得られました。"
+            		tehai.yaku_list.each do |yaku|
                   STDERR.puts yaku.name + ":" + yaku.kanji
                 end 
                 # 得点を計算する
