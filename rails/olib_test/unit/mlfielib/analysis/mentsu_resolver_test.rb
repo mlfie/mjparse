@@ -90,6 +90,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.furo
         end
       end
+      assert_equal true, tehai.furo
     end
 
     assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
@@ -135,6 +136,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.furo
         end
       end
+      assert_equal true, tehai.furo
     end
 
     assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
@@ -196,6 +198,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.furo
         end
       end
+      assert_equal true, tehai.furo
     end
 
     assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
@@ -241,6 +244,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.furo
         end
       end
+      assert_equal true, tehai.furo
     end
 
     assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
@@ -276,6 +280,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.furo
         end
       end
+      assert_equal true, tehai.furo
     end
 
     assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
@@ -324,6 +329,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           chi456 = mentsu
         end
       end
+      assert_equal true, tehai.furo
     end
     
     # step1-1-2
@@ -402,8 +408,13 @@ class MentsuResolverTest < Test::Unit::TestCase
   def test_normal_get_ankan
     pai_items = "m1tr0ts7ts7tr0ts8tr0tr0ts8tp4tp5tp6tr0ts9ts9tr0tm1t"
     @resolver.get_mentsu(pai_items)
+    
+    tehai = @resolver.tehai_list[0]
+    
+    assert_not_equal nil, tehai
+    assert_equal false, tehai.furo
         
-    ankan_list = @resolver.tehai_list[0].mentsu_list.select { |mentsu| 
+    ankan_list = tehai.mentsu_list.select { |mentsu| 
       mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo
     }
     
@@ -498,6 +509,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     assert_equal 3, @resolver.tehai_list.size
     tehai = @resolver.tehai_list.select { |tehai| tehai.mentsu_list.size == 6 }
     assert_not_equal nil, tehai[0]
+    assert_equal false, tehai[0].furo
     tehai[0].mentsu_list.each do |mentsu|
       assert_equal Mlfielib::Analysis::Mentsu::MENTSU_TYPE_TOITSU, mentsu.mentsu_type
       assert_equal false, mentsu.furo
@@ -518,6 +530,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     tehai = @resolver.tehai_list[0]
     assert_equal 1, tehai.mentsu_list.size
+    assert_equal false, tehai.furo
     assert_equal 7, tehai.atama.number
     assert_equal true, tehai.atama.agari
     
@@ -536,6 +549,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     tehai = @resolver.tehai_list[0]
     assert_equal 1, tehai.mentsu_list.size
+    assert_equal false, tehai.furo
     assert_equal 7, tehai.atama.number
     assert_equal false, tehai.atama.agari
     
