@@ -16,8 +16,10 @@ class YakuJudgerOneTest < Test::Unit::TestCase
   PEI = Mlfielib::Analysis::Kyoku::KYOKU_KAZE_PEI
   
   def setup
-     @judger = Mlfielib::Analysis::YakuJudger.new
-     @resolver = Mlfielib::Analysis::MentsuResolver.new
+    yaku_specimen = Hash.new
+    # yaku_specimen[name] = Mlfielib::Analysis::YakuSpecimen.new(name, kanji, han_num, naki_han_num)
+    @judger = Mlfielib::Analysis::YakuJudger.new(yaku_specimen)
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   end
   
   def teardown
