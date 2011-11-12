@@ -43,8 +43,9 @@ module Mlfielib
         tehai.han_num       = self.calc_han(tehai)
         tehai.mangan_scale  = self.calc_mangan_scale(tehai, kyoku)
         base_point          = self.calc_base_point(tehai, kyoku)
-        tehai.child_point   = self.calc_child_point(base_point, kyoku)
         tehai.parent_point  = self.calc_parent_point(base_point, kyoku)
+        tehai.child_point   = self.calc_child_point(base_point, kyoku)
+        tehai.ron_point     = self.calc_ron_point(base_point, kyoku)        
         tehai.total_point   = self.calc_total_point(tehai, kyoku)
         return tehai
       end
@@ -400,28 +401,7 @@ module Mlfielib
       end
     
 #*****************************************************************#
-# step5. 子が払う点数を計算する
-#*****************************************************************#
-      def self.calc_child_point(base_point, kyoku)
-        point = 0
-        # ツモアガリの場合
-        if kyoku.is_tsumo then
-          # 親のツモアガリは3分の1ずつを子から頂く
-          if kyoku.is_parent then
-            point = base_point / 3 + kyoku.honba_num * 100
-          # 子のツモアガリは半分が親、残りの4分の1ずつを子から頂く
-          else
-            point = base_point / 4 + kyoku.honba_num * 100
-          end
-        # ロンアガリの場合
-        else
-          point = base_point + kyoku.honba_num * 300
-        end
-        return self.ceil_ten_level(point)
-      end
-    
-#*****************************************************************#
-# step6. 親が払う点数を計算する
+# step5. ツモアガリの際に親が払う点数を計算する
 #*****************************************************************#
       def self.calc_parent_point(base_point, kyoku)
         point = 0
@@ -434,15 +414,42 @@ module Mlfielib
           else
             point = base_point / 2 + kyoku.honba_num * 100
           end
+        end
+        return self.ceil_ten_level(point)
+      end
+
+#*****************************************************************#
+# step6. ツモアガリの際に子が払う点数を計算する
+#*****************************************************************#
+      def self.calc_child_point(base_point, kyoku)
+        point = 0
+        # ツモアガリの場合
+        if kyoku.is_tsumo then
+          # 親のツモアガリは3分の1ずつを子から頂く
+          if kyoku.is_parent then
+            point = base_point / 3 + kyoku.honba_num * 100
+          # 子のツモアガリは半分が親、残りの4分の1ずつを子から頂く
+          else
+            point = base_point / 4 + kyoku.honba_num * 100
+          end
+        end
+        return self.ceil_ten_level(point)
+      end
+    
+#*****************************************************************#
+# step7. ロンアガリの際に放銃した人が払う点数を計算する
+#*****************************************************************#
+      def self.calc_parent_point(base_point, kyoku)
+        point = 0
         # ロンアガリの場合
-        else
+        if !kyoku.is_tsumo then
           point = base_point + kyoku.honba_num * 300
         end
         return self.ceil_ten_level(point)
       end
 
 #*****************************************************************#
-# step7. 最終的な総得点を計算する
+# step8. 最終的な総得点を計算する
 #*****************************************************************#
       def self.calc_total_point(tehai, kyoku)
         point = 0
@@ -456,7 +463,7 @@ module Mlfielib
             point = tehai.parent_point + tehai.child_point * 2
           end
         else
-          point = tehai.child_point
+          point = tehai.ron_point
         end
         return point
       end

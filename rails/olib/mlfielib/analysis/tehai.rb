@@ -11,8 +11,9 @@ module Analysis
                   :han_num,       # 飜数
                   :mangan_scale,  # 満貫の倍数(0:なし 1:満貫 1.5:跳萬 2:倍萬 3:３倍萬 4:役萬 8:ダブル役萬)
                   :total_point,   # 総合得点
-                  :parent_point,  # 親が払う点数
-                  :child_point    # 子が払う点数
+                  :parent_point,  # ツモアガリの際に親が払う点数
+                  :child_point,   # ツモアガリの際に子が払う点数
+                  :ron_point      # ロンアガリの際に放銃した人が払う点数
                   
     def initialize(mentsu_list, atama, furo)
       self.mentsu_list = mentsu_list
@@ -25,6 +26,7 @@ module Analysis
       self.total_point = 0
       self.parent_point = 0
       self.child_point = 0
+      self.ron_point = 0
     end
     
     # 手牌が両面アガリかどうかを判定
