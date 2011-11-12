@@ -2,7 +2,6 @@ PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4
 
 
 var Pai = function(type,direction){
-    dbgmsg("Pai.new", this.type + this.direction);
 
     this.type = type;
     this.direction = direction;
@@ -123,13 +122,13 @@ var Tehai = function(tehaiList) {
  */
 
 //得点計算リクエスト送信先URL
-var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
-//var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
+//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
+var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
 //var  MJT_AGARI_URL= "http://localhost:8080/agaris.json";
 
 //写真取得・登録先URL
-var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
-//var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
+//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
+var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
 //var MJT_PHOTO_URL = "http://localhost:8080/photos.json";
 
 
@@ -151,7 +150,9 @@ var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
 var changeTargetPaiIndex = -1;//変更対象の牌のindex
 var dbgno=0; //デバッグメッセージの行数
 var dbgarray = new Array();//デバッグメッセージ格納配列
+
 var tehai = null;
+var point = null;
 /**********************************************
  * 共通関数
  **********************************************/
@@ -578,7 +579,8 @@ function sendCalcData(){
                 dbgmsg("sendCalcData","RESPONSE:" + json2txt(eval(data)));
 
                 //得点表示
-                $("#div_point").html(makePointHtml(data.agari));
+                point = new Point(data.agari);
+                $("#div_point").html(point.toHtml());
 
                 //画像解析結果表示
                 //$("#div_analized_img").html(makePaiImgJq(data.agari.tehai_list));
@@ -600,57 +602,6 @@ function sendCalcData(){
 }
 
 
-function makePointHtml(a) {
-
-    var manganStr = "";
-    switch (a.mangan_scale) {
-    case 0:
-        manganStr = "";
-        break;
-    case 1:
-        manganStr = "満貫 ";
-        break;
-    case 1.5:
-        manganStr = "跳満 ";
-        break;
-    case 2:
-        manganStr = "倍満 ";
-        break;
-    case 3:
-        manganStr = "三倍満 ";
-        break;
-    case 4:
-        manganStr = "役満 ";
-        break;
-    case 8:
-        manganStr = "ダブル役満 ";
-        break;
-    case 12:
-        manganStr = "トリプル役満 ";
-        break;
-    case 16:
-        manganStr = "四倍役満 ";
-        break;
-    }
-
-    //HTML生成
-    var html = "";
-
-    html += "<table>";
-    $.each(a.yaku_list, function () {
-        html += "<tr><td>" + this.name_kanji + "<\/td><td>" + this.han_num + "飜<\/td><\/tr>";
-    });
-    html += "<\/table>";
-
-    html += "<p>" + a.total_fu_num + "符　" + manganStr + a.total_han_num + "飜　" + a.total_point + "点<\/p>";
-
-    if (a.is_parent) {
-        html += a.child_point + "点　オール";
-    } else {
-        html += "子" + a.child_point + "点/親" + a.parent_point + "点";
-    }
-    return html;
-};
 
 
 /**********************************************
