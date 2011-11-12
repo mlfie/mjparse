@@ -13,16 +13,36 @@ module Mlfielib
     class ScoreCalculator
       
       ### 処理結果
-      RESULT_SUCCESS          = 0 # 正常終了
-      RESULT_ERROR_INTERNAL   = 9 # 不明な内部エラー
+      RESULT_SUCCESS            = 0 # 正常終了
+      RESULT_ERROR_INTERNAL     = 9 # 不明な内部エラー
 
+      # 満貫以上の飜数
+      HAN_NUMBER_MANGAN         =  5 # 満貫
+      HAN_NUMBER_HANEMAN_MIN    =  6 # ハネ満(下限)
+      HAN_NUMBER_HANEMAN_MAX    =  7 # ハネ満(上限)
+      HAN_NUMBER_BAIMAN_MIN     =  8 # 倍満(下限)
+      HAN_NUMBER_BAIMAN_MAX     = 10 # 倍満(上限)
+      HAN_NUMBER_SANBAIMAN_MIN  = 11 # 三倍満(下限)
+      HAN_NUMBER_SANBAIMAN_MAX  = 12 # 三倍満(上限)
+      HAN_NUMBER_YAKUMAN        = 13 # 役満(下限)
+      
+      # 満貫以上の倍数
+      MANGAN_SCALE_MANGAN       = 1   # 満貫
+      MANGAN_SCALE_HANEMAN      = 1.5 # ハネ満
+      MANGAN_SCALE_BAIMAN       = 2   # 倍満
+      MANGAN_SCALE_SANBAIMAN    = 3   # 三倍満
+      MANGAN_SCALE_YAKUMAN      = 4   # 役満
+      
+      # 満貫の点数
+      MANGAN_POINT_PARENT       = 12000 # 親の満貫の点数
+      MANGAN_POINT_CHILD        =  8000 # 子の満貫の点数
     
       # 得点を計算して結果を返す
       def self.calculate_point(tehai, kyoku)
         tehai.fu_num        = self.calc_fu(tehai, kyoku)
         tehai.han_num       = self.calc_han(tehai)
+        tehai.mangan_scale  = self.calc_mangan_scale(tehai, kyoku)
         base_point          = self.calc_base_point(tehai, kyoku)
-        tehai.mangan_scale  = self.calc_mangan_scale(base_point, kyoku)
         tehai.child_point   = self.calc_child_point(base_point, kyoku)
         tehai.parent_point  = self.calc_parent_point(base_point, kyoku)
         tehai.total_point   = self.calc_total_point(tehai, kyoku)
@@ -191,7 +211,27 @@ module Mlfielib
       end
     
 #*****************************************************************#
-# step3. 符と翻から得点を計算する
+# step3. 満貫の倍数を計算する
+#*****************************************************************#
+      def self.calc_mangan_scale(tehai, kyoku)
+        scale = 0
+        case tehai.han_num
+          when HAN_NUMBER_MANGAN then
+            scale = MANGAN_SCALE_MANGAN
+          when HAN_NUMBER_HANEMAN_MIN..HAN_NUMBER_HANEMAN_MAX then
+            scale = MANGAN_SCALE_HANEMAN
+          when HAN_NUMBER_BAIMAN_MIN..HAN_NUMBER_BAIMAN_MAX then
+            scale = MANGAN_SCALE_BAIMAN
+          when HAN_NUMBER_SANBAIMAN_MIN.. HAN_NUMBER_SANBAIMAN_MAX then
+            scale = MANGAN_SCALE_SANBAIMAN
+          else
+            scale = MANGAN_SCALE_YAKUMAN * ( tehai.han_num / HAN_NUMBER_YAKUMAN )
+        end
+        return scale
+      end
+    
+#*****************************************************************#
+# step4. 符と翻から得点を計算する
 #*****************************************************************#
       def self.calc_base_point(tehai, kyoku)
         point = 0
@@ -272,16 +312,8 @@ module Mlfielib
               when 40..110 then
                 point = 12000
             end
-          elsif tehai.han_num == 5 then
-            point = 12000
-          elsif 6 <= tehai.han_num && tehai.han_num <= 7 then
-            point = 18000
-          elsif 8 <= tehai.han_num && tehai.han_num <= 10 then
-            point = 24000
-          elsif 11 <= tehai.han_num && tehai.han_num <= 12 then
-            point = 36000
-          else
-            point = 48000 * (tehai.han_num / 13)
+          elsif HAN_NUMBER_MANGAN <= tehai.han_num then
+            point = MANGAN_POINT_PARENT * tehai.mangan_scale
           end
         # 子の場合の点数を計算
         else
@@ -360,29 +392,11 @@ module Mlfielib
               when 40..110 then
                 point = 8000
             end
-          elsif tehai.han_num == 5 then
-            point = 8000
-          elsif 6 <= tehai.han_num && tehai.han_num <= 7 then
-            point = 12000
-          elsif 8 <= tehai.han_num && tehai.han_num <= 10 then
-            point = 16000
-          elsif 11 <= tehai.han_num && tehai.han_num <= 12 then
-            point = 24000
-          else
-            point = 32000 * (tehai.han_num / 13)
+          elsif HAN_NUMBER_MANGAN <= tehai.han_num then
+            point = MANGAN_POINT_CHILD * tehai.mangan_scale
           end
         end
         return point
-      end
-    
-#*****************************************************************#
-# step4. 満貫の倍数を計算する
-#*****************************************************************#
-      def self.calc_mangan_scale(base_point, kyoku)
-        if kyoku.is_parent then
-          return base_point / 12000
-        end
-        return base_point / 8000
       end
     
 #*****************************************************************#
