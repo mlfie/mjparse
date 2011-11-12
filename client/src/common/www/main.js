@@ -1,125 +1,7 @@
-PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
-
-
-var Pai = function(type,direction){
-
-    this.type = type;
-    this.direction = direction;
-
-    this.imgUrl = function(){
-        return "img/pai/" + this.type + "-" + this.direction +".gif";
-    };
-   
-
-    this.jq = $("<img/>")
-        .attr('type',this.type)
-        .attr('direction',this.direction)
-        .attr('src',this.imgUrl())
-        .hover(
-            function(){
-                //マウスオーバー時
-                $(this).css("border-color","#990000");
-            },
-            function(){
-                //マウスオーバー解除
-                $(this).css("border-color","#ffffff");
-            }
-        );
-
-    this.imgJq = function(){
-        return this.jq;
-    };
-
-    this.changeType = function(type){
-        dbgmsg("Pai.changeType",type);
-        this.type=type;
-        this.jq.attr('src',this.imgUrl());
-    };
-
-};
-
-var Tehai = function(tehaiList) {
-
-    this.DIRE_MAP={
-        "t" : "top",
-        "l" : "left",
-        "r" : "right",
-        "b" : "bottom"
-    };
-
-    this.DIRE_R_MAP={
-        "top" : "t",
-        "left" : "l",
-        "right" : "r",
-        "bottom" : "b"
-    };
-
-    this.paiList = new Array();
-    this.changeIndex = -1;
-
-    if(typeof tehaiList == "string" ){
-        dbgmsg("makePaiImgUrlList","type is string = " + tehaiList);
-        //tehai_listが文字列形の場合
-        //3文字ごとに分ける ex)"s6ts7ts8t"
-        for (var i = 0; i < 14 * 3 ; i += 3) {
-            var paistr = tehaiList.slice(i, i + 2);
-            var dstr = tehaiList.slice(i + 2, i + 3);
-            if (paistr == "") {
-                //解析に失敗したパイがある場合
-                paistr = "z0";
-                dstr="t";
-            }
-            this.paiList.push(new Pai(paistr,this.DIRE_MAP[dstr]));
-        }
-    }else{
-        dbgmsg("makePaiImgUrlList","type is list ");
-        //tehai_listが配列の場合
-        $.each(tehaiList,function(){
-                   this.paiList.push(
-                       new Pai(this.type + this.number,this.direction)
-                       );
-               });
-    }
-
-    this.toJq = function(){
-        var divJq = $("<div/>");
-        for(var i = 0 ; i<this.paiList.length ; i++){
-            var imgJq = this.paiList[i].imgJq()
-                .attr("id","tehai" + i)
-                .attr("index",i)
-                .click(
-                function(){
-                    //牌がクリックされた場合、自分のindexをグローバル変数に渡す
-                    changeTargetPaiIndex = $(this).attr("index");
-                    $("#div_selectpanel").show();
-                });
-            
-            divJq.append(imgJq); 
-            
-        }
-
-        return divJq;
-    };
-
-    this.changePai = function(index,type){
-        dbgmsg("Tehai.changePai",index + " " + type);
-        this.paiList[index].changeType(type);
-    };
-
-    this.toString = function(){
-        var str = "";
-        $.each(this.paiList,function(){
-                   str += this.type + DIRE_R_MAP[this.direction];
-               });
-        return str;
-    };
-};
-
-
-
 /**
  * 定数
  */
+PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
 
 //得点計算リクエスト送信先URL
 //var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
@@ -153,6 +35,7 @@ var dbgarray = new Array();//デバッグメッセージ格納配列
 
 var tehai = null;
 var point = null;
+var state = null;
 /**********************************************
  * 共通関数
  **********************************************/
@@ -161,7 +44,9 @@ var point = null;
  * DOMロード完了
  */
 $(document).ready(function(){
-					  updateStateStr();
+					  state = new State();
+                      state.clearData();//アガリ状況初期化
+                      state.updateDisplay();//アガリ状況表示初期化
                       makeSelectPanel();
 				  });
 
@@ -174,7 +59,7 @@ function infomsg(message) {
     .css({
         display: "block",
         opacity: 0.9,
-        top: window.pageYOffset+100
+        top: window.pageYOffset+300
     })
     .html("<h1>" + message + "<h1>")
     .appendTo("body").delay(500)
@@ -235,7 +120,8 @@ function clearAll(){
     $("#img_top_photo").attr("src" , NO_IMAGE);
     $("#img_result_photo").attr("src", NO_IMAGE);
     photoListDlFlag=false;
-    clearState();
+    state.clearData();
+    state.updateDisplay();
     infomsg("クリア完了");
 }
 
@@ -383,92 +269,29 @@ function viewPhotoList(jsdata) {
 }
 
 /**********************************************
- * 状況変更
+ * アガリ状況
  **********************************************/
+function showChangePage(){
+    $.mobile.changePage("#state");
+    state.updateForm();
+}
 
 /**
  * 変更ボタン押下時
  */
 function changeState(){
-    updateStateStr();
+    state.updateData();
+    state.updateDisplay();
     $.mobile.changePage( "#index", { reverse: true} );
 }
 
 /**
- * アガリ状況文字列更新
+ * クリアボタン押下時
  */
-function updateStateStr(){
-    $("#div_state_str").html(
-        strArray2Html(form2StrArray())
-    );
-}
-/**
- * アガリ状況formを文字列配列にする
- */
-function form2StrArray(){
-    var japanese= {
-        "is_reach": "リーチ",
-        "is_2reach": "ダブリー",
-        "is_ippatsu": "一発",
-        "is_haitei": "海底",
-        "is_rinshan": "嶺上",
-        "is_chankan": "槍槓",
-        "is_tenho": "天和",
-        "is_chiho": "地和",
-        "ton": "東",
-        "nan": "南",
-        "sha": "西",
-        "pei": "北"
-    };
-    
-    var stateStrList = new Array();
-    stateStrList.push( japanese[$("#bakaze").val()] +"場" + $("#honba_num").val() + "本場");
-    stateStrList.push( "自風" + japanese[$("#jikaze").val()]) ;
-    stateStrList.push( "ドラ" + $("#dora_num").val()) ;
-    if ( $("#is_tsumo").val() == "true"){
-        stateStrList.push("ツモ");
-    }else{
-        stateStrList.push("ロン");
-    }
-    $("input:checkbox").each( 
-        function () {
-            if ( $(this).attr("checked") == "checked" ){
-                stateStrList.push(japanese[$(this).attr("name")]);
-            }
-        });
-    return stateStrList;
-}
-
-/**
- * 文字列配列をHTMLに変換する
- */
-function strArray2Html(array){
-    var str="";
-    var debugstr="";
-    $.each(array,function() {
-        debugstr += this + ",";
-        str += "<div style='float:left;margin: 2px; padding: 1px; border: 1px dotted gray;'>" 
-            + this
-            + "</div>";
-    });
-    dbgmsg("array2Html",debugstr);
-    str += "<div style='clear:left'></div>";
-    return str;
-}
-
 function clearState(){
-    $("#bakaze").val('ton').selectmenu("refresh");
-    $("#jikaze").val('ton').selectmenu("refresh");
-    $("#dora_num").val(0).slider("refresh");
-    $("#honba_num").val(0).slider("refresh");
-    $("#is_tsumo").val(true).slider("refresh");
-
-    $("input:checkbox").each(
-        function () {
-            $(this).removeAttr("checked").checkboxradio("refresh");
-        });
-
-    updateStateStr();
+    state.clearData();
+    state.updateForm();
+    state.updateDisplay();
 }
 
 /**********************************************
@@ -531,41 +354,12 @@ function sendPhoto() {
 function sendCalcData(){
     showLoadMsg("得点計算中...");
 
-    //フォームからパラメータ作成
-    var param = {
-        agari: {}
-    };
+    var obj = state.toObj();
 
-    param["agari"]["img_url"] = $("#img_url").val();
-    param["agari"]["bakaze"] = $("#bakaze").val();
-    param["agari"]["jikaze"] = $("#jikaze").val();
-    param["agari"]["honba_num"] = parseInt($("#honba_num").val());
-    param["agari"]["dora_num"] = parseInt($("#dora_num").val());
-    param["agari"]["is_tsumo"]= $("#is_tsumo").val() == "true";
-
-    $("input:checkbox").each( 
-        function () {
-            var name = $(this).attr("name");
-            var val = $(this).attr("checked") == "checked";
-            param["agari"][name] = val;
-        });
-
-    //is_parentの計算
-    param["agari"]["is_parent"] = param["agari"]["jikaze"] == "ton";
-    
-    
-    //リーチのフォーマット変換 is_reach -> reach_num
-    var rnum;
-    if(param["agari"]["is_reach"]){
-        rnum=1;
-    }else{
-        rnum=0;
-    }
-    param["agari"]["reach_num"] =rnum;
-    delete param["agari"]["is_reach"] ;
+    obj["agari"]["img_url"] = $("#img_url").val();
 
     //JSONに変換 「"」を除く
-    var json = toJSON(param);
+    var json = toJSON(obj);
     
     dbgmsg("sendCalcData","REQUEST=" + MJT_AGARI_URL  + json);
     //リクエスト送信

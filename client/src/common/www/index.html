@@ -13,6 +13,9 @@
     <script type="text/javascript" src="jquery.mobile-1.0rc2.min.js"></script>
     <script type="text/javascript" src="lib/util.js"></script>
     <script type="text/javascript" src="lib/point.js"></script>
+    <script type="text/javascript" src="lib/pai.js"></script>
+    <script type="text/javascript" src="lib/tehai.js"></script>
+    <script type="text/javascript" src="lib/state.js"></script>
     <script type="text/javascript" src="main.js"></script>
   </head>
 
@@ -54,7 +57,7 @@
           <div class="mjt-body">
             <div id="div_state_str"></div>
             <div data-role="controlgroup">
-              <a href="#state" data-role="button">変更</a>
+              <a data-role="button" onclick="showChangePage()">変更</a>
             </div>
           </div>
           <a data-role="button" data-theme="e" onclick="calcPoint();">
@@ -185,9 +188,9 @@
                  src="img/nophoto.jpg" alt=""/>
             <p>↓</p>
             <div id="div_analized_img"></div>
-            <p>画像解析結果を訂正する場合は牌をタッチ</p>
+            <p>訂正する場合は牌をタッチ</p>
           </div>
-          <a data-role="button" onclick="retry()">訂正後の手牌で得点計算</a>
+          <a data-role="button" onclick="retry()" data-theme="e">訂正後の手牌で得点計算</a>
           <a data-role="button" data-rel="back">戻る</a>
         </center>
       </div>
