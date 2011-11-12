@@ -24,18 +24,22 @@ var PHOTO_TYPE_URL = "url";//urlを指定している
 /**
  * 変数
  */
-var pictureSource; // 写真ソース
-var destinationType; // 戻り値のフォーマット
+var pictureSource;// 写真ソース
+var destinationType;// 戻り値のフォーマット
 var photoBase64="";//写真のbase64ストリング
 var photoListDlFlag=false;//サーバから写真をダウンロードしたかどうか
 var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
 var changeTargetPaiIndex = -1;//変更対象の牌のindex
-var dbgno=0; //デバッグメッセージの行数
-var dbgarray = new Array();//デバッグメッセージ格納配列
+
+var resData = null;//Ajaxレスポンスデータ
 
 var tehai = null;
 var point = null;
 var state = null;
+
+var dbgno=0; //デバッグメッセージの行数
+var dbgarray = new Array();//デバッグメッセージ格納配列
+
 /**********************************************
  * 共通関数
  **********************************************/
@@ -115,13 +119,17 @@ function hideLoadMsg(){
  * アガリ写真とアガリ状況を消す
  */
 function clearAll(){
+    //内部変数初期化
     photoBase64="";
+    photoListDlFlag=false;
+    //写真初期化
     photoType = PHOTO_TYPE_NONE;
     $("#img_top_photo").attr("src" , NO_IMAGE);
     $("#img_result_photo").attr("src", NO_IMAGE);
-    photoListDlFlag=false;
+    //状況初期化
     state.clearData();
     state.updateDisplay();
+
     infomsg("クリア完了");
 }
 
@@ -240,7 +248,7 @@ function viewPhotoList(jsdata) {
         .attr("alt",data[i].photo.url)
         .css("border-color","#888888")
         .css("border-width","2px")
-        .css("border-style","solid")        
+        .css("border-style","solid")
         .click(
             function(){//クリック時
                 dbgmsg("viewPhotoList","Selected Photo alt=" 
@@ -372,6 +380,9 @@ function sendCalcData(){
             success: function (data, textStatus, xhr) {
                 dbgmsg("sendCalcData","RESPONSE:" + json2txt(eval(data)));
 
+                //data格納
+                resData = data;
+
                 //得点表示
                 point = new Point(data.agari);
                 $("#div_point").html(point.toHtml());
@@ -430,6 +441,49 @@ function makeSelectPanel(paiImgJq) {
 
     jq.appendTo("body").hide();
 
+}
+
+/**********************************************
+ * リトライ
+ *********************************************/
+
+/**
+ * リトライ得点計算リクエスト送信
+ */
+function sendRetry(){
+    showLoadMsg("得点計算中...");
+
+    var obj = state.toObj();
+
+    obj["agari"]["img_url"] = $("#img_url").val();
+    obj["agari"]["id"] = redData.agari.id;
+    obj["agari"]["tehai_list"] = tehai.toString();
+
+    //JSONに変換 「"」を除く
+    var json = toJSON(obj);
+    
+    dbgmsg("sendRetry","REQUEST=" + MJT_AGARI_URL  + json);
+    //リクエスト送信
+    $.ajax(
+        {
+            type: "PUT",
+            url: MJT_AGARI_URL,
+            data: json,
+            contentType: "application/json",
+            success: function (data, textStatus, xhr) {
+                dbgmsg("sendRetry","RESPONSE:" + json2txt(eval(data)));
+                //得点表示
+                point = new Point(data.agari);
+                $("#div_point").html(point.toHtml());
+                //ロード中メッセージ除去
+                hideLoadMsg();
+            },
+            error: function (data) {
+                hideLoadMsg();
+                dbgmsg("sendRetry","RESPONSE:" + data.responseText);
+                errormsg("得点計算リクエストが失敗しました:" + data.status, data.responseText);
+            }
+        });
 }
 
 
