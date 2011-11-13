@@ -54,7 +54,7 @@ function infomsg(message) {
     .css({
         display: "block",
         opacity: 0.9,
-        top: window.pageYOffset+300
+        top: window.pageYOffset+100
     })
     .html("<h1>" + message + "<h1>")
     .appendTo("body").delay(500)
@@ -162,9 +162,8 @@ function selectPhoto() {
     navigator.camera.getPicture(
         cameraSuccess,
         cameraFail,
-        {quality: 50, 
-         sourceType: 0,
-         targetWidth: 100}
+        {quality: 50, sourceType: 0}
+        //{quality: 50, sourceType: 0,targetWidth: 600}
     );
 }
 
@@ -404,7 +403,7 @@ function makeSelectPanel(paiImgJq) {
     .css({
         display: "block",
         opacity: 0.9,
-        top: window.pageYOffset+100
+        top: window.pageYOffset+300
     })
     .html("<h1>牌を選んでください</h1>");
 
