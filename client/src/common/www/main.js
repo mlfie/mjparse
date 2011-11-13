@@ -4,34 +4,20 @@
 PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
 
 //得点計算リクエスト送信先URL
-var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
+var MJT_AGARI_URL= MJT_FQDN + "/agaris.json";
 
 //得点再計算リクエスト送信先URL
-var  MJT_AGARI_UPDATE_URL= "http://mjt.fedc.biz/agaris";
+var MJT_AGARI_UPDATE_URL= MJT_FQDN + "/agaris";
 
 //写真取得・登録先URL
-var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
-
-//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
-//var  MJT_AGARI_UPDATE_URL= "http://fetaro-mjt.fedc.biz/agaris";
-//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
-
-
-var NO_IMAGE="img/nophoto.jpg";//「手牌画像なし」と書いた画像
-
-//写真タイプ
-var PHOTO_TYPE_NONE = "none";//選択なし
-var PHOTO_TYPE_BASE64 = "base64";//撮影or選択により、base64で保持している
-var PHOTO_TYPE_URL = "url";//urlを指定している
+var MJT_PHOTO_URL = MJT_FQDN + "/photos.json";
 
 /**
  * 変数
  */
 var pictureSource;// 写真ソース
 var destinationType;// 戻り値のフォーマット
-var photoBase64="";//写真のbase64ストリング
 var photoListDlFlag=false;//サーバから写真をダウンロードしたかどうか
-var photoType = PHOTO_TYPE_NONE;//写真のタイプ NONE|BASE64|url
 var changeTargetPaiIndex = -1;//変更対象の牌のindex
 
 var resData = null;//Ajaxレスポンスデータ
@@ -39,6 +25,7 @@ var resData = null;//Ajaxレスポンスデータ
 var tehai = null;
 var point = null;
 var state = null;
+var photo = null;
 
 var dbgno=0; //デバッグメッセージの行数
 var dbgarray = new Array();//デバッグメッセージ格納配列
@@ -51,6 +38,7 @@ var dbgarray = new Array();//デバッグメッセージ格納配列
  * DOMロード完了
  */
 $(document).ready(function(){
+                      photo = new Photo();
 					  state = new State();
                       state.clearData();//アガリ状況初期化
                       state.updateDisplay();//アガリ状況表示初期化
@@ -123,12 +111,10 @@ function hideLoadMsg(){
  */
 function clearAll(){
     //内部変数初期化
-    photoBase64="";
     photoListDlFlag=false;
     //写真初期化
-    photoType = PHOTO_TYPE_NONE;
-    $("#img_top_photo").attr("src" , NO_IMAGE);
-    $("#img_result_photo").attr("src", NO_IMAGE);
+    photo.clear();
+
     //状況初期化
     state.clearData();
     state.updateDisplay();
@@ -187,14 +173,7 @@ function selectPhoto() {
  */
 function cameraSuccess(imageData){
     dbgmsg("cameraSuccess","Photo Image(base64)=" + imageData);
-    //base64の文字列を格納
-    photoBase64 = imageData;
-    //トップ画像を変更
-    $("#img_top_photo").attr("src" , "data:image/jpeg;base64," + imageData);
-    //解析結果画面の写真も更新
-    $("#img_result_photo").attr("src", "data:image/jpeg;base64," + imageData);
-
-    photoType = PHOTO_TYPE_BASE64;
+    photo.setBase64Src(imageData);
 
 }
 /**
@@ -254,16 +233,9 @@ function viewPhotoList(jsdata) {
         .css("border-style","solid")
         .click(
             function(){//クリック時
-                dbgmsg("viewPhotoList","Selected Photo alt=" 
-                       + $(this).attr('alt') 
-                       + " src=" +$(this).attr('src'));
-                $("#img_url").val($(this).attr('alt'));
-                //トップ画面の写真を更新
-                $("#img_top_photo").attr("src", $(this).attr('src'));
-                //解析結果画面の写真も更新
-                $("#img_result_photo").attr("src", $(this).attr('src'));
 
-                photoType = PHOTO_TYPE_URL;
+                photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
+
                 //画面遷移
                 $.mobile.changePage( "#index", { reverse: true} );
             }
@@ -315,13 +287,19 @@ function clearState(){
  */
 function calcPoint(){
 
-    if(photoType == PHOTO_TYPE_BASE64){
-        sendPhoto();
-    }else if(photoType == PHOTO_TYPE_URL){
-        sendCalcData();
-    }else{
+    if(photo.isEmpty()){
         errormsg("解析対象の写真がありません");
         dbgmsg("calcPoint","img_url is empty");
+        return ;
+    }else if(photo.isLocalPhoto()){
+        //まだ写真をサーバに登録してない
+        sendPhoto();
+        
+    }else if(photo.isServerPhoto()){
+        sendCalcData();
+    }else{
+        errormsg("写真の状態が不正です");
+        dbgmsg("calcPoint","photo is");
         return ;
     }
 }
@@ -332,7 +310,7 @@ function calcPoint(){
 function sendPhoto() {
     showLoadMsg("サーバに写真を送信中...");
 
-    var json = "{photo: {base64: \"" + photoBase64 + "\"}}";
+    var json = "{photo: {base64: \"" + photo.getBase64() + "\"}}";
 
     dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json);
 
@@ -344,9 +322,11 @@ function sendPhoto() {
         contentType: "application/json",
         success: function (data, textStatus, xhr) {
             dbgmsg("sendPhoto","RESPONSE=" + json2txt(eval(data)));
-            $("#img_url").val(eval(data).photo.url);
-            photoType=PHOTO_TYPE_URL;
+            //写真URLセット
+            photo.setUrl(eval(data).photo.url);
+            //ロード中メッセージ除去
             hideLoadMsg();
+            //得点計算リクエスト送信
             sendCalcData();
         },
         error: function (data) {
@@ -367,7 +347,7 @@ function sendCalcData(){
 
     var obj = state.toObj();
 
-    obj["agari"]["img_url"] = $("#img_url").val();
+    obj["agari"]["img_url"] = photo.getUrl();
 
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
@@ -458,7 +438,7 @@ function sendRetry(){
 
     var obj = state.toObj();
 
-    obj["agari"]["img_url"] = $("#img_url").val();
+    obj["agari"]["img_url"] = photo.getUrl();
     obj["agari"]["id"] = resData.agari.id;
     obj["agari"]["tehai_list"] = tehai.toString();
 
@@ -520,18 +500,13 @@ function dummyPhoto(){
     //ダミーの写真（テスト用）
     imageData="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";
 
-    dbgmsg("dummyPhoto","Photo Image(base64)=" + imageData);
-    photoBase64 = imageData;
-    $("#img_top_photo").attr("src" , "data:image/jpeg;base64," + imageData);
-    $("#img_result_photo").attr("src", "data:image/jpeg;base64," + imageData);
+    photo.setBase64Src(imageData); 
 
-    photoType = PHOTO_TYPE_BASE64;
 }
 
 function calcPointDummy(){
-    $("#img_url").val($(this).attr('http://fetaro-mjt.fedc.biz/img/1.jpg'));
-    $("#img_top_photo").attr("src", "http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
-    $("#img_result_photo").attr("src", "http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
-    photoType=PHOTO_TYPE_URL;
+
+    photo.setUrlSrc('http://fetaro-mjt.fedc.biz/img/1.jpg',"http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
+
     calcPoint();
 }

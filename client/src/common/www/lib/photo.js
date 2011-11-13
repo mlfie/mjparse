@@ -1,31 +1,56 @@
 var Photo = function(){
-    var NO_IMAGE="img/nophoto.jpg";//uè”v‰æ‘œ‚È‚µv‚Æ‘‚¢‚½‰æ‘œ
-
-    //Ê^ƒ^ƒCƒv
-    var TYPE_NONE = "none";//‘I‘ğ‚È‚µ
-    var TYPE_BASE64 = "base64";//B‰eor‘I‘ğ‚É‚æ‚èAbase64‚Å•Û‚µ‚Ä‚¢‚é
-    var TYPE_URL = "url";//url‚ğw’è‚µ‚Ä‚¢‚é
-
-    this.type = Photo.TYPE_NONE
+    var NO_IMAGE="img/nophoto.jpg";//ã€Œæ‰‹ç‰Œç”»åƒãªã—ã€ã¨æ›¸ã„ãŸç”»åƒ
+    var IMG_URL = "#img_url";
+    
+    this.imgUrl = $("#img_url");
+    this.topPhoto = $("#img_top_photo");
+    this.resultPhoto = $("#img_result_photo");
+    this.base64 ="";
 
     this.clear = function(){
-        this.type=TYPE_NONE
-        $("#img_url").val("");
-        $("#img_top_photo").attr("src" , NO_IMAGE);
-        $("#img_result_photo").attr("src", NO_IMAGE);
+        this.imgUrl.val("");
+        this.topPhoto.attr("src" , NO_IMAGE);
+        this.resultPhoto.attr("src", NO_IMAGE);
+        this.base64 ="";
     };
 
-    this.setUrlSrc = function(url,thumUrl,){
-        this.type=TYPE_URL
-        $("#img_url").val(url);
-        $("#img_top_photo").attr("src" , thumUrl);
-        $("#img_result_photo").attr("src", thumUrl);
+    this.setUrlSrc = function(url,thumUrl){
+        dbgmsg("Photo.setUrlSrc",url + "," +thumUrl);
+        this.imgUrl.val(url);
+        this.topPhoto.attr("src" , thumUrl);
+        this.resultPhoto.attr("src", thumUrl);
     };
 
     this.setBase64Src = function(base64){
-        this.type=TYPE_BASE64
-        $("#img_top_photo").attr("src" , "data:image/jpeg;base64," + base64);
-        $("#img_result_photo").attr("src",  "data:image/jpeg;base64," + base64);
+        dbgmsg("Photo.setBase64Src",base64);
+        this.base64 = base64;
+        this.topPhoto.attr("src" , "data:image/jpeg;base64," + base64);
+        this.resultPhoto.attr("src",  "data:image/jpeg;base64," + base64);
     };
 
+    this.setUrl = function(url){
+        dbgmsg("Photo.setUrl",url);
+        this.imgUrl.val(url);
+    };
+
+    this.getUrl = function(){
+        dbgmsg("Photo.getUrl", this.imgUrl.val());
+        return this.imgUrl.val();
+    };
+
+    this.getBase64 = function(){
+        return this.base64;
+    };
+
+    this.isLocalPhoto = function(){
+        return this.imgUrl.val() == "" && this.base64 !="";
+    };
+
+    this.isEmpty = function(){
+        return this.imgUrl.val() == "" && this.base64 =="";
+    };
+
+    this.isServerPhoto = function(){
+        return this.imgUrl.val() != "";
+    };
 };
