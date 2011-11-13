@@ -23,9 +23,10 @@ var Photo = function(){
 
     this.setBase64Src = function(base64){
         dbgmsg("Photo.setBase64Src",base64);
-        this.base64 = base64;
+        this.imgUrl.val(""); 
         this.topPhoto.attr("src" , "data:image/jpeg;base64," + base64);
         this.resultPhoto.attr("src",  "data:image/jpeg;base64," + base64);
+        this.base64 = base64;
     };
 
     this.setUrl = function(url){
