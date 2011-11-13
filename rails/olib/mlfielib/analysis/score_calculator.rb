@@ -439,7 +439,7 @@ module Mlfielib
 #*****************************************************************#
 # step7. ロンアガリの際に放銃した人が払う点数を計算する
 #*****************************************************************#
-      def self.calc_parent_point(base_point, kyoku)
+      def self.calc_ron_point(base_point, kyoku)
         point = 0
         # ロンアガリの場合
         if !kyoku.is_tsumo then
