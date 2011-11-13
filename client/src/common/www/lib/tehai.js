@@ -1,13 +1,13 @@
 var Tehai = function(tehaiList) {
 
-    this.DIRE_MAP={
+    var DIRE_MAP={
         "t" : "top",
         "l" : "left",
         "r" : "right",
         "b" : "bottom"
     };
 
-    this.DIRE_R_MAP={
+    var DIRE_R_MAP={
         "top" : "t",
         "left" : "l",
         "right" : "r",
@@ -29,7 +29,7 @@ var Tehai = function(tehaiList) {
                 paistr = "z0";
                 dstr="t";
             }
-            this.paiList.push(new Pai(paistr,this.DIRE_MAP[dstr]));
+            this.paiList.push(new Pai(paistr,DIRE_MAP[dstr]));
         }
     }else{
         dbgmsg("makePaiImgUrlList","type is list ");

@@ -4,14 +4,17 @@
 PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","m5-red","p5-red","s5-red"];
 
 //得点計算リクエスト送信先URL
-//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
 var  MJT_AGARI_URL= "http://mjt.fedc.biz/agaris.json";
-//var  MJT_AGARI_URL= "http://localhost:8080/agaris.json";
+
+//得点再計算リクエスト送信先URL
+var  MJT_AGARI_UPDATE_URL= "http://mjt.fedc.biz/agaris";
 
 //写真取得・登録先URL
-//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
 var MJT_PHOTO_URL = "http://mjt.fedc.biz/photos.json";
-//var MJT_PHOTO_URL = "http://localhost:8080/photos.json";
+
+//var  MJT_AGARI_URL= "http://fetaro-mjt.fedc.biz/agaris.json";
+//var  MJT_AGARI_UPDATE_URL= "http://fetaro-mjt.fedc.biz/agaris";
+//var MJT_PHOTO_URL = "http://fetaro-mjt.fedc.biz/photos.json";
 
 
 var NO_IMAGE="img/nophoto.jpg";//「手牌画像なし」と書いた画像
@@ -456,18 +459,21 @@ function sendRetry(){
     var obj = state.toObj();
 
     obj["agari"]["img_url"] = $("#img_url").val();
-    obj["agari"]["id"] = redData.agari.id;
+    obj["agari"]["id"] = resData.agari.id;
     obj["agari"]["tehai_list"] = tehai.toString();
 
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
     
-    dbgmsg("sendRetry","REQUEST=" + MJT_AGARI_URL  + json);
+    //url生成 url = ***/agaris/id.json
+    var url = MJT_AGARI_UPDATE_URL + "/" + resData.agari.id + ".json";
+
+    dbgmsg("sendRetry","REQUEST=" + url + "DATA=" + json);
     //リクエスト送信
     $.ajax(
         {
             type: "PUT",
-            url: MJT_AGARI_URL,
+            url: url,
             data: json,
             contentType: "application/json",
             success: function (data, textStatus, xhr) {
