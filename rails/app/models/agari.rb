@@ -56,6 +56,7 @@ class Agari < ActiveRecord::Base
       self.parent_point    = teyaku_decider.teyaku.parent_point
       self.child_point     = teyaku_decider.teyaku.child_point
       self.ron_point       = teyaku_decider.teyaku.ron_point
+      self.is_furo         = teyaku_decider.teyaku.furo
       logger.debug("teyaku is fu:"+self.total_fu_num.to_s+" han:"+self.total_han_num.to_s+" total_point:"+self.total_point.to_s)
     else
       logger.error("teyaku was not decided.")
