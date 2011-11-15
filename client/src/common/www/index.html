@@ -170,6 +170,7 @@
 
     <!--得点計算結果画面-->
     <div data-role="page" id="result" data-theme="c">
+
       <div data-role="header">
         <h1>得点計算結果</h1>
         <a data-role="button" data-rel="back">戻る</a>
@@ -177,22 +178,23 @@
 
       <div data-role="content">
         <center>
-
-          <div data-role="collapsible"  data-collapsed="false" 
-               data-content-theme="c">
-            <h2>得点</h2>
+          <div class="mjt-head">
+            <b>得点</b>
+          </div>
+          <div class="mjt-body">
             <div id="div_point"></div>
           </div>
-
-          <div data-role="collapsible"  data-collapsed="false" 
-               data-content-theme="c">
-            <h2>画像解析結果</h2>
+          
+          <div class="mjt-head">
+            <b>画像解析結果</b>
+          </div>
+          <div class="mjt-body">
             <img id="img_result_photo" width="150" height="150" 
                  src="img/nophoto.jpg" alt=""/>
-            <p>↓</p>
             <div id="div_analized_img"></div>
             <p>訂正する場合は牌をタッチ</p>
           </div>
+
           <a data-role="button" onclick="sendRetry()" data-theme="e">訂正後の手牌で得点計算</a>
           <a data-role="button" data-rel="back">戻る</a>
         </center>
