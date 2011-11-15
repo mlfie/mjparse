@@ -29,71 +29,14 @@ var photo = null;
 var msg = null;
 
 /**********************************************
- * 初期化
+ * 共通関数
  **********************************************/
 
-/**
- * DOMロード完了
- */
-$(document).ready(function(){
-                      photo = new Photo();
-                      state = new State();
-                      msg = new Msg();
-                      state.clearData();//アガリ状況初期化
-                      state.updateDisplay();//アガリ状況表示初期化
-                      makeSelectPanel();
-                  });
 
 /**
- * PhoneGapがデバイスと接続するまで待機
+ * ajaxランチャー
+ * ajaxの際の、ロード中メッセージ、ログ出力を一元化する
  */
-function onLoad() {
-    document.addEventListener("deviceready", onDeviceReady, false);
-}
-
-/**
- * PhoneGap準備完了
- */
-function onDeviceReady() {
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
-}
-
-/**
- * 画像解析結果訂正用画面はあらかじめ作っておく
- */
-
-function makeSelectPanel(paiImgJq) {
-
-    var jq = $("<div/>")
-        .attr("id","div_selectpanel")
-        .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
-        .css({
-                 display: "block",
-                 opacity: 0.9,
-                 top: window.pageYOffset+300
-             })
-        .html("<h1>牌を選んでください</h1>");
-
-    $.each(PAI_TYPE_LIST,function(){
-               var imgJq = new Pai(this,PAI_DIRECTION_TOP)
-                   .imgJq()
-                   .click(
-                       function(){
-                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
-                           //外部変数changeTargetPaiIndexに変更対象の牌が入っている
-                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
-                           jq.hide();
-                       });
-
-               jq.append(imgJq);
-           });
-
-    jq.appendTo("body").hide();
-
-}
-
-
 function ajaxRuncher(requestName,type,url,json,func) {
     $.mobile.loadingMessage = requestName + "中...";
     $.mobile.showPageLoadingMsg();
@@ -124,6 +67,75 @@ function ajaxRuncher(requestName,type,url,json,func) {
            });
 }
 
+/**********************************************
+ * 初期化
+ **********************************************/
+
+/**
+ * DOMロード完了
+ */
+$(document).ready(function(){
+                      photo = new Photo();
+                      state = new State();
+                      msg = new Msg();
+                      //アガリ状況初期化
+                      state.clearData();
+                      state.updateDisplay();
+                      //解析結果修正画面は最初に生成しておく
+                      makeSelectPanel();
+                  });
+
+/**
+ * PhoneGapがデバイスと接続するまで待機
+ */
+function onLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+/**
+ * PhoneGap準備完了
+ */
+function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+}
+
+/**
+ * 画像解析結果　訂正用画面作成
+ */
+function makeSelectPanel(paiImgJq) {
+
+    var jq = $("<div/>")
+        .attr("id","div_selectpanel")
+        .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
+        .css({
+                 display: "block",
+                 opacity: 0.9,
+                 top: window.pageYOffset+300
+             })
+        .html("<h1>牌を選んでください</h1>");
+
+    $.each(PAI_TYPE_LIST,function(){
+               var imgJq = new Pai(this,PAI_DIRECTION_TOP)
+                   .imgJq()
+                   .click(
+                       function(){
+                           //牌選択時
+                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
+                           //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
+                           //それを元に手配の牌を交換する
+                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
+                           jq.hide();
+                       });
+
+               jq.append(imgJq);
+           });
+
+    jq.appendTo("body").hide();
+
+}
+
+
 
 /**********************************************
  * 写真撮影/選択
@@ -131,10 +143,11 @@ function ajaxRuncher(requestName,type,url,json,func) {
 
 
 /**
- * 写真撮影
+ * 写真を撮影
+ * 「撮影」ボタン押下時
  */
 function btnCapturePhoto() {
-    dbgmsg("capturePhoto","start");
+    dbgmsg("btnCapturePhoto","start");
     navigator.camera.getPicture(
         cameraSuccess,
         cameraFail,
@@ -144,9 +157,10 @@ function btnCapturePhoto() {
 
 /**
  * 写真をローカルから選択
+ * 「選択」ボタン押下時
  */
 function btnSelectPhoto() {
-    dbgmsg("selectPhoto","start");
+    dbgmsg("btnSelectPhoto","start");
     navigator.camera.getPicture(
         cameraSuccess,
         cameraFail,
@@ -161,7 +175,6 @@ function btnSelectPhoto() {
 function cameraSuccess(imageData){
     dbgmsg("cameraSuccess","Photo Image(base64)=" + imageData);
     photo.setBase64Src(imageData);
-
 }
 /**
  * 写真失敗時
@@ -176,10 +189,10 @@ function cameraFail(message){
 
 /**
  * サーバ上の写真リスト表示
+ * 「サーバ」ボタン押下時
  */
 function btnShowServerPhotoList() {
     if(photoListDlFlag){
-        dbgmsg("dlServerPhoto","photos are already downloaded" );
         $.mobile.changePage("#serverselect");
     }else{
         ajaxRuncher("写真リスト取得",
@@ -200,6 +213,8 @@ function viewPhotoList(jsdata) {
     var data = eval(jsdata);
     for(var i=0; i<data.length; i++) {
         //画像のdomを作成
+        //altという属性に、ノーマルの画像のURLをセットし
+        //srcには、サムネイルの画像のURLをセットする
         var jqImg = $("<img/>")
             .attr("src",data[i].photo.thum_url)
             .attr("alt",data[i].photo.url)
@@ -207,8 +222,8 @@ function viewPhotoList(jsdata) {
             .css("border-width","2px")
             .css("border-style","solid")
             .click(
-                function(){//クリック時
-
+                function(){
+                    //写真にURLをセットする
                     photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
 
                     //画面遷移
@@ -232,8 +247,10 @@ function viewPhotoList(jsdata) {
 /**********************************************
  * アガリ状況
  **********************************************/
+
 /**
- * TOP画面のアガリ状況変更ボタン押下時
+ * アガリ状況変更画面表示
+ * トップ画面の「変更」ボタン押下時
  */
 function btnShowStatusChangePage(){
     $.mobile.changePage("#state");
@@ -241,8 +258,8 @@ function btnShowStatusChangePage(){
 }
 
 /**
- * アガリ状況変更画面
- * 変更確定ボタン押下時
+ * 変更確定
+ * アガリ状況変更画面の「変更」ボタン押下時
  */
 function btnCommitStateChange(){
     state.updateData();
@@ -251,7 +268,8 @@ function btnCommitStateChange(){
 }
 
 /**
- * クリアボタン押下時
+ * 状況クリア
+ * アガリ状況変更画面の「クリア」ボタン押下時
  */
 function btnClearState(){
     state.clearData();
@@ -265,7 +283,8 @@ function btnClearState(){
 
 
 /**
- * 得点計算ボタン押した場合
+ * 得点計算リクエスト送信
+ * 「得点計算」ボタン押下時
  */
 function btnCalcPoint(){
 
@@ -274,45 +293,39 @@ function btnCalcPoint(){
         dbgmsg("btnCalcPoint","img_url is empty");
         return ;
     }else if(photo.isLocalPhoto()){
-        //まだ写真をサーバに登録してない
-        sendPhoto();
+        //まだ写真をサーバに登録してない場合
+        //写真を登録したのちに、得点計算リクエストを送る
+        var json = "{photo: {base64: \"" + photo.getBase64() + "\"}}";
+
+        ajaxRuncher("写真をサーバに送信",
+                    "POST",
+                    MJT_PHOTO_URL,
+                    json,
+                    function (data){
+                        //写真URLセット
+                        photo.setUrl(eval(data).photo.url);
+                        //得点計算リクエスト送信
+                        sendCalcData();
+                    });
         
     }else if(photo.isServerPhoto()){
+        //すでに写真をサーバに登録している場合は
+        //得点計算リクエストを送る
         sendCalcData();
     }else{
         msg.error("写真の状態が不正です");
-        dbgmsg("btnCalcPoint","photo is");
         return ;
     }
 }
 
 /**
- * 写真をサーバに投稿
- */
-function sendPhoto() {
-    var json = "{photo: {base64: \"" + photo.getBase64() + "\"}}";
-
-    ajaxRuncher("写真をサーバに送信",
-                "POST",
-                MJT_PHOTO_URL,
-                json,
-                function (data){
-                    //写真URLセット
-                    photo.setUrl(eval(data).photo.url);
-                    //得点計算リクエスト送信
-                    sendCalcData();
-                });
-}
-
-
-
-/**
  * 得点計算リクエスト送信
  */
 function sendCalcData(){
+    //アガリ状況をオブジェクトにする
     var obj = state.toObj();
+    //オブジェクトにimg_urlを追加
     obj["agari"]["img_url"] = photo.getUrl();
-
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
 
@@ -344,14 +357,15 @@ function sendCalcData(){
 
 /**
  * リトライ得点計算リクエスト送信
+ * 「訂正後の手牌で得点計算」ボタン押下時
  */
 function btnRetryCalcPoint(){
+    //アガリ状況をオブジェクトにする
     var obj = state.toObj();
-
+    //オブジェクトにimg_url,idおよび修正したtehai_listを追加
     obj["agari"]["img_url"] = photo.getUrl();
     obj["agari"]["id"] = resData.agari.id;
     obj["agari"]["tehai_list"] = tehai.toString();
-
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
     
@@ -374,8 +388,8 @@ function btnRetryCalcPoint(){
  **********************************************/
 
 /**
- * すべてクリアボタン
  * アガリ写真とアガリ状況を消す
+ * 「すべてクリア」ボタン押下時
  */
 function btnClearAll(){
     //内部変数初期化
