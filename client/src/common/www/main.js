@@ -32,17 +32,17 @@ var msg = null;
  * 初期化
  **********************************************/
 
- /**
+/**
  * DOMロード完了
  */
 $(document).ready(function(){
                       photo = new Photo();
-					  state = new State();
+                      state = new State();
                       msg = new Msg();
                       state.clearData();//アガリ状況初期化
                       state.updateDisplay();//アガリ状況表示初期化
                       makeSelectPanel();
-				  });
+                  });
 
 /**
  * PhoneGapがデバイスと接続するまで待機
@@ -66,14 +66,14 @@ function onDeviceReady() {
 function makeSelectPanel(paiImgJq) {
 
     var jq = $("<div/>")
-    .attr("id","div_selectpanel")
-    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
-    .css({
-        display: "block",
-        opacity: 0.9,
-        top: window.pageYOffset+300
-    })
-    .html("<h1>牌を選んでください</h1>");
+        .attr("id","div_selectpanel")
+        .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
+        .css({
+                 display: "block",
+                 opacity: 0.9,
+                 top: window.pageYOffset+300
+             })
+        .html("<h1>牌を選んでください</h1>");
 
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP)
@@ -94,25 +94,34 @@ function makeSelectPanel(paiImgJq) {
 }
 
 
-/**********************************************
- * 全てクリア
- **********************************************/
+function ajaxRuncher(requestName,type,url,json,func) {
+    $.mobile.loadingMessage = requestName + "中...";
+    $.mobile.showPageLoadingMsg();
 
-/**
- * すべてクリアボタン
- * アガリ写真とアガリ状況を消す
- */
-function btnClearAll(){
-    //内部変数初期化
-    photoListDlFlag=false;
-    //写真初期化
-    photo.clear();
-
-    //状況初期化
-    state.clearData();
-    state.updateDisplay();
-
-    msg.info("クリア完了");
+    dbgmsg("ajaxRuncher " + requestName + "リクエスト",
+           "type=" + type +"<br>"
+           + "url=" + url +"<br>"
+           + "contentType=" + "application/json" + "<br>"
+           + "data=" + json
+          );
+    
+    $.ajax({
+               type: type,
+               url: url,
+               data: json,
+               contentType: "application/json",
+               success: func,
+               success: function (data, textStatus, xhr) {
+                   $.mobile.hidePageLoadingMsg();
+                   dbgmsg("ajaxRuncher " + requestName +  "成功:レスポンス",json2html(eval(data)));
+                   func(data);
+               },
+               error: function (data) {
+                   $.mobile.hidePageLoadingMsg();
+                   msg.error(requestName + "に失敗しました。:" + data.status , data.responseText);
+                   dbgmsg("ajaxRuncher " + requestName + "失敗:レスポンス",data.responseText);
+               }
+           });
 }
 
 
@@ -173,28 +182,11 @@ function btnShowServerPhotoList() {
         dbgmsg("dlServerPhoto","photos are already downloaded" );
         $.mobile.changePage("#serverselect");
     }else{
-        $.mobile.loadingMessage = "サーバから写真リストを取得中...";
-        $.mobile.showPageLoadingMsg();
-
-        dbgmsg("dlServerPhoto","REQUEST:" + "GET " + MJT_PHOTO_URL );
-
-        //リクエスト送信
-        $.ajax({
-            type: "GET",
-            url: MJT_PHOTO_URL,
-            success: function (data, textStatus, xhr) {
-                dbgmsg("dlPhoto","RESPONSE=" + json2txt(eval(data)));
-                $.mobile.hidePageLoadingMsg();
-                photoListDlFlag=true;
-                viewPhotoList(data);
-                $.mobile.changePage("#serverselect");
-            },
-            error: function (data) {
-                msg.error("写真リスト取得失敗:" + data.status,data.responseText);
-                $.mobile.hidePageLoadingMsg();
-                dbgmsg("dlPhoto","RESPONSE=" + data.responseText);
-            }
-        });
+        ajaxRuncher("写真リスト取得",
+                    "GET",
+                    MJT_PHOTO_URL,
+                    "",
+                    viewPhotoList);
     }
 }
 
@@ -202,44 +194,54 @@ function btnShowServerPhotoList() {
  * サーバ上の写真リストのダウンロード成功時
  */
 function viewPhotoList(jsdata) {
+
+    photoListDlFlag=true;
+
     var data = eval(jsdata);
     for(var i=0; i<data.length; i++) {
         //画像のdomを作成
         var jqImg = $("<img/>")
-        .attr("src",data[i].photo.thum_url)
-        .attr("alt",data[i].photo.url)
-        .css("border-color","#888888")
-        .css("border-width","2px")
-        .css("border-style","solid")
-        .click(
-            function(){//クリック時
+            .attr("src",data[i].photo.thum_url)
+            .attr("alt",data[i].photo.url)
+            .css("border-color","#888888")
+            .css("border-width","2px")
+            .css("border-style","solid")
+            .click(
+                function(){//クリック時
 
-                photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
+                    photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
 
-                //画面遷移
-                $.mobile.changePage( "#index", { reverse: true} );
-            }
-        );
+                    //画面遷移
+                    $.mobile.changePage( "#index", { reverse: true} );
+                }
+            );
         //画像を入れるdivのdom作成
         var jqDiv = $("<div/>")
-        .css("float","left")
-        .html(data[i].photo.created_at.replace("T"," ").replace("+09:00",""))
-        .append("<br>")
-        .append(jqImg);
+            .css("float","left")
+            .html(data[i].photo.created_at.replace("T"," ").replace("+09:00",""))
+            .append("<br>")
+            .append(jqImg);
         //本体にDOMを追加
         $("#div_photolist").append(jqDiv);
     }//end for
+
+    $.mobile.changePage("#serverselect");
+
 }
 
 /**********************************************
  * アガリ状況
  **********************************************/
+/**
+ * TOP画面のアガリ状況変更ボタン押下時
+ */
 function btnShowStatusChangePage(){
     $.mobile.changePage("#state");
     state.updateForm();
 }
 
 /**
+ * アガリ状況変更画面
  * 変更確定ボタン押下時
  */
 function btnCommitStateChange(){
@@ -269,7 +271,7 @@ function btnCalcPoint(){
 
     if(photo.isEmpty()){
         msg.error("解析対象の写真がありません");
-        dbgmsg("calcPoint","img_url is empty");
+        dbgmsg("btnCalcPoint","img_url is empty");
         return ;
     }else if(photo.isLocalPhoto()){
         //まだ写真をサーバに登録してない
@@ -279,7 +281,7 @@ function btnCalcPoint(){
         sendCalcData();
     }else{
         msg.error("写真の状態が不正です");
-        dbgmsg("calcPoint","photo is");
+        dbgmsg("btnCalcPoint","photo is");
         return ;
     }
 }
@@ -288,34 +290,18 @@ function btnCalcPoint(){
  * 写真をサーバに投稿
  */
 function sendPhoto() {
-    $.mobile.loadingMessage = "サーバに写真を送信中...";
-    $.mobile.showPageLoadingMsg();
-
     var json = "{photo: {base64: \"" + photo.getBase64() + "\"}}";
 
-    dbgmsg("sendPhoto" , "REQUEST=" +MJT_PHOTO_URL + json);
-
-    //リクエスト送信
-    $.ajax({
-        type: "POST",
-        url: MJT_PHOTO_URL,
-        data: json,
-        contentType: "application/json",
-        success: function (data, textStatus, xhr) {
-            dbgmsg("sendPhoto","RESPONSE=" + json2txt(eval(data)));
-            //写真URLセット
-            photo.setUrl(eval(data).photo.url);
-            //ロード中メッセージ除去
-            $.mobile.hidePageLoadingMsg();
-            //得点計算リクエスト送信
-            sendCalcData();
-        },
-        error: function (data) {
-            $.mobile.hidePageLoadingMsg();
-            msg.error("写真の登録失敗 " + data.status, data.responseText);
-            dbgmsg("sendPhoto","RESPONSE=" + data.responseText);
-        }
-    });
+    ajaxRuncher("写真をサーバに送信",
+                "POST",
+                MJT_PHOTO_URL,
+                json,
+                function (data){
+                    //写真URLセット
+                    photo.setUrl(eval(data).photo.url);
+                    //得点計算リクエスト送信
+                    sendCalcData();
+                });
 }
 
 
@@ -324,55 +310,32 @@ function sendPhoto() {
  * 得点計算リクエスト送信
  */
 function sendCalcData(){
-    $.mobile.loadingMessage = "得点計算中...";
-    $.mobile.showPageLoadingMsg();
-
     var obj = state.toObj();
-
     obj["agari"]["img_url"] = photo.getUrl();
 
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
-    
-    dbgmsg("sendCalcData","REQUEST=" + MJT_AGARI_URL  + json);
-    //リクエスト送信
-    $.ajax(
-        {
-            type: "POST",
-            url: MJT_AGARI_URL,
-            data: json,
-            contentType: "application/json",
-            success: function (data, textStatus, xhr) {
-                dbgmsg("sendCalcData","RESPONSE:" + json2txt(eval(data)));
 
-                //data格納
-                resData = data;
-
-                //得点表示
-                point = new Point(data.agari);
-                $("#div_point").html(point.toHtml());
-
-                //画像解析結果表示
-                //$("#div_analized_img").html(makePaiImgJq(data.agari.tehai_list));
-                tehai = new Tehai(data.agari.tehai_list);
-                $("#div_analized_img").html(tehai.toJq());
-                
-                //ロード中メッセージ除去
-                $.mobile.hidePageLoadingMsg();
-
-                //画面遷移
-                $.mobile.changePage('#result');
-            },
-            error: function (data) {
-                $.mobile.hidePageLoadingMsg();
-                dbgmsg("calcPoint","RESPONSE:" + data.responseText);
-                msg.error("得点計算リクエストが失敗しました:" + data.status, data.responseText);
-            }
-        });
+    ajaxRuncher("得点計算",
+                "POST",
+                MJT_AGARI_URL,
+                json,
+                function (data){
+                    //data格納
+                    resData = data;
+                    
+                    //得点表示
+                    point = new Point(data.agari);
+                    $("#div_point").html(point.toHtml());
+   
+                    //画像解析結果表示
+                    tehai = new Tehai(data.agari.tehai_list);
+                    $("#div_analized_img").html(tehai.toJq());
+   
+                    //画面遷移
+                    $.mobile.changePage('#result');
+                });
 }
-
-
-
 
 
 /**********************************************
@@ -383,9 +346,6 @@ function sendCalcData(){
  * リトライ得点計算リクエスト送信
  */
 function btnRetryCalcPoint(){
-    $.mobile.loadingMessage = "得点計算中...";
-    $.mobile.showPageLoadingMsg();
-
     var obj = state.toObj();
 
     obj["agari"]["img_url"] = photo.getUrl();
@@ -398,29 +358,36 @@ function btnRetryCalcPoint(){
     //url生成 url = ***/agaris/id.json
     var url = MJT_AGARI_UPDATE_URL + "/" + resData.agari.id + ".json";
 
-    dbgmsg("sendRetry","REQUEST=" + url + "DATA=" + json);
-    //リクエスト送信
-    $.ajax(
-        {
-            type: "PUT",
-            url: url,
-            data: json,
-            contentType: "application/json",
-            success: function (data, textStatus, xhr) {
-                dbgmsg("sendRetry","RESPONSE:" + json2txt(eval(data)));
-                //得点表示
-                point = new Point(data.agari);
-                $("#div_point").html(point.toHtml());
-                //ロード中メッセージ除去
-                $.mobile.hidePageLoadingMsg();
-            },
-            error: function (data) {
-                dbgmsg("sendRetry","RESPONSE:" + data.responseText);
-                //ロード中メッセージ除去
-                $.mobile.hidePageLoadingMsg();
-                msg.error("得点計算リクエストが失敗しました:" + data.status, data.responseText);
-            }
-        });
+    ajaxRuncher("得点再計算",
+                "PUT",
+                url,
+                json,
+                function (data){
+                    //得点表示
+                    point = new Point(data.agari);
+                    $("#div_point").html(point.toHtml());
+                });
+}
+
+/**********************************************
+ * 全てクリア
+ **********************************************/
+
+/**
+ * すべてクリアボタン
+ * アガリ写真とアガリ状況を消す
+ */
+function btnClearAll(){
+    //内部変数初期化
+    photoListDlFlag=false;
+    //写真初期化
+    photo.clear();
+
+    //状況初期化
+    state.clearData();
+    state.updateDisplay();
+
+    msg.info("クリア完了");
 }
 
 
@@ -429,24 +396,21 @@ function btnRetryCalcPoint(){
  * テスト・デバッグ用
  **********************************************/
 var dbgno=0; //デバッグメッセージの行数
-var dbgarray = new Array();//デバッグメッセージ格納配列
-
-
-
 function dbgmsg(tag, msg) {
-    if (msg.length > 1000) {
-        printmsg = msg.substring(0,1000)
-            + "<button data-role='none' onclick='dbgDetail("+ dbgno + ")'>(メッセージ全文)</button>";
-    }else{
-        printmsg=msg;
-    }
-    $("#content_debug").append("<b>" + dbgno + "." + tag + "</b><p>" + printmsg +"</p>");
-    dbgarray[dbgno]=msg;
+    $("#content_debug").append(
+        $("<p/>")
+            .html(dbgno + ". " + tag)
+            .append("<button data-role='none' onclick='dbgDetail("+ dbgno + ")'>detail</button>")
+            .append(
+                $("<div/>")
+                    .attr("id","div_dbg_detail" + dbgno)
+                    .html(msg)
+                    .css("display","none")));
     dbgno++;
 }
 
 function dbgDetail(i){
-    alert(dbgarray[i]);
+    $("#div_dbg_detail" + i).css("display","block");
 }
 
 
