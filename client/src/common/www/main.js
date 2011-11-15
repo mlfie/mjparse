@@ -27,6 +27,7 @@ var point = null;
 var state = null;
 var photo = null;
 var msg = null;
+
 /**********************************************
  * 初期化
  **********************************************/
@@ -57,6 +58,41 @@ function onDeviceReady() {
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
 }
+
+/**
+ * 画像解析結果訂正用画面はあらかじめ作っておく
+ */
+
+function makeSelectPanel(paiImgJq) {
+
+    var jq = $("<div/>")
+    .attr("id","div_selectpanel")
+    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
+    .css({
+        display: "block",
+        opacity: 0.9,
+        top: window.pageYOffset+300
+    })
+    .html("<h1>牌を選んでください</h1>");
+
+    $.each(PAI_TYPE_LIST,function(){
+               var imgJq = new Pai(this,PAI_DIRECTION_TOP)
+                   .imgJq()
+                   .click(
+                       function(){
+                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
+                           //外部変数changeTargetPaiIndexに変更対象の牌が入っている
+                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
+                           jq.hide();
+                       });
+
+               jq.append(imgJq);
+           });
+
+    jq.appendTo("body").hide();
+
+}
+
 
 /**********************************************
  * 全てクリア
@@ -338,39 +374,6 @@ function sendCalcData(){
 
 
 
-/**********************************************
- * 画像解析
- **********************************************/
-
-function makeSelectPanel(paiImgJq) {
-
-    var jq = $("<div/>")
-    .attr("id","div_selectpanel")
-    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
-    .css({
-        display: "block",
-        opacity: 0.9,
-        top: window.pageYOffset+300
-    })
-    .html("<h1>牌を選んでください</h1>");
-
-    $.each(PAI_TYPE_LIST,function(){
-               var imgJq = new Pai(this,"top")
-                   .imgJq()
-                   .click(
-                       function(){
-                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
-                           //外部変数changeTargetPaiIndexに変更対象の牌が入っている
-                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
-                           jq.hide();
-                       });
-
-               jq.append(imgJq);
-           });
-
-    jq.appendTo("body").hide();
-
-}
 
 /**********************************************
  * リトライ

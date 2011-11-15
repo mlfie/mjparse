@@ -1,10 +1,16 @@
+var PAI_TYPE_UNANALYZABLE = "z0";
+var PAI_DIRECTION_TOP="t";
+var PAI_DIRECTION_LEFT="l";
+var PAI_DIRECTION_RIGHT="r";
+var PAI_DIRECTION_BOTTOM="b";
+
 var Pai = function(type,direction){
 
-    this.type = type;
-    this.direction = direction;
+    this.type = type; //牌の種類　"p1" "j2"といった文字列
+    this.direction = direction; //牌の向き "t" "b" といった文字列
 
     this.imgUrl = function(){
-        return "img/pai/" + this.type + "-" + this.direction +".gif";
+        return "img/pai/" + this.type +  this.direction +".gif";
     };
    
 

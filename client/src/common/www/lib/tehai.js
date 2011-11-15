@@ -1,21 +1,7 @@
 var Tehai = function(tehaiList) {
 
-    var DIRE_MAP={
-        "t" : "top",
-        "l" : "left",
-        "r" : "right",
-        "b" : "bottom"
-    };
-
-    var DIRE_R_MAP={
-        "top" : "t",
-        "left" : "l",
-        "right" : "r",
-        "bottom" : "b"
-    };
-
     this.paiList = new Array();
-    this.changeIndex = -1;
+    this.changeIndex = -1; // 変更対象の牌の場所
 
     if(typeof tehaiList == "string" ){
         dbgmsg("makePaiImgUrlList","type is string = " + tehaiList);
@@ -26,14 +12,15 @@ var Tehai = function(tehaiList) {
             var dstr = tehaiList.slice(i + 2, i + 3);
             if (paistr == "") {
                 //解析に失敗したパイがある場合
-                paistr = "z0";
-                dstr="t";
+                paistr = PAI_TYPE_UNANALYZABLE;
+                dstr=PAI_DIRECTION_TOP;
             }
-            this.paiList.push(new Pai(paistr,DIRE_MAP[dstr]));
+            this.paiList.push(new Pai(paistr,dstr));
         }
     }else{
         dbgmsg("makePaiImgUrlList","type is list ");
         //tehai_listが配列の場合
+        //※未だサーバに実装されていない
         $.each(tehaiList,function(){
                    this.paiList.push(
                        new Pai(this.type + this.number,this.direction)
@@ -69,7 +56,7 @@ var Tehai = function(tehaiList) {
     this.toString = function(){
         var str = "";
         $.each(this.paiList,function(){
-                   str += this.type + DIRE_R_MAP[this.direction];
+                   str += this.type + this.direction;
                });
         return str;
     };
