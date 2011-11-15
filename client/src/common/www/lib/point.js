@@ -54,13 +54,16 @@ var Point = function(agari){
             
             if (this.agari.is_tsumo){
                 if (this.agari.is_parent) {
+                    //親のツモアガリ
                     html += this.agari.child_point + "点オール";
                 } else {
+                    //子のツモアガリ
                     html += "子" + this.agari.child_point + "点/"
                         + "親" + this.agari.parent_point + "点";
                 }
             }else{
-                html += this.agari.total_point + "点";
+                //ロンアガリ
+                html += this.agari.ron_point + "点";
             }
 
             dbgmsg("Point.toHtml",html);
