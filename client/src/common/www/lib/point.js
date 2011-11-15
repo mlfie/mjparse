@@ -17,22 +17,27 @@ var Point = function(agari){
     this.toHtml = function () {
         var html = "";
         var doraCount =0;
-
         if(this.agari.status_code == 200){
+            var isFuro = this.agari.is_furo;
             
+            //役リスト
             html += "<table>";
             $.each(this.agari.yaku_list, function () {
                        if(this.name == "dora"){
                            doraCount += 1;
-                       }else{ 
-                           html += "<tr>"
-                               + "<td>" + this.name_kanji + "<\/td>"
-                               + "<td>" + this.han_num + "飜<\/td>"
-                               + "<\/tr>";
+                       }else{
+                           html += "<tr>";
+                           html += "<td>" + this.name_kanji + "<\/td>";
+                           if(isFuro){
+                               html += "<td>" + this.naki_han_num + "飜<\/td>";
+                           }else{
+                               html += "<td>" + this.han_num + "飜<\/td>";
+                           }
+                           html += "<\/tr>";
                        }
                    });
-            //ドラはまとめる
             if(doraCount != 0){
+                //ドラはまとめる
                 html += "<tr>"
                     + "<td>ドラ" + doraCount + "<\/td>"
                     + "<td>" + doraCount + "飜<\/td>"
@@ -41,17 +46,20 @@ var Point = function(agari){
 
             html += "<\/table>";
 
+            //譜と翻
             html += "<p>";
             html += this.agari.total_fu_num + "符"
                 + this.agari.total_han_num + "飜";
             html += "</p>";
 
+            //満貫
             if(this.agari.mangan_scale != 0){
                 html += "<p>";
                 html += Point.MANGANSTR[this.agari.mangan_scale];
                 html += "</p>";            
             }
             
+            //点数
             if (this.agari.is_tsumo){
                 if (this.agari.is_parent) {
                     //親のツモアガリ
