@@ -17,6 +17,7 @@
     <script type="text/javascript" src="lib/tehai.js"></script>
     <script type="text/javascript" src="lib/state.js"></script>
     <script type="text/javascript" src="lib/photo.js"></script>
+    <script type="text/javascript" src="lib/msg.js"></script>
     <script type="text/javascript" src="conf/url.js"></script>
     <script type="text/javascript" src="main.js"></script>
   </head>
@@ -40,15 +41,15 @@
               <div class="ui-block-a">
                 <img id="img_top_photo" width="130" height="130" 
                      src="img/nophoto.jpg" alt=""/>
-                <input id="img_url" type="text" name="img_url" 
-                       style="display:none;">
-                <!-- <input id="img_url" type="text" name="img_url" > -->
+                <!-- <input id="img_url" type="text" name="img_url" 
+                       style="display:none;"> -->
+                <input id="img_url" type="text" name="img_url" >
               </div>
               <div class="ui-block-b">
                 <div data-role="controlgroup">
-                  <a onclick="capturePhoto()" data-role="button" >撮影</a>
-                  <a onclick="selectPhoto();" data-role="button">選択</a>
-                  <a onclick="showServerPhotoList()" data-role="button">サーバ</a>
+                  <a onclick="btnCapturePhoto()" data-role="button" >撮影</a>
+                  <a onclick="btnSelectPhoto();" data-role="button">選択</a>
+                  <a onclick="btnShowServerPhotoList()" data-role="button">サーバ</a>
                 </div>
               </div>
             </fieldset>
@@ -60,23 +61,23 @@
           <div class="mjt-body">
             <div id="div_state_str"></div>
             <div data-role="controlgroup">
-              <a data-role="button" onclick="showChangePage()">変更</a>
+              <a data-role="button" onclick="btnShowStatusChangePage()">変更</a>
             </div>
           </div>
-          <a data-role="button" data-theme="e" onclick="calcPoint();">
+          <a data-role="button" data-theme="e" onclick="btnCalcPoint();">
             得点計算
           </a>
-          <a data-role="button" onclick="clearAll();" >全てクリア</a>
+          <a data-role="button" onclick="btnClearAll();" >全てクリア</a>
         </center>
 
       </div>
 
       <div data-role="footer">
         <a href="#debug">debug</a>
-        <a data-role="button" onclick="dummyPhoto();">
+        <a data-role="button" onclick="btnDummyPhoto();">
           ダミー写真
         </a>
-        <a data-role="button" onclick="calcPointDummy();">
+        <a data-role="button" onclick="btnCalcPointDummy();">
           得点計算ダミー
         </a>
       </div>
@@ -157,9 +158,9 @@
               <input type="checkbox" id="is_chiho" name="is_chiho" class="checkbox">
             </fieldset>
           </div>
-          <a data-role="button" data-theme="e" onclick="changeState()">変更</a>
+          <a data-role="button" data-theme="e" onclick="btnCommitStateChange()">変更</a>
           <a data-role="button" data-rel="back">キャンセル</a>
-          <a data-role="button" onclick="clearState()">クリア</a>
+          <a data-role="button" onclick="btnClearState()">クリア</a>
         </form>
       </div>
       <div data-role="footer">
@@ -195,7 +196,7 @@
             <p>訂正する場合は牌をタッチ</p>
           </div>
 
-          <a data-role="button" onclick="sendRetry()" data-theme="e">訂正後の手牌で得点計算</a>
+          <a data-role="button" onclick="btnRetryCalcPoint()" data-theme="e">訂正後の手牌で得点計算</a>
           <a data-role="button" data-rel="back">戻る</a>
         </center>
       </div>
