@@ -6,7 +6,7 @@ require 'mlfielib/analysis/teyaku_decider'
 class Agari < ActiveRecord::Base
   include Mlfielib::Analysis
 
-  attr_protected :total_fu_num, :total_han_num, :mangan_scale, :total_point, :parent_point, :child_point
+  attr_protected :total_fu_num, :total_han_num, :mangan_scale, :total_point, :parent_point, :child_point, :ron_point
   attr_accessor :local_img_path
 
   has_and_belongs_to_many :yaku_list, :class_name => 'Yaku'
@@ -55,6 +55,7 @@ class Agari < ActiveRecord::Base
       self.total_point     = teyaku_decider.teyaku.total_point
       self.parent_point    = teyaku_decider.teyaku.parent_point
       self.child_point     = teyaku_decider.teyaku.child_point
+      self.ron_point       = teyaku_decider.teyaku.ron_point
       logger.debug("teyaku is fu:"+self.total_fu_num.to_s+" han:"+self.total_han_num.to_s+" total_point:"+self.total_point.to_s)
     else
       logger.error("teyaku was not decided.")
