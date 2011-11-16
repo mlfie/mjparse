@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115114653) do
+ActiveRecord::Schema.define(:version => 20111116103710) do
 
   create_table "agari_pais", :force => true do |t|
     t.string   "type"
@@ -57,16 +57,6 @@ ActiveRecord::Schema.define(:version => 20111115114653) do
   create_table "agaris_yakus", :id => false, :force => true do |t|
     t.integer "agari_id"
     t.integer "yaku_id"
-  end
-
-  create_table "images", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.string   "image_remote_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "photos", :force => true do |t|
