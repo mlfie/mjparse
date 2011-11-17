@@ -226,38 +226,5 @@ class AgarisControllerTest < ActionController::TestCase
     assert yaku_include?(result["yaku_list"],"dora")
   end
 
-  test "create agari img9.1 child ron shousangen honba1" do
-    request = {
-      "img_url"  => img3,
-      "bakaze"   => "nan",
-      "jikaze"   => "pei",
-      "honba_num"=> 1,
-      "dora_num" => 0,
-      "is_tsumo" => false,
-      "is_parent"=> false,
-      "reach_num"=> 0
-    }
-    assert_difference('Agari.count') do
-      post :create, :agari => request, :format => 'json'
-    end
-    result = ActiveSupport::JSON.decode(@response.body)["agari"]
-
-    assert_equal result["status_code"]  ,200
-    assert_equal result["tehai_list"]   ,"j5tj5tj5ts3ts4ts5tj7tj7tj7tj6tj6tp4tp5tp6t"
-    assert_equal result["is_furo"]      ,false
-    assert_equal result["mangan_scale"] ,1
-    assert_equal result["total_fu_num"] ,50
-    assert_equal result["total_han_num"],4
-    assert_equal result["child_point"]  ,0
-    assert_equal result["parent_point"] ,0
-    assert_equal result["ron_point"]    ,8300
-    assert_equal result["total_point"]  ,8300
-
-    assert_equal result["yaku_list"].size ,3
-    assert yaku_include?(result["yaku_list"],"chun")
-    assert yaku_include?(result["yaku_list"],"haku")
-    assert yaku_include?(result["yaku_list"],"shousangen")
-  end
-
 
 end
