@@ -206,18 +206,18 @@ class AgarisControllerTest < ActionController::TestCase
     end
     result = ActiveSupport::JSON.decode(@response.body)["agari"]
 
-    assert_equal result["status_code"]  ,200
-    assert_equal result["tehai_list"]   ,"j7tj7tj7tp1tp1tp2tp2tp3tp3tp4tp4tp4tp5tp6t"
-    assert_equal result["is_furo"]      ,false
-    assert_equal result["mangan_scale"] ,2
-    assert_equal result["total_fu_num"] ,30
-    assert_equal result["total_han_num"],8
-    assert_equal result["child_point"]  ,0
-    assert_equal result["parent_point"] ,0
-    assert_equal result["ron_point"]    ,16000
-    assert_equal result["total_point"]  ,16000
+    assert_equal 200, result["status_code"]
+    assert_equal "j7tj7tj7tp1tp1tp2tp2tp3tp3tp4tp4tp4tp5tp6t", result["tehai_list"]
+    assert_equal false, result["is_furo"]
+    assert_equal 2, result["mangan_scale"]
+    assert_equal 40, result["total_fu_num"]
+    assert_equal 8, result["total_han_num"]
+    assert_equal 0, result["child_point"]
+    assert_equal 0, result["parent_point"]
+    assert_equal 16300, result["ron_point"]
+    assert_equal 16300, result["total_point"]
 
-    assert_equal result["yaku_list"].size ,6
+    assert_equal 6, result["yaku_list"].size
     assert yaku_include?(result["yaku_list"],"chun")
     assert yaku_include?(result["yaku_list"],"honitsu")
     assert yaku_include?(result["yaku_list"],"iipeikou")
