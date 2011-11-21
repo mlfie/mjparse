@@ -54,6 +54,8 @@ class PhotosController < ApplicationController
     pub_dir = "public/"
     url_base = "http://" + request.raw_host_with_port + "/"
     photo_dir = "img/"
+    normal_width = 600;
+    thum_width = 150;
 
     # get next id
     if Photo.last == nil then
@@ -61,33 +63,33 @@ class PhotosController < ApplicationController
     else
       id = Photo.last.id + 1
     end
-    orig_img   = "#{id}.orig.jpg"
-    normal_img = "#{id}.jpg"
-    thum_img = "#{id}.thum.jpg"
+    img_orig_filename   = "#{id}.orig.jpg"
+    img_normal_filename = "#{id}.jpg"
+    img_thum_filename = "#{id}.thum.jpg"
 
     # store original image
-    image = Base64.decode64(params[:photo][:base64])
-    rmagick = Magick::ImageList.new
-    rmagick.from_blob(image)
-    rmagick.write(pub_dir + photo_dir + orig_img)
+    base64 = Base64.decode64(params[:photo][:base64])
+    img = Magick::ImageList.new
+    img.from_blob(base64)
+    img.write(pub_dir + photo_dir + img_orig_filename)
     
     # store normalized image
-    image = Base64.decode64(resize_base64_img(params[:photo][:base64],600,448))
-    rmagick = Magick::ImageList.new
-    rmagick.from_blob(image)
-    rmagick.write(pub_dir + photo_dir + normal_img)
+    base64_normal = Base64.decode64(resize_base64_img(params[:photo][:base64],normal_width,normal_width * img.rows / img.columns))
+    img_normal = Magick::ImageList.new
+    img_normal.from_blob(base64_normal)
+    img_normal.write(pub_dir + photo_dir + img_normal_filename)
 
     # store thumbnail image
-    image = Base64.decode64(resize_base64_img(params[:photo][:base64],150,150))
-    rmagick = Magick::ImageList.new
-    rmagick.from_blob(image)
-    rmagick.write(pub_dir + photo_dir + thum_img)
+    base64_thum = Base64.decode64(resize_base64_img(params[:photo][:base64],thum_width,thum_width * img.rows / img.columns))
+    img_thum = Magick::ImageList.new
+    img_thum.from_blob(base64_thum)
+    img_thum.write(pub_dir + photo_dir + img_thum_filename)
 
 
-    params[:photo][:path]=pub_dir + photo_dir + normal_img
-    params[:photo][:url]=url_base + photo_dir + normal_img
-    params[:photo][:orig_url]=url_base + photo_dir + orig_img
-    params[:photo][:thum_url]=url_base + photo_dir + thum_img
+    params[:photo][:path]=pub_dir + photo_dir + img_normal_filename
+    params[:photo][:url]=url_base + photo_dir + img_normal_filename
+    params[:photo][:orig_url]=url_base + photo_dir + img_orig_filename
+    params[:photo][:thum_url]=url_base + photo_dir + img_thum_filename
     params[:photo].delete(:base64)
 
     @photo = Photo.new(params[:photo])
