@@ -29,6 +29,9 @@ var Point = function(agari){
             var isFuro = this.agari.is_furo;
             
             //役リスト
+            if(this.agari.yaku_list.length == 0){
+                return "役無しです";
+            }
             html += "<table>";
             $.each(this.agari.yaku_list, function () {
                        if(this.name == "dora"){
@@ -86,11 +89,12 @@ var Point = function(agari){
             dbgmsg("Point.toHtml",html);
             return html;
 
+        }else if(this.agari.status_code == 500){
+            return "<b>サーバーエラー(500)</b><br>画像解析に失敗した可能性があります。写真を変えるか、解析結果を訂正して再度得点計算してください。";
+        }else if(this.agari.status_code == 400){
+            return "<b>クライアントエラー(400)</b>開発者に問い合わせてください<br>";
         }else{
-            return "<b>画像解析に失敗しました。</b><br>写真を変えるか、解析結果を訂正して再度得点計算してください。";
+            return "<b>Unknown Status Code</b>status_code=" + this.agari.status_code;
         }
     };
 };
-
-
-
