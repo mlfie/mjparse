@@ -12,6 +12,7 @@ module Mlfielib
 
       DIRPATH = 'olib/mlfielib/cv/base'
       def initialize()
+            #@win = GUI::Window.new "debug classifier"
             @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
                     "J2" => CV::PaiEnum.type_e::J2,
                     "J3" => CV::PaiEnum.type_e::J3,
@@ -45,7 +46,8 @@ module Mlfielib
                     "S6" => CV::PaiEnum.type_e::S6,
                     "S7" => CV::PaiEnum.type_e::S7,
                     "S8" => CV::PaiEnum.type_e::S8,
-                    "S9" => CV::PaiEnum.type_e::S9
+                    "S9" => CV::PaiEnum.type_e::S9,
+                    "R0" => CV::PaiEnum.type_e::R0
                    }
             @is_symmetric = {"J1" => false,
                     "J2" => false,
@@ -80,7 +82,8 @@ module Mlfielib
                     "S6" => true,
                     "S7" => false,
                     "S8" => true,
-                    "S9" => true
+                    "S9" => true,
+                    "R0" => true
                    }
           @pais = []
           Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
@@ -132,6 +135,8 @@ module Mlfielib
         def search_pai(target_img, template_img, pai_type, pai_direction, scale)
           pai_list = []
 
+          #target_org = target_img.clone
+
           template_img = template_img.resize(
             CvSize.new(template_img.cols * scale, template_img.rows * scale),
             :linear)
@@ -145,9 +150,15 @@ module Mlfielib
               :color => CvColor::Black,
               :thickness => -1
             )
+
+
             if(max_val > 0.6)
               pai = CV::Pai.new(max_loc.x, max_loc.y, template_img.cols, template_img.rows,max_val, pai_type, pai_direction)
               pai_list.push(pai)
+              #puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}, #{pai.direction}"
+            #target_org.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
+            #@win.show target_org
+            #GUI::wait_key
             end
           end while(max_val > 0.6)
 
