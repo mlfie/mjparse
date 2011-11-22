@@ -8,11 +8,19 @@ var Point = function(agari){
         '3':'三倍満',
         '4':'役満',
         '8':'ダブル役満',
-        '12':'トリプル役満'
+        '12':'トリプル役満',
+        '16':'四倍役満'
     };
+
 
     this.agari = agari;
 
+    this.validate = function(){
+        var key={
+
+        };
+        
+    };
 
     this.toHtml = function () {
         var html = "";
@@ -27,11 +35,12 @@ var Point = function(agari){
                            doraCount += 1;
                        }else{
                            html += "<tr>";
-                           html += "<td>" + this.name_kanji + "<\/td>";
                            if(isFuro){
-                               html += "<td>" + this.naki_han_num + "飜<\/td>";
+                               if(this.naki_han_num != "0" || this.naki_han_num != 0){
+                                   html += "<td>" + this.name_kanji + "<\/td><td>" + this.naki_han_num + "飜<\/td>";
+                               }
                            }else{
-                               html += "<td>" + this.han_num + "飜<\/td>";
+                               html += "<td>" + this.name_kanji + "<\/td><td>" + this.han_num + "飜<\/td>";
                            }
                            html += "<\/tr>";
                        }
