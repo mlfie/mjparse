@@ -48,21 +48,26 @@ function testDefault() {
 function testStatus400() {
     agari["status_code"]=400;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/失敗/i));
+    assertTrue(html.contain(/クライアントエラー/i));
 }
 
 function testStatus500() {
     agari["status_code"]=500;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/失敗/i));
+    assertTrue(html.contain(/サーバーエラー/i));
 }
 
 function testStatusNull() {
     agari["status_code"]="";
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/失敗/i));
+    assertTrue(html.contain(/Unknown Status Code/i));
 }
 
+function testYaku0() {
+    agari["yaku_list"]=[];
+    html =  new Point(agari).toHtml();
+    assertTrue(html.contain(/役無しです/i));
+}
 
 function testDora1() {
     agari["yaku_list"]=[
