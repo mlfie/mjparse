@@ -39,4 +39,10 @@ var Pai = function(type,direction){
         this.jq.attr('src',this.imgUrl());
     };
 
+    this.changeDirection = function(direction){
+        dbgmsg("Pai.changeDirection",direction);
+        this.direction=direction;
+        this.jq.attr('src',this.imgUrl());
+    };
+
 };

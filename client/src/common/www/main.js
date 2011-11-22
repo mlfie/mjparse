@@ -106,15 +106,33 @@ function onDeviceReady() {
 function makeSelectPanel(paiImgJq) {
 
     var jq = $("<div/>")
+        .attr("align","center")
         .attr("id","div_selectpanel")
         .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
         .css({
                  display: "block",
                  opacity: 0.9,
+                 width: 220,
                  top: window.pageYOffset+300
-             })
-        .html("<h1>牌を選んでください</h1>");
-
+             });
+    jq.append("<h1>牌の向きを変更</h1>");
+    jq.append($("<button/>")
+              .html("タテ")
+              .click(function(){
+                         tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_TOP);
+                         jq.hide();
+                     }
+                    )
+             );
+    jq.append($("<button/>")
+              .html("ヨコ")
+              .click(function(){
+                         tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_LEFT);
+                         jq.hide();
+                     }
+                    )
+             );
+    jq.append("<h1>牌の種類を変更</h1>");
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP)
                    .imgJq()
@@ -132,7 +150,6 @@ function makeSelectPanel(paiImgJq) {
            });
 
     jq.appendTo("body").hide();
-
 }
 
 

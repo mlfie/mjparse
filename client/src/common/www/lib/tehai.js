@@ -53,6 +53,11 @@ var Tehai = function(tehaiList) {
         this.paiList[index].changeType(type);
     };
 
+    this.changeDirection = function(index,direction){
+        dbgmsg("Tehai.changeDirection",index + " " + direction);
+        this.paiList[index].changeDirection(direction);
+    };
+
     this.toString = function(){
         var str = "";
         $.each(this.paiList,function(){
