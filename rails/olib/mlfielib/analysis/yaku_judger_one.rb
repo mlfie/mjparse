@@ -39,13 +39,13 @@ module Mlfielib
                   [Kyoku::KYOKU_KAZE_SHA, 3], 
                   [Kyoku::KYOKU_KAZE_PEI, 4]]
         kazemap.each do | ibakaze |
-          if agari.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] 
+          if agari.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
             return false
           end
         end
         
         kazemap.each do | ijikaze |
-          if agari.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] 
+          if agari.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
             return false
           end
         end
@@ -210,7 +210,7 @@ module Mlfielib
       
       ### 發
       def hatsu?(tehai, agari)
-        tehai.mentsu_list.each do |mentsu|
+        tehai.mentsu_list.each do |mentsu|        
           count = 0 
           mentsu.pai_list.each do |pai| 
             count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_HATSU

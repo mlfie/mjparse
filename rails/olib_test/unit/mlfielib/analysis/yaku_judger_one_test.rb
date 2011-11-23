@@ -111,6 +111,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
       assert_equal false, @judger.pinfu?(tehai, agari)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    #test001 --> true
+    pai_items = "m6tm7tm8tp8tp7tp6ts6ts7ts8tp1tp1tp4tp5tp6t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|  
+      assert_equal true, @judger.pinfu?(tehai, agari)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
   end
   
   
