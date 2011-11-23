@@ -113,6 +113,7 @@ function makeSelectPanel(paiImgJq) {
         display: "block",
         opacity: 0.9,
         width: 270,
+        padding: 0,
         top: window.pageYOffset+300
     });
     jq.append("<h1>牌の向きを変更</h1>");
@@ -149,13 +150,13 @@ function makeSelectPanel(paiImgJq) {
         jq.append(imgJq);
     });
     jq.append("<br>");
-    jq.append($("<button/>")
-              .html("キャンセル")
-              .click(function(){
-                         jq.hide();
-                     }
-                    )
-             );
+    jq.append($("<p/>").html($("<button/>")
+                             .html("キャンセル")
+                             .click(function(){
+                                        jq.hide();
+                                    }
+                                   )
+                            ));
     
     jq.appendTo("body").hide();
 }
