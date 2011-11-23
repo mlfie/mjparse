@@ -4,7 +4,7 @@ require 'test_helper'
 require 'mlfielib/web/tsumotter'
 
 
-class CardChooserTest < Test::Unit::TestCase
+class TsumotterTest < Test::Unit::TestCase
   
   def setup
     super
