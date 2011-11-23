@@ -17,6 +17,8 @@ module Mlfielib
       RESULT_ERROR_INTERNAL     = 9 # 不明な内部エラー
 
       # 満貫以上の飜数
+      HAN_NUMBER_THREE          =  3 # 3飜
+      HAN_NUMBER_FOUR           =  4 # 4飜
       HAN_NUMBER_MANGAN         =  5 # 満貫
       HAN_NUMBER_HANEMAN_MIN    =  6 # ハネ満(下限)
       HAN_NUMBER_HANEMAN_MAX    =  7 # ハネ満(上限)
@@ -179,7 +181,7 @@ module Mlfielib
           pinfu_flg = false
           tehai.yaku_list.each do |yaku|
             if yaku.name == YakuSpecimen::YAKU_NAME_PINFU then
-              pinfu = true
+              pinfu_flg = true
               break
             end
           end
@@ -217,6 +219,14 @@ module Mlfielib
       def self.calc_mangan_scale(tehai, kyoku)
         scale = 0
         case tehai.han_num
+          when HAN_NUMBER_THREE then
+            if tehai.fu_num >= 70 then
+              scale = MANGAN_SCALE_MANGAN
+            end
+          when HAN_NUMBER_FOUR then
+            if tehai.fu_num >= 40 then
+              scale = MANGAN_SCALE_MANGAN
+            end
           when HAN_NUMBER_MANGAN then
             scale = MANGAN_SCALE_MANGAN
           when HAN_NUMBER_HANEMAN_MIN..HAN_NUMBER_HANEMAN_MAX then
