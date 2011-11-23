@@ -6,8 +6,30 @@ require 'mlfielib/analysis/mentsu'
 module Mlfielib
   module Analysis
     class YakuJudger
+    
       ### 二盃口
-      def ryanpeikou?(tehai, agari); return false; end
+      def ryanpeikou?(tehai, agari)
+        ryanpeikou_count = 0
+        tehai.mentsu_list.each_with_index do |mentsu_1,i|
+          tehai.mentsu_list.each_with_index do |mentsu_2,j|
+            if i != j && mentsu_1.shuntsu? && mentsu_2.shuntsu?
+              ipeikou_count = 0
+              [0,1,2].each do |k|
+                if mentsu_1.pai_list[k] == mentsu_2.pai_list[k]
+                  ipeikou_count += 1
+                end
+              end
+              if ipeikou_count == 3 
+                ryanpeikou_count += 1
+              end
+            end # end if
+          end # end each
+        end # end each
+        if ryanpeikou_count == 2
+          return true
+        end
+        return false
+      end
       
       ### 混一色
       def honitsu?(tehai, agari)
