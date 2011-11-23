@@ -70,15 +70,15 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     
     @resolver = Mlfielib::Analysis::MentsuResolver.new
 
-    # 異常系（清一色） --> false
-    pai_items = "m1tm2tm3tm1tm2tm5tm6tm7tm5tm6tm7tm1tm1tm3t" 
-    @resolver.get_mentsu(pai_items)
-    
-    @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.honitsu?(tehai, nil)
-    end
-    
-    @resolver = Mlfielib::Analysis::MentsuResolver.new
+#    # 異常系（清一色） --> false
+#    pai_items = "m1tm2tm3tm1tm2tm5tm6tm7tm5tm6tm7tm1tm1tm3t" 
+#    @resolver.get_mentsu(pai_items)
+#    
+#    @resolver.tehai_list.each do |tehai|
+#      assert_equal false, (@judger.chinitsu?(tehai, nil) && !(judger.honitsu?(tehai, nil)))
+#    end
+#    
+#    @resolver = Mlfielib::Analysis::MentsuResolver.new
 
     # 異常系（他色牌あり） --> false
     pai_items = "m1tm2tm3tm1tm2tm5tm6tm7ts5ts6ts7tj1tj1tm3t" 
@@ -129,7 +129,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.get_mentsu(pai_items)
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.honitsu?(tehai, nil)
+      assert_equal true, @judger.chinitsu?(tehai, nil)
     end
     
     @resolver = Mlfielib::Analysis::MentsuResolver.new
@@ -139,7 +139,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.get_mentsu(pai_items)
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.honitsu?(tehai, nil)
+      assert_equal false, @judger.chinitsu?(tehai, nil)
     end
     
     @resolver = Mlfielib::Analysis::MentsuResolver.new
@@ -149,7 +149,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.get_mentsu(pai_items)
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.honitsu?(tehai, nil)
+      assert_equal false, @judger.chinitsu?(tehai, nil)
     end
   
   end
