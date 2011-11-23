@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'mlfielib/cv/template_matching_analyzer'
 require 'mlfielib/analysis/yaku_specimen'
 require 'mlfielib/analysis/kyoku'
