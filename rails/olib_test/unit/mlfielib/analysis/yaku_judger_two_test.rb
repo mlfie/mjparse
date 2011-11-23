@@ -288,7 +288,25 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
       assert_equal true, @judger.shousangen?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
-  
+
+    # 白白白発発中中中 --> true
+    pai_items = "s1ts3tm1tm1tm1tj5tj5tj5tj6tj6tj7tj7tj7ts2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 白白発発発中中中 --> true
+    pai_items = "s1ts3tm1tm1tm1tj5tj5tj6tj6tj6tj7tj7tj7ts2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
     # 東東東発発発中中 --> false
     pai_items = "s1ts3tm1tm1tm1tj1tj1tj1tj6tj6tj6tj7tj7ts2t"    
     @resolver.get_mentsu(pai_items)
@@ -297,6 +315,54 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
       assert_equal false, @judger.shousangen?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 発発発中中 --> false
+    pai_items = "s1ts3tm1tm1tm1tp5tp6tp7tj6tj6tj6tj7tj7ts2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
+  
+  def test_honroutou
+    # 正常系 --> true
+    pai_items = "s1ts1tm1tm1tm1tj5tj5tj5tj6tj6tj6tj7tj7ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.honroutou?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 頭が中張牌 --> false
+    pai_items = "s1ts1tm1tm1tm1tj5tj5tj5tj6tj6tj6tm5tm5ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.honroutou?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # メンツが中張牌 --> false
+    pai_items = "s1ts1tm2tm2tm2tj5tj5tj5tj6tj6tj6tm1tm1ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.honroutou?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # シュンツが入っている --> false
+    pai_items = "s1ts1tm1tm2tm3tj5tj5tj5tj6tj6tj6tm1tm1ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.honroutou?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
   end
   
 #  def test_mentsure

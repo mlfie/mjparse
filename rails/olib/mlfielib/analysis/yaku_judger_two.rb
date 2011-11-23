@@ -267,10 +267,15 @@ module Mlfielib
       
       ### 混老頭
       def honroutou?(tehai, agari)
+        if tehai.atama.type != Pai::PAI_TYPE_JIHAI
+          if tehai.atama.number != 1 && tehai.atama.number != 9
+            return false
+          end
+        end
         tehai.mentsu_list.each do | mentsu |
-            if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
-		      if mentsu.pai_list[0].type != "j"
-				if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
+            if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
+		      if mentsu.pai_list[0].type != Pai::PAI_TYPE_JIHAI
+				if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
 				  return false
 				end
 			  end
