@@ -15,13 +15,12 @@ module Mlfielib
             if i != j && mentsu_1.mentsu_type == "s" && mentsu_2.mentsu_type == "s"
               ipeikou_count = 0
               [0,1,2].each do |k|
-                if mentsu_1.pai_list[k].type == mentsu_2.pai_list[k].type && mentsu_1.pai_list[k].number == mentsu_2.pai_list[k].number
+                if mentsu_1.pai_list[k] == mentsu_2.pai_list[k]
                   ipeikou_count += 1
                 end
               end
               if ipeikou_count == 3 
-                return true
-#                ryanpeikou_count += 1
+                ryanpeikou_count += 1
               end
             end # end if
           end # end each
