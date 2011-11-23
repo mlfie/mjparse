@@ -72,15 +72,15 @@ module Mlfielib
           if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "4"
             if mentsu.pai_list[0].type == "j"
               return false
-            elsif mentsu.pai_list[0].number != "1"
-              if mentsu.pai_list[0].number != "9"
+            elsif mentsu.pai_list[0].number != 1
+              if mentsu.pai_list[0].number != 9
                 return false
               end
             end	 
           end
           if mentsu.mentsu_type == "s"
-            if mentsu.pai_list[0].number != "1"
-              if mentsu.pai_list[0].number != "7"
+            if mentsu.pai_list[0].number != 1
+              if mentsu.pai_list[0].number != 7
                 return false
               end
             end
@@ -88,14 +88,14 @@ module Mlfielib
           if mentsu.mentsu_type == "y"
             return false
           end
-          if tehai.atama.type == "j"
-            return false
-          elsif tehai.atama.number != "1"
-            if tehai.atama.number != "9"
-              return false
-            end
-          end
         end  
+        if tehai.atama.type == "j"
+          return false
+        elsif tehai.atama.number != 1
+          if tehai.atama.number != 9
+            return false
+          end
+        end
         return true
       end
   
