@@ -149,6 +149,20 @@ function makeSelectPanel(paiImgJq) {
                jq.append(imgJq);
            });
 
+    //裏を追加
+    var imgJq = new Pai(PAI_TYPE_REVERSE,PAI_DIRECTION_TOP)
+        .imgJq()
+        .click(
+            function(){
+                //牌選択時
+                dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
+                //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
+                //それを元に手配の牌を交換する
+                tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
+                jq.hide();
+            });
+    jq.append(imgJq);
+
     jq.appendTo("body").hide();
 }
 
