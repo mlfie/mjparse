@@ -222,11 +222,11 @@ module Mlfielib
       ### 小三元
       def shousangen?(tehai, agari)
         #頭が三元牌じゃなかったらfalse
-        if !tehai.atama.type == Pai::PAI_TYPE_JIHAI
+        if tehai.atama.type != Pai::PAI_TYPE_JIHAI
           return false
         end
-        if !tehai.atama.number == Pai::PAI_NUMBER_HAKU && !tehai.atama.number == Pai::PAI_NUMBER_HATSU && !tehai.atama.number == Pai::PAI_NUMBER_CHUN
-            return false
+        if tehai.atama.number != Pai::PAI_NUMBER_HAKU && tehai.atama.number != Pai::PAI_NUMBER_HATSU && tehai.atama.number != Pai::PAI_NUMBER_CHUN
+          return false
         end
         
         #三元牌の刻子、槓子があること

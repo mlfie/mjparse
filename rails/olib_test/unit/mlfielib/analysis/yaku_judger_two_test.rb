@@ -324,6 +324,15 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
       assert_equal false, @judger.shousangen?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 北北p455667発発発発中中中中 --> false
+    pai_items = "j4tj4tp4tp5tp5tp6tp6tp7tr0tj6tj6tr0tr0tj7tj7tr0t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   end
   
   def test_honroutou
