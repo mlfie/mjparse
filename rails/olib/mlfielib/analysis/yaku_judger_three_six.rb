@@ -20,7 +20,8 @@ module Mlfielib
                 end
               end
               if ipeikou_count == 3 
-                ryanpeikou_count += 1
+                return true
+#                ryanpeikou_count += 1
               end
             end # end if
           end # end each
