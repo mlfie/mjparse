@@ -190,6 +190,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
     
+    # ３暗刻含みの場合  --> false 寺師のところで高いほうの役でとってくれるのでテストしなくてよい
+    # m1m1m1m2m2m2m3m3m3s1s2s3j1j1
+    #pai_items = "m1tm1tm1tm2tm2tm2tm3tm3tm3ts1ts2ts3tj1tj1t"    
+    #@resolver.get_mentsu(pai_items)
+    
+    #@resolver.tehai_list.each do |tehai|
+    #  assert_equal false, @judger.iipeikou?(tehai, nil)
+    #end
+    #@resolver = Mlfielib::Analysis::MentsuResolver.new
+    
   end
   
   def test_ippatsu

@@ -103,7 +103,7 @@ module Mlfielib
             if i != j
               count = 0
               [0,1,2].each do |k|
-                if mentsu_1.pai_list[k] == mentsu_2.pai_list[k]
+                if mentsu_1.pai_list[k] == mentsu_2.pai_list[k] && mentsu_1.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu_2.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
                   count += 1
                 end
               end
