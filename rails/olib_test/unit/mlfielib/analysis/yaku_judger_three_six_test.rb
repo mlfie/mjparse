@@ -26,7 +26,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     
   end
   
-  def test ryanpeikou
+  def test_ryanpeikou
 
     # 正常系 --> true
     pai_items = "m1tm2tm3tm1tm2ts5ts6ts7ts5ts6ts7tj1tj1tm3t" 
@@ -58,7 +58,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
  
   end
   
-  def test honitsu
+  def test_honitsu
 
     # 正常系 --> true
     pai_items = "m1tm2tm3tm1tm2tm5tm6tm7tm5tm6tm7tj1tj1tm3t" 
@@ -90,7 +90,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
 
   end
   
-  def test junchan
+  def test_junchan
   
       # 正常系 --> true
     pai_items = "m1tm2tm3tm1tm2ts7ts8ts9tp7tp8tp9tm9tm9tm3t" 
@@ -122,7 +122,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
   
   end
   
-  def test chinitsu
+  def test_chinitsu
   
     # 正常系 --> true
     pai_items = "m1tm2tm3tm1tm2tm5tm6tm7tm5tm6tm7tm1tm1tm3t" 
