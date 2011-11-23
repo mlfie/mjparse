@@ -27,26 +27,26 @@ module Mlfielib
 
       # 最適な手役結果を取得する
       def get_agari_teyaku(pai_list=nil, kyoku=nil, yaku_specimen=nil)
-        STDERR.puts Time.new + "：受け取った面子構成は(" + pai_list + ")です。"
+        STDERR.puts Time.new.to_s + "：受け取った面子構成は(" + pai_list + ")です。"
         
         resolver = MentsuResolver.new
         resolver.get_mentsu(pai_list)
         
         case resolver.result_code
           when MentsuResolver::RESULT_SUCCESS then
-            STDERR.puts Time.new + "：取得された手牌の組み合わせは" + resolver.tehai_list.size.to_s + "個です。"
+            STDERR.puts Time.new.to_s + "：取得された手牌の組み合わせは" + resolver.tehai_list.size.to_s + "個です。"
           when MentsuResolver::RESULT_ERROR_NAKI then
             self.result_code = RESULT_ERROR_MENTSU_RESOLVE
-            STDERR.puts Time.new + "：鳴き面子の構成が不正です(" + pai_list + ")。"
+            STDERR.puts Time.new.to_s + "：鳴き面子の構成が不正です(" + pai_list + ")。"
           when MentsuResolver::RESULT_ERROR_NOAGARI then
             self.result_code = RESULT_ERROR_MENTSU_RESOLVE
-            STDERR.puts Time.new + "：指定された手牌はアガリ形ではありません(" + pai_list + ")。"
+            STDERR.puts Time.new.to_s + "：指定された手牌はアガリ形ではありません(" + pai_list + ")。"
           when MentsuResolver::RESULT_ERROR_INTERFACE then
             self.result_code = RESULT_ERROR_MENTSU_RESOLVE
-            STDERR.puts Time.new + "：内部インタフェースで不明なエラーが発生しました(" + pai_list + ")。"
+            STDERR.puts Time.new.to_s + "：内部インタフェースで不明なエラーが発生しました(" + pai_list + ")。"
           else
             self.result_code = RESULT_ERROR_MENTSU_RESOLVE
-            STDERR.puts Time.new + "：不明なエラーが発生しました(" + pai_list + ")。"
+            STDERR.puts Time.new.to_s + "：不明なエラーが発生しました(" + pai_list + ")。"
         end
         
         # 取得した面子に対して役の判定、得点計算を行う。
@@ -60,17 +60,17 @@ module Mlfielib
               when YakuJudger::RESULT_SUCCESS then
                 tehai.yaku_list = judger.yaku_list
                 yaku_established = true
-            		STDERR.puts Time.new + "：判定した結果、以下の役が得られました。"
+            		STDERR.puts Time.new.to_s + "：判定した結果、以下の役が得られました。"
             		tehai.yaku_list.each do |yaku|
                   STDERR.puts yaku.name + ":" + yaku.kanji
                 end 
                 # 得点を計算する
                 tehai = ScoreCalculator.calculate_point(tehai, kyoku)
               when YakuJudger::RESULT_ERROR_YAKUNASHI then
-                STDERR.puts Time.new + "：判定した結果が役無しでした。ただし、この時点ではエラーではありません。"
+                STDERR.puts Time.new.to_s + "：判定した結果が役無しでした。ただし、この時点ではエラーではありません。"
               else
                 self.result_code = RESULT_ERROR_YAKU_JUDGE
-                STDERR.puts Time.new + "：役判定処理にて不明なエラーが発生しました。"
+                STDERR.puts Time.new.to_s + "：役判定処理にて不明なエラーが発生しました。"
             end
           end
           # 役が一つも成立していない場合
@@ -95,7 +95,7 @@ module Mlfielib
           # 最良な手役が取得できなかった場合
           else
             self.result_code = RESULT_ERROR_INTERNAL
-            STDERR.puts Time.new + "：最適な手役を見つけることができませんでした。"
+            STDERR.puts Time.new.to_s + "：最適な手役を見つけることができませんでした。"
           end
         end
         
