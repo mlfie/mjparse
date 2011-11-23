@@ -5,6 +5,7 @@ require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
 require 'mlfielib/analysis/tehai'
 require 'mlfielib/analysis/kyoku'
+require 'mlfielib/analysis/yaku_judger'
 require 'mlfielib/analysis/yaku_judger_two'
 require 'mlfielib/analysis/mentsu_resolver'
 
@@ -33,7 +34,7 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.get_mentsu(pai_items)
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.ryanpeikou?(tehai, nil)
+      assert_equal true, @judger.ryanpeikou?(tehai, nil) unless @judger.chitoitsu?(tehai, nil)
     end
     
     @resolver = Mlfielib::Analysis::MentsuResolver.new
