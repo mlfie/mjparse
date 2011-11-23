@@ -177,10 +177,10 @@ module Mlfielib
 
       ### 対々和
       def toitoihou?(tehai, agari)
-        if tehai.mentsu_list.size == "4"
+        if tehai.mentsu_list.size == 4
 		  tehai.mentsu_list.each do | mentsu| 
-		    if mentsu.mentsu_type != "k"
-     		  if mentsu.mentsu_type != "t"
+		    if mentsu.mentsu_type != Mentsu::MENTSU_TYPE_KOUTSU
+     		  if mentsu.mentsu_type != Mentsu::MENTSU_TYPE_TOITSU
 			    return false
 			  end
 			end
@@ -194,7 +194,8 @@ module Mlfielib
       def sanankou?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
-          if mentsu.mentsu_type == "k" && mentsu.furo == false
+	      puts mentsu.furo
+          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo == false
 		    count += 1
 		  end
 		end
@@ -238,6 +239,22 @@ module Mlfielib
         end			
 	    return false
       end
+      
+      ### 混老頭
+      def honroutou?(tehai, agari)
+        tehai.mentsu_list.each do | mentsu |
+            if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
+		      if mentsu.pai_list[0].type != "j"
+				if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
+				  return false
+				end
+			  end
+			else
+			   return false
+		    end
+		end  
+		return true
+	  end
 	  
 	  
     end
