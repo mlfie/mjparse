@@ -132,66 +132,122 @@ module Mlfielib
         return false
       end
 
-      ### 東
-      def ton?(tehai, agari)
-        if agari.bakaze != Kyoku::KYOKU_KAZE_TON and agari.jikaze != Kyoku::KYOKU_KAZE_TON
+      ### 自風(東)
+      def jikazeton?(tehai, agari)
+        if agari.jikaze != Kyoku::KYOKU_KAZE_TON
           return false
         end
-        
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_TON
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_TON
+              return true
+            end
+          end
         end
         return false
       end
 
-      ### 南
-      def nan?(tehai, agari)
-        if agari.bakaze != Kyoku::KYOKU_KAZE_NAN and agari.jikaze != Kyoku::KYOKU_KAZE_NAN
+      ### 自風(南)
+      def jikazenan?(tehai, agari)
+        if agari.jikaze != Kyoku::KYOKU_KAZE_NAN
           return false
         end
-        
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_NAN
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_NAN
+              return true
+            end
+          end
         end
         return false
       end
 
-      ### 西
-      def sha?(tehai, agari)
-        if agari.bakaze != Kyoku::KYOKU_KAZE_SHA and agari.jikaze != Kyoku::KYOKU_KAZE_SHA
+      ### 自風(西)
+      def jikazesha?(tehai, agari)
+        if agari.jikaze != Kyoku::KYOKU_KAZE_SHA
           return false
         end
-        
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_SHA
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_SHA
+              return true
+            end
+          end
         end
         return false
       end
 
-      ### 北
-      def pei?(tehai, agari)
-        if agari.bakaze != Kyoku::KYOKU_KAZE_PEI and agari.jikaze != Kyoku::KYOKU_KAZE_PEI
+      ### 自風(北)
+      def jikazepei?(tehai, agari)
+        if agari.jikaze != Kyoku::KYOKU_KAZE_PEI
           return false
         end
-        
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_PEI
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_PEI
+              return true
+            end
+          end
+        end
+        return false
+      end
+
+      ### 場風(東)
+      def bakazeton?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_TON
+          return false
+        end
+        tehai.mentsu_list.each do |mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_TON
+              return true
+            end
+          end
+        end
+        return false
+      end
+
+      ### 場風(南)
+      def bakazenan?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_NAN
+          return false
+        end
+        tehai.mentsu_list.each do |mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_NAN
+              return true
+            end
+          end
+        end
+        return false
+      end
+
+      ### 場風(西)
+      def bakazesha?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_SHA
+          return false
+        end
+        tehai.mentsu_list.each do |mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_SHA
+              return true
+            end
+          end
+        end
+        return false
+      end
+
+      ### 場風(北)
+      def bakazepei?(tehai, agari)
+        if agari.bakaze != Kyoku::KYOKU_KAZE_PEI
+          return false
+        end
+        tehai.mentsu_list.each do |mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_PEI
+              return true
+            end
+          end
         end
         return false
       end

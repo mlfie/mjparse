@@ -220,7 +220,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.ton?(tehai, agari)
+      assert_equal true, @judger.bakazeton?(tehai, agari)
+      assert_equal false, @judger.jikazeton?(tehai, agari)
     end
     
     #場風が南、自風が東  --> true
@@ -228,7 +229,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = TON
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.ton?(tehai, agari)
+      assert_equal false, @judger.bakazeton?(tehai, agari)
+      assert_equal true, @judger.jikazeton?(tehai, agari)
     end
    
    #場風が東、自風が東  --> true
@@ -236,14 +238,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = TON
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.ton?(tehai, agari)
+      assert_equal true, @judger.bakazeton?(tehai, agari)
+      assert_equal true, @judger.jikazeton?(tehai, agari)
     end
     #場風が南、自風が南  --> false
     agari.bakaze = NAN
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.ton?(tehai, agari)
+      assert_equal false, @judger.bakazeton?(tehai, agari)
+      assert_equal false, @judger.jikazeton?(tehai, agari)
     end
   end
    
@@ -257,7 +261,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = SHA
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.nan?(tehai, agari)
+      assert_equal true, @judger.bakazenan?(tehai, agari)
+      assert_equal false, @judger.jikazenan?(tehai, agari)
     end
     
     #場風が西、自風が南  --> true
@@ -265,7 +270,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.nan?(tehai, agari)
+      assert_equal false, @judger.bakazenan?(tehai, agari)
+      assert_equal true, @judger.jikazenan?(tehai, agari)
     end
    
    #場風が南、自風が南  --> true
@@ -273,14 +279,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.nan?(tehai, agari)
+      assert_equal true, @judger.bakazenan?(tehai, agari)
+      assert_equal true, @judger.jikazenan?(tehai, agari)
     end
     #場風が西、自風が西  --> false
     agari.bakaze = SHA
     agari.jikaze = SHA
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.nan?(tehai, agari)
+      assert_equal false, @judger.bakazenan?(tehai, agari)
+      assert_equal false, @judger.jikazenan?(tehai, agari)
     end
   end
     
@@ -294,7 +302,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.sha?(tehai, agari)
+      assert_equal true, @judger.bakazesha?(tehai, agari)
+      assert_equal false, @judger.jikazesha?(tehai, agari)
     end
     
     #場風が南、自風が西  --> true
@@ -302,7 +311,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = SHA
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.sha?(tehai, agari)
+      assert_equal false, @judger.bakazesha?(tehai, agari)
+      assert_equal true, @judger.jikazesha?(tehai, agari)
     end
    
    #場風が西、自風が西  --> true
@@ -310,14 +320,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = SHA
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.sha?(tehai, agari)
+      assert_equal true, @judger.bakazesha?(tehai, agari)
+      assert_equal true, @judger.jikazesha?(tehai, agari)
     end
     #場風が南、自風が南  --> false
     agari.bakaze = NAN
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.sha?(tehai, agari)
+      assert_equal false, @judger.bakazesha?(tehai, agari)
+      assert_equal false, @judger.jikazesha?(tehai, agari)
     end
   end
     
@@ -331,7 +343,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.pei?(tehai, agari)
+      assert_equal true, @judger.bakazepei?(tehai, agari)
+      assert_equal false, @judger.jikazepei?(tehai, agari)
     end
     
     #場風が北、自風が東  --> true
@@ -339,7 +352,8 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = PEI
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.pei?(tehai, agari)
+      assert_equal false, @judger.bakazepei?(tehai, agari)
+      assert_equal true, @judger.jikazepei?(tehai, agari)
     end
    
    #場風が北、自風が北  --> true
@@ -347,14 +361,16 @@ class YakuJudgerOneTest < Test::Unit::TestCase
     agari.jikaze = PEI
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal true, @judger.pei?(tehai, agari)
+      assert_equal true, @judger.bakazepei?(tehai, agari)
+      assert_equal true, @judger.jikazepei?(tehai, agari)
     end
     #場風が南、自風が南  --> false
     agari.bakaze = NAN
     agari.jikaze = NAN
     
     @resolver.tehai_list.each do |tehai|
-      assert_equal false, @judger.pei?(tehai, agari)
+      assert_equal false, @judger.bakazepei?(tehai, agari)
+      assert_equal false, @judger.jikazepei?(tehai, agari)
     end
   end
   
