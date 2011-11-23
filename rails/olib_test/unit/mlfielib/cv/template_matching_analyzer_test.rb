@@ -15,13 +15,14 @@ class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
   include CvTestHelper
   def setup
     #for debug mode, uncomment below
-    @@mode = :debug
+    #@@mode = :debug
     @tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
   end
 
   def test_analyze
     #path = "olib_test/unit/mlfielib/cv/test_img/59.jpg"
-    path = "olib_test/unit/mlfielib/cv/test_img/73.jpg"
+    #path = "olib_test/unit/mlfielib/cv/test_img/73.jpg"
+    path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
 
     pais = @tma.analyze_raw(path)

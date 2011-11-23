@@ -25,10 +25,10 @@ class TemplateMatcherTest < Test::Unit::TestCase
       :image_paths => ["#{@path}/j7.t.jpg"],
       :symmetric => false
     )
-    $__debug_window ||= GUI::Window.new "TemplateMatcher DEBUG"
 
     #for debug mode, uncomment below
-    @matcher.instance_eval { @debug = true }
+    #$__debug_window ||= GUI::Window.new "TemplateMatcher DEBUG"
+    #@matcher.instance_eval { @debug = true }
   end
 
   def test_attributes
