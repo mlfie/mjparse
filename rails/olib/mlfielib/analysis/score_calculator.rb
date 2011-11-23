@@ -482,11 +482,11 @@ module Mlfielib
 # ユーティリティ系
 #*****************************************************************#
       def self.ceil_one_level(point)
-        return ( ( point + 9 ) / 10 ) * 10
+        return ( ( point + 9 ) / 10 ).truncate * 10
       end
     
       def self.ceil_ten_level(point)
-        return ( ( point + 90 ) / 100 ) * 100
+        return ( ( point + 90 ) / 100 ).truncate * 100
       end
     end
   end
