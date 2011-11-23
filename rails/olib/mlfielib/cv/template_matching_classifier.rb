@@ -4,166 +4,125 @@ require "rubygems"
 require "opencv"
 require 'mlfielib/cv/pai'
 require 'mlfielib/cv/paienum'
+require 'mlfielib/cv/template_matching'
 
 module Mlfielib
   module CV
     class TemplateMatchingClassifier
       include OpenCV
+      include Mlfielib::CV::TemplateMatching
 
-      DIRPATH = 'olib/mlfielib/cv/base'
+      DIRPATH = File.expand_path('../base', __FILE__)
+      KEYS = [:type, :direction, :symmetric, :threshold, :image_paths]
+      SETTINGS = [
+          [CV::PaiEnum.type_e::J1, :top, false, nil, ["#{DIRPATH}/j1.t.jpg"]],
+          [CV::PaiEnum.type_e::J2, :top, false, nil, ["#{DIRPATH}/j2.t.jpg"]],
+          [CV::PaiEnum.type_e::J3, :top, false, nil, ["#{DIRPATH}/j3.t.jpg"]],
+          [CV::PaiEnum.type_e::J4, :top, false, nil, ["#{DIRPATH}/j4.t.jpg"]],
+          [CV::PaiEnum.type_e::J5, :top, true, nil,  ["#{DIRPATH}/j5.t.jpg"]],
+          [CV::PaiEnum.type_e::J6, :top, false, nil, ["#{DIRPATH}/j6.t.jpg"]],
+          [CV::PaiEnum.type_e::J7, :top, false, nil, ["#{DIRPATH}/j7.t.jpg"]],
+          [CV::PaiEnum.type_e::M1, :top, false, nil, ["#{DIRPATH}/m1.t.jpg"]],
+          [CV::PaiEnum.type_e::M2, :top, false, nil, ["#{DIRPATH}/m2.t.jpg"]],
+          [CV::PaiEnum.type_e::M3, :top, false, nil, ["#{DIRPATH}/m3.t.jpg"]],
+          [CV::PaiEnum.type_e::M4, :top, false, nil, ["#{DIRPATH}/m4.t.jpg"]],
+          [CV::PaiEnum.type_e::M5, :top, false, nil, ["#{DIRPATH}/m5.t.jpg"]],
+          [CV::PaiEnum.type_e::M6, :top, false, nil, ["#{DIRPATH}/m6.t.jpg"]],
+          [CV::PaiEnum.type_e::M7, :top, false, nil, ["#{DIRPATH}/m7.t.jpg"]],
+          [CV::PaiEnum.type_e::M8, :top, false, nil, ["#{DIRPATH}/m8.t.jpg"]],
+          [CV::PaiEnum.type_e::M9, :top, false, nil, ["#{DIRPATH}/m9.t.jpg"]],
+          [CV::PaiEnum.type_e::P1, :top, true, nil,  ["#{DIRPATH}/p1.t.jpg"]],
+          [CV::PaiEnum.type_e::P2, :top, true, nil,  ["#{DIRPATH}/p2.t.jpg"]],
+          [CV::PaiEnum.type_e::P3, :top, true, nil,  ["#{DIRPATH}/p3.t.jpg"]],
+          [CV::PaiEnum.type_e::P4, :top, true, nil,  ["#{DIRPATH}/p4.t.jpg"]],
+          [CV::PaiEnum.type_e::P5, :top, true, nil,  ["#{DIRPATH}/p5.t.jpg"]],
+          [CV::PaiEnum.type_e::P6, :top, false, nil, ["#{DIRPATH}/p6.t.jpg"]],
+          [CV::PaiEnum.type_e::P7, :top, false, nil, ["#{DIRPATH}/p7.t.jpg"]],
+          [CV::PaiEnum.type_e::P8, :top, true, nil,  ["#{DIRPATH}/p8.t.jpg"]],
+          [CV::PaiEnum.type_e::P9, :top, true, nil,  ["#{DIRPATH}/p9.t.jpg"]],
+          [CV::PaiEnum.type_e::S1, :top, false, nil, ["#{DIRPATH}/s1.t.jpg"]],
+          [CV::PaiEnum.type_e::S2, :top, true, nil,  ["#{DIRPATH}/s2.t.jpg"]],
+          [CV::PaiEnum.type_e::S3, :top, false, nil, ["#{DIRPATH}/s3.t.jpg"]],
+          [CV::PaiEnum.type_e::S4, :top, true, nil,  ["#{DIRPATH}/s4.t.jpg"]],
+          [CV::PaiEnum.type_e::S5, :top, true, nil,  ["#{DIRPATH}/s5.t.jpg"]],
+          [CV::PaiEnum.type_e::S6, :top, true, nil,  ["#{DIRPATH}/s6.t.jpg"]],
+          [CV::PaiEnum.type_e::S7, :top, false, nil, ["#{DIRPATH}/s7.t.jpg"]],
+          [CV::PaiEnum.type_e::S8, :top, true, nil,  ["#{DIRPATH}/s8.t.jpg"]],
+          [CV::PaiEnum.type_e::S9, :top, true, nil,  ["#{DIRPATH}/s9.t.jpg"]],
+          [CV::PaiEnum.type_e::J1, :right, false, nil, ["#{DIRPATH}/j1.r.jpg"]],
+          [CV::PaiEnum.type_e::J2, :right, false, nil, ["#{DIRPATH}/j2.r.jpg"]],
+          [CV::PaiEnum.type_e::J3, :right, false, nil, ["#{DIRPATH}/j3.r.jpg"]],
+          [CV::PaiEnum.type_e::J4, :right, false, nil, ["#{DIRPATH}/j4.r.jpg"]],
+          [CV::PaiEnum.type_e::J5, :right, true, nil,  ["#{DIRPATH}/j5.r.jpg"]],
+          [CV::PaiEnum.type_e::J6, :right, false, nil, ["#{DIRPATH}/j6.r.jpg"]],
+          [CV::PaiEnum.type_e::J7, :right, false, nil, ["#{DIRPATH}/j7.r.jpg"]],
+          [CV::PaiEnum.type_e::M1, :right, false, nil, ["#{DIRPATH}/m1.r.jpg"]],
+          [CV::PaiEnum.type_e::M2, :right, false, nil, ["#{DIRPATH}/m2.r.jpg"]],
+          [CV::PaiEnum.type_e::M3, :right, false, nil, ["#{DIRPATH}/m3.r.jpg"]],
+          [CV::PaiEnum.type_e::M4, :right, false, nil, ["#{DIRPATH}/m4.r.jpg"]],
+          [CV::PaiEnum.type_e::M5, :right, false, nil, ["#{DIRPATH}/m5.r.jpg"]],
+          [CV::PaiEnum.type_e::M6, :right, false, nil, ["#{DIRPATH}/m6.r.jpg"]],
+          [CV::PaiEnum.type_e::M7, :right, false, nil, ["#{DIRPATH}/m7.r.jpg"]],
+          [CV::PaiEnum.type_e::M8, :right, false, nil, ["#{DIRPATH}/m8.r.jpg"]],
+          [CV::PaiEnum.type_e::M9, :right, false, nil, ["#{DIRPATH}/m9.r.jpg"]],
+          [CV::PaiEnum.type_e::P1, :right, true, nil,  ["#{DIRPATH}/p1.r.jpg"]],
+          [CV::PaiEnum.type_e::P2, :right, true, nil,  ["#{DIRPATH}/p2.r.jpg"]],
+          [CV::PaiEnum.type_e::P3, :right, true, nil,  ["#{DIRPATH}/p3.r.jpg"]],
+          [CV::PaiEnum.type_e::P4, :right, true, nil,  ["#{DIRPATH}/p4.r.jpg"]],
+          [CV::PaiEnum.type_e::P5, :right, true, nil,  ["#{DIRPATH}/p5.r.jpg"]],
+          [CV::PaiEnum.type_e::P6, :right, false, nil, ["#{DIRPATH}/p6.r.jpg"]],
+          [CV::PaiEnum.type_e::P7, :right, false, nil, ["#{DIRPATH}/p7.r.jpg"]],
+          [CV::PaiEnum.type_e::P8, :right, true, nil,  ["#{DIRPATH}/p8.r.jpg"]],
+          [CV::PaiEnum.type_e::P9, :right, true, nil,  ["#{DIRPATH}/p9.r.jpg"]],
+          [CV::PaiEnum.type_e::S1, :right, false, nil, ["#{DIRPATH}/s1.r.jpg"]],
+          [CV::PaiEnum.type_e::S2, :right, true, nil,  ["#{DIRPATH}/s2.r.jpg"]],
+          [CV::PaiEnum.type_e::S3, :right, false, nil, ["#{DIRPATH}/s3.r.jpg"]],
+          [CV::PaiEnum.type_e::S4, :right, true, nil,  ["#{DIRPATH}/s4.r.jpg"]],
+          [CV::PaiEnum.type_e::S5, :right, true, nil,  ["#{DIRPATH}/s5.r.jpg"]],
+          [CV::PaiEnum.type_e::S6, :right, true, nil,  ["#{DIRPATH}/s6.r.jpg"]],
+          [CV::PaiEnum.type_e::S7, :right, false, nil, ["#{DIRPATH}/s7.r.jpg"]],
+          [CV::PaiEnum.type_e::S8, :right, true, nil,  ["#{DIRPATH}/s8.r.jpg"]],
+          [CV::PaiEnum.type_e::S9, :right, true, nil,  ["#{DIRPATH}/s9.r.jpg"]],
+          [CV::PaiEnum.type_e::R0, :top, true, nil,    ["#{DIRPATH}/r0.t.jpg"]]
+        ]
+
       def initialize()
-            #@win = GUI::Window.new "debug classifier"
-            @type_hash = {"J1" => CV::PaiEnum.type_e::J1,
-                    "J2" => CV::PaiEnum.type_e::J2,
-                    "J3" => CV::PaiEnum.type_e::J3,
-                    "J4" => CV::PaiEnum.type_e::J4,
-                    "J5" => CV::PaiEnum.type_e::J5,
-                    "J6" => CV::PaiEnum.type_e::J6,
-                    "J7" => CV::PaiEnum.type_e::J7,
-                    "M1" => CV::PaiEnum.type_e::M1,
-                    "M2" => CV::PaiEnum.type_e::M2,
-                    "M3" => CV::PaiEnum.type_e::M3,
-                    "M4" => CV::PaiEnum.type_e::M4,
-                    "M5" => CV::PaiEnum.type_e::M5,
-                    "M6" => CV::PaiEnum.type_e::M6,
-                    "M7" => CV::PaiEnum.type_e::M7,
-                    "M8" => CV::PaiEnum.type_e::M8,
-                    "M9" => CV::PaiEnum.type_e::M9,
-                    "P1" => CV::PaiEnum.type_e::P1,
-                    "P2" => CV::PaiEnum.type_e::P2,
-                    "P3" => CV::PaiEnum.type_e::P3,
-                    "P4" => CV::PaiEnum.type_e::P4,
-                    "P5" => CV::PaiEnum.type_e::P5,
-                    "P6" => CV::PaiEnum.type_e::P6,
-                    "P7" => CV::PaiEnum.type_e::P7,
-                    "P8" => CV::PaiEnum.type_e::P8,
-                    "P9" => CV::PaiEnum.type_e::P9,
-                    "S1" => CV::PaiEnum.type_e::S1,
-                    "S2" => CV::PaiEnum.type_e::S2,
-                    "S3" => CV::PaiEnum.type_e::S3,
-                    "S4" => CV::PaiEnum.type_e::S4,
-                    "S5" => CV::PaiEnum.type_e::S5,
-                    "S6" => CV::PaiEnum.type_e::S6,
-                    "S7" => CV::PaiEnum.type_e::S7,
-                    "S8" => CV::PaiEnum.type_e::S8,
-                    "S9" => CV::PaiEnum.type_e::S9,
-                    "R0" => CV::PaiEnum.type_e::R0
-                   }
-            @is_symmetric = {"J1" => false,
-                    "J2" => false,
-                    "J3" => false,
-                    "J4" => false,
-                    "J5" => false,
-                    "J6" => false,
-                    "J7" => false,
-                    "M1" => false,
-                    "M2" => false,
-                    "M3" => false,
-                    "M4" => false,
-                    "M5" => false,
-                    "M6" => false,
-                    "M7" => false,
-                    "M8" => false,
-                    "M9" => false,
-                    "P1" => true,
-                    "P2" => true,
-                    "P3" => true,
-                    "P4" => true,
-                    "P5" => true,
-                    "P6" => false,
-                    "P7" => false,
-                    "P8" => true,
-                    "P9" => true,
-                    "S1" => false,
-                    "S2" => true,
-                    "S3" => false,
-                    "S4" => true,
-                    "S5" => true,
-                    "S6" => true,
-                    "S7" => false,
-                    "S8" => true,
-                    "S9" => true,
-                    "R0" => true
-                   }
-          @pais = []
-          Dir::glob(DIRPATH+'/*[^n].*.jpg').each {|f|
-            pai_type = @type_hash[File.basename(f).split('.')[0].upcase]
-            pai_direction = case File.basename(f).split('.')[1]
-                            when 't'
-                              :top
-                            when 'r'
-                              :right
-                            else
-                              :top
-                            end
-            symmetric = @is_symmetric[File.basename(f).split('.')[0].upcase]
-            img = CvMat.load(f, CV_LOAD_IMAGE_GRAYSCALE)
-            @pais << {:img => img, :pai_type => pai_type, :pai_direction => pai_direction, :symmetric => symmetric}
-          }
+        @matchers = []
+        SETTINGS.each do |setting|
+          hash = {}
+          KEYS.zip(setting).each do |pair|
+            hash[pair[0]] = pair[1]
+          end
+          @matchers << TemplateMatcher.new(hash)
+        end
+
+        define_r0_detector
+      end
+
+      def define_r0_detector
+        r0_matcher = @matchers.select{|x| x.type == CV::PaiEnum.type_e::R0}[0]
+        class << r0_matcher
+          alias :org_detect :detect
+        end
+        def r0_matcher.detect(target_img, scale)
+          pais = org_detect(target_img, scale)
+
+          pais.select do |pai|
+            pai_area = target_img.sub_rect(CvRect.new(pai.left, pai.top, pai.width, pai.height))
+            pai_area.avg[0] < 230
+          end
+        end
       end
       
-        def classify(img, scale=1.0)
+      def classify(img, scale=1.0)
+        target_img = CvMat.load(img, CV_LOAD_IMAGE_GRAYSCALE)
+        pai_list = []
 
-          target_img = CvMat.load(img, CV_LOAD_IMAGE_GRAYSCALE)
-          pai_list = []
-          
-          @pais.each {|pai|
-            pai_list = pai_list.concat(search_pai(target_img, pai[:img], pai[:pai_type], pai[:pai_direction], scale))
-            pai_list = pai_list.concat(search_pai_fliped(target_img, pai[:img], pai[:pai_type], pai[:pai_direction], scale)) unless pai[:symmetric]
-          
-          }
-          return pai_list
-          
+        @matchers.each do |matcher|
+          pai_list.concat(matcher.detect(target_img, scale))
         end
-
-        def search_pai_fliped(target_img, template_img, pai_type, pai_direction, scale)
-          pai_list = search_pai(target_img.flip(:xy), template_img, pai_type, pai_direction, scale)
-
-          scaled_img = template_img.resize(
-            CvSize.new(template_img.cols * scale, template_img.rows * scale), :linear)
-          #pai_list = pai_list.map{|pai|
-          #  puts "before = (#{pai.x}, #{pai.y})"
-          #  pai.x = target_img.cols - pai.x - scaled_img.cols
-          #  pai.y = target_img.rows - pai.y - scaled_img.rows
-          #  puts "after = (#{pai.x}, #{pai.y})"
-          #  pai
-          #}
-          pai_list
-        end
-          
-
-        def search_pai(target_img, template_img, pai_type, pai_direction, scale)
-          pai_list = []
-
-          #target_org = target_img.clone
-
-          template_img = template_img.resize(
-            CvSize.new(template_img.cols * scale, template_img.rows * scale),
-            :linear)
-          result = target_img.match_template(template_img, CV_TM_CCOEFF_NORMED)
-
-          begin
-            min_val, max_val, min_loc, max_loc = result.min_max_loc
-            result.rectangle!(
-              CvPoint.new(max_loc.x - template_img.cols/2, max_loc.y - template_img.rows/2),
-              CvPoint.new(max_loc.x + template_img.cols/2, max_loc.y + template_img.rows/2),
-              :color => CvColor::Black,
-              :thickness => -1
-            )
-
-
-            if(max_val > 0.6)
-              pai = CV::Pai.new(max_loc.x, max_loc.y, template_img.cols, template_img.rows,max_val, pai_type, pai_direction)
-              pai_list.push(pai)
-              #puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}, #{pai.direction}"
-            #target_org.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
-            #@win.show target_org
-            #GUI::wait_key
-            end
-          end while(max_val > 0.6)
-
-          return pai_list
-        end
+        return pai_list
+      end
     end
   end
 end

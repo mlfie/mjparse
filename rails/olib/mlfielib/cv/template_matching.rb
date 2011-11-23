@@ -4,86 +4,75 @@ require 'mlfielib/cv/pai'
 module Mlfielib
   module CV
     module TemplateMatching
-      class BaseModel
-        attr_accessor :threshold
-        def initialize(threshold)
-          @threshold = threshold
-        end
-        module Test
-          def test_model_setup?
-            assert @model, "you need to set @model at setup"
-          end
-          def test_respond_to_required_method?
-            assert @model.respond_to?(:finish?),
-              "model should respond to 'finish?'"
-            assert @model.respond_to?(:matching_point),
-              "model should respond to 'matching_point'"
-            assert @model.respond_to?(:algorithm),
-              "model should respond to 'algorithm'"
-          end
-        end
-      end
-
-      class CcoeffNormedModel < BaseModel
-        include OpenCV
-        def algorithm
-          CV_TM_CCOEFF_NORMED
-        end
-        def matching_point(matching_result)
-          min_val, max_val, min_loc, max_loc = matching_result.min_max_loc
-          return max_val, max_loc.x, max_loc.y
-        end
-        def finish?(matching_value)
-          matching_value < self.threshold
-        end
-      end
       class TemplateMatcher
         include OpenCV
 
-        attr_accessor :threshold, :model
-        attr_reader :template_path, :template_image
+        attr_reader :type, :direction
 
-        def initialize(model, template_path)
-          @template_path = template_path.clone
-          @model = model
-          load_image
+        def symmetric?
+          @symmetric
         end
 
-        def template_path
-          return @template_path.clone
-        end
-        def template_image
-          return @template_image.clone
+        def initialize(params = {})
+          raise ArgumentError, ":image_paths is required" if params[:image_paths].nil?
+          @type = params[:type] || (raise ArgumentError, ":type is required")
+          @direction = params[:direction] || :top
+          @symmetric = params[:symmetric].nil? ? true : params[:symmetric]
+          @threshold = params[:threshold] || 0.6
+          @images = params[:image_paths].map {|path| CvMat.load(path, CV_LOAD_IMAGE_GRAYSCALE)}
         end
 
-        def detect(target_image_path)
-          target_image = IplImage.load(target_image_path, CV_LOAD_IMAGE_GRAYSCALE)
-
-          pailist = []
-          begin
-            match_result = target_image.match_template(
-              @template_image, @model.algorithm)
-            val, x, y = @model.matching_point(match_result)
-            p val
-            fill_matched_rect(target_image, x, y)
-            pailist << Mlfielib::CV::Pai.new(
-              x, y, @template_image.cols, @template_image.rows, val
-            )
-          end until(@model.finish?(val))
-          return pailist
+        def detect(target_img, scale=1.0)
+          detected_pais = []
+          @images.each do |img|
+            scaled_img = img.resize(CvSize.new(img.cols * scale, img.rows * scale), :linear)
+            detected_pais.concat(match_template(target_img, scaled_img))
+            detected_pais.concat(match_template(target_img.flip(:xy), scaled_img)) unless symmetric?
+          end
+          return detected_pais
         end
 
         private
-        def load_image
-          @template_image = IplImage.load(
-            @template_path, CV_LOAD_IMAGE_GRAYSCALE)
+        def match_template(target_img, scaled_img)
+          debug {
+            @target_img_clone = target_img.clone
+          }
+
+          matched_pais = []
+          result = target_img.match_template(scaled_img, CV_TM_CCOEFF_NORMED)
+          min_val, max_val, min_loc, max_loc = result.min_max_loc
+
+          while max_val > @threshold
+            pai = CV::Pai.new(
+              max_loc.x, max_loc.y, scaled_img.cols, scaled_img.rows, max_val, @type, @direction
+            )
+            matched_pais << pai
+
+            debug {
+              puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}, #{pai.direction}"
+              @target_img_clone.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
+              $__debug_window.show @target_img_clone
+              GUI::wait_key
+            }
+
+            result.rectangle!(
+              CvPoint.new(max_loc.x - scaled_img.cols/2, max_loc.y - scaled_img.rows/2),
+              CvPoint.new(max_loc.x + scaled_img.cols/2, max_loc.y + scaled_img.rows/2),
+              :color => CvColor::Black,
+              :thickness => -1
+            )
+            min_val, max_val, min_loc, max_loc = result.min_max_loc
+          end
+
+          return matched_pais
         end
-        def fill_matched_rect(target_image, x, y)
-          target_image.rectangle!(
-            CvPoint.new(x, y),
-            CvPoint.new(x + @template_image.cols, y + @template_image.rows),
-            :color => CvColor::White,
-            :thichness => -1)
+
+        def debug?
+          @debug
+        end
+
+        def debug
+          yield if debug?
         end
       end
     end
