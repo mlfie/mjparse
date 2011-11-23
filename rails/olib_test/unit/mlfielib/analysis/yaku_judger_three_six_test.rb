@@ -56,6 +56,16 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.ryanpeikou?(tehai, nil)
     end
+    
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # 異常系（三暗刻・三連刻） --> false
+    pai_items = "m1tm1tm1tm2tm2tm3tm3tm3ts4ts5ts6tj1tj1tm2t" 
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ryanpeikou?(tehai, nil)
+    end
  
   end
   
