@@ -18,6 +18,6 @@ class TsumotterTest < Test::Unit::TestCase
   end
 
   def test_update
-    @tsumotter.update("unit test message at " + Time.new.to_s)
+#    @tsumotter.update("unit test message at " + Time.new.to_s)
   end
 end
