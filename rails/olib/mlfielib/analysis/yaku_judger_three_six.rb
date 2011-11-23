@@ -25,7 +25,7 @@ module Mlfielib
             end # end if
           end # end each
         end # end each
-        if ryanpeikou_count == 2
+        if ryanpeikou_count == 4
           return true
         end
         return false
