@@ -87,23 +87,6 @@ module Mlfielib
         end  
         return true
       end
-
-
-      ### 混老頭
-      def honroutou?(tehai, agari)
-        tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "t"
-            if mentsu.pai_list[0].type != "j"
-              if mentsu.pai_list[0].number != "1" && mentsu.pai_list[0].number != "9"
-                return false
-               end
-            end
-          else
-            return false
-          end
-        end  
-        return true
-      end
   
       ### 清一色
       def chinitsu?(tehai, agari)
