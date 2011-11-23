@@ -157,8 +157,7 @@ function makeSelectPanel(paiImgJq) {
                     )
              );
     
-//    jq.appendTo("body").hide();
-    jq.appendTo("body");
+    jq.appendTo("body").hide();
 }
 
 
