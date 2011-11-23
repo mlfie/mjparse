@@ -1,4 +1,4 @@
-var PAI_TYPE_UNANALYZABLE = "z0";
+var PAI_TYPE_EMPTY = "z0";
 var PAI_TYPE_REVERSE = "r0";
 var PAI_DIRECTION_TOP="t";
 var PAI_DIRECTION_LEFT="l";
@@ -45,5 +45,9 @@ var Pai = function(type,direction){
         this.direction=direction;
         this.jq.attr('src',this.imgUrl());
     };
+
+    this.isEmpty = function(){
+        return this.type == PAI_TYPE_EMPTY;
+    }
 
 };

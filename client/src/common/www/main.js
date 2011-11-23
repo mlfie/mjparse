@@ -49,22 +49,22 @@ function ajaxRuncher(requestName,type,url,json,func) {
           );
     
     $.ajax({
-               type: type,
-               url: url,
-               data: json,
-               contentType: "application/json",
-               success: func,
-               success: function (data, textStatus, xhr) {
-                   $.mobile.hidePageLoadingMsg();
-                   dbgmsg("ajaxRuncher " + requestName +  "成功:レスポンス",json2html(eval(data)));
-                   func(data);
-               },
-               error: function (data) {
-                   $.mobile.hidePageLoadingMsg();
-                   msg.error(requestName + "に失敗しました。:" + data.status , data.responseText);
-                   dbgmsg("ajaxRuncher " + requestName + "失敗:レスポンス",data.responseText);
-               }
-           });
+        type: type,
+        url: url,
+        data: json,
+        contentType: "application/json",
+        success: func,
+        success: function (data, textStatus, xhr) {
+            $.mobile.hidePageLoadingMsg();
+            dbgmsg("ajaxRuncher " + requestName +  "成功:レスポンス",json2html(eval(data)));
+            func(data);
+        },
+        error: function (data) {
+            $.mobile.hidePageLoadingMsg();
+            msg.error(requestName + "に失敗しました。:" + data.status , data.responseText);
+            dbgmsg("ajaxRuncher " + requestName + "失敗:レスポンス",data.responseText);
+        }
+    });
 }
 
 /**********************************************
@@ -75,15 +75,15 @@ function ajaxRuncher(requestName,type,url,json,func) {
  * DOMロード完了
  */
 $(document).ready(function(){
-                      photo = new Photo();
-                      state = new State();
-                      msg = new Msg();
-                      //アガリ状況初期化
-                      state.clearData();
-                      state.updateDisplay();
-                      //解析結果修正画面は最初に生成しておく
-                      makeSelectPanel();
-                  });
+    photo = new Photo();
+    state = new State();
+    msg = new Msg();
+    //アガリ状況初期化
+    state.clearData();
+    state.updateDisplay();
+    //解析結果修正画面は最初に生成しておく
+    makeSelectPanel();
+});
 
 /**
  * PhoneGapがデバイスと接続するまで待機
@@ -106,48 +106,48 @@ function onDeviceReady() {
 function makeSelectPanel(paiImgJq) {
 
     var jq = $("<div/>")
-        .attr("align","center")
-        .attr("id","div_selectpanel")
-        .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
-        .css({
-                 display: "block",
-                 opacity: 0.9,
-                 width: 220,
-                 top: window.pageYOffset+300
-             });
+    .attr("align","center")
+    .attr("id","div_selectpanel")
+    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
+    .css({
+        display: "block",
+        opacity: 0.9,
+        width: 220,
+        top: window.pageYOffset+300
+    });
     jq.append("<h1>牌の向きを変更</h1>");
     jq.append($("<button/>")
               .html("タテ")
               .click(function(){
-                         tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_TOP);
-                         jq.hide();
-                     }
+                  tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_TOP);
+                  jq.hide();
+              }
                     )
              );
     jq.append($("<button/>")
               .html("ヨコ")
               .click(function(){
-                         tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_LEFT);
-                         jq.hide();
-                     }
+                  tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_LEFT);
+                  jq.hide();
+              }
                     )
              );
     jq.append("<h1>牌の種類を変更</h1>");
     $.each(PAI_TYPE_LIST,function(){
-               var imgJq = new Pai(this,PAI_DIRECTION_TOP)
-                   .imgJq()
-                   .click(
-                       function(){
-                           //牌選択時
-                           dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
-                           //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
-                           //それを元に手配の牌を交換する
-                           tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
-                           jq.hide();
-                       });
+        var imgJq = new Pai(this,PAI_DIRECTION_TOP)
+        .imgJq()
+        .click(
+            function(){
+                //牌選択時
+                dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
+                //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
+                //それを元に手配の牌を交換する
+                tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
+                jq.hide();
+            });
 
-               jq.append(imgJq);
-           });
+        jq.append(imgJq);
+    });
 
     jq.appendTo("body").hide();
 }
@@ -233,26 +233,26 @@ function viewPhotoList(jsdata) {
         //altという属性に、ノーマルの画像のURLをセットし
         //srcには、サムネイルの画像のURLをセットする
         var jqImg = $("<img/>")
-            .attr("src",data[i].photo.thum_url)
-            .attr("alt",data[i].photo.url)
-            .css("border-color","#888888")
-            .css("border-width","2px")
-            .css("border-style","solid")
-            .click(
-                function(){
-                    //写真にURLをセットする
-                    photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
+        .attr("src",data[i].photo.thum_url)
+        .attr("alt",data[i].photo.url)
+        .css("border-color","#888888")
+        .css("border-width","2px")
+        .css("border-style","solid")
+        .click(
+            function(){
+                //写真にURLをセットする
+                photo.setUrlSrc($(this).attr('alt'),$(this).attr('src'));
 
-                    //画面遷移
-                    $.mobile.changePage( "#index", { reverse: true} );
-                }
-            );
+                //画面遷移
+                $.mobile.changePage( "#index", { reverse: true} );
+            }
+        );
         //画像を入れるdivのdom作成
         var jqDiv = $("<div/>")
-            .css("float","left")
-            .html(data[i].photo.created_at.replace("T"," ").replace("+09:00",""))
-            .append("<br>")
-            .append(jqImg);
+        .css("float","left")
+        .html(data[i].photo.created_at.replace("T"," ").replace("+09:00",""))
+        .append("<br>")
+        .append(jqImg);
         //本体にDOMを追加
         $("#div_photolist").append(jqDiv);
     }//end for
@@ -357,11 +357,11 @@ function sendCalcData(){
                     //得点表示
                     point = new Point(data.agari);
                     $("#div_point").html(point.toHtml());
-   
+                    
                     //画像解析結果表示
                     tehai = new Tehai(data.agari.tehai_list);
                     $("#div_analized_img").html(tehai.toJq());
-   
+                    
                     //画面遷移
                     $.mobile.changePage('#result');
                 });
@@ -430,13 +430,13 @@ var dbgno=0; //デバッグメッセージの行数
 function dbgmsg(tag, msg) {
     $("#content_debug").append(
         $("<p/>")
-            .html(dbgno + ". " + tag)
-            .append("<button data-role='none' onclick='dbgDetail("+ dbgno + ")'>detail</button>")
-            .append(
-                $("<div/>")
-                    .attr("id","div_dbg_detail" + dbgno)
-                    .html(msg)
-                    .css("display","none")));
+        .html(dbgno + ". " + tag)
+        .append("<button data-role='none' onclick='dbgDetail("+ dbgno + ")'>detail</button>")
+        .append(
+            $("<div/>")
+            .attr("id","div_dbg_detail" + dbgno)
+            .html(msg)
+            .css("display","none")));
     dbgno++;
 }
 
@@ -457,5 +457,6 @@ function btnCalcPointDummy(){
 
     photo.setUrlSrc('http://fetaro-mjt.fedc.biz/img/1.jpg',"http://fetaro-mjt.fedc.biz/img/1.thum.jpg");
 
-    calcPoint();
+    btnCalcPoint();
+
 }
