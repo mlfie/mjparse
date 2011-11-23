@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116103710) do
+ActiveRecord::Schema.define(:version => 20111123034909) do
 
   create_table "agari_pais", :force => true do |t|
     t.string   "type"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20111116103710) do
     t.boolean  "is_chiho",                            :default => false
     t.integer  "total_fu_num"
     t.integer  "total_han_num"
-    t.integer  "mangan_scale"
+    t.float    "mangan_scale"
     t.integer  "total_point"
     t.integer  "parent_point"
     t.integer  "child_point"
