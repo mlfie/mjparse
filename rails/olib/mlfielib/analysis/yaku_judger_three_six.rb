@@ -12,7 +12,7 @@ module Mlfielib
         ryanpeikou_count = 0
         tehai.mentsu_list.each_with_index do |mentsu_1,i|
           tehai.mentsu_list.each_with_index do |mentsu_2,j|
-            if i != j && mentsu_1.shuntsu? && mentsu_2.shuntsu?
+            if i != j && mentsu_1.mentsu_type == "s" && mentsu_2.mentsu_type == "s"
               ipeikou_count = 0
               [0,1,2].each do |k|
                 if mentsu_1.pai_list[k].type == mentsu_2.pai_list[k].type && mentsu_1.pai_list[k].number == mentsu_2.pai_list[k].number
