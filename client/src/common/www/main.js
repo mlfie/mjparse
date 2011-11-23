@@ -1,7 +1,7 @@
 /** 
  * 定数
  */
-PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7"];
+PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","r0"];
 
 //得点計算リクエスト送信先URL
 var MJT_AGARI_URL= MJT_FQDN + "/agaris.json";
@@ -148,20 +148,6 @@ function makeSelectPanel(paiImgJq) {
 
                jq.append(imgJq);
            });
-
-    //裏を追加
-    var imgJq = new Pai(PAI_TYPE_REVERSE,PAI_DIRECTION_TOP)
-        .imgJq()
-        .click(
-            function(){
-                //牌選択時
-                dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
-                //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
-                //それを元に手配の牌を交換する
-                tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
-                jq.hide();
-            });
-    jq.append(imgJq);
 
     jq.appendTo("body").hide();
 }
