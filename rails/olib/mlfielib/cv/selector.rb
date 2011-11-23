@@ -6,7 +6,7 @@ module Mlfielib
         pais = pais.sort{|a,b| a.value <=> b.value}
         pais.each do |pai|
           nearest = pai.nearest(selected)
-          if nearest && (pai.intersect_area(nearest) / pai.area) > 0.1
+          if nearest && (pai.intersect_area(nearest) / pai.area) > 0.15
           #if nearest && pai.intersect?(nearest)
             if pai.value > nearest.value
               selected.delete(nearest)
