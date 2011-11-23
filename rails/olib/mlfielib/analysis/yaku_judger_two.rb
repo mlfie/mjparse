@@ -130,12 +130,12 @@ module Mlfielib
       ### 三色同順
       def sanshoku?(tehai, agari)
         tehai.mentsu_list.each do | mentsu|
-          if mentsu.mentsu_type == "s"
+          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
             tehai.mentsu_list.each do | mentsu2|
-              if mentsu2.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu2.pai_list[0].type
+              if mentsu2.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].type != mentsu2.pai_list[0].type
                 if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
                   tehai.mentsu_list.each do | mentsu3|
-                    if mentsu3.mentsu_type == "s" && mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
+                    if mentsu3.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
                       if mentsu.pai_list[0].number == mentsu3.pai_list[0].number                    
                         return true
                       end
@@ -152,13 +152,13 @@ module Mlfielib
       ### 三色同刻
       def sanshokudouko?(tehai, agari)
 	    tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type == "k" || mentsu.mentsu_type == "4"
+          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
             tehai.mentsu_list.each do | mentsu2 |
-              if mentsu2.mentsu_type == "k"  || mentsu.mentsu_type == "4"
+              if mentsu2.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU  || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
 			    if mentsu.pai_list[0].type != mentsu2.pai_list[0].type
                   if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
                     tehai.mentsu_list.each do | mentsu3 |
-                      if mentsu3.mentsu_type == "k" || mentsu.mentsu_type == "4"
+                      if mentsu3.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
 					    if mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
                           if mentsu.pai_list[0].number == mentsu3.pai_list[0].number                    
                             return true

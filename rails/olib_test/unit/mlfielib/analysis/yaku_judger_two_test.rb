@@ -148,6 +148,56 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
   
   end
   
+  def test_sanshoku
+    # 基本 --> true
+    pai_items = "m1tm2tm3tp1tp2tp3ts1ts2ts3ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sanshoku?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
+    # 基本2 --> true
+    pai_items = "m4tm5tm6tp4tp5tp6ts4ts5ts6ts1ts2ts3tj1tj1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sanshoku?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+   # 安め --> false
+    pai_items = "m4tm5tp4tp5tp6ts4ts5ts6ts1ts2ts3tj1tj1tm3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.sanshoku?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+  end
+  
+  def test_sanshokudouko
+    # 基本 --> true
+    pai_items = "m1tm1tm1tp1tp1tp1ts1ts1ts1ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sanshokudouko?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # NG --> false
+    pai_items = "m1tm1tm1tp2tp2tp2ts1ts1ts1ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.sanshokudouko?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+  end
   
 #  def test_mentsure
 #    pai_items = "m3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2tj7rj7tj7t"    
