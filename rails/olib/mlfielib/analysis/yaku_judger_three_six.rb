@@ -14,7 +14,7 @@ module Mlfielib
       fetchtype = nil
         tehai.mentsu_list.each do | mentsu |		
           if mentsu.pai_list[0].type != "j"
-		    fetchtype = mentsu.pai_list[0].type
+            fetchtype = mentsu.pai_list[0].type
           end
         end  
         if fetchtype == nil
@@ -23,25 +23,12 @@ module Mlfielib
 
         tehai.mentsu_list.each do | mentsu2 |		
           if mentsu2.pai_list[0].type != "j" && mentsu2.pai_list[0].type != fetchtype
-        return false
+            return false
+           end
+        end
+        return true
       end
-    end
-	
-    #後で消す処理。清一の場合falseにする
-    flag = 0
-        tehai.mentsu_list.each do | mentsu3 |		
-      if mentsu3.pai_list[0].type != fetchtype
-        flag = 1
-      end
-    end		
-    if flag == 0
-      return false
-    end
-    #後で消す処理。ここまで
-
-
-      return true
-    end
+      
 #        beforetype = nil
 #        tehai.mentsu_list.each do |mentsu|
 #          mentsu.pai_list.each do |pai|
