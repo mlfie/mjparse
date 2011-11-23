@@ -51,7 +51,9 @@ class Agari < ActiveRecord::Base
       kanji_list = self.yaku_list.map do |yaku|
         yaku.name_kanji
       end
-      tsumotter.update(kanji_list.join(",") + " " + self.total_point.to_s + "点")
+      if !Rails.env.test? then
+        tsumotter.update(kanji_list.join(",") + " " + self.total_point.to_s + "点")
+      end
     end
   end
 
