@@ -199,11 +199,11 @@ module Mlfielib
       ### 白
       def haku?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_HAKU
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HAKU
+              return true
+            end
+          end
         end
         return false
       end
@@ -211,11 +211,11 @@ module Mlfielib
       ### 發
       def hatsu?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|        
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_HATSU
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HATSU
+              return true
+            end
+          end
         end
         return false
       end
@@ -223,11 +223,11 @@ module Mlfielib
       ### 中
       def chun?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
-          count = 0 
-          mentsu.pai_list.each do |pai| 
-            count += 1 if pai.type == Pai::PAI_TYPE_JIHAI && pai.number == Pai::PAI_NUMBER_CHUN
-          end 
-          return true if count == 3
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_CHUN
+              return true
+            end
+          end
         end
         return false
       end
