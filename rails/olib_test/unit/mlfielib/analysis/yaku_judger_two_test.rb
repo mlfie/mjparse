@@ -82,6 +82,72 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
 
   end
   
+  def test_ikkitsukan
+    # マンズ --> true
+    pai_items = "m1tm2tm3tm4tm5tm6tm7tm8tm9ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
+    # ソウズ --> true
+    pai_items = "s1ts2ts3ts4ts5ts6ts7ts8ts9ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
+    # ピンズ --> true
+    pai_items = "p1tp2tp3tp4tp5tp6tp7tp8tp9ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 並び順を変更 --> true
+    pai_items = "p4tp5tp6tp1tp2tp3tp7tp8tp9ts1ts2tj1tj1ts3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # あがり牌を変更 --> true
+    pai_items = "p1tp2tp3tp4tp5tp6tp7tp8ts1ts2ts3tj1tj1tp9t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 安め --> false
+    pai_items = "p1tp2tp3tp4tp5tp6tp7tp8ts1ts2ts3tj1tj1tp6t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # おしい形 --> false
+    pai_items = "p1tp2tp3tm4tm5tm6tp7tp8ts1ts2ts3tj1tj1tp6t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ikkitsukan?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
+  end
+  
   
 #  def test_mentsure
 #    pai_items = "m3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2tj7rj7tj7t"    
