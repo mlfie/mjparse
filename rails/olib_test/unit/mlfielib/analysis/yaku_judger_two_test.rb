@@ -240,7 +240,64 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     
   end
   
+  def test_sankantsu
+    # ３つ暗カン --> true
+    pai_items = "s1ts3tj1tj1ts2tr0tm2tm2tr0tr0tm4tm4tr0tr0tp9tp9tr0t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sankantsu?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # ３つ明カン --> true
+    pai_items = "s1ts3tj1tj1ts2tm2tm2tm2tm2rm4tm4tm4tm4rp9tp9tp9tp9r"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sankantsu?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # ２つ暗カン、１つ明カン --> true
+    pai_items = "s1ts3tj1tj1ts2tr0tm2tm2tr0tr0tj4tj4tr0tp9tp9tp9tp9r"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sankantsu?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 1つ暗カン、１つ明カン --> false
+    pai_items = "s1ts3tj1tj1ts2tm2tm2tm2tr0tj4tj4tr0tp9tp9tp9tp9r"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.sankantsu?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   
+  end
+  
+  def test_shousangen
+    # 白白白発発発中中 --> true
+    pai_items = "s1ts3tm1tm1tm1tj5tj5tj5tj6tj6tj6tj7tj7ts2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  
+    # 東東東発発発中中 --> false
+    pai_items = "s1ts3tm1tm1tm1tj1tj1tj1tj6tj6tj6tj7tj7ts2t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.shousangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
   
 #  def test_mentsure
 #    pai_items = "m3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2tj7rj7tj7t"    

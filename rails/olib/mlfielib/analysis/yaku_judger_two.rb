@@ -194,7 +194,6 @@ module Mlfielib
       def sanankou?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
-	      puts mentsu.furo
           if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo == false
 		    count += 1
 		  end
@@ -209,11 +208,11 @@ module Mlfielib
       def sankantsu?(tehai, agari)
 	    count = 0
 	    tehai.mentsu_list.each do | mentsu|
-          if mentsu.mentsu_type == "4"
+          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
 		    count += 1
 		  end
 		end
-		if count > 2
+		if count == 3
 		  return true
 		end
 	    return false
@@ -222,22 +221,48 @@ module Mlfielib
         
       ### 小三元
       def shousangen?(tehai, agari)
-		if tehai.mentsu_list.size == "4"
-	      tehai.mentsu_list.each do | mentsu|
-		    if mentsu.pai_list[0].type == "5"
-		      tehai.mentsu_list.each do | mentsu2|
-		   	    if mentsu.pai_list[0].type == "6"
-                  tehai.mentsu_list.each do | mentsu3|
-                    if mentsu.pai_list[0].type == "7"                 
-                      return true
-                    end
-                  end
-                end
-              end
+        #頭が三元牌じゃなかったらfalse
+        if !tehai.atama.type == Pai::PAI_TYPE_JIHAI
+          return false
+        end
+        if !tehai.atama.number == Pai::PAI_NUMBER_HAKU && !tehai.atama.number == Pai::PAI_NUMBER_HATSU && !tehai.atama.number == Pai::PAI_NUMBER_CHUN
+            return false
+        end
+        
+        #三元牌の刻子、槓子があること
+        has_haku = false
+        has_hatsu =false
+        has_chun = false
+        # 白
+        tehai.mentsu_list.each do | mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].number == Pai::PAI_NUMBER_HAKU && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
+              has_haku = true
             end
-		  end
-        end			
-	    return false
+          end
+        end
+        # 発
+        tehai.mentsu_list.each do | mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].number == Pai::PAI_NUMBER_HATSU && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
+              has_hatsu = true
+            end
+          end
+        end        
+        # 中
+        tehai.mentsu_list.each do | mentsu|
+          if mentsu.koutsu? || mentsu.kantsu?
+            if mentsu.pai_list[0].number == Pai::PAI_NUMBER_CHUN && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
+              has_chun = true
+            end
+          end
+        end
+       
+       if (has_haku && has_hatsu) || (has_haku && has_chun) || (has_hatsu && has_chun) 
+         return true
+       end
+	   
+	   return false
       end
       
       ### 混老頭
