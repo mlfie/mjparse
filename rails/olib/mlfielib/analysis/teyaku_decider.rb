@@ -53,6 +53,13 @@ module Mlfielib
         if self.result_code == RESULT_SUCCESS then
           yaku_established = false
           resolver.tehai_list.each do | tehai |
+            tehai.mentsu_list.each do |mentsu|
+              STDERR.puts Time.new.to_s + "：----- Mentsu(種類" + mentsu.mentsu_type.to_s + ", 副露" + mentsu.furo.to_s + ") -----"
+              mentsu.pai_list.each do |pai|
+                STDERR.puts Time.new.to_s + "：Pai(種類" + pai.type + ", 数字" + pai.number.to_s + ", 鳴き" + pai.naki.to_s + ", アガリ" + pai.agari.to_s + ")" 
+              end
+            end
+            STDERR.puts Time.new.to_s + "：----- Atama(種類" + tehai.atama.type + ", 数字" + tehai.atama.number.to_s + ", 鳴き" + tehai.atama.naki.to_s + ", アガリ" + tehai.atama.agari.to_s + ")"
             # 役を取得する
             judger = YakuJudger.new(yaku_specimen)
             judger.set_yaku_list(tehai, kyoku)
