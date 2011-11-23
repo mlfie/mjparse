@@ -226,5 +226,143 @@ class AgarisControllerTest < ActionController::TestCase
     assert yaku_include?(result["yaku_list"],"dora")
   end
 
+  # test "CalcPoint Chinitsu Junchan Ryanpeikou" do
+  #   request = {
+  #     "tehai_list"  => "p1tp1tp2tp2tp3tp3tp7tp7tp8tp8tp9tp9tp9tp9t",
+  #     "bakaze"   => "ton",
+  #     "jikaze"   => "ton",
+  #     "honba_num"=> 0,
+  #     "dora_num" => 0,
+  #     "is_tsumo" => false,
+  #     "is_parent"=> true,
+  #     "reach_num"=> 0
+  #   }
+  #   assert_difference('Agari.count') do
+  #     post :calc_point, :agari => request, :format => 'json'
+  #   end
+  #   result = ActiveSupport::JSON.decode(@response.body)["agari"]
 
+  #   assert_equal 200, result["status_code"]
+  #   assert_equal false, result["is_furo"]
+  #   assert_equal 3, result["mangan_scale"]
+  #   assert_equal 30, result["total_fu_num"]
+  #   assert_equal 12, result["total_han_num"]
+  #   assert_equal 0, result["child_point"]
+  #   assert_equal 0, result["parent_point"]
+  #   assert_equal 36000, result["ron_point"]
+  #   assert_equal 36000, result["total_point"]
+
+  #   assert_equal 3, result["yaku_list"].size
+  #   assert yaku_include?(result["yaku_list"],"chinitsu")
+  #   assert yaku_include?(result["yaku_list"],"junchan")
+  #   assert yaku_include?(result["yaku_list"],"ryanpeikou")
+  # end
+
+  # test "Calc Point Reache Ippatsu Haitei Tsumo Pinfu Chinitsu Junchan Ryanpeikou Dora 9" do
+  #   request = {
+  #     "tehai_list"  => "p1tp1tp2tp2tp3tp3tp7tp7tp8tp8tp9tp9tp9tp9t",
+  #     "bakaze"   => "ton",
+  #     "jikaze"   => "ton",
+  #     "honba_num"=> 0,
+  #     "dora_num" => 9,
+  #     "is_tsumo" => true,
+  #     "is_parent"=> true,
+  #     "reach_num"=> 1,
+  #     "is_haitei"=> true,
+  #     "is_ippatsu"=> true
+  #   }
+  #   assert_difference('Agari.count') do
+  #     post :calc_point, :agari => request, :format => 'json'
+  #   end
+  #   result = ActiveSupport::JSON.decode(@response.body)["agari"]
+
+  #   assert_equal 200, result["status_code"]
+  #   assert_equal false, result["is_furo"]
+  #   assert_equal 8, result["mangan_scale"]
+  #   assert_equal 20, result["total_fu_num"]
+  #   assert_equal 26, result["total_han_num"]
+  #   assert_equal 32000, result["child_point"]
+  #   assert_equal 0, result["parent_point"]
+  #   assert_equal 0, result["ron_point"]
+  #   assert_equal 96000, result["total_point"]
+
+  #   assert_equal 17, result["yaku_list"].size
+  #   assert yaku_include?(result["yaku_list"],"reache")
+  #   assert yaku_include?(result["yaku_list"],"ippatsu")
+  #   assert yaku_include?(result["yaku_list"],"haitei")
+  #   assert yaku_include?(result["yaku_list"],"tsumo")
+  #   assert yaku_include?(result["yaku_list"],"pinfu")
+  #   assert yaku_include?(result["yaku_list"],"chinitsu")
+  #   assert yaku_include?(result["yaku_list"],"junchan")
+  #   assert yaku_include?(result["yaku_list"],"ryanpeikou")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  #   assert yaku_include?(result["yaku_list"],"dora")
+  # end
+
+  # test "CalcPoint Kokushi" do
+  #   request = {
+  #     "tehai_list"  => "p1tp9tm1tm9ts1ts9tj1tj2tj3tj4tj5tj6tj7tj7t",
+  #     "bakaze"   => "ton",
+  #     "jikaze"   => "ton",
+  #     "honba_num"=> 0,
+  #     "dora_num" => 0,
+  #     "is_tsumo" => false,
+  #     "is_parent"=> true,
+  #     "reach_num"=> 0
+  #   }
+  #   assert_difference('Agari.count') do
+  #     post :calc_point, :agari => request, :format => 'json'
+  #   end
+  #   result = ActiveSupport::JSON.decode(@response.body)["agari"]
+
+  #   assert_equal 200, result["status_code"]
+  #   assert_equal false, result["is_furo"]
+  #   assert_equal 4, result["mangan_scale"]
+  #   assert_equal 30, result["total_fu_num"]
+  #   assert_equal 13, result["total_han_num"]
+  #   assert_equal 0, result["child_point"]
+  #   assert_equal 0, result["parent_point"]
+  #   assert_equal 48000, result["ron_point"]
+  #   assert_equal 48000, result["total_point"]
+
+  #   assert_equal 1, result["yaku_list"].size
+  #   assert yaku_include?(result["yaku_list"],"kokushi")
+  # end
+
+  # test "CalcPoint Tasushi" do
+  #   request = {
+  #     "tehai_list"  => "j1tj1tj1tj2tj2tj2tj3tj3tj3tj4tj4tj4tp1tp1t",
+  #     "bakaze"   => "ton",
+  #     "jikaze"   => "ton",
+  #     "honba_num"=> 0,
+  #     "dora_num" => 0,
+  #     "is_tsumo" => false,
+  #     "is_parent"=> true,
+  #     "reach_num"=> 0
+  #   }
+  #   assert_difference('Agari.count') do
+  #     post :calc_point, :agari => request, :format => 'json'
+  #   end
+  #   result = ActiveSupport::JSON.decode(@response.body)["agari"]
+
+  #   assert_equal 200, result["status_code"]
+  #   assert_equal false, result["is_furo"]
+  #   assert_equal 4, result["mangan_scale"]
+  #   #assert_equal 30, result["total_fu_num"]
+  #   assert_equal 13, result["total_han_num"]
+  #   assert_equal 0, result["child_point"]
+  #   assert_equal 0, result["parent_point"]
+  #   assert_equal 48000, result["ron_point"]
+  #   assert_equal 48000, result["total_point"]
+
+  #   assert_equal 1, result["yaku_list"].size
+  #   assert yaku_include?(result["yaku_list"],"tasushi")
+  # end
 end
