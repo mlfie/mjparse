@@ -2,6 +2,7 @@ require 'mlfielib/cv/template_matching_analyzer'
 require 'mlfielib/analysis/yaku_specimen'
 require 'mlfielib/analysis/kyoku'
 require 'mlfielib/analysis/teyaku_decider'
+require 'mlfielib/web/tsumotter'
 
 class Agari < ActiveRecord::Base
   include Mlfielib::Analysis
@@ -41,6 +42,16 @@ class Agari < ActiveRecord::Base
         logger.debug("decider failed")
     end
     return true
+  end
+  
+  def web_commit
+    if self.status_code == STATUS_SUCCESS then
+      tsumotter = Mlfielib::Web::Tsumotter.new
+      kanji_list = self.yaku_list.map do |yaku|
+        yaku.name_kanji
+      end
+      tsumotter.update(kanji_list.join(",") + " " + self.total_point.to_s + "点")
+    end
   end
 
   def set_teyaku_result(teyaku_decider)

@@ -51,6 +51,7 @@ class AgarisController < ApplicationController
 
     @agari.img_analysis
     @agari.teyaku_analysis
+    @agari.web_commit
 
     respond_to do |format|
       if @agari.save
