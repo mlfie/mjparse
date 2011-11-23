@@ -5,6 +5,9 @@ var PAI_DIRECTION_LEFT="l";
 var PAI_DIRECTION_RIGHT="r";
 var PAI_DIRECTION_BOTTOM="b";
 
+var PAI_WIDTH = 23 * 1.3;
+var PAI_HEIGHT = 32 * 1.3;
+
 var Pai = function(type,direction){
 
     this.type = type; //牌の種類　"p1" "j2"といった文字列
@@ -29,6 +32,15 @@ var Pai = function(type,direction){
                 $(this).css("border-color","#ffffff");
             }
         );
+
+    if(this.direction == PAI_DIRECTION_BOTTOM ||
+       this.direction == PAI_DIRECTION_TOP ){
+           this.jq.attr('width',PAI_WIDTH);   
+           this.jq.attr('height',PAI_HEIGHT);   
+       }else{
+           this.jq.attr('width',PAI_HEIGHT);   
+           this.jq.attr('height',PAI_WIDTH);   
+       }
 
     this.imgJq = function(){
         return this.jq;

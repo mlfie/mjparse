@@ -90,7 +90,7 @@ var Point = function(agari){
             return html;
 
         }else if(this.agari.status_code == 500){
-            return "<b>サーバーエラー(500)</b><br>画像解析に失敗した可能性があります。写真を変えるか、解析結果を訂正して再度得点計算してください。";
+            return "<b>サーバーエラー(500)</b><br>正しく得点計算できませんでした。";
         }else if(this.agari.status_code == 400){
             return "<b>クライアントエラー(400)</b>開発者に問い合わせてください<br>";
         }else{
