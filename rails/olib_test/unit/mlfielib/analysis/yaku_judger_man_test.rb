@@ -64,7 +64,26 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver = Mlfielib::Analysis::MentsuResolver.new
   end
   
+  def test_tsuiso
+    # 東東東西西西白白白発発発中中 --> true
+    pai_items = "j1tj1tj1tj3tj3tj3tj5tj5tj5tj6tj6tj6tj7tj7t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.tsuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 国士無双 --> false
+    pai_items = "m1tm9tp1tp9ts1ts9tj1tj2tj3tj4tj5tj6tj7tm1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.tsuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   
+  end
 #  def test_mentsure
 #    pai_items = "m3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2tj7rj7tj7t"    
 #    @resolver.get_mentsu(pai_items)

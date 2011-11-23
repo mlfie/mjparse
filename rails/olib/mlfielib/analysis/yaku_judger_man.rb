@@ -291,11 +291,13 @@ module Mlfielib
 	  
 	  # 字一色	  
       def tsuiso?(tehai, agari)
-        tehai.mentsu_list.each do | mentsu |
-          if mentsu.pai_list[0].type != "j"
-            return false
-		      end
+        tehai.mentsu_list.each do |mentsu|
+          mentsu.pai_list.each do |pai|
+            if pai.type != Pai::PAI_TYPE_JIHAI
+              return false
 		    end
+		  end
+		end   
         return true
       end
 	  
