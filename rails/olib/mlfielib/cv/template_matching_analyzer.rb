@@ -27,7 +27,11 @@ module Mlfielib
         #pais_candidate << tmc.classify(path, 0.85)
         pais_candidate << tmc.classify(path, 0.8)
         #pais_candidate << tmc.classify(path, 0.75)
-        pais = pais_candidate.max_by{|p| siz = p.select{|a| a.direction == :top}.size}
+        pais = pais_candidate.max_by{|p| 
+          selected = p.select{|a| a.direction == :top}.map{|e| e.value}
+          s = selected.inject(0) {|sum, val| sum + val}
+          s * 1.0 / selected.size
+        }
   
         debug path, pais if @debug
   
