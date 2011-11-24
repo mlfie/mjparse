@@ -82,6 +82,15 @@ class YakuJudgerManTest < Test::Unit::TestCase
       assert_equal false, @judger.tsuiso?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+    
+    # 国士無双2 --> false
+    pai_items = "p1tm1tj6tm9tj1ts1ts9tj2tj3tj4tp9tj5tp1tj7t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.tsuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   
   end
 #  def test_mentsure
