@@ -17,13 +17,15 @@ class TemplateMatchingAnalyzerTest < Test::Unit::TestCase
     #for debug mode, uncomment below
     #@@mode = :debug
     @tma = Mlfielib::CV::TemplateMatchingAnalyzer.new
+    #$__debug_window ||= GUI::Window.new "debug"
   end
 
   def test_analyze
     #path = "olib_test/unit/mlfielib/cv/test_img/59.jpg"
-    #path = "olib_test/unit/mlfielib/cv/test_img/73.jpg"
+    #path = "olib_test/unit/mlfielib/cv/test_img/92.jpg"
     path = "olib_test/unit/mlfielib/cv/test_img/test004.jpg"
     expects = %w[m3 m3 m3 j6 j6 j6 j2 j2 p3 p5 m7 m8 m9 p4]
+    $__test_img = IplImage.load(path, CV_LOAD_IMAGE_COLOR)
 
     pais = @tma.analyze_raw(path)
     debug {

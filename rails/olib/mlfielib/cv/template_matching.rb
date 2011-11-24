@@ -52,6 +52,8 @@ module Mlfielib
             debug {
               puts "#{pai.type}, #{pai.x}, #{pai.y}, #{pai.value}, #{pai.direction}"
               @target_img_clone.rectangle!(CvPoint.new(pai.left, pai.top), CvPoint.new(pai.right,pai.bottom), :color=>CvColor::Red, :thickness => 3)
+              @target_img_clone.rectangle!(CvPoint.new(pai.left, pai.top),
+                                           CvPoint.new(pai.left + 3,pai.top + 3), :color=>CvColor::White, :thickness => -1)
               $__debug_window.show @target_img_clone
               GUI::wait_key
             }

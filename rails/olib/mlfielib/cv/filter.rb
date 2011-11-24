@@ -18,7 +18,9 @@ module Mlfielib
       end
   
       def nearby_line?(pai, ori, vec)
-        pai.distance_from_line(ori, vec) < pai.height * 0.5
+        #pai.distance_from_line(ori, vec) < pai.height * 0.5
+        #TODO fix it!
+        pai.distance_from_line(ori, vec) < 28
       end
   
       def create_origin(intercept)
