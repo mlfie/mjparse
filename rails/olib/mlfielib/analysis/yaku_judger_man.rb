@@ -297,22 +297,24 @@ module Mlfielib
               return false
 		    end
 		  end
-		end   
+		end
+		 
         return true
       end
 	  
 	  # 清老頭
       def chinraoto?(tehai, agari)
-        tehai.mentsu_list.each do | mentsu |
-          if mentsu.pai_list[0].type != "j"
-            if mentsu.mentsu_type != "k" && mentsu.mentsu_type != "t"
-              return false
-            elsif mentsu.pai_list[0].type != "1" || mentsu.pai_list[0].type != "9"
-              return false
-			end
-	      end
-	    end
-		return true	  
+        return false
+#        tehai.mentsu_list.each do | mentsu |
+#          if mentsu.pai_list[0].type != "j"
+#            if mentsu.mentsu_type != "k" && mentsu.mentsu_type != "t"
+#              return false
+#            elsif mentsu.pai_list[0].type != "1" || mentsu.pai_list[0].type != "9"
+#              return false
+#			end
+#	      end
+#	    end
+#		return true	  
 	  end
 	  
 	  # 緑一色
