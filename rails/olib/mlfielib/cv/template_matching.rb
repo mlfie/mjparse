@@ -20,6 +20,7 @@ module Mlfielib
           @symmetric = params[:symmetric].nil? ? true : params[:symmetric]
           @threshold = params[:threshold] || 0.6
           @images = params[:image_paths].map {|path| CvMat.load(path, CV_LOAD_IMAGE_GRAYSCALE)}
+#          @debug = true
         end
 
         def detect(target_img, scale=1.0)
@@ -27,7 +28,7 @@ module Mlfielib
           @images.each do |img|
             scaled_img = img.resize(CvSize.new(img.cols * scale, img.rows * scale), :linear)
             detected_pais.concat(match_template(target_img, scaled_img))
-            detected_pais.concat(match_template(target_img.flip(:xy), scaled_img)) unless symmetric?
+            detected_pais.concat(match_template(target_img, scaled_img.flip(:xy))) unless symmetric?
           end
           return detected_pais
         end
