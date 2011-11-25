@@ -83,7 +83,7 @@ module Mlfielib
           [CV::PaiEnum.type_e::S7, :right, false, nil, ["#{DIRPATH}/s7.r.jpg"]],
           [CV::PaiEnum.type_e::S8, :right, true, nil,  ["#{DIRPATH}/s8.r.jpg"]],
           [CV::PaiEnum.type_e::S9, :right, true, nil,  ["#{DIRPATH}/s9.r.jpg"]],
-          [CV::PaiEnum.type_e::R0, :top, true, nil,    ["#{DIRPATH}/r0.t.jpg"]]
+          [CV::PaiEnum.type_e::R0, :top, true, nil,    ["#{DIRPATH}/r0.t.jpg", "#{DIRPATH}/r0.2.jpg"]]
         ]
 
       def initialize()
