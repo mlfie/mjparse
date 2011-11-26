@@ -327,7 +327,7 @@ module Mlfielib
 	  # 清老頭
       def chinraoto?(tehai, agari)
         tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type.koutsu? || mentsu.mentsu_type.kantsu? then
+          if mentsu.koutsu? || mentsu.kantsu? then
             if mentsu.pai_list[0].jihai? then
               return false
             elsif mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9 then
