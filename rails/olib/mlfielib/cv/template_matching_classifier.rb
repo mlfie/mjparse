@@ -83,7 +83,7 @@ module Mlfielib
           [CV::PaiEnum.type_e::S7, :right, false, nil, ["#{DIRPATH}/s7.r.jpg"]],
           [CV::PaiEnum.type_e::S8, :right, true, nil,  ["#{DIRPATH}/s8.r.jpg"]],
           [CV::PaiEnum.type_e::S9, :right, true, nil,  ["#{DIRPATH}/s9.r.jpg"]],
-          [CV::PaiEnum.type_e::R0, :top, true, nil,    ["#{DIRPATH}/r0.t.jpg", "#{DIRPATH}/r0.2.jpg"]]
+          [CV::PaiEnum.type_e::R0, :top, true, nil,    ["#{DIRPATH}/r0.t.jpg"]]
         ]
 
       def initialize()
@@ -107,10 +107,11 @@ module Mlfielib
         def r0_matcher.detect(target_img, scale)
           pais = org_detect(target_img, scale)
 
-          pais.select do |pai|
+          selected_pais = pais.select {|pai|
             pai_area = target_img.sub_rect(CvRect.new(pai.left, pai.top, pai.width, pai.height))
             pai_area.avg[0] < 230
-          end
+          }
+          selected_pais.sort{|a,b| b.value <=> a.value }[0..7]
         end
       end
       
