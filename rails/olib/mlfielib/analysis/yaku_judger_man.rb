@@ -178,9 +178,10 @@ module Mlfielib
       # 四暗刻
       def suankou?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
-          if mentsu.mentsu_type != 'k' 
+          if !( mentsu.koutsu? || mentsu.kantsu? ) then
             return false
-          elsif !(mentsu.furo)
+          end
+          if mentsu.furo then
             return false	  
           end
         end
@@ -194,18 +195,18 @@ module Mlfielib
         has_hatsu = false
       
         tehai.mentsu_list.each do |mentsu|
-          if mentsu.mentsu_type == 'k'
-            if mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 5
+          if mentsu.koutsu? || mentsu.kantsu? then
+            if mentsu.pai_list[0].haku? then
               has_haku = true
-            elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 6
+            elsif mentsu.pai_list[0].chun? then
               has_chun = true
-            elsif mentsu.pai_list[0].type == 'j' && mentsu.pai_list[0].number == 7
+            elsif mentsu.pai_list[0].hatsu? then
               has_hatsu = true
             end
           end
         end
           
-		    if has_haku && has_chun && has_hatsu
+		    if has_haku && has_chun && has_hatsu then
           return true
         end
         return false
@@ -213,16 +214,15 @@ module Mlfielib
       
       # 四槓子
       def sukantsu?(tehai, agari)
-        count = 0
+        if tehai.mentsu_list.size != 4 then 
+          return false
+        end
         tehai.mentsu_list.each do | mentsu|
-          if mentsu.mentsu_type == "4"
-		        count += 1
+          if !mentsu.kantsu? then
+		        return false
 		      end
         end
-		    if count > 3
-		      return true
-		    end
-        return false
+        return true
       end
 	  
 	  # 天和
@@ -230,7 +230,7 @@ module Mlfielib
         if agari.is_tenho
           return true
         end
-		  return false
+		    return false
       end
 	  
 	  # 地和
@@ -238,54 +238,74 @@ module Mlfielib
         if agari.is_chiho
           return true
         end
-		  return false
+		    return false
       end	   
 	  
 	  # 大四喜
       def tasushi?(tehai, agari)
-        tehai.mentsu_list.each do | mentsu|
-          if mentsu.mentsu_type == "k" && mentsu.pai_list[0].type == "j" && mentsu.pai_list[0].number == "1"
-            tehai.mentsu_list.each do | mentsu2|
-              if mentsu2.mentsu_type == "k" && mentsu2.pai_list[0].type == "j" && mentsu2.pai_list[0].number == "2"
-                tehai.mentsu_list.each do | mentsu3|
-                  if mentsu3.mentsu_type == "k" && mentsu3.pai_list[0].type == "j" && mentsu3.pai_list[0].number == "3"
-                    tehai.mentsu_list.each do | mentsu4|
-                      if mentsu4.mentsu_type == "k" && mentsu4.pai_list[0].type == "j" && mentsu4.pai_list[0].number == "4"
-                        return true
-                      end
-                    end
-				          end	
-                end
-              end
+        ton_flg = false
+        nan_flg = false
+        sha_flg = false
+        pei_flg = false
+        
+        tehai.mentsu_list.each do | mentsu |
+          if mentsu.koutsu? || mentsu.kantsu? then
+            if mentsu.pai_list[0].ton? then
+              ton_flg = true
+            elsif mentsu.pai_list[0].nan? then
+              nan_flg = true
+            elsif mentsu.pai_list[0].sha? then
+              sha_flg = true
+            elsif mentsu.pai_list[0].pei? then
+              pei_flg = true
             end
           end
-        end  
-		    return false
+        end
+
+        if ton_flg && nan_flg && sha_flg && pei_flg then
+          return true
+        end
+        return false
       end	  
 	  
 	  # 小四喜
       def shosushi?(tehai, agari)
+        ton_flg = false
+        nan_flg = false
+        sha_flg = false
+        pei_flg = false
+        
         tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type != "t" && mentsu.pai_list[0].type != "j" 
-            tehai.mentsu_list.each do | mentsu2 |		  
-              if mentsu2.pai_list[0].type == "j" && mentsu2.pai_list[0].number == "1"
-                tehai.mentsu_list.each do | mentsu3 |
-                  if mentsu3.pai_list[0].type == "j" && mentsu3.pai_list[0].number == "2"
-                    tehai.mentsu_list.each do | mentsu4 |
-                      if mentsu4.pai_list[0].type == "j" && mentsu4.pai_list[0].number == "3"
-                        tehai.mentsu_list.each do | mentsu5 |
-                          if mentsu5.pai_list[0].type == "j" && mentsu5.pai_list[0].number == "4"
-                            return true
-                          end
-                        end
-                      end
-                    end	
-                  end
-                end
-              end
+          if mentsu.koutsu? || mentsu.kantsu? then
+            if mentsu.pai_list[0].ton? then
+              ton_flg = true
+            elsif mentsu.pai_list[0].nan? then
+              nan_flg = true
+            elsif mentsu.pai_list[0].sha? then
+              sha_flg = true
+            elsif mentsu.pai_list[0].pei? then
+              pei_flg = true
             end
-          end  
-        end 
+          end
+        end
+        
+        if ton_flg && nan_flg && sha_flg && pei_flg then
+          return false
+        end
+        
+        if tehai.atama.ton? then
+          ton_flg = true
+        elsif tehai.atama.nan? then
+          nan_flg = true
+        elsif tehai.atama.sha? then
+          sha_flg = true
+        elsif tehai.atama.pei? then
+          pei_flg = true
+        end
+        
+        if ton_flg && nan_flg && sha_flg && pei_flg then
+          return true
+        end
         return false
       end		  
 	  
@@ -293,29 +313,33 @@ module Mlfielib
       def tsuiso?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           mentsu.pai_list.each do |pai|
-            if pai.type != Pai::PAI_TYPE_JIHAI
+            if pai.jihai? then
               return false
+            end
+          end
 		    end
-		  end
-		end
-		 
+        if !tehai.atama.jihai? then
+          return false
+        end
         return true
       end
 	  
 	  # 清老頭
       def chinraoto?(tehai, agari)
-        return false
-#        tehai.mentsu_list.each do | mentsu |
-#          if mentsu.pai_list[0].type != "j"
-#            if mentsu.mentsu_type != "k" && mentsu.mentsu_type != "t"
-#              return false
-#            elsif mentsu.pai_list[0].type != "1" || mentsu.pai_list[0].type != "9"
-#              return false
-#			end
-#	      end
-#	    end
-#		return true	  
-	  end
+        tehai.mentsu_list.each do | mentsu |
+          if mentsu.mentsu_type.koutsu? || mentsu.mentsu_type.kantsu? then
+            if mentsu.pai_list[0].jihai? then
+              return false
+            elsif mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9 then
+              return false
+            end
+          end
+        end
+        if tehai.atama.jihai? || tehai.atama.number != 1 || tehai.atama.number != 9 then
+          return false
+        end
+        return true
+	    end
 	  
 	  # 緑一色
       def ryuiso?(tehai, agari); return false; end 
