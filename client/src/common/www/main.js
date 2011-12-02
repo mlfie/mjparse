@@ -1,8 +1,6 @@
 /** 
  * 定数
  */
-PAI_TYPE_LIST = ["m1","m2","m3","m4","m5","m6","m7","m8","m9","p1","p2","p3","p4","p5","p6","p7","p8","p9","s1","s2","s3","s4","s5","s6","s7","s8","s9","j1","j2","j3","j4","j5","j6","j7","r0","z0"];
-
 //得点計算リクエスト送信先URL
 var MJT_AGARI_URL= MJT_FQDN + "/agaris.json";
 
@@ -18,7 +16,6 @@ var MJT_PHOTO_URL = MJT_FQDN + "/photos.json";
 var pictureSource;// 写真ソース
 var destinationType;// 戻り値のフォーマット
 var photoListDlFlag=false;//サーバから写真をダウンロードしたかどうか
-var changeTargetPaiIndex = -1;//変更対象の牌のindex
 
 var resData = null;//Ajaxレスポンスデータ
 
@@ -75,14 +72,12 @@ function ajaxRuncher(requestName,type,url,json,func) {
  * DOMロード完了
  */
 $(document).ready(function(){
-    photo = new Photo();
-    state = new State();
-    msg = new Msg();
-    //アガリ状況初期化
-    state.clearData();
-    state.updateDisplay();
-    //解析結果修正画面は最初に生成しておく
-    makeSelectPanel();
+                      photo = new Photo();
+                      state = new State();
+                      msg = new Msg();
+                      //アガリ状況初期化
+                      state.clearData();
+                      state.updateDisplay();
 });
 
 /**
@@ -98,67 +93,6 @@ function onLoad() {
 function onDeviceReady() {
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
-}
-
-/**
- * 画像解析結果　訂正用画面作成
- */
-function makeSelectPanel(paiImgJq) {
-
-    var jq = $("<div/>")
-    .attr("align","center")
-    .attr("id","div_selectpanel")
-    .attr("class",'ui-loader  ui-overlay-shadow ui-body-b ui-corner-all')
-    .css({
-        display: "block",
-        opacity: 0.9,
-        width: 270,
-        padding: 0,
-        top: window.pageYOffset+300
-    });
-    jq.append("<h1>牌の向きを変更</h1>");
-    jq.append($("<button/>")
-              .html("タテ")
-              .click(function(){
-                  tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_TOP);
-                  jq.hide();
-              }
-                    )
-             );
-    jq.append($("<button/>")
-              .html("ヨコ")
-              .click(function(){
-                  tehai.changeDirection(changeTargetPaiIndex,PAI_DIRECTION_LEFT);
-                  jq.hide();
-              }
-                    )
-             );
-    jq.append("<h1>牌の種類を変更</h1>");
-    $.each(PAI_TYPE_LIST,function(){
-        var imgJq = new Pai(this,PAI_DIRECTION_TOP)
-        .imgJq()
-        .click(
-            function(){
-                //牌選択時
-                dbgmsg("makeSelectPanel","selected pai=" + $(this).attr("type"));
-                //外部変数changeTargetPaiIndexに変更対象の牌が入っているので
-                //それを元に手配の牌を交換する
-                tehai.changePai(changeTargetPaiIndex,$(this).attr("type"));
-                jq.hide();
-            });
-
-        jq.append(imgJq);
-    });
-    jq.append("<br>");
-    jq.append($("<p/>").html($("<button/>")
-                             .html("キャンセル")
-                             .click(function(){
-                                        jq.hide();
-                                    }
-                                   )
-                            ));
-    
-    jq.appendTo("body").hide();
 }
 
 
