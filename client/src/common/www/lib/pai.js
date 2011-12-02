@@ -38,7 +38,9 @@ var Pai = function(type,direction){
     this.changeType = function(type){
         dbgmsg("Pai.changeType",type);
         this.type=type;
-        this.jq.attr('src',this.imgUrl());
+        this.jq
+            .attr('type',this.type)
+            .attr('src',this.imgUrl());
     };
 
     this.changeDirection = function(direction){
@@ -52,7 +54,9 @@ var Pai = function(type,direction){
                this.jq.attr('width',PAI_HEIGHT);   
                this.jq.attr('height',PAI_WIDTH);   
            }
-        this.jq.attr('src',this.imgUrl());
+        this.jq
+            .attr('direction',this.direction)
+            .attr('src',this.imgUrl());
     };
 
     this.isEmpty = function(){
