@@ -62,7 +62,7 @@ Tehai.updateView = function(){
         Tehai.chJq.append(
             $("<span/>").css("float","left").html(
                 $("<table/>")
-                    .append($("<tr/>").append($("<td/>").css("height",Pai.HEIGHT * Tehai.PAI_ZOOM + 5).html(pai)))
+                    .append($("<tr/>").append($("<td/>").css("height",Pai.HEIGHT * Tehai.PAI_ZOOM + 7).html(pai)))
                     .append($("<tr/>").append($("<td/>").html(arrow))
                 )
             )
