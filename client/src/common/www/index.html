@@ -77,7 +77,10 @@
           ダミー写真
         </a>
         <a data-role="button" onclick="btnCalcPointDummy();">
-          得点計算ダミー
+          ダミー得点計算
+        </a>
+        <a data-role="button" onclick="btnResultDummy();">
+          ダミー結果画面
         </a>
       </div>
 
@@ -191,12 +194,31 @@
           <div class="mjt-body">
             <img id="img_result_photo" width="130" src="img/nophoto.jpg" alt=""/>
             <div id="div_analized_img"></div>
-            <p>訂正する場合は牌をタッチ</p>
+            <a data-role="button" href="#fixtehai">牌を訂正</a>
           </div>
 
           <a data-role="button" onclick="btnRetryCalcPoint()" data-theme="e">訂正後の手牌で得点計算</a>
           <a data-role="button" data-rel="back">戻る</a>
         </center>
+      </div>
+
+      <div data-role="footer">
+        <a data-role="button" href="#debug">debug</a>
+      </div>
+    </div>
+
+
+
+    <!--得点計算結果画面-->
+    <div data-role="page" id="fixtehai" data-theme="c">
+
+      <div data-role="header">
+        <h1>解析結果訂正</h1>
+        <a data-role="button" data-rel="back">戻る</a>
+      </div>
+
+      <div data-role="content">
+        <div id="div_fixtehai"></div>
       </div>
 
       <div data-role="footer">

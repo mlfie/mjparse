@@ -19,7 +19,6 @@ var photoListDlFlag=false;//サーバから写真をダウンロードしたか�
 
 var resData = null;//Ajaxレスポンスデータ
 
-var tehai = null;
 var point = null;
 var state = null;
 var photo = null;
@@ -294,6 +293,7 @@ function sendCalcData(){
                 MJT_AGARI_URL,
                 json,
                 function (data){
+
                     //data格納
                     resData = data;
                     
@@ -302,8 +302,8 @@ function sendCalcData(){
                     $("#div_point").html(point.toHtml());
                     
                     //画像解析結果表示
-                    tehai = new Tehai(data.agari.tehai_list);
-                    $("#div_analized_img").html(tehai.toJq());
+                    Tehai.setTehaiList(data.agari.tehai_list);
+                    $("#div_analized_img").html(Tehai.jq);
                     
                     //画面遷移
                     $.mobile.changePage('#result');
@@ -325,7 +325,7 @@ function btnRetryCalcPoint(){
     //オブジェクトにimg_url,idおよび修正したtehai_listを追加
     obj["agari"]["img_url"] = photo.getUrl();
     obj["agari"]["id"] = resData.agari.id;
-    obj["agari"]["tehai_list"] = tehai.toString();
+    obj["agari"]["tehai_list"] = Tehai.toString();
     //JSONに変換 「"」を除く
     var json = toJSON(obj);
     
@@ -402,4 +402,16 @@ function btnCalcPointDummy(){
 
     btnCalcPoint();
 
+}
+
+function btnResultDummy(){
+    
+    //画像解析結果表示
+    Tehai.setTehaiList("s1rs2bs3lj1tj1lm2rm3bm4tm5tm6tm7tp1tp1tp1t");
+    $("#div_analized_img").html(Tehai.jq);
+    $("#div_fixtehai").html(Tehai.chJq);
+    
+    //画面遷移
+    $.mobile.changePage('#result');
+    
 }
