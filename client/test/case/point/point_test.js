@@ -2,6 +2,8 @@ String.prototype.contain = function(reg){
     return this.match(reg) != null;
 };
 
+
+
 var agari = null;
 var html = "";
 
@@ -41,32 +43,32 @@ function doTest(){
 
 function testDefault() {
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/30符2飜.*1000点オール/i));
-    assertTrue(html.contain(/ツモ/i));
+    assertInclude(html,/30符2飜.*1000点オール/i);
+    assertInclude(html,/ツモ/i);
 }
 
 function testStatus400() {
     agari["status_code"]=400;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/クライアントエラー/i));
+    assertInclude(html,/クライアントエラー/i);
 }
 
 function testStatus500() {
     agari["status_code"]=500;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/サーバーエラー/i));
+    assertInclude(html,/サーバーエラー/i);
 }
 
 function testStatusNull() {
     agari["status_code"]="";
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/Unknown Status Code/i));
+    assertInclude(html,/Unknown Status Code/i);
 }
 
 function testYaku0() {
     agari["yaku_list"]=[];
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/役無しです/i));
+    assertInclude(html,/役無しです/i);
 }
 
 function testDora1() {
@@ -81,7 +83,7 @@ function testDora1() {
     ];
     
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/ドラ1\<\/td\>\<td\>1飜/i));
+    assertInclude(html,/ドラ1\<\/td\>\<td\>1飜/i);
 }
 
 function testDora3() {
@@ -111,7 +113,7 @@ function testDora3() {
             }
         ];
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/ドラ3\<\/td\>\<td\>3飜/i));
+    assertInclude(html,/ドラ3\<\/td\>\<td\>3飜/i);
 }
 
 function testDora1andYaku1() {
@@ -133,8 +135,8 @@ function testDora1andYaku1() {
             }
         ];
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/ドラ1\<\/td\>\<td\>1飜/i));
-    assertTrue(html.contain(/一盃口\<\/td\>\<td\>1飜/i));
+    assertInclude(html,/ドラ1\<\/td\>\<td\>1飜/i);
+    assertInclude(html,/一盃口\<\/td\>\<td\>1飜/i);
 }
 
 function testDora1Yaku2() {
@@ -164,37 +166,37 @@ function testDora1Yaku2() {
             }
         ];
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/ドラ1\<\/td\>\<td\>1飜/i));
-    assertTrue(html.contain(/一盃口\<\/td\>\<td\>1飜/i));
-    assertTrue(html.contain(/混一色\<\/td\>\<td\>3飜/i));
+    assertInclude(html,/ドラ1\<\/td\>\<td\>1飜/i);
+    assertInclude(html,/一盃口\<\/td\>\<td\>1飜/i);
+    assertInclude(html,/混一色\<\/td\>\<td\>3飜/i);
 }
 
 function testParentTsumo() {
     agari["is_parent"]=true;
     agari["is_tsumo"]=true;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/1000点オール/i));
+    assertInclude(html,/1000点オール/i);
 }
 
 function testChildTsumo() {
     agari["is_parent"]=false;
     agari["is_tsumo"]=true;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/子1000点\/親2000点/i));
+    assertInclude(html,/子1000点\/親2000点/i);
 }
 
 function testParentRon() {
     agari["is_parent"]=true;
     agari["is_tsumo"]=false;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/4000点/i));
+    assertInclude(html,/4000点/i);
 }
 
 function testChildRon() {
     agari["is_parent"]=false;
     agari["is_tsumo"]=false;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/4000点/i));
+    assertInclude(html,/4000点/i);
 }
 
 function testFuro() {
@@ -223,44 +225,44 @@ function testFuro() {
             }
     ];
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/混一色\<\/td\>\<td\>2飜/i));
-    assertFalse(html.contain(/一盃口/i));
-    assertTrue(html.contain(/ドラ1\<\/td\>\<td\>1飜/i));
+    assertInclude(html,/混一色\<\/td\>\<td\>2飜/i);
+    assertNotInclude(html,/一盃口/i);
+    assertInclude(html,/ドラ1\<\/td\>\<td\>1飜/i);
 }
 
 
 function testMangan0() {
     agari["mangan_scale"]=0;
     html =  new Point(agari).toHtml();
-    assertFalse(html.contain(/満貫/i));
+    assertNotInclude(html,/満貫/i);
 }
 
 function testMangan1() {
     agari["mangan_scale"]=1;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/満貫/i));
+    assertInclude(html,/満貫/i);
 }
 
 function testMangan15() {
     agari["mangan_scale"]=1.5;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/跳満/i));
+    assertInclude(html,/跳満/i);
 }
 
 function testMangan2() {
     agari["mangan_scale"]=2;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/倍満/i));
+    assertInclude(html,/倍満/i);
 }
 
 function testMangan3() {
     agari["mangan_scale"]=3;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/三倍満/i));
+    assertInclude(html,/三倍満/i);
 }
 
 function testMangan4() {
     agari["mangan_scale"]=4;
     html =  new Point(agari).toHtml();
-    assertTrue(html.contain(/役満/i));
+    assertInclude(html,/役満/i);
 }

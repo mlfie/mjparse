@@ -1,23 +1,20 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-
   <head>
-    <meta charset="UTF-8">
-    <title>Mj-Tsumotter</title>
-    <script type="text/javascript" src="../client/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="jsunit/app/jsUnitCore.js"></script>
-
-    <script type="text/javascript" src="common.js"></script>
-
-    <script type="text/javascript" src="../client/lib/util.js"></script>
-    <script type="text/javascript" src="../client/lib/point.js"></script>
-
-    <script type="text/javascript" src="lib/point_test.js"></script>
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>MJT Test Suite</title>
+    <script language="JavaScript" type="text/javascript" src="jsunit/app/jsUnitCore.js"></script>
+    <script language="JavaScript" type="text/javascript">
+function suite() {
+    var suite = new top.jsUnitTestSuite();
+    suite.addTestPage('/client_test/case/point/');
+    suite.addTestPage('/client_test/case/util/');
+    return suite;
+}
+    </script>
   </head>
 
-  <body onLoad="doTest()">
-    <div id="content_debug"></div>
+  <body>
   </body>
 </html>
