@@ -1,7 +1,6 @@
 
 var Tehai = {
-    PAI_MAX_NUM: 18,
-    COL_NUM: 7,
+    PAI_ZOOM: 1.6,
     paiList: null,
     jq: $("<div/>"),
     chJq: $("<div/>")
@@ -40,10 +39,7 @@ Tehai.updateView = function(){
     for(i=0; i<Tehai.paiList.length + 1 ; i++){
 
         if(i<Tehai.paiList.length){
-            var pai=Tehai.paiList[i].jq()
-                .css("width",44)
-                .css("height",44)
-//                .css("-webkit-transform","scale(1.3)")
+            var pai=Tehai.paiList[i].jq(Tehai.PAI_ZOOM)
                 .click(function (index){
                            return function(){
                                Tehai.viewChangePai(index);    
@@ -51,7 +47,7 @@ Tehai.updateView = function(){
                        }(i));
             
         }else{
-            var pai=new Pai("z0","t").jq().css("width",44).css("height",44);
+            var pai=new Pai("z0","t").jq(Tehai.PAI_ZOOM);
         }
         var arrow = $("<img/>")
             .attr("src","img/insert.gif")
@@ -66,7 +62,7 @@ Tehai.updateView = function(){
         Tehai.chJq.append(
             $("<span/>").css("float","left").html(
                 $("<table/>")
-                    .append($("<tr/>").append($("<td/>").html(pai)))
+                    .append($("<tr/>").append($("<td/>").css("height",Pai.HEIGHT * Tehai.PAI_ZOOM + 5).html(pai)))
                     .append($("<tr/>").append($("<td/>").html(arrow))
                 )
             )
@@ -115,10 +111,8 @@ Tehai.viewInsertPai = function(index){
                  top: window.pageYOffset+100
              });
     jq.append("<h1>牌を選択</h1>");
-    $.each(PAI_TYPE_LIST,function(){
-               var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.6)
-                   .css("height",32 * 1.6)
+    $.each(Pai.TYPE_LIST,function(){
+               var imgJq = new Pai(this,Pai.DIRECTION_TOP).jq(Tehai.PAI_ZOOM)
                    .click(
                        function(){
                            Tehai.insertPai(index,new Pai($(this).attr("type"),"t"));
@@ -153,22 +147,20 @@ Tehai.viewChangePai = function(index){
     jq.append($("<button/>")
               .html("タテ")
               .click(function(){
-                         Tehai.paiList[index].direction=PAI_DIRECTION_TOP;
+                         Tehai.paiList[index].direction=Pai.DIRECTION_TOP;
                          Tehai.updateView();
                          jq.hide();
                      }));
     jq.append($("<button/>")
               .html("ヨコ")
               .click(function(){
-                         Tehai.paiList[index].direction=PAI_DIRECTION_LEFT;
+                         Tehai.paiList[index].direction=Pai.DIRECTION_LEFT;
                          Tehai.updateView();
                          jq.hide();
                      }));
     jq.append("<h1>牌の種類を変更</h1>");
-    $.each(PAI_TYPE_LIST,function(){
-               var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.6)
-                   .css("height",32 * 1.6)
+    $.each(Pai.TYPE_LIST,function(){
+               var imgJq = new Pai(this,Pai.DIRECTION_TOP).jq(Tehai.PAI_ZOOM)
                    .click(
                        function(){
                            Tehai.paiList[index].type = $(this).attr("type");
