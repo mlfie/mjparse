@@ -117,8 +117,8 @@ Tehai.viewInsertPai = function(index){
     jq.append("<h1>牌を選択</h1>");
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.4)
-                   .css("height",32 * 1.4)
+                   .css("width",23 * 1.6)
+                   .css("height",32 * 1.6)
                    .click(
                        function(){
                            Tehai.insertPai(index,new Pai($(this).attr("type"),"t"));
@@ -167,8 +167,8 @@ Tehai.viewChangePai = function(index){
     jq.append("<h1>牌の種類を変更</h1>");
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.4)
-                   .css("height",32 * 1.4)
+                   .css("width",23 * 1.6)
+                   .css("height",32 * 1.6)
                    .click(
                        function(){
                            Tehai.paiList[index].type = $(this).attr("type");
