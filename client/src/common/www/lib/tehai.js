@@ -41,7 +41,9 @@ Tehai.updateView = function(){
 
         if(i<Tehai.paiList.length){
             var pai=Tehai.paiList[i].jq()
-                .css("-webkit-transform","scale(1.2)")
+                .css("width",44)
+                .css("height",44)
+//                .css("-webkit-transform","scale(1.3)")
                 .click(function (index){
                            return function(){
                                Tehai.viewChangePai(index);    
@@ -49,10 +51,12 @@ Tehai.updateView = function(){
                        }(i));
             
         }else{
-            var pai=new Pai("z0","t").jq();
+            var pai=new Pai("z0","t").jq().css("width",44).css("height",44);
         }
         var arrow = $("<img/>")
             .attr("src","img/insert.gif")
+            .css("width",35)
+            .css("height",35)
             .click(function (index){
                            return function(){
                                Tehai.viewInsertPai(index);    
@@ -113,8 +117,8 @@ Tehai.viewInsertPai = function(index){
     jq.append("<h1>牌を選択</h1>");
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.2)
-                   .css("height",32 * 1.2)
+                   .css("width",23 * 1.4)
+                   .css("height",32 * 1.4)
                    .click(
                        function(){
                            Tehai.insertPai(index,new Pai($(this).attr("type"),"t"));
@@ -163,8 +167,8 @@ Tehai.viewChangePai = function(index){
     jq.append("<h1>牌の種類を変更</h1>");
     $.each(PAI_TYPE_LIST,function(){
                var imgJq = new Pai(this,PAI_DIRECTION_TOP).jq()
-                   .css("width",23 * 1.2)
-                   .css("height",32 * 1.2)
+                   .css("width",23 * 1.4)
+                   .css("height",32 * 1.4)
                    .click(
                        function(){
                            Tehai.paiList[index].type = $(this).attr("type");
