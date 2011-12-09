@@ -5,12 +5,14 @@ var Photo = function(){
     this.jqImgUrl = $("#img_url");
     this.jqTopPhoto = $("#img_top_photo");
     this.jqResultPhoto = $("#img_result_photo");
+    this.jqResultPhoto2 = $("#img_result_photo2");
     this.base64 ="";
 
     this.clear = function(){
         this.jqImgUrl.val("");
         this.jqTopPhoto.attr("src" , NO_IMAGE);
         this.jqResultPhoto.attr("src", NO_IMAGE);
+        this.jqResultPhoto2.attr("src", NO_IMAGE);
         this.base64 ="";
     };
 
@@ -19,6 +21,7 @@ var Photo = function(){
         this.jqImgUrl.val(url);
         this.jqTopPhoto.attr("src" , thumUrl);
         this.jqResultPhoto.attr("src", thumUrl);
+        this.jqResultPhoto2.attr("src", thumUrl);
     };
 
     this.setBase64Src = function(base64){
@@ -26,6 +29,7 @@ var Photo = function(){
         this.jqImgUrl.val(""); 
         this.jqTopPhoto.attr("src" , "data:image/jpeg;base64," + base64);
         this.jqResultPhoto.attr("src",  "data:image/jpeg;base64," + base64);
+        this.jqResultPhoto2.attr("src",  "data:image/jpeg;base64," + base64);
         this.base64 = base64;
     };
 

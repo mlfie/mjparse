@@ -304,6 +304,7 @@ function sendCalcData(){
                     //画像解析結果表示
                     Tehai.setTehaiList(data.agari.tehai_list);
                     $("#div_analized_img").html(Tehai.jq);
+                    $("#div_fixtehai").html(Tehai.chJq);
                     
                     //画面遷移
                     $.mobile.changePage('#result');
