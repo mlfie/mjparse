@@ -86,7 +86,7 @@ var Point = function(agari){
                 html += this.agari.ron_point + "点";
             }
 
-            dbgmsg("Point.toHtml",html);
+            Msg.debug("Point.toHtml",html);
             return html;
 
         }else if(this.agari.status_code == 500){

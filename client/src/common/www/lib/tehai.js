@@ -8,7 +8,7 @@ var Tehai = {
 
 Tehai.setTehaiList = function(tehaiListStr) {
 
-    dbgmsg("Tehai.setTehaiList" , tehaiListStr);
+    Msg.debug("Tehai.setTehaiList" , tehaiListStr);
 
     //変数初期化
     Tehai.paiList = new Array();

@@ -10,7 +10,6 @@ function strArray2Html(array){
              + this
              + "</div>";
          });
-  dbgmsg("array2Html",debugstr);
   str += "<div style='clear:left'></div>";
   return str;
 }
