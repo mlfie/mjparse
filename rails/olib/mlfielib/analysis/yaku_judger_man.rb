@@ -9,6 +9,12 @@ module Mlfielib
 
       # 国士無双
       def kokushi?(tehai, agari)
+        # メンツが特殊系かどうか
+        tehai.mentsu_list.each do |mentsu|
+          if !mentsu.tokusyu?
+            return false
+          end
+        end
         # 頭とメンツで公九牌が13種類以上あること
         count = 0
         # m1
@@ -169,6 +175,7 @@ module Mlfielib
         end
 
         if count >= 12
+          puts count
           return true
         end
                 
