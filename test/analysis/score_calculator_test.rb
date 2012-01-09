@@ -1,42 +1,34 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require 'test_helper'
-require 'mlfielib/analysis/pai'
-require 'mlfielib/analysis/mentsu'
-require 'mlfielib/analysis/tehai'
-require 'mlfielib/analysis/kyoku'
-require 'mlfielib/analysis/yaku_specimen'
-require 'mlfielib/analysis/score_calculator'
-require 'mlfielib/analysis/yaku_judger'
-require 'mlfielib/analysis/mentsu_resolver'
+require File.join(File.dirname(__FILE__), '../../lib/mjparse')
 
 class ScoreCalculatorTest < Test::Unit::TestCase
   
-  TON = Mlfielib::Analysis::Kyoku::KYOKU_KAZE_TON
-  NAN = Mlfielib::Analysis::Kyoku::KYOKU_KAZE_NAN
-  SHA = Mlfielib::Analysis::Kyoku::KYOKU_KAZE_SHA
-  PEI = Mlfielib::Analysis::Kyoku::KYOKU_KAZE_PEI
+  TON = Mjparse::Analysis::Kyoku::KYOKU_KAZE_TON
+  NAN = Mjparse::Analysis::Kyoku::KYOKU_KAZE_NAN
+  SHA = Mjparse::Analysis::Kyoku::KYOKU_KAZE_SHA
+  PEI = Mjparse::Analysis::Kyoku::KYOKU_KAZE_PEI
 
-  YAKU_NAME_REACH     = Mlfielib::Analysis::YakuSpecimen::YAKU_NAME_REACH
-  YAKU_NAME_TSUMO     = Mlfielib::Analysis::YakuSpecimen::YAKU_NAME_TSUMO
-  YAKU_NAME_PINFU     = Mlfielib::Analysis::YakuSpecimen::YAKU_NAME_PINFU
-  YAKU_NAME_DORA      = Mlfielib::Analysis::YakuSpecimen::YAKU_NAME_DORA
-  YAKU_NAME_CHITOITSU = Mlfielib::Analysis::YakuSpecimen::YAKU_NAME_CHITOITSU
+  YAKU_NAME_REACH     = Mjparse::Analysis::YakuSpecimen::YAKU_NAME_REACH
+  YAKU_NAME_TSUMO     = Mjparse::Analysis::YakuSpecimen::YAKU_NAME_TSUMO
+  YAKU_NAME_PINFU     = Mjparse::Analysis::YakuSpecimen::YAKU_NAME_PINFU
+  YAKU_NAME_DORA      = Mjparse::Analysis::YakuSpecimen::YAKU_NAME_DORA
+  YAKU_NAME_CHITOITSU = Mjparse::Analysis::YakuSpecimen::YAKU_NAME_CHITOITSU
 
-  ScoreCalculator     = Mlfielib::Analysis::ScoreCalculator
+  ScoreCalculator     = Mjparse::Analysis::ScoreCalculator
 
   def setup
     super
     yaku_specimen = Hash.new
-    # yaku_specimen[name] = Mlfielib::Analysis::YakuSpecimen.new(name, kanji, han_num, naki_han_num)
-    yaku_specimen[YAKU_NAME_REACH]      = Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
-    yaku_specimen[YAKU_NAME_TSUMO]      = Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
-    yaku_specimen[YAKU_NAME_PINFU]      = Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_PINFU, '平和', 1, 0)
-    yaku_specimen[YAKU_NAME_DORA]       = Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
-    yaku_specimen[YAKU_NAME_CHITOITSU]  = Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
-    @judger   = Mlfielib::Analysis::YakuJudger.new(yaku_specimen)
-    @resolver = Mlfielib::Analysis::MentsuResolver.new
-    @kyoku    = Mlfielib::Analysis::Kyoku.new
+    # yaku_specimen[name] = Mjparse::Analysis::YakuSpecimen.new(name, kanji, han_num, naki_han_num)
+    yaku_specimen[YAKU_NAME_REACH]      = Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
+    yaku_specimen[YAKU_NAME_TSUMO]      = Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
+    yaku_specimen[YAKU_NAME_PINFU]      = Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_PINFU, '平和', 1, 0)
+    yaku_specimen[YAKU_NAME_DORA]       = Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
+    yaku_specimen[YAKU_NAME_CHITOITSU]  = Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
+    @judger   = Mjparse::Analysis::YakuJudger.new(yaku_specimen)
+    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @kyoku    = Mjparse::Analysis::Kyoku.new
   end
   
   def teardown
@@ -80,30 +72,30 @@ class ScoreCalculatorTest < Test::Unit::TestCase
 # step2. 飜を計算する
 #*****************************************************************#
   def test_calc_han_yakunashi
-    tehai = Mlfielib::Analysis::Tehai.new(nil, nil, false)
+    tehai = Mjparse::Analysis::Tehai.new(nil, nil, false)
     tehai.yaku_list = Array.new
     han_num = ScoreCalculator.calc_han(tehai)
     assert_equal 0, han_num
   end
   
   def test_calc_han_menzen
-    tehai = Mlfielib::Analysis::Tehai.new(nil, nil, false)
+    tehai = Mjparse::Analysis::Tehai.new(nil, nil, false)
     tehai.yaku_list = Array.new
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
     han_num = ScoreCalculator.calc_han(tehai)
     assert_equal 5, han_num
   end
   
   def test_calc_han_naki
-    tehai = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai.yaku_list = Array.new
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
-    tehai.yaku_list << Mlfielib::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
+    tehai.yaku_list << Mjparse::Analysis::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
     han_num = ScoreCalculator.calc_han(tehai)
     assert_equal 2, han_num
   end
@@ -112,13 +104,13 @@ class ScoreCalculatorTest < Test::Unit::TestCase
 # step3. 満貫の倍数を計算する
 #*****************************************************************#
   def test_calc_mangan_scale_none
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num =  3
     tehai1.fu_num  = 60
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 0, scale1
     
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num =  4 
     tehai2.fu_num  = 30
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
@@ -126,19 +118,19 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   end
   
   def test_calc_mangan_scale_mangan
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num =  3
     tehai1.fu_num  = 70
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 1, scale1
 
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num =  4 
     tehai2.fu_num  = 40
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
     assert_equal 1, scale2
 
-    tehai3 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai3 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai3.han_num =  5
     tehai3.fu_num  = 30
     scale3 = ScoreCalculator.calc_mangan_scale(tehai3, @kyoku)
@@ -146,13 +138,13 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   end
   
   def test_calc_mangan_scale_haneman
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num =  6
     tehai1.fu_num  = 30
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 1.5, scale1
 
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num =  7 
     tehai2.fu_num  = 30
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
@@ -160,19 +152,19 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   end
   
   def test_calc_mangan_scale_baiman
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num =  8
     tehai1.fu_num  = 30
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 2, scale1
 
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num =  9 
     tehai2.fu_num  = 30
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
     assert_equal 2, scale2
 
-    tehai3 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai3 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai3.han_num = 10
     tehai3.fu_num  = 30
     scale3 = ScoreCalculator.calc_mangan_scale(tehai3, @kyoku)
@@ -180,13 +172,13 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   end
   
   def test_calc_mangan_scale_sanbaiman
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num = 11
     tehai1.fu_num  = 30
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 3, scale1
 
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num = 12 
     tehai2.fu_num  = 30
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
@@ -194,19 +186,19 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   end
   
   def test_calc_mangan_scale_yakuman
-    tehai1 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai1 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai1.han_num = 13
     tehai1.fu_num  = 30
     scale1 = ScoreCalculator.calc_mangan_scale(tehai1, @kyoku)
     assert_equal 4, scale1
 
-    tehai2 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai2 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai2.han_num = 14 
     tehai2.fu_num  = 30
     scale2 = ScoreCalculator.calc_mangan_scale(tehai2, @kyoku)
     assert_equal 4, scale2
 
-    tehai3 = Mlfielib::Analysis::Tehai.new(nil, nil, true)
+    tehai3 = Mjparse::Analysis::Tehai.new(nil, nil, true)
     tehai3.han_num = 26
     tehai3.fu_num  = 30
     scale3 = ScoreCalculator.calc_mangan_scale(tehai3, @kyoku)

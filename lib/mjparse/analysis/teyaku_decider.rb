@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 require 'date'
-require 'mlfielib/analysis/mentsu_resolver'
-require 'mlfielib/analysis/score_calculator'
-require 'mlfielib/analysis/yaku_judger'
+require File.join(File.dirname(__FILE__), 'mentsu_resolver')
+require File.join(File.dirname(__FILE__), 'score_calculator')
+require File.join(File.dirname(__FILE__), 'yaku_judger')
 
-module Mlfielib
+module Mjparse
   module Analysis
     # 最も高い手を判定する
     class TeyakuDecider

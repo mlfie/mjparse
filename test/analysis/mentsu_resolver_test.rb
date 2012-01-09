@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 require 'test/unit'
-require 'test_helper'
-require 'mlfielib/analysis/mentsu_resolver'
-require 'mlfielib/analysis/pai'
-require 'mlfielib/analysis/mentsu'
-require 'mlfielib/analysis/tehai'
+require File.join(File.dirname(__FILE__), '../../lib/mjparse')
 
 class MentsuResolverTest < Test::Unit::TestCase
   
   def setup
     super
-    @resolver = Mlfielib::Analysis::MentsuResolver.new
+    @resolver = Mjparse::Analysis::MentsuResolver.new
   end
   
   def teardown
@@ -44,7 +40,7 @@ class MentsuResolverTest < Test::Unit::TestCase
       end
     end
 
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_SUCCESS, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_SUCCESS, @resolver.result_code
   end
 
   # get_pai_list異常系
@@ -52,7 +48,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "a1tm2tm3tp1tp1bp1bp2tp2ts7ls8bs9tp4rp5bp6t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
   end
   
 #*****************************************************************#
@@ -74,7 +70,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  9,      mentsu.pai_list[2].number
           assert_equal  true,   mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU, mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU, mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-1-7-4-2
         elsif mentsu.pai_list[0].number == 8 then
@@ -86,14 +82,14 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[2].naki
           assert_equal  8,      mentsu.pai_list[3].number
           assert_equal  true,   mentsu.pai_list[3].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         end
       end
       assert_equal true, tehai.furo
     end
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo正常系2
@@ -112,7 +108,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  9,      mentsu.pai_list[2].number
           assert_equal  true,   mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-1-7-1
         elsif mentsu.pai_list[0].number == 8 then
@@ -122,7 +118,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  true,   mentsu.pai_list[1].naki
           assert_equal  8,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-2
         elsif mentsu.pai_list[0].number == 6 then
@@ -132,14 +128,14 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  8,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         end
       end
       assert_equal true, tehai.furo
     end
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo正常系3
@@ -160,7 +156,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[2].naki
           assert_equal  9,      mentsu.pai_list[3].number
           assert_equal  false,  mentsu.pai_list[3].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-1-7-3
         elsif mentsu.pai_list[0].number == 8 then
@@ -172,7 +168,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[2].naki
           assert_equal  8,      mentsu.pai_list[3].number
           assert_equal  true,   mentsu.pai_list[3].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step2-1
         elsif mentsu.pai_list[0].number == 7 then
@@ -184,7 +180,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[2].naki
           assert_equal  7,      mentsu.pai_list[3].number
           assert_equal  false,  mentsu.pai_list[3].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-2
         elsif mentsu.pai_list[0].number == 1 then
@@ -194,14 +190,14 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  3,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         end
       end
       assert_equal true, tehai.furo
     end
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
   
   # get_furo正常系4
@@ -220,7 +216,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  9,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-2
         elsif mentsu.pai_list[0].number == 1 then
@@ -230,7 +226,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  3,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-2
         elsif mentsu.pai_list[0].number == 4 then
@@ -240,14 +236,14 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  6,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         end
       end
       assert_equal true, tehai.furo
     end
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo正常系5
@@ -266,7 +262,7 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  9,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU,   mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         # step1-2
         elsif mentsu.pai_list[0].number == 4 then
@@ -276,14 +272,14 @@ class MentsuResolverTest < Test::Unit::TestCase
           assert_equal  false,  mentsu.pai_list[1].naki
           assert_equal  6,      mentsu.pai_list[2].number
           assert_equal  false,  mentsu.pai_list[2].naki
-          assert_equal  Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
+          assert_equal  Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU,  mentsu.mentsu_type
           assert_equal  true,   mentsu.furo
         end
       end
       assert_equal true, tehai.furo
     end
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
   
   # get_furo正常系6
@@ -298,11 +294,11 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     @resolver.tehai_list.each do |tehai|
       tehai.mentsu_list.each do |mentsu|
-        if mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo then
+        if mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo then
           pon111 = mentsu
-        elsif mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo then
+        elsif mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo then
           ankan2222 = mentsu
-        elsif mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.furo then
+        elsif mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.furo then
           chi456 = mentsu
         end
       end
@@ -321,11 +317,11 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     @resolver.tehai_list.each do |tehai|
       tehai.mentsu_list.each do |mentsu|
-        if mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo then
+        if mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo then
           pon111 = mentsu
-        elsif mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo then
+        elsif mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo then
           ankan2222 = mentsu
-        elsif mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.furo then
+        elsif mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.furo then
           chi456 = mentsu
         end
       end
@@ -361,8 +357,8 @@ class MentsuResolverTest < Test::Unit::TestCase
     assert_equal      6,      chi456.pai_list[2].number
     assert_equal      false,  chi456.pai_list[2].naki
 
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
   end
   
   # get_furo異常系1
@@ -371,7 +367,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm1ts8ts9ts9rs9ts9tm1lm2tm3tp8lp8tp8tp8t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo異常系2
@@ -380,7 +376,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm1tr0ts1tr0ts7ts8ts9ts9rs9ts9tm1lm2tm3t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo異常系3
@@ -389,7 +385,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm1ts7ts7ts7ts8ts8ts8ts9ts9ts9tp4tp5rp6t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
   # get_furo異常系4
@@ -398,7 +394,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm1ts7ts7ts7ts8ts8ts8ts9ts9ts9rp4tp5tp6t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NAKI, @resolver.result_code
   end
 
 #*****************************************************************#
@@ -415,7 +411,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     assert_equal false, tehai.furo
         
     ankan_list = tehai.mentsu_list.select { |mentsu| 
-      mentsu.mentsu_type == Mlfielib::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo
+      mentsu.mentsu_type == Mjparse::Analysis::Mentsu::MENTSU_TYPE_KANTSU && !mentsu.furo
     }
     
     assert_equal  3,  ankan_list.size
@@ -452,7 +448,7 @@ class MentsuResolverTest < Test::Unit::TestCase
       end
     end
     
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
   end
 
   # get_ankan異常系
@@ -460,7 +456,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm1ts7tr0ts7tr0ts8tr0tr0ts8tp4tp5tp6tr0ts9ts9tr0t"
     @resolver.get_mentsu(pai_items)
         
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_INTERFACE, @resolver.result_code
   end
 
 #*****************************************************************#
@@ -471,7 +467,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm2tm3tm4tm5tm6tm7tp1tp2tp3tp4tp5tp6tm7t"
     @resolver.get_mentsu(pai_items)
     
-    assert_not_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NOAGARI, @resolver.result_code
+    assert_not_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NOAGARI, @resolver.result_code
   end
 
   # get_atama_queue異常系
@@ -479,7 +475,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     pai_items = "m1tm2tm3tm4tm5tm6tm7tp1tp2tp3tp4tp5tp6tm8t"
     @resolver.get_mentsu(pai_items)
     
-    assert_equal Mlfielib::Analysis::MentsuResolver::RESULT_ERROR_NOAGARI, @resolver.result_code
+    assert_equal Mjparse::Analysis::MentsuResolver::RESULT_ERROR_NOAGARI, @resolver.result_code
   end
 
 #*****************************************************************#
@@ -511,7 +507,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     assert_not_equal nil, tehai[0]
     assert_equal false, tehai[0].furo
     tehai[0].mentsu_list.each do |mentsu|
-      assert_equal Mlfielib::Analysis::Mentsu::MENTSU_TYPE_TOITSU, mentsu.mentsu_type
+      assert_equal Mjparse::Analysis::Mentsu::MENTSU_TYPE_TOITSU, mentsu.mentsu_type
       assert_equal false, mentsu.furo
     end
     assert_equal true, tehai[0].atama.agari
@@ -536,7 +532,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     mentsu = tehai.mentsu_list[0]
     assert_equal 12, mentsu.pai_list.size
-    assert_equal Mlfielib::Analysis::Mentsu::MENTSU_TYPE_TOKUSYU, mentsu.mentsu_type
+    assert_equal Mjparse::Analysis::Mentsu::MENTSU_TYPE_TOKUSYU, mentsu.mentsu_type
   end
 
   # set_tehai_tokusyu正常系2(単騎待ちのパターン)
@@ -555,7 +551,7 @@ class MentsuResolverTest < Test::Unit::TestCase
     
     mentsu = tehai.mentsu_list[0]
     assert_equal 12, mentsu.pai_list.size
-    assert_equal Mlfielib::Analysis::Mentsu::MENTSU_TYPE_TOKUSYU, mentsu.mentsu_type
+    assert_equal Mjparse::Analysis::Mentsu::MENTSU_TYPE_TOKUSYU, mentsu.mentsu_type
   end
   
   # デバッグ用

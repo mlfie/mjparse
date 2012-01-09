@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-require 'mlfielib/analysis/pai'
-require 'mlfielib/analysis/mentsu'
-require 'mlfielib/analysis/tehai'
+require File.join(File.dirname(__FILE__), 'pai')
+require File.join(File.dirname(__FILE__), 'mentsu')
+require File.join(File.dirname(__FILE__), 'tehai')
 
-module Mlfielib
+module Mjparse
 module Analysis
   #############################
   # 手牌候補を取得するクラス       #

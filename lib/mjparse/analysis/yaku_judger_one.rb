@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'mlfielib/analysis/pai'
-require 'mlfielib/analysis/mentsu'
-require 'mlfielib/analysis/kyoku'
+require File.join(File.dirname(__FILE__), 'pai')
+require File.join(File.dirname(__FILE__), 'mentsu')
+require File.join(File.dirname(__FILE__), 'kyoku')
 
 ### 役判定（1飜）を行うクラスメソッド群
-module Mlfielib
+module Mjparse
   module Analysis
     class YakuJudger
 	

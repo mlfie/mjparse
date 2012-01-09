@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Mlfielib
+module Mjparse
 module Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト(リストの数 通常:4 七対子:6 国士無双:1 )

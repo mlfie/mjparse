@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Mlfielib
+module Mjparse
   module Analysis
     class Kyoku
       # 風牌の種類

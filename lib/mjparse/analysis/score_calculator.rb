@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-require 'mlfielib/analysis/pai'
-require 'mlfielib/analysis/mentsu'
-require 'mlfielib/analysis/tehai'
-require 'mlfielib/analysis/kyoku'
-require 'mlfielib/analysis/yaku_specimen'
+require File.join(File.dirname(__FILE__), 'pai')
+require File.join(File.dirname(__FILE__), 'mentsu')
+require File.join(File.dirname(__FILE__), 'tehai')
+require File.join(File.dirname(__FILE__), 'kyoku')
+require File.join(File.dirname(__FILE__), 'yaku_specimen')
 
-module Mlfielib
+module Mjparse
   module Analysis
     #############################
     # 得点を計算するクラス          #

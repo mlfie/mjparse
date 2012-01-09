@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-require 'mlfielib/analysis/yaku_specimen'
-load 'mlfielib/analysis/yaku_judger_one.rb'
-load 'mlfielib/analysis/yaku_judger_two.rb'
-load 'mlfielib/analysis/yaku_judger_three_six.rb'
-load 'mlfielib/analysis/yaku_judger_man.rb'
+require File.join(File.dirname(__FILE__), 'yaku_specimen')
+load File.join(File.dirname(__FILE__), 'yaku_judger_one.rb')
+load File.join(File.dirname(__FILE__), 'yaku_judger_two.rb')
+load File.join(File.dirname(__FILE__), 'yaku_judger_three_six.rb')
+load File.join(File.dirname(__FILE__), 'yaku_judger_man.rb')
 	
-module Mlfielib
+module Mjparse
   module Analysis
     class YakuJudger
       
