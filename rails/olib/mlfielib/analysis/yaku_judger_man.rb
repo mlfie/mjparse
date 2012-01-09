@@ -383,7 +383,7 @@ module Mlfielib
       # 九蓮宝燈
       def churen?(tehai, agari)
       ## TODO
-      ## まだ途中
+      ## chinitsu?を呼び出せるようにmodule化
 
         ##一時的に清一色のメソッドをコピペ
         beforetype = nil
@@ -397,57 +397,61 @@ module Mlfielib
           end
         end
 
-       if tehai.atama.type != beforetype
+        if tehai.atama.type != beforetype
+          return false
+        end
+
+        ## 牌のプールを作成
+        paipool_list = Array.new 
+       
+        ## 頭
+        paipool_list.push(tehai.atama)
+        paipool_list.push(tehai.atama)
+        ## メンツ
+        tehai.mentsu_list.each do |mentsu|
+          mentsu.pai_list.each do |pai|
+            paipool_list.push(pai)
+          end
+        end
+
+        ## 1を3つ削除
+        3.times do
+          paipool_list.each_with_index do |pai,i|
+            if pai.number == 1
+              paipool_list.delete_at(i)
+              break
+            end
+          end
+        end
+
+       ## 2から8を1つ削除
+       for i in 2..8
+         paipool_list.each do |pai|
+           if pai.number == i
+             paipool_list.delete(pai)
+             break
+           end
+         end
+       end
+
+       ## 9を3つ削除
+       3.times do
+         paipool_list.each_with_index do |pai,i|
+           if pai.number == 9
+             paipool_list.delete_at(i)
+             break
+           end
+         end
+       end
+
+       ## 1を3つ、2 - 8を1つ、9を3つ削除して、残り牌が1つだったらtrue
+       if paipool_list.size == 1
+         return true
+       else
          return false
        end
 
-       ## 牌のプールを作成
-       #paipool_list = Array.new 
-       
-       ## 頭
-       #paipool_list.push(tehai.atama)
-       #paipool_list.push(tehai.atama)
-       ## メンツ
-       #tehai.mentsu_list.each do |mentsu|
-       #  mentsu.pai_list.each do |pai|
-       #    paipool_list.push(pai)
-       #  end
-       #end
-
-       ## 1を3つ削除
-       #3.times do
-       #  paipool_list.each do |pai|
-       #    if pai.number == 1
-       #      paipool_list.delete(pai)
-       #      break
-       #    end
-       #  end
-       #end
-
-       ## 2から8を1つ削除
-       #for i in 2..8
-       #  paipool_list.each do |pai|
-       #    if pai.number == i
-       #      paipool_list.delete(pai)
-       #      break
-       #    end
-       #  end
-       #end
-
-       ## 9を3つ削除
-       #3.times do
-       #  paipool_list.each do |pai|
-       #    if pai.number == 9
-       #      paipool_list.delete(pai)
-       #      break
-       #    end
-       #  end
-       #end
-
-       #p paipool_list
-     
-       return true
-     end
+      end
   
     end
   end
