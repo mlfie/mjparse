@@ -241,6 +241,25 @@ class YakuJudgerManTest < Test::Unit::TestCase
       assert_equal true, @judger.churen?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # m1m1m1m2m3m4m5m6m7m8m9m9m9 s1 --> false
+    pai_items = "m1tm1tm1tm2tm3tm4tm5tm6tm7tm8tm9tm9tm9ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.churen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # m1m1m2m2m3m4m5m6m7m8m9m9m9 m3 --> false
+    pai_items = "m1tm1tm2tm2tm3tm4tm5tm6tm7tm8tm9tm9tm9tm3t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.churen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
   end
 
 
