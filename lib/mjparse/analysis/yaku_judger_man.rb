@@ -340,6 +340,8 @@ module Mjparse
             elsif mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9 then
               return false
             end
+          else
+            return false
           end
         end
         if tehai.atama.jihai? || tehai.atama.chunchan? then
