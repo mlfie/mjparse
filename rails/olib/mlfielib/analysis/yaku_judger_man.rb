@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'mlfielib/analysis/pai'
 require 'mlfielib/analysis/mentsu'
+require 'mlfielib/analysis/yaku_judger_three_six'
 
 # 役判定（役満）を行うクラスメソッド群
 module Mlfielib
@@ -175,7 +176,6 @@ module Mlfielib
         end
 
         if count >= 12
-          puts count
           return true
         end
                 
@@ -342,20 +342,112 @@ module Mlfielib
             end
           end
         end
-        if tehai.atama.jihai? || tehai.atama.number != 1 || tehai.atama.number != 9 then
+        if tehai.atama.jihai? || tehai.atama.chunchan? then
           return false
         end
         return true
 	    end
 	  
 	  # 緑一色
-      def ryuiso?(tehai, agari); return false; end 
+      def ryuiso?(tehai, agari)
+       atama_flag = false
+       mentsu_flag = false
+       
+       # 頭
+       if tehai.atama.hatsu?
+         ##
+       elsif tehai.atama.souzu? && (tehai.atama.number == 2 || tehai.atama.number == 3 || tehai.atama.number == 4 || tehai.atama.number == 6 || tehai.atama.number == 8)
+         ##
+       else
+         return false
+       end
+
+       # メンツ
+       tehai.mentsu_list.each do |mentsu|
+         mentsu.pai_list.each do |pai|
+           if pai.hatsu?
+             ##
+           elsif pai.souzu? && (pai.number == 2 || pai.number == 3 || pai.number == 4 || pai.number == 6 || pai.number == 8)
+             ##
+           else
+             return false
+           end
+         end
+       end
+
+       return true
+
+      end 
+
       
       # 九蓮宝燈
-      def churen?(tehai, agari); return false; end
-	  
-	  
-	  
+      def churen?(tehai, agari)
+      ## TODO
+      ## まだ途中
+
+        ##一時的に清一色のメソッドをコピペ
+        beforetype = nil
+        tehai.mentsu_list.each do |mentsu|
+          mentsu.pai_list.each do |pai|
+            if beforetype == nil then
+              beforetype = pai.type
+            elsif beforetype != pai.type
+              return false
+            end
+          end
+        end
+
+       if tehai.atama.type != beforetype
+         return false
+       end
+
+       ## 牌のプールを作成
+       #paipool_list = Array.new 
+       
+       ## 頭
+       #paipool_list.push(tehai.atama)
+       #paipool_list.push(tehai.atama)
+       ## メンツ
+       #tehai.mentsu_list.each do |mentsu|
+       #  mentsu.pai_list.each do |pai|
+       #    paipool_list.push(pai)
+       #  end
+       #end
+
+       ## 1を3つ削除
+       #3.times do
+       #  paipool_list.each do |pai|
+       #    if pai.number == 1
+       #      paipool_list.delete(pai)
+       #      break
+       #    end
+       #  end
+       #end
+
+       ## 2から8を1つ削除
+       #for i in 2..8
+       #  paipool_list.each do |pai|
+       #    if pai.number == i
+       #      paipool_list.delete(pai)
+       #      break
+       #    end
+       #  end
+       #end
+
+       ## 9を3つ削除
+       #3.times do
+       #  paipool_list.each do |pai|
+       #    if pai.number == 9
+       #      paipool_list.delete(pai)
+       #      break
+       #    end
+       #  end
+       #end
+
+       #p paipool_list
+     
+       return true
+     end
   
     end
   end
