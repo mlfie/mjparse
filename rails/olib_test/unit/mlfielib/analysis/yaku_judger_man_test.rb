@@ -72,7 +72,75 @@ class YakuJudgerManTest < Test::Unit::TestCase
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
   end
+
+  # 四暗刻
+  def test_suankou
+    # m2m2m2 p4p4p4 s7s7s7 j1j1j1 j5j5 --> true
+    pai_items = "m2tm2tm2tp4tp4tp4ts7ts7ts7tj1tj1tj1tj5tj5t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.suankou?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+  end
+
+  # 大三元
+  def test_daisangen
+    # 白白白 発発発 中中中 m3m3m3 j1j1 --> true
+    pai_items = "j5tj5tj5tj6tj6tj6tj7tj7tj7tm3tm3tm3tj1tj1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.daisangen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+  end
+
+  # 四槓子
+  def test_sukantsu
+    # 東東東東 m5m5m5m5 p2p2p2p2 s8s8s8s8 中中 --> true
+    pai_items = "r0tj1tj1tr0tr0tm5tm5tr0tr0tp2tp2tr0tr0ts8ts8tr0tj7tj7t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.sukantsu?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+  end
+
+  # 天和
+  # 地和
+
+  # 大四喜
+  def test_tasushi
+    # 東東東南南南西西西北北北5m5m --> true
+    pai_items = "j1tj1tj1tj2tj2tj2tj3tj3tj3tj4tj4tj4tm5tm5t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.tasushi?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+  end
   
+  # 小四喜
+  def test_shosushi
+    # 東東東南南南西西西北北5m5m5m --> true
+    pai_items = "j1tj1tj1tj2tj2tj2tj3tj3tj3tj4tj4tm5tm5tm5t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.shosushi?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
+
+  # 字一色 
   def test_tsuiso
     # 東東東西西西白白白発発発中中 --> true
     pai_items = "j1tj1tj1tj3tj3tj3tj5tj5tj5tj6tj6tj6tj7tj7t"    
@@ -102,6 +170,80 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver = Mlfielib::Analysis::MentsuResolver.new
   
   end
+  
+  # 清老頭
+  def test_chinraoto
+    # m1m1m1 m9m9m9 p1p1p1 p9p9p9 s1s1 --> true
+    pai_items = "m1tm1tm1tm9tm9tm9tp1tp1tp1tp9tp9tp9ts1ts1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.chinraoto?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
+
+  # 緑一色
+  def test_ryuiso
+    # s2s3s4 s4s4s4 s6s6s6 s8s8s8 発発--> true
+    pai_items = "s2ts3ts4ts4ts4ts4ts6ts6ts6ts8ts8ts8tj6tj6t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ryuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # s2s2s2 s2s3s4 s4s4s4 s6s6s6 s8s8 -> true
+    pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6ts8ts8t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.ryuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # s2s2s2 s1s2s3 s4s4s4 s6s6s6 s8s8 -> false
+    pai_items = "s2ts2ts2ts1ts2ts3ts4ts4ts4ts6ts6ts6ts8ts8t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ryuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # s2s2s2 s2s3s4 s4s4s4 s6s6s6 s9s9 -> false
+    pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6ts9ts9t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ryuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # s2s2s2 s2s3s4 s4s4s4 s6s6s6 m8m8 -> false
+    pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6tm8tm8t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.ryuiso?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
+
+  # 九蓮宝燈
+  def test_churen
+    # m1m1m1m2m3m4m5m6m7m8m9m9m9 m1 --> true
+    pai_items = "m1tm1tm1tm2tm3tm4tm5tm6tm7tm8tm9tm9tm9tm1t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.churen?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
+  end
+
+
 #  def test_mentsure
 #    pai_items = "m3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2tj7rj7tj7t"    
 #    @resolver.get_mentsu(pai_items)
