@@ -313,7 +313,7 @@ module Mlfielib
       def tsuiso?(tehai, agari)
         tehai.mentsu_list.each do |mentsu|
           mentsu.pai_list.each do |pai|
-            if pai.jihai? then
+            if !pai.jihai? then
               return false
             end
           end
