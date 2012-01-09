@@ -62,6 +62,15 @@ class YakuJudgerManTest < Test::Unit::TestCase
       assert_equal false, @judger.kokushi?(tehai, nil)
     end
     @resolver = Mlfielib::Analysis::MentsuResolver.new
+
+    # 字一色7トイツ系--> false
+    pai_items = "j1tj1tj2tj2tj3tj3tj4tj4tj5tj5tj6tj6tj7tj7t"    
+    @resolver.get_mentsu(pai_items)
+    
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.kokushi?(tehai, nil)
+    end
+    @resolver = Mlfielib::Analysis::MentsuResolver.new
   end
   
   def test_tsuiso
