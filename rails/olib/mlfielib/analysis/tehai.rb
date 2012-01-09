@@ -3,8 +3,8 @@
 module Mlfielib
 module Analysis
   class Tehai
-    attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト
-                  :atama,         # 雀頭(1枚)
+    attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト(リストの数 通常:4 七対子:6 国士無双:1 )
+                  :atama,         # 雀頭(Paiが1つ)
                   :furo,          # 副露してるかどうか(してる場合はtrue)
                   :yaku_list,     # 役(YakuSpecimen)のリスト
                   :fu_num,        # 符数
