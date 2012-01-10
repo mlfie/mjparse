@@ -3,16 +3,16 @@ require 'test_helper'
 
 class YakuJudgerManTest < Test::Unit::TestCase
   #Constants
-  TON = Mjparse::Analysis::Kyoku::KYOKU_KAZE_TON
-  NAN = Mjparse::Analysis::Kyoku::KYOKU_KAZE_NAN
-  SHA = Mjparse::Analysis::Kyoku::KYOKU_KAZE_SHA
-  PEI = Mjparse::Analysis::Kyoku::KYOKU_KAZE_PEI
+  TON = Mjparse::Kyoku::KYOKU_KAZE_TON
+  NAN = Mjparse::Kyoku::KYOKU_KAZE_NAN
+  SHA = Mjparse::Kyoku::KYOKU_KAZE_SHA
+  PEI = Mjparse::Kyoku::KYOKU_KAZE_PEI
   
   def setup
     yaku_specimen = Hash.new
-    # yaku_specimen[name] = Mjparse::Analysis::YakuSpecimen.new(name, kanji, han_num, naki_han_num)
-    @judger = Mjparse::Analysis::YakuJudger.new(yaku_specimen)
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    # yaku_specimen[name] = Mjparse::YakuSpecimen.new(name, kanji, han_num, naki_han_num)
+    @judger = Mjparse::YakuJudger.new(yaku_specimen)
+    @resolver = Mjparse::MentsuResolver.new
   end
   
   def teardown
@@ -27,7 +27,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.kokushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
     
     # 頭が東 --> true
     pai_items = "m1tm9tp1tp9ts1ts9tj1tj1tj2tj3tj4tj5tj6tj7t"    
@@ -36,7 +36,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.kokushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
     
     # 頭が中帳牌 --> false
     pai_items = "m1tm9tp1tp9ts1ts9tm5tm5tj2tj3tj4tj5tj6tj7t"    
@@ -45,7 +45,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.kokushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
     
     # 東が暗刻 --> false
     pai_items = "m1tm9tp1tp9ts1ts9tj1tj1tj2tj3tj4tj5tj6tj1t"    
@@ -54,7 +54,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.kokushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # 字一色7トイツ系--> false
     pai_items = "j1tj1tj2tj2tj3tj3tj4tj4tj5tj5tj6tj6tj7tj7t"    
@@ -63,7 +63,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.kokushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
   end
 
   # 四暗刻
@@ -75,7 +75,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.suankou?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
   end
 
@@ -88,7 +88,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.daisangen?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
   end
 
@@ -101,7 +101,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.sukantsu?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
   end
 
@@ -117,7 +117,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.tasushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
   end
   
@@ -130,7 +130,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.shosushi?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
   end
 
   # 字一色 
@@ -142,7 +142,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.tsuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
     
     # 国士無双 --> false
     pai_items = "m1tm9tp1tp9ts1ts9tj1tj2tj3tj4tj5tj6tj7tm1t"    
@@ -151,7 +151,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.tsuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
     
     # 国士無双2 --> false
     pai_items = "p1tm1tj6tm9tj1ts1ts9tj2tj3tj4tp9tj5tp1tj7t"    
@@ -160,7 +160,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.tsuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
   
   end
   
@@ -173,7 +173,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.chinraoto?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
   end
 
   # 緑一色
@@ -185,7 +185,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.ryuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # s2s2s2 s2s3s4 s4s4s4 s6s6s6 s8s8 -> true
     pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6ts8ts8t"    
@@ -194,7 +194,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.ryuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # s2s2s2 s1s2s3 s4s4s4 s6s6s6 s8s8 -> false
     pai_items = "s2ts2ts2ts1ts2ts3ts4ts4ts4ts6ts6ts6ts8ts8t"    
@@ -203,7 +203,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.ryuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # s2s2s2 s2s3s4 s4s4s4 s6s6s6 s9s9 -> false
     pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6ts9ts9t"    
@@ -212,7 +212,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.ryuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # s2s2s2 s2s3s4 s4s4s4 s6s6s6 m8m8 -> false
     pai_items = "s2ts2ts2ts2ts3ts4ts4ts4ts4ts6ts6ts6tm8tm8t"    
@@ -221,7 +221,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.ryuiso?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
   end
 
   # 九蓮宝燈
@@ -233,7 +233,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal true, @judger.churen?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # m1m1m1m2m3m4m5m6m7m8m9m9m9 s1 --> false
     pai_items = "m1tm1tm1tm2tm3tm4tm5tm6tm7tm8tm9tm9tm9ts1t"    
@@ -242,7 +242,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.churen?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
     # m1m1m2m2m3m4m5m6m7m8m9m9m9 m3 --> false
     pai_items = "m1tm1tm2tm2tm3tm4tm5tm6tm7tm8tm9tm9tm9tm3t"    
@@ -251,7 +251,7 @@ class YakuJudgerManTest < Test::Unit::TestCase
     @resolver.tehai_list.each do |tehai|
       assert_equal false, @judger.churen?(tehai, nil)
     end
-    @resolver = Mjparse::Analysis::MentsuResolver.new
+    @resolver = Mjparse::MentsuResolver.new
 
   end
 

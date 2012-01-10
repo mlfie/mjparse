@@ -4,7 +4,6 @@ require File.join(File.dirname(__FILE__), 'mentsu')
 require File.join(File.dirname(__FILE__), 'tehai')
 
 module Mjparse
-module Analysis
   #############################
   # 手牌候補を取得するクラス       #
   #############################
@@ -719,5 +718,4 @@ module Analysis
       p "========================================================="
     end
   end
-end
 end

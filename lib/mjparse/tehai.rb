@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 module Mjparse
-module Analysis
   class Tehai
     attr_accessor :mentsu_list,   # 面子(Mentsu)のリスト(リストの数 通常:4 七対子:6 国士無双:1 )
                   :atama,         # 雀頭(Paiが1つ)
@@ -78,5 +77,4 @@ module Analysis
     end
     
   end
-end
 end
