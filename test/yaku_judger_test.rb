@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-require 'test/unit'
-require File.join(File.dirname(__FILE__), '../../lib/mjparse')
+require 'test_helper'
 
 class YakuJudgerTest < Test::Unit::TestCase
 
