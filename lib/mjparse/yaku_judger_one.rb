@@ -9,11 +9,11 @@ module Mjparse
 
   ### リーチ
     def reach?(tehai, agari)
-     if agari.reach_num == 1
-	   return true
-	 end
-	 return false
-  end
+      if agari.reach_num == 1
+        return true
+      end
+      return false
+    end
 
     ### 平和
     def pinfu?(tehai, agari)
