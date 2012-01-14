@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'mentsu')
 
 # 役判定（2飜）を行うクラスメソッド群
 module Mjparse
-  class YakuJudger
+  module YakuJudgerTwo
     ### ダブル立直
     def doublereach?(tehai, agari)
       if agari.reach_num == 2

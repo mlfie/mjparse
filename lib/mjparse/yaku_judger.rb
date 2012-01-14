@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), 'yaku_specimen')
-load File.join(File.dirname(__FILE__), 'yaku_judger_one.rb')
-load File.join(File.dirname(__FILE__), 'yaku_judger_two.rb')
-load File.join(File.dirname(__FILE__), 'yaku_judger_three_six.rb')
-load File.join(File.dirname(__FILE__), 'yaku_judger_man.rb')
+require File.join(File.dirname(__FILE__), 'yaku_judger_one.rb')
+require File.join(File.dirname(__FILE__), 'yaku_judger_two.rb')
+require File.join(File.dirname(__FILE__), 'yaku_judger_three_six.rb')
+require File.join(File.dirname(__FILE__), 'yaku_judger_man.rb')
 	
 module Mjparse
   class YakuJudger
+    include YakuJudgerOne
+    include YakuJudgerTwo
+    include YakuJudgerThreeSix
+    include YakuJudgerMan
     
     ### 処理結果
     RESULT_SUCCESS          = 0     # 正常終了

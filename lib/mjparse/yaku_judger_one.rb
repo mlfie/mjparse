@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), 'kyoku')
 
 ### 役判定（1飜）を行うクラスメソッド群
 module Mjparse
-  class YakuJudger
+  module YakuJudgerOne
 
   ### リーチ
     def reach?(tehai, agari)

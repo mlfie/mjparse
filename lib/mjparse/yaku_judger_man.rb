@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), 'yaku_judger_three_six')
 
 # 役判定（役満）を行うクラスメソッド群
 module Mjparse
-  class YakuJudger
+  module YakuJudgerMan
 
     # 国士無双
     def kokushi?(tehai, agari)

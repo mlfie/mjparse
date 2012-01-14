@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'mentsu')
 
 # 役判定（3飜〜6飜）を行うクラスメソッド群
 module Mjparse
-  class YakuJudger
+  module YakuJudgerThreeSix
   
     ### 二盃口
     def ryanpeikou?(tehai, agari)
