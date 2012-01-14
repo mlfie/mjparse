@@ -17,12 +17,8 @@ module Mjparse
       #鳴きなし判定
       return false if tehai.naki?
 
-      #コーツなし判定
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
-          return false
-        end
-      end
+      #全てが順子であること
+      return false unless tehai.mentsu_list.all? {|mentsu| mentsu.shuntsu? }
     
       #対子が風・三元牌でナシ判定
       kazemap = [[Kyoku::KYOKU_KAZE_TON, 1], 
