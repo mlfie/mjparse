@@ -8,15 +8,15 @@ module Mjparse
   module YakuJudgerOne
 
   ### リーチ
-    def reach?(tehai, agari)
-      if agari.reach_num == 1
+    def reach?(tehai, kyoku)
+      if kyoku.reach_num == 1
         return true
       end
       return false
     end
 
     ### 平和
-    def pinfu?(tehai, agari)
+    def pinfu?(tehai, kyoku)
       #鳴きなし判定
       tehai.mentsu_list.each do |mentsu|
         mentsu.pai_list.each do |pai|
@@ -38,13 +38,13 @@ module Mjparse
                 [Kyoku::KYOKU_KAZE_SHA, 3], 
                 [Kyoku::KYOKU_KAZE_PEI, 4]]
       kazemap.each do | ibakaze |
-        if agari.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
+        if kyoku.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
           return false
         end
       end
       
       kazemap.each do | ijikaze |
-        if agari.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
+        if kyoku.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
           return false
         end
       end
@@ -72,7 +72,7 @@ module Mjparse
     end
 
     ### 断么九
-    def tanyao?(tehai, agari)
+    def tanyao?(tehai, kyoku)
       if tehai.atama.yaochu?
         return false
       end
@@ -87,7 +87,7 @@ module Mjparse
     end
 
     ### 一盃口
-    def iipeikou?(tehai, agari) 
+    def iipeikou?(tehai, kyoku) 
       #鳴きなし判定
       tehai.mentsu_list.each do |mentsu|
         mentsu.pai_list.each do |pai|
@@ -116,24 +116,24 @@ module Mjparse
     end # end def
 
     ### 一発
-    def ippatsu?(tehai, agari)
-      if agari.is_ippatsu
+    def ippatsu?(tehai, kyoku)
+      if kyoku.is_ippatsu
         return true
       end
       return false
     end
       
     ### 門前清自摸和
-    def tsumo?(tehai, agari)
-      if agari.is_tsumo
+    def tsumo?(tehai, kyoku)
+      if kyoku.is_tsumo
         return true
       end
       return false
     end
 
     ### 自風(東)
-    def jikazeton?(tehai, agari)
-      if agari.jikaze != Kyoku::KYOKU_KAZE_TON
+    def jikazeton?(tehai, kyoku)
+      if kyoku.jikaze != Kyoku::KYOKU_KAZE_TON
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -147,8 +147,8 @@ module Mjparse
     end
 
     ### 自風(南)
-    def jikazenan?(tehai, agari)
-      if agari.jikaze != Kyoku::KYOKU_KAZE_NAN
+    def jikazenan?(tehai, kyoku)
+      if kyoku.jikaze != Kyoku::KYOKU_KAZE_NAN
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -162,8 +162,8 @@ module Mjparse
     end
 
     ### 自風(西)
-    def jikazesha?(tehai, agari)
-      if agari.jikaze != Kyoku::KYOKU_KAZE_SHA
+    def jikazesha?(tehai, kyoku)
+      if kyoku.jikaze != Kyoku::KYOKU_KAZE_SHA
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -177,8 +177,8 @@ module Mjparse
     end
 
     ### 自風(北)
-    def jikazepei?(tehai, agari)
-      if agari.jikaze != Kyoku::KYOKU_KAZE_PEI
+    def jikazepei?(tehai, kyoku)
+      if kyoku.jikaze != Kyoku::KYOKU_KAZE_PEI
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -192,8 +192,8 @@ module Mjparse
     end
 
     ### 場風(東)
-    def bakazeton?(tehai, agari)
-      if agari.bakaze != Kyoku::KYOKU_KAZE_TON
+    def bakazeton?(tehai, kyoku)
+      if kyoku.bakaze != Kyoku::KYOKU_KAZE_TON
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -207,8 +207,8 @@ module Mjparse
     end
 
     ### 場風(南)
-    def bakazenan?(tehai, agari)
-      if agari.bakaze != Kyoku::KYOKU_KAZE_NAN
+    def bakazenan?(tehai, kyoku)
+      if kyoku.bakaze != Kyoku::KYOKU_KAZE_NAN
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -222,8 +222,8 @@ module Mjparse
     end
 
     ### 場風(西)
-    def bakazesha?(tehai, agari)
-      if agari.bakaze != Kyoku::KYOKU_KAZE_SHA
+    def bakazesha?(tehai, kyoku)
+      if kyoku.bakaze != Kyoku::KYOKU_KAZE_SHA
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -237,8 +237,8 @@ module Mjparse
     end
 
     ### 場風(北)
-    def bakazepei?(tehai, agari)
-      if agari.bakaze != Kyoku::KYOKU_KAZE_PEI
+    def bakazepei?(tehai, kyoku)
+      if kyoku.bakaze != Kyoku::KYOKU_KAZE_PEI
         return false
       end
       tehai.mentsu_list.each do |mentsu|
@@ -252,7 +252,7 @@ module Mjparse
     end
 
     ### 白
-    def haku?(tehai, agari)
+    def haku?(tehai, kyoku)
       tehai.mentsu_list.each do |mentsu|
         if mentsu.koutsu? || mentsu.kantsu?
           if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HAKU
@@ -264,7 +264,7 @@ module Mjparse
     end
     
     ### 發
-    def hatsu?(tehai, agari)
+    def hatsu?(tehai, kyoku)
       tehai.mentsu_list.each do |mentsu|        
         if mentsu.koutsu? || mentsu.kantsu?
           if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HATSU
@@ -276,7 +276,7 @@ module Mjparse
     end
 
     ### 中
-    def chun?(tehai, agari)
+    def chun?(tehai, kyoku)
       tehai.mentsu_list.each do |mentsu|
         if mentsu.koutsu? || mentsu.kantsu?
           if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_CHUN
@@ -288,9 +288,9 @@ module Mjparse
     end
 
     ### 海底摸月
-    def haitei?(tehai, agari)
-      if agari.is_haitei
-        if agari.is_tsumo
+    def haitei?(tehai, kyoku)
+      if kyoku.is_haitei
+        if kyoku.is_tsumo
           return true
         end
       end
@@ -298,9 +298,9 @@ module Mjparse
     end
 
     ### 河底撈魚
-    def houtei?(tehai, agari)
-      if agari.is_haitei
-        if !agari.is_tsumo
+    def houtei?(tehai, kyoku)
+      if kyoku.is_haitei
+        if !kyoku.is_tsumo
           return true
         end
       end
@@ -308,9 +308,9 @@ module Mjparse
     end
 
     ### 嶺上開花
-    def rinshan?(tehai, agari)
-      if agari.is_rinshan
-        if agari.is_tsumo
+    def rinshan?(tehai, kyoku)
+      if kyoku.is_rinshan
+        if kyoku.is_tsumo
           return true
         end
       end
@@ -318,9 +318,9 @@ module Mjparse
     end
 
     ### 槍槓
-    def chankan?(tehai, agari)
-      if agari.is_chankan
-        if !agari.is_tsumo
+    def chankan?(tehai, kyoku)
+      if kyoku.is_chankan
+        if !kyoku.is_tsumo
           return true
         end
       end
