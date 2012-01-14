@@ -9,10 +9,7 @@ module Mjparse
 
   ### リーチ
     def reach?(tehai, kyoku)
-      if kyoku.reach_num == 1
-        return true
-      end
-      return false
+      kyoku.reach?
     end
 
     ### 平和

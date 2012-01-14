@@ -38,6 +38,10 @@ module Mjparse
       self.is_chiho   = false
       self.is_parent  = false
     end
+
+    def reach?
+      self.reach_num == 1
+    end
   end
 end
 
