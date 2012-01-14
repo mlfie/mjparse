@@ -52,6 +52,10 @@ module Mjparse
       self.reach_num == 1
     end
 
+    def doublereach?
+      self.reach_num == 2
+    end
+
     def jikaze?(pai)
       @kyoku_map[self.jikaze] == pai.number
     end

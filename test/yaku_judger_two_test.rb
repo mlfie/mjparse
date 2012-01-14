@@ -73,6 +73,14 @@ class YakuJudgerTwoTest < Test::Unit::TestCase
     end
     @resolver = Mjparse::MentsuResolver.new 
 
+    # 頭だけ字牌
+    pai_items = "m1tm2tm3tp7tp8tp9tp1tp1tp1ts7ts8ts9tj1tj1t"
+    @resolver.get_mentsu(pai_items)
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.chanta?(tehai, nil)
+    end
+    @resolver = Mjparse::MentsuResolver.new 
+
   end
   
   def test_ikkitsukan

@@ -7,62 +7,30 @@ module Mjparse
   module YakuJudgerTwo
     ### ダブル立直
     def doublereach?(tehai, kyoku)
-      if kyoku.reach_num == 2
-        return true
-      end
-      return false
+      kyoku.doublereach?
     end
 
     ### 七対子
     def chitoitsu?(tehai, kyoku)
-    if tehai.mentsu_list.size == 6
-         return true
-      end
-      return false
+      tehai.mentsu_list.size == 6
     end
 
     ### 混全帯么九
     def chanta?(tehai, kyoku)
-    jihai_count = 0
-	kotsu_count = 0
-	
-    #雀頭に字牌が含まれているかをチェック
-    if tehai.atama.type == Pai::PAI_TYPE_JIHAI
-	  jihai_count += 1
-	end
-      
-      tehai.mentsu_list.each do | mentsu |
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_TOITSU
-	    if mentsu.pai_list[0].type != Pai::PAI_TYPE_JIHAI 
-            if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
-              return false
-	  	  else
-              kotsu_count += 1
-		  end
-	    else
-            jihai_count += 1
-	      kotsu_count += 1
-          end			 
-      end
-	  
-	  if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
-	    if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 7
-	      return false
-	    end
-	  end
-	  
-	  if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_TOKUSYU
-	    return false
-	  end
-      end #each end
+      # 頭と全ての面子がヤオチュウ牌であること
+      return false unless tehai.atama.yaochu? and tehai.mentsu_list.all? {|mentsu| mentsu.yaochu? }
 
-      ### ホンラオトーでないかつ、ジュンチャンでない
-      if jihai_count != 0 && kotsu_count != 5
-	    return true
-	  end
-	return false
-      
-    end #method end
+      # 必ず一つは字牌があること
+      return false unless tehai.atama.jihai? or tehai.mentsu_list.any?{|mentsu| mentsu.jihai? }
+
+      # 必ず一つは数牌があること
+      return false unless tehai.atama.suhai? or tehai.mentsu_list.any?{|mentsu| mentsu.suhai? }
+
+      # 必ず一つは順子があること
+      return false unless tehai.mentsu_list.any?{|mentsu| mentsu.shuntsu? }
+
+      return true
+    end
 
     ### 一気通貫
     def ikkitsukan?(tehai, kyoku)

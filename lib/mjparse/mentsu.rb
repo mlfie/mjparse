@@ -84,6 +84,11 @@ module Mjparse
       self.pai_list.all?{|pai| pai.jihai? }
     end
 
+    # 全ての牌が数牌か？
+    def suhai?
+      self.pai_list.all?{|pai| pai.suhai? }
+    end
+
     # ヤオチュウ牌が含まれるか？
     def yaochu?
       self.pai_list.any?{|pai| pai.yaochu? }

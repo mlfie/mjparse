@@ -80,6 +80,11 @@ module Mjparse
     def jihai?
       return self.type == PAI_TYPE_JIHAI
     end
+
+    # 数牌かどうか
+    def suhai?
+      return !jihai?
+    end
     
     # 東かどうか
     def ton?
