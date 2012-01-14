@@ -27,6 +27,10 @@ module Mjparse
       self.child_point = 0
       self.ron_point = 0
     end
+
+    def naki?
+      self.mentsu_list.any? {|mentsu| mentsu.furo? }
+    end
     
     # 手牌が両面アガリかどうかを判定
     def ryanmen_agari?

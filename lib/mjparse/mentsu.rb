@@ -62,12 +62,7 @@ module Mjparse
     
     # 副露かどうか
     def furo?
-      self.pai_list.each do |pai|
-        if pai.naki
-          return true
-        end
-      end
-      return false
+      self.pai_list.any?{|pai| pai.naki}
     end
       
     # 全ての牌が萬子か？
