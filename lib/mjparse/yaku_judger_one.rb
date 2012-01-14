@@ -20,25 +20,8 @@ module Mjparse
       #全てが順子であること
       return false unless tehai.mentsu_list.all? {|mentsu| mentsu.shuntsu? }
     
-      #対子が風・三元牌でナシ判定
-      kazemap = [[Kyoku::KYOKU_KAZE_TON, 1], 
-                [Kyoku::KYOKU_KAZE_NAN, 2], 
-                [Kyoku::KYOKU_KAZE_SHA, 3], 
-                [Kyoku::KYOKU_KAZE_PEI, 4]]
-      kazemap.each do | ibakaze |
-        if kyoku.bakaze == ibakaze[0] && tehai.atama.number == ibakaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
-          return false
-        end
-      end
-      
-      kazemap.each do | ijikaze |
-        if kyoku.jikaze == ijikaze[0] && tehai.atama.number == ijikaze[1] && tehai.atama.type == Pai::PAI_TYPE_JIHAI
-          return false
-        end
-      end
-      if tehai.atama.type == Pai::PAI_TYPE_JIHAI && (tehai.atama.number == Pai::PAI_NUMBER_HAKU || tehai.atama.number == Pai::PAI_NUMBER_HATSU || tehai.atama.number == Pai::PAI_NUMBER_CHUN)
-        return false
-      end
+      #頭が役牌ではないこと
+      return false if tehai.atama.yakupai?(kyoku)
 
       # 両面で待っていることを判定
       if tehai.atama.agari == true

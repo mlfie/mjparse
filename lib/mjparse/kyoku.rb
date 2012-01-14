@@ -37,10 +37,27 @@ module Mjparse
       self.is_tenho   = false
       self.is_chiho   = false
       self.is_parent  = false
+
+      #TODO refactor
+      @kyoku_map = {
+        KYOKU_KAZE_TON => 1,
+        KYOKU_KAZE_NAN => 2,
+        KYOKU_KAZE_SHA => 3,
+        KYOKU_KAZE_PEI => 4,
+        KYOKU_KAZE_NONE => -1,
+      }
     end
 
     def reach?
       self.reach_num == 1
+    end
+
+    def jikaze?(pai)
+      @kyoku_map[self.jikaze] == pai.number
+    end
+
+    def bakaze?(pai)
+      @kyoku_map[self.bakaze] == pai.number
     end
   end
 end

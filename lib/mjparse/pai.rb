@@ -115,5 +115,17 @@ module Mjparse
     def chun?
       return jihai? && self.number == PAI_NUMBER_CHUN
     end
+
+    # 三元牌かどうか
+    def sangenpai?
+      haku? or hatsu? or chun?
+    end
+
+    # 役牌(自風、場風、三元牌)かどうか
+    def yakupai?(kyoku)
+      return false unless jihai?
+      return true if sangenpai?
+      kyoku.jikaze?(self) or kyoku.bakaze?(self)
+    end
   end
 end
