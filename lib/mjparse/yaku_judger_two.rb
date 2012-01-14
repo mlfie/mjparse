@@ -6,15 +6,15 @@ require File.join(File.dirname(__FILE__), 'mentsu')
 module Mjparse
   module YakuJudgerTwo
     ### ダブル立直
-    def doublereach?(tehai, agari)
-      if agari.reach_num == 2
+    def doublereach?(tehai, kyoku)
+      if kyoku.reach_num == 2
         return true
       end
       return false
     end
 
     ### 七対子
-    def chitoitsu?(tehai, agari)
+    def chitoitsu?(tehai, kyoku)
     if tehai.mentsu_list.size == 6
          return true
       end
@@ -22,7 +22,7 @@ module Mjparse
     end
 
     ### 混全帯么九
-    def chanta?(tehai, agari)
+    def chanta?(tehai, kyoku)
     jihai_count = 0
 	kotsu_count = 0
 	
@@ -65,7 +65,7 @@ module Mjparse
     end #method end
 
     ### 一気通貫
-    def ikkitsukan?(tehai, agari)
+    def ikkitsukan?(tehai, kyoku)
       flag_onetwothree = false
       flag_fourfivesix = false
       flag_seveneightnine = false
@@ -127,7 +127,7 @@ module Mjparse
     end
 
     ### 三色同順
-    def sanshoku?(tehai, agari)
+    def sanshoku?(tehai, kyoku)
       tehai.mentsu_list.each do | mentsu|
         if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
           tehai.mentsu_list.each do | mentsu2|
@@ -149,7 +149,7 @@ module Mjparse
     end
     
     ### 三色同刻
-    def sanshokudouko?(tehai, agari)
+    def sanshokudouko?(tehai, kyoku)
     tehai.mentsu_list.each do | mentsu |
         if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
           tehai.mentsu_list.each do | mentsu2 |
@@ -175,7 +175,7 @@ module Mjparse
     end
 
     ### 対々和
-    def toitoihou?(tehai, agari)
+    def toitoihou?(tehai, kyoku)
       if tehai.mentsu_list.size == 4
 	  tehai.mentsu_list.each do | mentsu| 
 	    if mentsu.mentsu_type != Mentsu::MENTSU_TYPE_KOUTSU
@@ -190,7 +190,7 @@ module Mjparse
     end
 
     ### 三暗刻
-    def sanankou?(tehai, agari)
+    def sanankou?(tehai, kyoku)
     count = 0
     tehai.mentsu_list.each do | mentsu|
         if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo == false
@@ -204,7 +204,7 @@ module Mjparse
   end
       
     ### 三槓子
-    def sankantsu?(tehai, agari)
+    def sankantsu?(tehai, kyoku)
     count = 0
     tehai.mentsu_list.each do | mentsu|
         if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
@@ -219,7 +219,7 @@ module Mjparse
   
       
     ### 小三元
-    def shousangen?(tehai, agari)
+    def shousangen?(tehai, kyoku)
       #頭が三元牌じゃなかったらfalse
       if tehai.atama.type != Pai::PAI_TYPE_JIHAI
         return false
@@ -265,7 +265,7 @@ module Mjparse
     end
     
     ### 混老頭
-    def honroutou?(tehai, agari)
+    def honroutou?(tehai, kyoku)
       if tehai.atama.type != Pai::PAI_TYPE_JIHAI
         if tehai.atama.number != 1 && tehai.atama.number != 9
           return false
