@@ -23,37 +23,17 @@ module Mjparse
       #頭が役牌ではないこと
       return false if tehai.atama.yakupai?(kyoku)
 
-      # 両面で待っていることを判定
-      if tehai.atama.agari == true
-        return false
-      end
-    
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.pai_list[1].agari == true
-          return false
-        end
-        if mentsu.pai_list[0].agari == true && mentsu.pai_list[2].number == 9
-          return false
-        end
-        if mentsu.pai_list[2].agari == true && mentsu.pai_list[0].number == 1
-          return false
-        end
-      end
+      #待ちが両面であること
+      return false unless tehai.ryanmen_agari?
+
       return true
     end
 
     ### 断么九
     def tanyao?(tehai, kyoku)
-      if tehai.atama.yaochu?
-        return false
-      end
-      tehai.mentsu_list.each do |mentsu|
-        mentsu.pai_list.each do | pai |
-          if pai.yaochu?
-            return false
-          end
-        end
-      end
+      return false if tehai.atama.yaochu?
+      return false if tehai.mentsu_list.any?{|mentsu| mentsu.yaochu? }
+
       return true
     end
 
@@ -82,18 +62,12 @@ module Mjparse
 
     ### 一発
     def ippatsu?(tehai, kyoku)
-      if kyoku.is_ippatsu
-        return true
-      end
-      return false
+      kyoku.is_ippatsu
     end
       
     ### 門前清自摸和
     def tsumo?(tehai, kyoku)
-      if kyoku.is_tsumo
-        return true
-      end
-      return false
+      kyoku.is_tsumo
     end
 
     ### 自風(東)
@@ -254,42 +228,22 @@ module Mjparse
 
     ### 海底摸月
     def haitei?(tehai, kyoku)
-      if kyoku.is_haitei
-        if kyoku.is_tsumo
-          return true
-        end
-      end
-      return false
+      kyoku.is_haitei and kyoku.is_tsumo
     end
 
     ### 河底撈魚
     def houtei?(tehai, kyoku)
-      if kyoku.is_haitei
-        if !kyoku.is_tsumo
-          return true
-        end
-      end
-      return false
+      kyoku.is_haitei and not kyoku.is_tsumo
     end
 
     ### 嶺上開花
     def rinshan?(tehai, kyoku)
-      if kyoku.is_rinshan
-        if kyoku.is_tsumo
-          return true
-        end
-      end
-      return false
+      kyoku.is_rinshan and kyoku.is_tsumo
     end
 
     ### 槍槓
     def chankan?(tehai, kyoku)
-      if kyoku.is_chankan
-        if !kyoku.is_tsumo
-          return true
-        end
-      end
-      return false
+      kyoku.is_chankan and not kyoku.is_tsumo
     end
   end
 end

@@ -69,6 +69,11 @@ module Mjparse
     def jihai?
       self.pai_list.all?{|pai| pai.jihai? }
     end
+
+    # ヤオチュウ牌が含まれるか？
+    def yaochu?
+      self.pai_list.any?{|pai| pai.yaochu? }
+    end
     
     # 両面待ちでのアガリ面子であるか？
     def ryanmen?
