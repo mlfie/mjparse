@@ -15,13 +15,8 @@ module Mjparse
     ### 平和
     def pinfu?(tehai, kyoku)
       #鳴きなし判定
-      tehai.mentsu_list.each do |mentsu|
-        mentsu.pai_list.each do |pai|
-          if pai.naki
-            return false
-           end
-        end
-      end
+      return false if tehai.naki?
+
       #コーツなし判定
       tehai.mentsu_list.each do |mentsu|
         if mentsu.pai_list[0].number == mentsu.pai_list[1].number || mentsu.pai_list[1].number == mentsu.pai_list[2].number
@@ -86,13 +81,7 @@ module Mjparse
     ### 一盃口
     def iipeikou?(tehai, kyoku) 
       #鳴きなし判定
-      tehai.mentsu_list.each do |mentsu|
-        mentsu.pai_list.each do |pai|
-          if pai.naki
-            return false
-           end
-        end
-      end
+      return false if tehai.naki?
       
       tehai.mentsu_list.each_with_index do |mentsu_1,i|
         tehai.mentsu_list.each_with_index do |mentsu_2,j|
