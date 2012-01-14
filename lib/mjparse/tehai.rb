@@ -31,6 +31,18 @@ module Mjparse
     def naki?
       self.mentsu_list.any? {|mentsu| mentsu.furo? }
     end
+
+    def shuntsu_list
+      self.mentsu_list.select {|mentsu| mentsu.shuntsu? }
+    end
+
+    def koutsu_list
+      self.mentsu_list.select {|mentsu| mentsu.koutsu? }
+    end
+
+    def kantsu_list
+      self.mentsu_list.select {|mentsu| mentsu.kantsu? }
+    end
     
     # 手牌が両面アガリかどうかを判定
     def ryanmen_agari?

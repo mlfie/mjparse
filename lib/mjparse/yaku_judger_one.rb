@@ -42,23 +42,10 @@ module Mjparse
       #鳴きなし判定
       return false if tehai.naki?
       
-      tehai.mentsu_list.each_with_index do |mentsu_1,i|
-        tehai.mentsu_list.each_with_index do |mentsu_2,j|
-          if i != j
-            count = 0
-            [0,1,2].each do |k|
-              if mentsu_1.pai_list[k] == mentsu_2.pai_list[k] && mentsu_1.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu_2.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
-                count += 1
-              end
-            end
-            if count == 3 
-              return true
-            end
-          end # end if
-        end # end each
-      end # end each
-      return false
-    end # end def
+      tehai.shuntsu_list.combination(2).any? do |pair|
+        pair[0] == pair[1]
+      end
+    end
 
     ### 一発
     def ippatsu?(tehai, kyoku)
@@ -72,158 +59,95 @@ module Mjparse
 
     ### 自風(東)
     def jikazeton?(tehai, kyoku)
-      if kyoku.jikaze != Kyoku::KYOKU_KAZE_TON
-        return false
+      return false if kyoku.jikaze != Kyoku::KYOKU_KAZE_TON
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.ton?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_TON
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 自風(南)
     def jikazenan?(tehai, kyoku)
-      if kyoku.jikaze != Kyoku::KYOKU_KAZE_NAN
-        return false
+      return false if kyoku.jikaze != Kyoku::KYOKU_KAZE_NAN
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.nan?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_NAN
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 自風(西)
     def jikazesha?(tehai, kyoku)
-      if kyoku.jikaze != Kyoku::KYOKU_KAZE_SHA
-        return false
+      return false if kyoku.jikaze != Kyoku::KYOKU_KAZE_SHA
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.sha?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_SHA
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 自風(北)
     def jikazepei?(tehai, kyoku)
-      if kyoku.jikaze != Kyoku::KYOKU_KAZE_PEI
-        return false
+      return false if kyoku.jikaze != Kyoku::KYOKU_KAZE_PEI
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.pei?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_PEI
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 場風(東)
     def bakazeton?(tehai, kyoku)
-      if kyoku.bakaze != Kyoku::KYOKU_KAZE_TON
-        return false
+      return false if kyoku.bakaze != Kyoku::KYOKU_KAZE_TON
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.ton?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_TON
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 場風(南)
     def bakazenan?(tehai, kyoku)
-      if kyoku.bakaze != Kyoku::KYOKU_KAZE_NAN
-        return false
+      return false if kyoku.bakaze != Kyoku::KYOKU_KAZE_NAN
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.nan?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_NAN
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 場風(西)
     def bakazesha?(tehai, kyoku)
-      if kyoku.bakaze != Kyoku::KYOKU_KAZE_SHA
-        return false
+      return false if kyoku.bakaze != Kyoku::KYOKU_KAZE_SHA
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.sha?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_SHA
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 場風(北)
     def bakazepei?(tehai, kyoku)
-      if kyoku.bakaze != Kyoku::KYOKU_KAZE_PEI
-        return false
+      return false if kyoku.bakaze != Kyoku::KYOKU_KAZE_PEI
+
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.pei?
       end
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_PEI
-            return true
-          end
-        end
-      end
-      return false
     end
 
     ### 白
     def haku?(tehai, kyoku)
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HAKU
-            return true
-          end
-        end
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.haku?
       end
-      return false
     end
     
     ### 發
     def hatsu?(tehai, kyoku)
-      tehai.mentsu_list.each do |mentsu|        
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_HATSU
-            return true
-          end
-        end
+      tehai.mentsu_list.any? do |mentsu|        
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.hatsu?
       end
-      return false
     end
 
     ### 中
     def chun?(tehai, kyoku)
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI && mentsu.pai_list[0].number == Pai::PAI_NUMBER_CHUN
-            return true
-          end
-        end
+      tehai.mentsu_list.any? do |mentsu|
+        (mentsu.koutsu? or mentsu.kantsu?) and mentsu.identical.chun?
       end
-      return false
     end
 
     ### 海底摸月

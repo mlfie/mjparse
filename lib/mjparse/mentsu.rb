@@ -19,6 +19,20 @@ module Mjparse
       self.mentsu_type  = mentsu_type
       self.furo         = furo
     end
+
+    # この面子を特徴づける牌
+    # 対子・刻子・槓子 => 構成牌
+    # 順子 => 構成牌のうち、一番数が小さいもの
+    def identical
+      return self.pai_list.min {|a, b| a.number - b.number} if shuntsu?
+      return self.pai_list[0]
+    end
+
+    # 同じ面子構成かどうかを判定する
+    # 面子タイプが等しく、identicalが等しければ同じ面子とする
+    def ==(other)
+      self.mentsu_type == other.mentsu_type && self.identical == other.identical
+    end
   
     # 順子かどうか
     def shuntsu?
