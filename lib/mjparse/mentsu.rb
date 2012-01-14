@@ -22,42 +22,27 @@ module Mjparse
   
     # 順子かどうか
     def shuntsu?
-      if self.mentsu_type == MENTSU_TYPE_SHUNTSU
-        return true
-      end
-      return false
+      self.mentsu_type == MENTSU_TYPE_SHUNTSU
     end
   
     # 刻子かどうか
     def koutsu?
-      if self.mentsu_type == MENTSU_TYPE_KOUTSU
-        return true
-      end
-      return false
+      self.mentsu_type == MENTSU_TYPE_KOUTSU
     end
     
     # 槓子かどうか
     def kantsu?
-      if self.mentsu_type == MENTSU_TYPE_KANTSU
-        return true
-      end
-      return false
+      self.mentsu_type == MENTSU_TYPE_KANTSU
     end
     
     # 対子かどうか
     def toitsu?
-      if self.mentsu_type == MENTSU_TYPE_TOITSU
-        return true
-      end
-      return false
+      self.mentsu_type == MENTSU_TYPE_TOITSU
     end
   
     # 特殊系かどうか
     def tokusyu?
-      if self.mentsu_type == MENTSU_TYPE_TOKUSYU
-        return true
-      end
-      return false
+      self.mentsu_type == MENTSU_TYPE_TOKUSYU
     end
     
     # 副露かどうか
@@ -67,42 +52,22 @@ module Mjparse
       
     # 全ての牌が萬子か？
     def manzu?
-      self.pai_list.each do |pai|
-        if pai.type != Pai::PAI_TYPE_MANZU
-          return false
-        end
-      end
-      return true
+      self.pai_list.all?{|pai| pai.manzu? }
     end
 
     # 全ての牌が筒子か？
     def pinzu?
-      self.pai_list.each do |pai|
-        if pai.type != Pai::PAI_TYPE_PINZU
-          return false
-        end
-      end
-      return true
+      self.pai_list.all?{|pai| pai.pinzu? }
     end
 
     # 全ての牌が索子か？
     def souzu?
-      self.pai_list.each do |pai|
-        if pai.type != Pai::PAI_TYPE_SOUZU
-          return false
-        end
-      end
-      return true
+      self.pai_list.all?{|pai| pai.souzu? }
     end
 
     # 全ての牌が字牌か？
     def jihai?
-      self.pai_list.each do |pai|
-        if pai.type != Pai::PAI_TYPE_JIHAI
-          return false
-        end
-      end
-      return true
+      self.pai_list.all?{|pai| pai.jihai? }
     end
     
     # 両面待ちでのアガリ面子であるか？
