@@ -145,16 +145,8 @@ module Mjparse
       
     ### 三槓子
     def sankantsu?(tehai, kyoku)
-    count = 0
-    tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
-	    count += 1
-	  end
-	end
-	if count == 3
-	  return true
-	end
-    return false
+      return false if tehai.tokusyu?
+      tehai.kantsu_list.count >= 3
     end
   
       
