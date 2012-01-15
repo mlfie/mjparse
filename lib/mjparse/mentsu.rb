@@ -93,6 +93,11 @@ module Mjparse
     def yaochu?
       self.pai_list.any?{|pai| pai.yaochu? }
     end
+
+    # 端牌(1, 9)が含まれるか？
+    def hashi?
+      self.pai_list.any?{|pai| pai.hashi? }
+    end
     
     # 両面待ちでのアガリ面子であるか？
     def ryanmen?

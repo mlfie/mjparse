@@ -55,6 +55,11 @@ module Mjparse
     def yaochu?
       return self.number == 1 || self.number == 9 || self.type == PAI_TYPE_JIHAI
     end
+
+    # 端牌(1,9)の判定
+    def hashi?
+      return (suhai? && (self.number == 1 or self.number == 9))
+    end
   
     # 中張牌の判定
     def chunchan?
