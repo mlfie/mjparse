@@ -204,18 +204,12 @@ module Mjparse
   
   # 天和
     def tenho?(tehai, agari)
-      if agari.is_tenho
-        return true
-      end
-	    return false
+      agari.is_tenho
     end
   
   # 地和
     def chiho?(tehai, agari)
-      if agari.is_chiho
-        return true
-      end
-	    return false
+      agari.is_chiho
     end	   
   
   # 大四喜
