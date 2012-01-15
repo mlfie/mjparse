@@ -234,17 +234,7 @@ module Mjparse
   
   # 字一色	  
     def tsuiso?(tehai, agari)
-      tehai.mentsu_list.each do |mentsu|
-        mentsu.pai_list.each do |pai|
-          if !pai.jihai? then
-            return false
-          end
-        end
-	    end
-      if !tehai.atama.jihai? then
-        return false
-      end
-      return true
+      tehai.atama.jihai? && tehai.mentsu_list.all?{|mentsu| mentsu.jihai? }
     end
   
   # 清老頭
