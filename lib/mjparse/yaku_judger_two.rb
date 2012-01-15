@@ -102,22 +102,15 @@ module Mjparse
 
     ### 三色同順
     def sanshoku?(tehai, kyoku)
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU
-          tehai.mentsu_list.each do | mentsu2|
-            if mentsu2.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].type != mentsu2.pai_list[0].type
-              if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
-                tehai.mentsu_list.each do | mentsu3|
-                  if mentsu3.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
-                    if mentsu.pai_list[0].number == mentsu3.pai_list[0].number                    
-                      return true
-                    end
-                  end
-                end
-              end
-            end
+      tehai.shuntsu_list.each do |mentsu|
+        tehai.shuntsu_list.each do |mentsu2|
+          next unless mentsu.identical.type != mentsu2.identical.type
+          next unless mentsu.identical.number == mentsu2.identical.number
+          tehai.shuntsu_list.each do |mentsu3|
+            next unless mentsu.identical.type != mentsu3.identical.type && mentsu2.identical.type != mentsu3.identical.type
+            return true if mentsu.identical.number == mentsu3.identical.number                    
           end
-        end
+        end 
       end
       return false
     end
