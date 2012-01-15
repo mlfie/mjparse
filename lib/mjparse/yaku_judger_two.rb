@@ -117,28 +117,17 @@ module Mjparse
     
     ### 三色同刻
     def sanshokudouko?(tehai, kyoku)
-    tehai.mentsu_list.each do | mentsu |
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
-          tehai.mentsu_list.each do | mentsu2 |
-            if mentsu2.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU  || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
-		    if mentsu.pai_list[0].type != mentsu2.pai_list[0].type
-                if mentsu.pai_list[0].number == mentsu2.pai_list[0].number
-                  tehai.mentsu_list.each do | mentsu3 |
-                    if mentsu3.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
-				    if mentsu.pai_list[0].type != mentsu3.pai_list[0].type && mentsu2.pai_list[0].type != mentsu3.pai_list[0].type
-                        if mentsu.pai_list[0].number == mentsu3.pai_list[0].number                    
-                          return true
-                        end
-                      end
-				  end	
-                  end
-                end
-              end
-		  end
+      tehai.koutsu_list.each do | mentsu |
+        tehai.koutsu_list.each do | mentsu2 |
+          next unless mentsu.identical.type != mentsu2.identical.type
+          next unless  mentsu.identical.number == mentsu2.identical.number
+          tehai.koutsu_list.each do | mentsu3 |
+            next unless mentsu.identical.type != mentsu3.identical.type && mentsu2.identical.type != mentsu3.identical.type
+            return true if mentsu.identical.number == mentsu3.identical.number
           end
         end
-	end  
-	return false
+      end
+      return false
     end
 
     ### 対々和
