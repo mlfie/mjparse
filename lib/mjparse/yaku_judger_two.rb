@@ -139,17 +139,9 @@ module Mjparse
 
     ### 三暗刻
     def sanankou?(tehai, kyoku)
-    count = 0
-    tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU && mentsu.furo == false
-	    count += 1
-	  end
-	end
-	if count > 2
-	  return true
-	end
-    return false
-  end
+      return false if tehai.tokusyu?
+      tehai.koutsu_list.count{|mentsu| !mentsu.furo } >= 3
+    end
       
     ### 三槓子
     def sankantsu?(tehai, kyoku)
