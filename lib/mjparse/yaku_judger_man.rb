@@ -183,15 +183,8 @@ module Mjparse
 
     # 四暗刻
     def suankou?(tehai, agari)
-      tehai.mentsu_list.each do |mentsu|
-        if !( mentsu.koutsu? || mentsu.kantsu? ) then
-          return false
-        end
-        if mentsu.furo then
-          return false	  
-        end
-      end
-	    return true
+      return false if tehai.tokusyu?
+      tehai.mentsu_list.all?{|mentsu| mentsu.koutsu? and not mentsu.furo }
     end
   
     # 大三元
