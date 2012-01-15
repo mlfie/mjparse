@@ -39,58 +39,64 @@ module Mjparse
       flag_seveneightnine = false
       
       #マンズ
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 1 && mentsu.pai_list[0].type == Pai::PAI_TYPE_MANZU
-          flag_onetwothree = true  
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 4 && mentsu.pai_list[0].type == Pai::PAI_TYPE_MANZU
-          flag_fourfivesix = true
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 7 && mentsu.pai_list[0].type == Pai::PAI_TYPE_MANZU          
-          flag_seveneightnine = true
+      tehai.shuntsu_list.each do |mentsu|
+        if mentsu.identical.manzu?
+          case mentsu.identical.number
+          when 1
+            flag_onetwothree = true  
+          when 4
+            flag_fourfivesix = true
+          when 7
+            flag_seveneightnine = true
+          end
         end
       end       
       if flag_onetwothree && flag_fourfivesix && flag_seveneightnine
         return true
       end
+
       flag_onetwothree = false
       flag_fourfivesix = false
       flag_seveneightnine = false
-      #ソウズ
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 1 && mentsu.pai_list[0].type == Pai::PAI_TYPE_SOUZU
-          flag_onetwothree = true  
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 4 && mentsu.pai_list[0].type == Pai::PAI_TYPE_SOUZU
-          flag_fourfivesix = true
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 7 && mentsu.pai_list[0].type == Pai::PAI_TYPE_SOUZU        
-          flag_seveneightnine = true
-        end
-      end       
-      if flag_onetwothree && flag_fourfivesix && flag_seveneightnine
-        return true
-      end
-      flag_onetwothree = false
-      flag_fourfivesix = false
-      flag_seveneightnine = false
-      #ピンズ
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 1 && mentsu.pai_list[0].type == Pai::PAI_TYPE_PINZU
-          flag_onetwothree = true  
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 4 && mentsu.pai_list[0].type == Pai::PAI_TYPE_PINZU
-          flag_fourfivesix = true
-        end
-        if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_SHUNTSU && mentsu.pai_list[0].number == 7 && mentsu.pai_list[0].type == Pai::PAI_TYPE_PINZU    
-          flag_seveneightnine = true
-        end
-      end       
-      if flag_onetwothree && flag_fourfivesix && flag_seveneightnine
-        return true
-      end
       
-      #other
+      #ソウズ
+      tehai.shuntsu_list.each do |mentsu|
+        if mentsu.identical.souzu?
+          case mentsu.identical.number
+          when 1
+            flag_onetwothree = true  
+          when 4
+            flag_fourfivesix = true
+          when 7
+            flag_seveneightnine = true
+          end
+        end
+      end       
+      if flag_onetwothree && flag_fourfivesix && flag_seveneightnine
+        return true
+      end
+
+      flag_onetwothree = false
+      flag_fourfivesix = false
+      flag_seveneightnine = false
+      
+      #ピンズ
+      tehai.shuntsu_list.each do |mentsu|
+        if mentsu.identical.pinzu?
+          case mentsu.identical.number
+          when 1
+            flag_onetwothree = true  
+          when 4
+            flag_fourfivesix = true
+          when 7
+            flag_seveneightnine = true
+          end
+        end
+      end       
+      if flag_onetwothree && flag_fourfivesix && flag_seveneightnine
+        return true
+      end
+
       return false
     end
 
