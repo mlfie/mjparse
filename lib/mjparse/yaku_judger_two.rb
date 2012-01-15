@@ -153,47 +153,14 @@ module Mjparse
     ### 小三元
     def shousangen?(tehai, kyoku)
       #頭が三元牌じゃなかったらfalse
-      if tehai.atama.type != Pai::PAI_TYPE_JIHAI
-        return false
-      end
-      if tehai.atama.number != Pai::PAI_NUMBER_HAKU && tehai.atama.number != Pai::PAI_NUMBER_HATSU && tehai.atama.number != Pai::PAI_NUMBER_CHUN
-        return false
-      end
+      return false unless tehai.atama.sangenpai?
       
       #三元牌の刻子、槓子があること
-      has_haku = false
-      has_hatsu =false
-      has_chun = false
-      # 白
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].number == Pai::PAI_NUMBER_HAKU && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
-            has_haku = true
-          end
-        end
-      end
-      # 発
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].number == Pai::PAI_NUMBER_HATSU && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
-            has_hatsu = true
-          end
-        end
-      end        
-      # 中
-      tehai.mentsu_list.each do | mentsu|
-        if mentsu.koutsu? || mentsu.kantsu?
-          if mentsu.pai_list[0].number == Pai::PAI_NUMBER_CHUN && mentsu.pai_list[0].type == Pai::PAI_TYPE_JIHAI
-            has_chun = true
-          end
-        end
-      end
+      has_haku = tehai.koutsu_list.any? {|mentsu| mentsu.identical.haku? }
+      has_hatsu = tehai.koutsu_list.any? {|mentsu| mentsu.identical.hatsu? }
+      has_chun = tehai.koutsu_list.any? {|mentsu| mentsu.identical.chun? }
      
-     if (has_haku && has_hatsu) || (has_haku && has_chun) || (has_hatsu && has_chun) 
-       return true
-     end
-   
-   return false
+      return (has_haku && has_hatsu) || (has_haku && has_chun) || (has_hatsu && has_chun) 
     end
     
     ### 混老頭
