@@ -214,29 +214,12 @@ module Mjparse
   
   # 大四喜
     def tasushi?(tehai, agari)
-      ton_flg = false
-      nan_flg = false
-      sha_flg = false
-      pei_flg = false
-      
-      tehai.mentsu_list.each do | mentsu |
-        if mentsu.koutsu? || mentsu.kantsu? then
-          if mentsu.pai_list[0].ton? then
-            ton_flg = true
-          elsif mentsu.pai_list[0].nan? then
-            nan_flg = true
-          elsif mentsu.pai_list[0].sha? then
-            sha_flg = true
-          elsif mentsu.pai_list[0].pei? then
-            pei_flg = true
-          end
-        end
-      end
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.ton? }
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.nan? }
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.sha? }
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.pei? }
 
-      if ton_flg && nan_flg && sha_flg && pei_flg then
-        return true
-      end
-      return false
+      return true
     end	  
   
   # 小四喜
