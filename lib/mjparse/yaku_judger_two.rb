@@ -165,25 +165,19 @@ module Mjparse
     
     ### 混老頭
     def honroutou?(tehai, kyoku)
-      if tehai.atama.type != Pai::PAI_TYPE_JIHAI
-        if tehai.atama.number != 1 && tehai.atama.number != 9
-          return false
-        end
-      end
-      tehai.mentsu_list.each do | mentsu |
-          if mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KOUTSU || mentsu.mentsu_type == Mentsu::MENTSU_TYPE_KANTSU
-	      if mentsu.pai_list[0].type != Pai::PAI_TYPE_JIHAI
-			if mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9
-			  return false
-			end
-		  end
-		else
-		   return false
-	    end
-	end  
-	return true
-  end
-  
-  
+      # 頭がヤオチュウ牌であること
+      return false unless tehai.atama.yaochu?
+
+      # 全ての面子がヤオチュウ牌関連 かつ 刻子であること
+      return false unless tehai.mentsu_list.all?{|mentsu| mentsu.koutsu? and mentsu.yaochu? }
+      
+      # 必ず一つは字牌があること
+      return false unless tehai.atama.jihai? or tehai.mentsu_list.any?{|mentsu| mentsu.jihai? }
+
+      # 必ず一つは数牌があること
+      return false unless tehai.atama.suhai? or tehai.mentsu_list.any?{|mentsu| mentsu.suhai? }
+
+      return true
+    end
   end
 end
