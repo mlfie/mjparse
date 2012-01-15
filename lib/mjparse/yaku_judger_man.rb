@@ -224,43 +224,12 @@ module Mjparse
   
   # 小四喜
     def shosushi?(tehai, agari)
-      ton_flg = false
-      nan_flg = false
-      sha_flg = false
-      pei_flg = false
+      ton_flg = tehai.atama.ton? || tehai.koutsu_list.any?{|mentsu| mentsu.identical.ton? }
+      nan_flg = tehai.atama.nan? || tehai.koutsu_list.any?{|mentsu| mentsu.identical.nan? }
+      sha_flg = tehai.atama.sha? || tehai.koutsu_list.any?{|mentsu| mentsu.identical.sha? }
+      pei_flg = tehai.atama.pei? || tehai.koutsu_list.any?{|mentsu| mentsu.identical.pei? }
       
-      tehai.mentsu_list.each do | mentsu |
-        if mentsu.koutsu? || mentsu.kantsu? then
-          if mentsu.pai_list[0].ton? then
-            ton_flg = true
-          elsif mentsu.pai_list[0].nan? then
-            nan_flg = true
-          elsif mentsu.pai_list[0].sha? then
-            sha_flg = true
-          elsif mentsu.pai_list[0].pei? then
-            pei_flg = true
-          end
-        end
-      end
-      
-      if ton_flg && nan_flg && sha_flg && pei_flg then
-        return false
-      end
-      
-      if tehai.atama.ton? then
-        ton_flg = true
-      elsif tehai.atama.nan? then
-        nan_flg = true
-      elsif tehai.atama.sha? then
-        sha_flg = true
-      elsif tehai.atama.pei? then
-        pei_flg = true
-      end
-      
-      if ton_flg && nan_flg && sha_flg && pei_flg then
-        return true
-      end
-      return false
+      ton_flg && nan_flg && sha_flg && pei_flg
     end		  
   
   # 字一色	  
