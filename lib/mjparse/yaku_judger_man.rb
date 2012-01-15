@@ -198,15 +198,8 @@ module Mjparse
     
     # 四槓子
     def sukantsu?(tehai, agari)
-      if tehai.mentsu_list.size != 4 then 
-        return false
-      end
-      tehai.mentsu_list.each do | mentsu|
-        if !mentsu.kantsu? then
-	        return false
-	      end
-      end
-      return true
+      return false if tehai.tokusyu?
+      tehai.kantsu_list.size == 4
     end
   
   # 天和
