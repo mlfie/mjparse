@@ -189,26 +189,11 @@ module Mjparse
   
     # 大三元
     def daisangen?(tehai, agari)
-      has_haku = false
-      has_chun = false
-      has_hatsu = false
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.haku? }
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.chun? }
+      return false unless tehai.koutsu_list.any?{|mentsu| mentsu.identical.hatsu? }
     
-      tehai.mentsu_list.each do |mentsu|
-        if mentsu.koutsu? || mentsu.kantsu? then
-          if mentsu.pai_list[0].haku? then
-            has_haku = true
-          elsif mentsu.pai_list[0].chun? then
-            has_chun = true
-          elsif mentsu.pai_list[0].hatsu? then
-            has_hatsu = true
-          end
-        end
-      end
-        
-	    if has_haku && has_chun && has_hatsu then
-        return true
-      end
-      return false
+      return true
     end
     
     # 四槓子
