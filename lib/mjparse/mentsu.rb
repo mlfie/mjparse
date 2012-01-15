@@ -41,7 +41,7 @@ module Mjparse
   
     # 刻子かどうか
     def koutsu?
-      self.mentsu_type == MENTSU_TYPE_KOUTSU
+      self.mentsu_type == MENTSU_TYPE_KOUTSU or kantsu?
     end
     
     # 槓子かどうか
