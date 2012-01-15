@@ -132,8 +132,8 @@ module Mjparse
 
     ### 対々和
     def toitoihou?(tehai, kyoku)
-      # TODO refactor
-      return false unless tehai.mentsu_list.size == 4
+      # 特殊系ではない かつ 全ての面子が刻子ならOK
+      return false if tehai.tokusyu?
       tehai.mentsu_list.all?{|mentsu| mentsu.koutsu? }
     end
 

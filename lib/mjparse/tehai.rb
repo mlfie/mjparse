@@ -91,6 +91,10 @@ module Mjparse
       end
       return false
     end
+
+    def tokusyu?
+      self.mentsu_list.any?{|mentsu| mentsu.tokusyu?}
+    end
     
   end
 end
