@@ -239,21 +239,7 @@ module Mjparse
   
   # 清老頭
     def chinraoto?(tehai, agari)
-      tehai.mentsu_list.each do | mentsu |
-        if mentsu.koutsu? || mentsu.kantsu? then
-          if mentsu.pai_list[0].jihai? then
-            return false
-          elsif mentsu.pai_list[0].number != 1 && mentsu.pai_list[0].number != 9 then
-            return false
-          end
-        else
-          return false
-        end
-      end
-      if tehai.atama.jihai? || tehai.atama.chunchan? then
-        return false
-      end
-      return true
+      tehai.atama.hashi? && tehai.mentsu_list.all?{|mentsu| mentsu.hashi? && mentsu.koutsu? }
     end
   
   # 緑一色
