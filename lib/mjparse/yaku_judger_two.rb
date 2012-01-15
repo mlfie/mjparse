@@ -132,17 +132,9 @@ module Mjparse
 
     ### 対々和
     def toitoihou?(tehai, kyoku)
-      if tehai.mentsu_list.size == 4
-	  tehai.mentsu_list.each do | mentsu| 
-	    if mentsu.mentsu_type != Mentsu::MENTSU_TYPE_KOUTSU
-   		  if mentsu.mentsu_type != Mentsu::MENTSU_TYPE_TOITSU
-		    return false
-		  end
-		end
-        end
-        return true		  
-	end
-	return false
+      # TODO refactor
+      return false unless tehai.mentsu_list.size == 4
+      tehai.mentsu_list.all?{|mentsu| mentsu.koutsu? }
     end
 
     ### 三暗刻
