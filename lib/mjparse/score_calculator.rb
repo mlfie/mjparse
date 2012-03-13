@@ -41,7 +41,7 @@ module Mjparse
     # 得点を計算して結果を返す
     def self.calculate_point(tehai, kyoku)
       tehai.fu_num        = self.calc_fu(tehai, kyoku)
-      tehai.han_num       = self.calc_han(tehai)
+      tehai.han_num       = self.calc_han(tehai, kyoku)
       tehai.mangan_scale  = self.calc_mangan_scale(tehai, kyoku)
       base_point          = self.calc_base_point(tehai, kyoku)
       tehai.parent_point  = self.calc_parent_point(base_point, kyoku)
@@ -195,7 +195,7 @@ module Mjparse
 #*****************************************************************#
 # step2. 飜を計算する
 #*****************************************************************#
-    def self.calc_han(tehai)
+    def self.calc_han(tehai, kyoku)
       total_han = 0
       # 全て門前面子の場合
       if !tehai.furo then
@@ -209,7 +209,13 @@ module Mjparse
         end
       end
 
+      total_han += self.calc_dora_num(tehai, kyoku) unless total_han == 0
+
       return total_han
+    end
+
+    def self.calc_dora_num(tehai, kyoku)
+      kyoku.dora_num
     end
   
 #*****************************************************************#

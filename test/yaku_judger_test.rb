@@ -45,9 +45,7 @@ class YakuJudgerTest < Test::Unit::TestCase
     @judger.set_yaku_list(tehai, kyoku)
     
     assert_equal Mjparse::YakuJudger::RESULT_SUCCESS, @judger.result_code
-    assert_equal 4, @judger.yaku_list.size
-    dora_yaku_list = @judger.yaku_list.select {|yaku| yaku.name == 'dora'}
-    assert_equal kyoku.dora_num, dora_yaku_list.size
+    assert_equal 1, @judger.yaku_list.size
   end
   
   def test_error_dora

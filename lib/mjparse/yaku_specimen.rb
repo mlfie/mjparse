@@ -25,7 +25,6 @@ module Mjparse
     YAKU_NAME_CHANKAN         = "chankan"
     YAKU_NAME_HAITEI          = "haitei"
     YAKU_NAME_HOUTEI          = "houtei"
-    YAKU_NAME_DORA            = "dora"
     # 二翻の役名
     YAKU_NAME_CHANTA          = "chanta"
     YAKU_NAME_TOITOIHOU       = "toitoihou"

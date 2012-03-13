@@ -11,7 +11,6 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   YAKU_NAME_REACH     = Mjparse::YakuSpecimen::YAKU_NAME_REACH
   YAKU_NAME_TSUMO     = Mjparse::YakuSpecimen::YAKU_NAME_TSUMO
   YAKU_NAME_PINFU     = Mjparse::YakuSpecimen::YAKU_NAME_PINFU
-  YAKU_NAME_DORA      = Mjparse::YakuSpecimen::YAKU_NAME_DORA
   YAKU_NAME_CHITOITSU = Mjparse::YakuSpecimen::YAKU_NAME_CHITOITSU
 
   ScoreCalculator     = Mjparse::ScoreCalculator
@@ -23,7 +22,6 @@ class ScoreCalculatorTest < Test::Unit::TestCase
     yaku_specimen[YAKU_NAME_REACH]      = Mjparse::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
     yaku_specimen[YAKU_NAME_TSUMO]      = Mjparse::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
     yaku_specimen[YAKU_NAME_PINFU]      = Mjparse::YakuSpecimen.new(YAKU_NAME_PINFU, '平和', 1, 0)
-    yaku_specimen[YAKU_NAME_DORA]       = Mjparse::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
     yaku_specimen[YAKU_NAME_CHITOITSU]  = Mjparse::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
     @judger   = Mjparse::YakuJudger.new(yaku_specimen)
     @resolver = Mjparse::MentsuResolver.new
@@ -73,7 +71,7 @@ class ScoreCalculatorTest < Test::Unit::TestCase
   def test_calc_han_yakunashi
     tehai = Mjparse::Tehai.new(nil, nil, false)
     tehai.yaku_list = Array.new
-    han_num = ScoreCalculator.calc_han(tehai)
+    han_num = ScoreCalculator.calc_han(tehai, @kyoku)
     assert_equal 0, han_num
   end
   
@@ -82,9 +80,10 @@ class ScoreCalculatorTest < Test::Unit::TestCase
     tehai.yaku_list = Array.new
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
-    tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
-    han_num = ScoreCalculator.calc_han(tehai)
+    @kyoku.dora_num = 1
+
+    han_num = ScoreCalculator.calc_han(tehai, @kyoku)
     assert_equal 5, han_num
   end
   
@@ -93,12 +92,22 @@ class ScoreCalculatorTest < Test::Unit::TestCase
     tehai.yaku_list = Array.new
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_REACH, '立直', 1, 0)
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_TSUMO, '門前清自摸和', 1, 1)
-    tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_DORA, 'ドラ', 1, 1)
     tehai.yaku_list << Mjparse::YakuSpecimen.new(YAKU_NAME_CHITOITSU, '七対子', 2, 0)
-    han_num = ScoreCalculator.calc_han(tehai)
+    @kyoku.dora_num = 1
+
+    han_num = ScoreCalculator.calc_han(tehai, @kyoku)
     assert_equal 2, han_num
   end
-  
+
+  def test_calc_han_with_dora_and_no_yaku
+    tehai = Mjparse::Tehai.new(nil, nil, true)
+    tehai.yaku_list = Array.new
+    @kyoku.dora_num = 1
+
+    han_num = ScoreCalculator.calc_han(tehai, @kyoku)
+    assert_equal 0, han_num
+  end
+
 #*****************************************************************#
 # step3. 満貫の倍数を計算する
 #*****************************************************************#

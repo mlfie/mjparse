@@ -120,13 +120,6 @@ module Mjparse
       # 役の判定結果を返す
       if self.yaku_list.size < 1 then
         self.result_code = RESULT_ERROR_YAKUNASHI
-      # ドラを追加
-      else
-        if kyoku.dora_num > 0 then
-          for i in 1..kyoku.dora_num
-            self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_DORA]
-          end
-        end
       end
     end
   end
