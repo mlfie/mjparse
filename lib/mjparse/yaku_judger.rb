@@ -48,6 +48,10 @@ module Mjparse
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHINRAOTO]       if  chinraoto?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_RYUISO]          if  ryuiso?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHUREN]          if  churen?(tehai, kyoku)	
+
+      # 応急処置. リスト中のnilを削除. TODO Fix it!
+      self.yaku_list = self.yaku_list.select {|e| !e.nil?}
+
       # 役満が1つでも該当した場合は、通常の役判定は行わない.
       if self.yaku_list.size > 0 then
         return
@@ -116,6 +120,9 @@ module Mjparse
 	    self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHANKAN]         if  chankan?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HAITEI]          if  haitei?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HOUTEI]          if  houtei?(tehai, kyoku)
+
+      # 応急処置. リスト中のnilを削除. TODO Fix it!
+      self.yaku_list = self.yaku_list.select {|e| !e.nil?}
 
       # 役の判定結果を返す
       if self.yaku_list.size < 1 then
