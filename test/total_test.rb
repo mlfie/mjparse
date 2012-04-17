@@ -21,10 +21,14 @@ class YakuJudgerTest < Test::Unit::TestCase
     @yaku_specimen['haku'] = Mjparse::YakuSpecimen.new('haku','白',1,1)
     @yaku_specimen['hatsu'] = Mjparse::YakuSpecimen.new('hatsu','發',1,1)
     @yaku_specimen['chun'] = Mjparse::YakuSpecimen.new('chun','中',1,1)
-    @yaku_specimen['ton'] = Mjparse::YakuSpecimen.new('ton','東',1,1)
-    @yaku_specimen['nan'] = Mjparse::YakuSpecimen.new('nan','南',1,1)
-    @yaku_specimen['sha'] = Mjparse::YakuSpecimen.new('sha','西',1,1)
-    @yaku_specimen['pei'] = Mjparse::YakuSpecimen.new('pei','北',1,1)
+    @yaku_specimen['jikazeton'] = Mjparse::YakuSpecimen.new('jikazeton','東',1,1)
+    @yaku_specimen['bakazeton'] = Mjparse::YakuSpecimen.new('bakazeton','東',1,1)
+    @yaku_specimen['jikazenan'] = Mjparse::YakuSpecimen.new('jikazenan','南',1,1)
+    @yaku_specimen['bakazenan'] = Mjparse::YakuSpecimen.new('bakazenan','南',1,1)
+    @yaku_specimen['jikazesha'] = Mjparse::YakuSpecimen.new('jikazesha','西',1,1)
+    @yaku_specimen['bakazesha'] = Mjparse::YakuSpecimen.new('bakazesha','西',1,1)
+    @yaku_specimen['jikazepei'] = Mjparse::YakuSpecimen.new('jikazepei','北',1,1)
+    @yaku_specimen['bakazepei'] = Mjparse::YakuSpecimen.new('bakazepei','北',1,1)
     @yaku_specimen['rinshan'] = Mjparse::YakuSpecimen.new('rinshan','嶺上開花',1,1)
     @yaku_specimen['ikkitsukan'] = Mjparse::YakuSpecimen.new('ikkitsukan','一気通貫',2,1)
     @yaku_specimen['chanta'] = Mjparse::YakuSpecimen.new('chanta','混全帯?九',2,1)
@@ -146,7 +150,12 @@ class YakuJudgerTest < Test::Unit::TestCase
   #http://homepage2.nifty.com/syusui/majyn/mondai.html
   #解答(c)
   #子の30符３飜は3900点
-  #＠解説南の明刻( 南南南b )の４符加算で30符(24符)。役は鳴き混一色(２飜)と場風(１飜)。ちなみに 3w 6w 7w 8w 9w の多面張待ちで、その中でも１番安目で上がったことになる。それぞれの牌で上がった場合の点数は、 3w の場合、ロン・自摸和了どちらも3900点、 7w 8w の場合、ロン・自摸和了どちらも5200点、 6w 9w の場合、ロン・自摸和了どちらも8000点、とかなり開きがある。特にこういった局面(南４局＝オーラス)では、トップとの点差や自分の着順をよく考え、当たり牌や振りこんでくれる相手を選択するといった戦略が大変需要である。
+  #＠解説南の明刻( 南南南b )の４符加算で30符(24符)。役は鳴き混一色(２飜)と
+  #場風(１飜)。ちなみに 3w 6w 7w 8w 9w の多面張待ちで、その中でも
+  #１番安目で上がったことになる。それぞれの牌で上がった場合の点数は、 
+  #3w の場合、ロン・自摸和了どちらも3900点、 7w 8w の場合、ロン・自摸和了
+  #どちらも5200点、 6w 9w の場合、ロン・自摸和了どちらも8000点、
+  #とかなり開きがある。
   def test_case_c
     # input
     pai_items = "m4 m5 m6 m7 m7 m8 m8 m9 m9 m9 m3 j2 j2 j2l".gsub!(" ","t")
@@ -177,9 +186,92 @@ class YakuJudgerTest < Test::Unit::TestCase
     assert_equal 0, teyaku.parent_point
     assert_equal 0, teyaku.child_point
     assert_equal 3900, teyaku.ron_point
-    assert_equal 3, teyaku.yaku_list.size
+    assert_equal 2, teyaku.yaku_list.size
     assert_equal true, teyaku_include?(teyaku, "honitsu")
-    assert_equal true, teyaku_include?(teyaku, "nan")
+    assert_equal true, teyaku_include?(teyaku, "bakazenan")
+  end
+
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(d)
+  #子の70符３飜は満貫(8000点)＋600点
+  #＠解説　５索の明刻( 5s5s5sb )の２符＋９萬の暗槓( 裏9w9w裏 )の
+  #32符＋西の暗刻( 西西西 )の８符＝42符で符ハネして70符(62符)。
+  #役は自風(１飜)とドラ２(２飜)。２本場なので600点加算されることを見逃してはダメ。
+  def test_case_d
+    # input
+    pai_items = "m4 m4 m5 m6 j3 j3 j3 m9 m9 m9 m9 m7 s5 s5 s5l".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false
+    kyoku.dora_num   = 2
+    kyoku.bakaze     = TON
+    kyoku.honba_num  = 2
+    kyoku.jikaze     = SHA
+    kyoku.is_parent  = false
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 70, teyaku.fu_num
+    assert_equal 3, teyaku.han_num
+    assert_equal 1, teyaku.mangan_scale
+    assert_equal 8600, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 0, teyaku.child_point
+    assert_equal 8600, teyaku.ron_point
+    assert_equal 1, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "jikazesha")
+  end
+
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  # 解答(j)
+  #親の110符１飜は5300点
+  #＠解説　北の暗槓( 裏北北裏 )の32符＋９索の暗槓( 裏9s9s裏 )の32符＋
+  #発の明刻( 発発発b )の４符＋雀頭( 東東 )の４符＝72符は符ハネしまくりで
+  #110符(102符)。役は三元牌(発)(１飜)。う～ん、１飜の最高役です、
+  #これ以上の符(110符以上)はありません。
+  def test_case_j
+    # input
+    pai_items = "m6 m7 m8 j1 j1 j6 j6 s9 s9 s9 s9 j4 j4 j4 j4 j6 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false
+    kyoku.dora_num   = 0
+    kyoku.bakaze     = TON
+    kyoku.honba_num  = 0
+    kyoku.jikaze     = TON
+    kyoku.is_parent  = true
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 110, teyaku.fu_num
+    assert_equal 1, teyaku.han_num
+    assert_equal 0, teyaku.mangan_scale
+    assert_equal 5300, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 0, teyaku.child_point
+    assert_equal 5300, teyaku.ron_point
+    assert_equal 1, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "hatsu")
   end
 
   def teyaku_include?(teyaku,yaku_name)
@@ -188,5 +280,7 @@ class YakuJudgerTest < Test::Unit::TestCase
     }
     return false
   end
+
+
 end
 
