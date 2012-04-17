@@ -234,6 +234,50 @@ class YakuJudgerTest < Test::Unit::TestCase
 
 
   #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(e)
+  #親の80符３飜は満貫(12000点)
+  #＠解説　南の暗槓( 裏南南裏 )の32符＋３筒の明槓( 3p3p3p3pb )の
+  #８符＋１筒の暗刻( 1p1p1p )の８符＋５筒単騎待ちの２符＋和了の符の
+  #２符＝52符で符ハネして80符(72符)。役は鳴き混一色(２飜)と場風(１飜)。
+  #ロン和了の場合も70符で満貫、 8p であがっても同じく満貫。
+  #(この場合自摸は70符、ロンも70符(68符)だから。) 
+  def test_case_e
+    # input
+    pai_items = "p1 p1 p1 p5 p5 p6 p7 p5 p3 p3 p3 p3lj2 j2 j2 j2 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = true
+    kyoku.dora_num   = 0
+    kyoku.bakaze     = NAN
+    kyoku.honba_num  = 0
+    kyoku.jikaze     = TON
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 80, teyaku.fu_num
+    assert_equal 3, teyaku.han_num
+    assert_equal 1, teyaku.mangan_scale
+    assert_equal 12000, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 4000, teyaku.child_point
+    assert_equal 0, teyaku.ron_point
+    assert_equal 2, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "bakazenan")
+    assert_equal true, teyaku_include?(teyaku, "honitsu")
+  end
+
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
   # 解答(j)
   #親の110符１飜は5300点
   #＠解説　北の暗槓( 裏北北裏 )の32符＋９索の暗槓( 裏9s9s裏 )の32符＋
