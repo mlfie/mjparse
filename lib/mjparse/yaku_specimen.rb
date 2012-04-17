@@ -36,6 +36,7 @@ module Mjparse
     YAKU_NAME_SANSHOKU        = "sanshoku"
     YAKU_NAME_SANSHOKUDOUKOU  = "sanshokudouko"
     YAKU_NAME_HONROUTOU       = "honroutou"      
+    YAKU_NAME_IKKITSUKAN      = "ikkitsukan"
     # 三翻の役名
     YAKU_NAME_HONITSU         = "honitsu"
     YAKU_NAME_JUNCHAN         = "junchan"
