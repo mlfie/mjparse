@@ -276,6 +276,180 @@ class YakuJudgerTest < Test::Unit::TestCase
     assert_equal true, teyaku_include?(teyaku, "honitsu")
   end
 
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(f)
+  #親の50符２飜は4800点＋900点
+  #＠解説　七対子は50符１飜(25符２飜でも可)で計算する。
+  #→特殊な例　役は立直(１飜)と七対子(１飜)。３本場なの
+  #で900点を忘れてはダメ。もし自摸っていれば9600点＋900点。 
+  def test_case_f
+    # input
+    pai_items = "m2 m2 m3 m3 m4 m4 p8 p8 s2 s2 s4 s8 s8 s4 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false
+    kyoku.dora_num   = 0
+    kyoku.bakaze     = TON
+    kyoku.honba_num  = 3
+    kyoku.jikaze     = TON
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 25, teyaku.fu_num
+    assert_equal 3, teyaku.han_num
+    assert_equal 0, teyaku.mangan_scale
+    assert_equal 5700, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 0, teyaku.child_point
+    assert_equal 5700, teyaku.ron_point
+    assert_equal 2, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "tanyao")
+    assert_equal true, teyaku_include?(teyaku, "chitoitsu")
+  end
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(g)
+  #子の40符３飜は5200点
+  #＠解説　雀頭( 東東 )の２符＋９萬の暗刻( 9w9w9w )の８符＋和了の符の２符
+  #＝12符で符ハネして40符(32符)。役は三色(２飜)と自摸(１飜)。ロン和了なら
+  #2600点と寂しい。もし 東 を自摸っていれば満貫(8000点)、この場合ロンでも
+  #40符(34符)で5200点となる。 
+  def test_case_g
+    # input
+    pai_items = "m5 m6 m7 m9 m9 p5 p6 p7 s5 s6 s7 j1 j1 m9 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = true
+    kyoku.dora_num   = 0
+    kyoku.bakaze     = TON
+    kyoku.honba_num  = 0
+    kyoku.jikaze     = PEI
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num
+    assert_equal 3, teyaku.han_num
+    assert_equal 0, teyaku.mangan_scale
+    assert_equal 5200, teyaku.total_point
+    assert_equal 2600, teyaku.parent_point
+    assert_equal 1300, teyaku.child_point
+    assert_equal 0, teyaku.ron_point
+    assert_equal 2, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "tsumo")
+    assert_equal true, teyaku_include?(teyaku, "sanshoku")
+  end
+
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(h)
+  #子の70符２飜は4500点
+  #＠解説　中の暗槓( 裏中中裏 )の32符＋９萬の明刻( 9w9w9wb )の４符＋４萬の
+  #明刻( 4w4w4wb )の２符＋雀頭( 南南 )の４符＝42符は符ハネして70符(62符)。
+  #役は三元牌(中)(１飜)とドラ１(１飜)。連風牌の雀頭は４符になることに注意。
+  #しかしこの手、かなり派手に動いた割には寒い。とてもドラそばが出てくるとは
+  #思えん。('-'; 
+  def test_case_h
+    # input
+    pai_items = "s5 s6 j2 j2 m4 m4 m4lm9 m9 m9lj7 j7 j7 j7 s4 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false
+    kyoku.dora_num   = 1
+    kyoku.bakaze     = NAN
+    kyoku.honba_num  = 0
+    kyoku.jikaze     = NAN
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 70, teyaku.fu_num
+    assert_equal 2, teyaku.han_num
+    assert_equal 0, teyaku.mangan_scale
+    assert_equal 4500, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 0, teyaku.child_point
+    assert_equal 4500, teyaku.ron_point
+    assert_equal 1, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "chun")
+  end
+
+
+  #http://homepage2.nifty.com/syusui/majyn/mondai.html
+  #解答(i)
+  #子の50符２飜は3200点＋900点
+  #＠解説　白の明刻( 白白白b )の４符＋９萬の暗刻( 9w9w9w )の８符＋９筒の暗刻
+  #( 9p9p9p )の８符＋辺張待ち( 8s9s )の２符＝22符は符ハネして50符(42符)。
+  #役は三元牌(白)(１飜)と鳴き全帯(１飜)。３本場の900点を忘れてはダメ。
+  #自摸っても同じ点数ですが、もし 8s であがれば、三色同刻と三暗刻と対々和
+  #という役がつくので一気に跳満(12000点)＋900点になりますし、 8s の代わりに
+  #ヤオ九牌をうまく手にいれる事が出来れば混老頭という役までつくので倍満
+  #(16000点)＋900点にまで化けてしまいます。なんかもったいないですね。('▽'; 
+  def test_case_i
+    # input
+    pai_items = "m9 m9 m9 p9 p9 p9 s8 s9 s9 s9 s7 j5 j5 j5l".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false
+    kyoku.dora_num   = 0
+    kyoku.bakaze     = NAN
+    kyoku.honba_num  = 3
+    kyoku.jikaze     = PEI
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.reach_num  = 0
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pai_items,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 50, teyaku.fu_num
+    assert_equal 2, teyaku.han_num
+    assert_equal 0, teyaku.mangan_scale
+    assert_equal 4100, teyaku.total_point
+    assert_equal 0, teyaku.parent_point
+    assert_equal 0, teyaku.child_point
+    assert_equal 4100, teyaku.ron_point
+    assert_equal 2, teyaku.yaku_list.size
+    assert_equal true, teyaku_include?(teyaku, "haku")
+    assert_equal true, teyaku_include?(teyaku, "chanta")
+  end
+
+
+
 
   #http://homepage2.nifty.com/syusui/majyn/mondai.html
   # 解答(j)
