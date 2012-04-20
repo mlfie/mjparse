@@ -370,7 +370,7 @@ class TotalTest < Test::Unit::TestCase
   #思えん。('-'; 
   def test_case_h
     # input
-    pai_items = "s5 s6 j2 j2 m4 m4 m4lm9 m9 m9lj7 j7 j7 j7 s4 ".gsub!(" ","t")
+    pai_items = "s5 s6 j2 j2 j7 j7 j7 j7 s4 m4 m4 m4lm9 m9 m9l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
     kyoku.is_tsumo   = false
     kyoku.dora_num   = 1
