@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'test_helper'
 
-class YakuJudgerTest < Test::Unit::TestCase
+class TotalTest < Test::Unit::TestCase
 
   TON = Mjparse::Kyoku::KYOKU_KAZE_TON
   NAN = Mjparse::Kyoku::KYOKU_KAZE_NAN
