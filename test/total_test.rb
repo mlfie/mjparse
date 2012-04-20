@@ -243,7 +243,7 @@ class TotalTest < Test::Unit::TestCase
   #(この場合自摸は70符、ロンも70符(68符)だから。) 
   def test_case_e
     # input
-    pai_items = "p1 p1 p1 p5 p5 p6 p7 p5 p3 p3 p3 p3lj2 j2 j2 j2 ".gsub!(" ","t")
+    pai_items = "p1 p1 p1 p5 p5 p6 p7 r0 j2 j2 r0 p5 p3 p3 p3 p3l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
     kyoku.is_tsumo   = true
     kyoku.dora_num   = 0

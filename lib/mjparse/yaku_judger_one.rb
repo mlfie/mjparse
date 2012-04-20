@@ -54,7 +54,7 @@ module Mjparse
       
     ### 門前清自摸和
     def tsumo?(tehai, kyoku)
-      kyoku.is_tsumo
+      kyoku.is_tsumo and not tehai.naki?
     end
 
     ### 自風(東)

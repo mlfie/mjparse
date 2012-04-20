@@ -206,11 +206,29 @@ class YakuJudgerOneTest < Test::Unit::TestCase
   
   def test_tsumo
     agari = Mjparse::Kyoku.new
+    pai_items = "j1tj1tj1tm3tm4ts2ts2ts3ts3ts4ts4tp9tp9tm2t"    
+    @resolver.get_mentsu(pai_items)
     
     agari.is_tsumo = false
-    assert_equal false, @judger.tsumo?(nil, agari)
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.tsumo?(tehai, agari)
+    end
     agari.is_tsumo = true
-    assert_equal true, @judger.tsumo?(nil, agari)
+    @resolver.tehai_list.each do |tehai|
+      assert_equal true, @judger.tsumo?(tehai, agari)
+    end
+
+  end
+
+  def test_tsumo_with_naki
+    agari = Mjparse::Kyoku.new
+    pai_items = "j1tj1tj1tm3tm4ts2ts3ts4tp9tp9tm2ts2ls3ts4t"    
+    @resolver.get_mentsu(pai_items)
+
+    agari.is_tsumo = true
+    @resolver.tehai_list.each do |tehai|
+      assert_equal false, @judger.tsumo?(tehai, agari)
+    end
   end
   
   def test_ton
