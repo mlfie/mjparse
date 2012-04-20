@@ -119,9 +119,9 @@ module Mjparse
       self.pai_list.any?{|pai| pai.yaochu? }
     end
 
-    # 端牌(1, 9)が含まれるか？
-    def hashi?
-      self.pai_list.any?{|pai| pai.hashi? }
+    # 老頭牌(1, 9)が含まれるか？
+    def raotou?
+      self.pai_list.any?{|pai| pai.raotou? }
     end
     
     # 両面待ちでのアガリ面子であるか？

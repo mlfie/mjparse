@@ -43,8 +43,8 @@ module Mjparse
     
     ### 純全帯么九
     def junchan?(tehai, agari)
-      # 全ての頭と面子が端牌で構成されていること
-      return false unless tehai.atama.hashi? and tehai.mentsu_list.all?{|mentsu| mentsu.hashi? }
+      # 全ての頭と面子が老頭牌で構成されていること
+      return false unless tehai.atama.raotou? and tehai.mentsu_list.all?{|mentsu| mentsu.raotou? }
 
       # 必ず一つは順子をもつこと
       return false unless tehai.mentsu_list.any?{|mentsu| mentsu.shuntsu? }

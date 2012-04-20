@@ -239,7 +239,7 @@ module Mjparse
   
   # 清老頭
     def chinraoto?(tehai, agari)
-      tehai.atama.hashi? && tehai.mentsu_list.all?{|mentsu| mentsu.hashi? && mentsu.koutsu? }
+      tehai.atama.raotou? && tehai.mentsu_list.all?{|mentsu| mentsu.raotou? && mentsu.koutsu? }
     end
   
   # 緑一色
