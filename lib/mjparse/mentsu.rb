@@ -43,6 +43,31 @@ module Mjparse
     def koutsu?
       self.mentsu_type == MENTSU_TYPE_KOUTSU or kantsu?
     end
+
+    # 明刻かどうか
+    def minkou?
+      if koutsu?
+        return furo? || ron?
+      end
+
+      return false;
+    end
+
+    # 暗刻かどうか
+    def ankou?
+      # 刻子かつ明刻ではない
+      koutsu? && !minkou?
+    end
+
+    # ロンあがりメンツかどうか
+    def ron?
+      self.pai_list.any?{|pai| pai.agari && !pai.is_tsumo}
+    end
+
+    # ツモあがりメンツかどうか
+    def tsumo?
+      self.pai_list.any?{|pai| pai.agari && pai.is_tsumo}
+    end
     
     # 槓子かどうか
     def kantsu?
@@ -151,6 +176,12 @@ module Mjparse
         end
       end
       return false
+    end
+
+    # アクセサメソッドをオーバーライド
+    # いずれはfuro?に統一すること
+    def furo
+      furo?
     end
 
   end

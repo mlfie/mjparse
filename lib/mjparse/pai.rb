@@ -28,7 +28,8 @@ module Mjparse
     attr_accessor :type,    # 牌の種類(m:萬子 s:索子 p:筒子 j:字牌 r:背面牌)
                   :number,  # 数字(字牌の場合 1:東 2:南 3:西 4:北 5:白 6:發 7:中、背面牌の場合 0:背面牌)
                   :naki,    # 鳴き牌かどうか(true, false)
-                  :agari    # アガリ牌かどうか(true, false)
+                  :agari,   # アガリ牌かどうか(true, false)
+                  :is_tsumo
 
     # 初期化メソッド
     def initialize(tehai_str)

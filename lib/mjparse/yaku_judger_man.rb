@@ -184,7 +184,7 @@ module Mjparse
     # 四暗刻
     def suankou?(tehai, agari)
       return false if tehai.tokusyu?
-      tehai.mentsu_list.all?{|mentsu| mentsu.koutsu? and not mentsu.furo }
+      tehai.mentsu_list.all?{|mentsu| mentsu.ankou? }
     end
   
     # 大三元

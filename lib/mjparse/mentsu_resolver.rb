@@ -42,9 +42,10 @@ module Mjparse
     #-------------------#
     # 面子の形を得る
     #-------------------#
-    def get_mentsu(pai_items)
+    def get_mentsu(pai_items, is_tsumo=false)
       # step1. pai_itemsをPaiオブジェクトの配列で取得する
       @pai_list = get_pai_list(pai_items)
+      @is_tsumo = is_tsumo
       
       if self.result_code == RESULT_SUCCESS then
         # step2. 副露面子を取得する
@@ -400,7 +401,7 @@ module Mjparse
         # 副露面子と合わせて、4面子構成になっていない場合は、手牌リストに追加しない
         if (@mentsu_list.size + @ankan_list.size + @furo_list.size) == 4 then
           # アガリ牌の可能性ごとに全パターンの手牌候補を洗い出す
-          self.tehai_list.concat(get_agari_tehai)
+          self.tehai_list.concat(get_agari_tehai(@is_tsumo))
         end
       else
         # 槓子の判定へ
@@ -489,7 +490,7 @@ module Mjparse
     #-------------------------------------------------#
     # アガリ牌の設定を行う
     #-------------------------------------------------#
-    def get_agari_tehai
+    def get_agari_tehai(is_tsumo)
       # アガリ牌設定済みのTehaiリスト
       tehai_list = Array.new
       
@@ -497,6 +498,7 @@ module Mjparse
       if @atama_pai == @agari_pai then
         _atama_pai = @atama_pai.clone
         _atama_pai.agari = true
+        _atama_pai.is_tsumo = is_tsumo
         tehai_list << Tehai.new(Marshal.load(Marshal.dump(@mentsu_list)) + @ankan_list + @furo_list, _atama_pai, @furo_flag)
       end
       
@@ -507,6 +509,7 @@ module Mjparse
           if @mentsu_list[i].pai_list[j] == @agari_pai then
             _mentsu_list = Marshal.load(Marshal.dump(@mentsu_list))
             _mentsu_list[i].pai_list[j].agari = true
+            _mentsu_list[i].pai_list[j].is_tsumo = is_tsumo
             tehai_list << Tehai.new(_mentsu_list + @ankan_list + @furo_list, @atama_pai, @furo_flag)
             break
           end

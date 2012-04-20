@@ -140,7 +140,7 @@ module Mjparse
     ### 三暗刻
     def sanankou?(tehai, kyoku)
       return false if tehai.tokusyu?
-      tehai.koutsu_list.count{|mentsu| !mentsu.furo } >= 3
+      tehai.koutsu_list.count{|mentsu| mentsu.ankou? } >= 3
     end
       
     ### 三槓子
