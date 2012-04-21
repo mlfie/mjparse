@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: true
+  :dora_num: "1"
+  :reach_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m3t
+  - m4t
+  - m5t
+  - s2t
+  - s3t
+  - s4t
+  - s5t
+  - s6t
+  - s7t
+  - s8t
+  - s9t
+  - p4t
+  - p4t
+  :naki: []
+
+  :agari: s1t
+:score: 
+  :yaku: 
+  - tsumo
+  - pinfu
+  - ikkitsukan
+  :fu_nam: 20
+  :han_num: 5
+  :total_point: 12000
+:info: 
+  :url: http://dora12.com/2/yakuten/51mon.php

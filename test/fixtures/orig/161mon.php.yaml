@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: ton
+  :is_tsumo: true
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m4t
+  - m4t
+  - m9t
+  - m9t
+  :naki: 
+  - j1l
+  - j1t
+  - j1t
+  - z0t
+  - j3t
+  - j3t
+  - z0t
+  - s9t
+  - s9l
+  - s9t
+  - s9t
+  :agari: m9t
+:score: 
+  :yaku: 
+  - jikazeton
+  - toitoihou
+  :fu_nam: 90
+  :han_num: 3
+  :total_point: 12000
+:info: 
+  :url: http://dora12.com/2/yakuten/161mon.php

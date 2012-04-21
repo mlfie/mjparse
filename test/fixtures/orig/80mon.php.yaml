@@ -1,0 +1,42 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: sha
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - s4t
+  - s5t
+  - s7t
+  - s7t
+  :naki: 
+  - j2t
+  - j2l
+  - j2t
+  - p9l
+  - p9t
+  - p9t
+  - p9t
+  - z0t
+  - j3t
+  - j3t
+  - z0t
+  :agari: s3t
+:score: 
+  :yaku: 
+  - jikazesha
+  :fu_nam: 80
+  :han_num: 1
+  :total_point: 2600
+:info: 
+  :url: http://dora12.com/2/yakuten/80mon.php

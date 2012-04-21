@@ -1,0 +1,41 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m1t
+  - m2t
+  - m3t
+  - m3t
+  - m4t
+  - m5t
+  - m6t
+  - m7t
+  - m8t
+  - j2t
+  - j2t
+  - j3t
+  - j3t
+  :naki: []
+
+  :agari: j3t
+:score: 
+  :yaku: 
+  - honitsu
+  :fu_nam: 40
+  :han_num: 3
+  :total_point: 7700
+:info: 
+  :url: http://dora12.com/2/yakuten/41mon.php

@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: pei
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m2t
+  - m2t
+  - m8t
+  - m9t
+  :naki: 
+  - s5l
+  - s5t
+  - s5t
+  - s5t
+  - z0t
+  - j3t
+  - j3t
+  - z0t
+  - z0t
+  - s1t
+  - s1t
+  - z0t
+  :agari: m7t
+:score: 
+  :yaku: 
+  - sankantsu
+  :fu_nam: 100
+  :han_num: 2
+  :total_point: 6400
+:info: 
+  :url: http://dora12.com/2/yakuten/87mon.php

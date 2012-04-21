@@ -1,0 +1,37 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: pei
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m3t
+  - m4t
+  - s4t
+  - s5t
+  - s6t
+  - s8t
+  - s8t
+  :naki: 
+  - j2l
+  - j2t
+  - j2t
+  - j3t
+  - j3t
+  - j3l
+  :agari: m2t
+:score: 
+  :yaku: []
+
+:info: 
+  :url: http://dora12.com/2/yakuten/32mon.php
