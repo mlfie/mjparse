@@ -299,6 +299,7 @@ class TotalTestByYaml < Test::Unit::TestCase
   def test_227; sub(227); end
   def test_228; sub(228); end
   def test_229; sub(229); end
+  def test_230; sub(230); end
 
 
 
