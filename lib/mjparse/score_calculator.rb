@@ -57,11 +57,7 @@ module Mjparse
 #*****************************************************************#
     def self.calc_fu(tehai, kyoku)
       ###--------------- 七対子 ---------------###
-      tehai.yaku_list.each do |yaku|
-        if yaku.name == YakuSpecimen::YAKU_NAME_CHITOITSU then
-           return 25
-        end
-      end
+      return 25 if tehai.yaku_list.any?{|yaku| yaku.name == YakuSpecimen::YAKU_NAME_CHITOITSU }
 
       ###--------------- 副底 ---------------###
       # 基本符20符 
@@ -81,34 +77,7 @@ module Mjparse
       end
       
       ###--------------- 雀頭 ---------------###
-      if tehai.atama.type == Pai::PAI_TYPE_JIHAI
-        # 風牌の場合
-        if Pai::PAI_NUMBER_TON <= tehai.atama.number && tehai.atama.number <= Pai::PAI_NUMBER_PEI then
-          # 自風の計算
-          if tehai.atama.number == Pai::PAI_NUMBER_TON && Kyoku::KYOKU_KAZE_TON then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_NAN && Kyoku::KYOKU_KAZE_NAN then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_SHA && Kyoku::KYOKU_KAZE_SHA then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_PEI && Kyoku::KYOKU_KAZE_PEI then
-            total_fu += 2
-          end
-          # 場風の計算
-          if tehai.atama.number == Pai::PAI_NUMBER_TON && Kyoku::KYOKU_KAZE_TON then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_NAN && Kyoku::KYOKU_KAZE_NAN then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_SHA && Kyoku::KYOKU_KAZE_SHA then
-            total_fu += 2
-          elsif tehai.atama.number == Pai::PAI_NUMBER_PEI && Kyoku::KYOKU_KAZE_PEI then
-            total_fu += 2
-          end
-        # 三元牌の場合
-        elsif Pai::PAI_NUMBER_HAKU <= tehai.atama.number && tehai.atama.number <= Pai::PAI_NUMBER_CHUN then
-          total_fu += 2
-        end
-      end
+      total_fu += 2 if tehai.atama.yakupai?(kyoku)
     
       ###--------------- 順子 ---------------###
       # 順子による符の加算は無い
