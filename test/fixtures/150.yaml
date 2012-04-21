@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: ton
+  :is_tsumo: true
+  :reach_num: 1
+  :is_haitei: true
+  :dora_num: 0
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m6t
+  - m7t
+  - m8t
+  - s6t
+  - s6t
+  - s8t
+  - s9t
+  - p7t
+  - p7t
+  - p7t
+  :naki: 
+  - z0t
+  - j2t
+  - j2t
+  - z0t
+  :agari: s7t
+:score: 
+  :yaku: 
+  - reach
+  - tsumo
+  - bakazenan
+  :fu_nam: 60
+  :han_num: 3
+  :total_point: 11700
+:info: 
+  :url: http://dora12.com/2/yakuten/150mon.php

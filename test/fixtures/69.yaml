@@ -1,0 +1,40 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: pei
+  :is_tsumo: false
+  :dora_num: "1"
+  :reach_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m1t
+  - m1t
+  - s6t
+  - s7t
+  - s8t
+  - p1t
+  - p2t
+  - j4t
+  - j4t
+  - j4t
+  - j5t
+  - j5t
+  - j5t
+  :naki: []
+
+  :agari: p3t
+:score: 
+  :yaku: "\xE9\xA3\x9C\xE7\x89\x8CTODOjikazepei"
+  :fu_nam: 50
+  :han_num: 3
+  :total_point: 6400
+:info: 
+  :url: http://dora12.com/2/yakuten/69mon.php

@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: pei
+  :is_tsumo: true
+  :dora_num: "1"
+  :reach_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m2t
+  - m2t
+  - m2t
+  - m3t
+  - m4t
+  - m6t
+  - m7t
+  - m8t
+  - s3t
+  - s4t
+  - s5t
+  - p7t
+  - p8t
+  :naki: []
+
+  :agari: p6t
+:score: 
+  :yaku: 
+  - tsumo
+  - tanyao
+  - pinfu
+  :fu_nam: 20
+  :han_num: 4
+  :total_point: 5200
+:info: 
+  :url: http://dora12.com/2/yakuten/17mon.php

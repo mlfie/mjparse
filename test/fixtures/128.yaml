@@ -1,0 +1,40 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m2t
+  - m3t
+  - m4t
+  - s6t
+  - s7t
+  - s8t
+  - p5t
+  - p6t
+  - p9t
+  - p9t
+  :naki: 
+  - z0t
+  - j5t
+  - j5t
+  - z0t
+  :agari: p4t
+:score: 
+  :yaku: "\xE9\xA3\x9C\xE7\x89\x8CTODO"
+  :fu_nam: 70
+  :han_num: 1
+  :total_point: 3400
+:info: 
+  :url: http://dora12.com/2/yakuten/128mon.php

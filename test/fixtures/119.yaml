@@ -1,0 +1,42 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m5t
+  - m5t
+  - m8t
+  - m9t
+  - s9t
+  - s9t
+  - s9t
+  - p5t
+  - p6t
+  - p7t
+  - j1t
+  - j1t
+  - j1t
+  :naki: []
+
+  :agari: m7t
+:score: 
+  :yaku: 
+  - jikazeton
+  - bakazeton
+  :fu_nam: 50
+  :han_num: 2
+  :total_point: 4800
+:info: 
+  :url: http://dora12.com/2/yakuten/119mon.php

@@ -1,0 +1,41 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: ton
+  :is_tsumo: true
+  :dora_num: "3"
+  :reach_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m2t
+  - m2t
+  - m2t
+  - m3t
+  - m4t
+  - s2t
+  - s3t
+  - s4t
+  - s6t
+  - s7t
+  :naki: 
+  - p3l
+  - p2t
+  - p4t
+  :agari: s8t
+:score: 
+  :yaku: 
+  - tanyao
+  - sanshoku
+  :fu_nam: 30
+  :han_num: 5
+  :total_point: 12000
+:info: 
+  :url: http://dora12.com/2/yakuten/56mon.php

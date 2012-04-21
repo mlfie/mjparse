@@ -1,0 +1,43 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 1
+  :is_haitei: true
+  :dora_num: 0
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m1t
+  - m2t
+  - m3t
+  - m4t
+  - m5t
+  - m6t
+  - m7t
+  - m8t
+  - m9t
+  - j1t
+  - j1t
+  - j5t
+  - j5t
+  :naki: []
+
+  :agari: j1t
+:score: 
+  :yaku: 
+  - reach
+  - jikazeton
+  - bakazeton
+  - honitsu
+  - ikkitsukan
+  :total_point: 24000
+:info: 
+  :url: http://dora12.com/2/yakuten/212mon.php

@@ -1,0 +1,44 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: sha
+  :is_tsumo: false
+  :reach_num: 1
+  :is_haitei: true
+  :dora_num: 0
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m4t
+  - m4t
+  - m5t
+  - m5t
+  - m6t
+  - m6t
+  - s4t
+  - s5t
+  - s6t
+  - p5t
+  - p6t
+  - p9t
+  - p9t
+  :naki: []
+
+  :agari: p4t
+:score: 
+  :yaku: 
+  - reach
+  - pinfu
+  - sanshoku
+  - iipeikou
+  :fu_nam: 30
+  :han_num: 5
+  :total_point: 8000
+:info: 
+  :url: http://dora12.com/2/yakuten/5mon.php

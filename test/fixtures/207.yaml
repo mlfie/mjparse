@@ -1,0 +1,38 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: nan
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m1t
+  - m2t
+  - m3t
+  - m4t
+  - m4t
+  - m4t
+  - m5t
+  - m6t
+  - m8t
+  - m8t
+  - m9t
+  - m9t
+  - m9t
+  :naki: []
+
+  :agari: m3t
+:score: 
+  :yaku: []
+
+:info: 
+  :url: http://dora12.com/2/yakuten/207mon.php

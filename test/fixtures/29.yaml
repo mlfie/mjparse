@@ -1,0 +1,42 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: pei
+  :is_tsumo: true
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: false
+:pai: 
+  :menzen: 
+  - m1t
+  - m1t
+  - m3t
+  - m3t
+  - m5t
+  - m5t
+  - s7t
+  - s7t
+  - p6t
+  - p6t
+  - j2t
+  - j2t
+  - j3t
+  :naki: []
+
+  :agari: j3t
+:score: 
+  :yaku: 
+  - tsumo
+  - chitoitsu
+  :fu_nam: 25
+  :han_num: 3
+  :total_point: 3200
+:info: 
+  :url: http://dora12.com/2/yakuten/29mon.php

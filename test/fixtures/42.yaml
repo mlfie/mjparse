@@ -1,0 +1,42 @@
+--- 
+:kyoku: 
+  :bakaze: nan
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m3t
+  - m3t
+  - m4t
+  - m5t
+  - m5t
+  - p2t
+  - p2t
+  - p3t
+  - p3t
+  - p4t
+  - p4t
+  - p7t
+  - p7t
+  :naki: []
+
+  :agari: m4t
+:score: 
+  :yaku: 
+  - tanyao
+  - ryanpeikou
+  :fu_nam: 40
+  :han_num: 4
+  :total_point: 12000
+:info: 
+  :url: http://dora12.com/2/yakuten/42mon.php

@@ -1,0 +1,42 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 1
+  :is_haitei: true
+  :dora_num: 0
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m5t
+  - m5t
+  - s5t
+  - s5t
+  - p5t
+  - p5t
+  - j2t
+  - j2t
+  - j3t
+  - j3t
+  - j5t
+  - j5t
+  - j1t
+  :naki: []
+
+  :agari: j1t
+:score: 
+  :yaku: 
+  - reach
+  - chitoitsu
+  :fu_nam: 25
+  :han_num: 3
+  :total_point: 4800
+:info: 
+  :url: http://dora12.com/2/yakuten/45mon.php

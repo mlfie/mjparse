@@ -1,0 +1,41 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :dora_num: "2"
+  :reach_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - s4t
+  - s5t
+  - s6t
+  - j1t
+  - j1t
+  - j7t
+  - j7t
+  :naki: 
+  - z0t
+  - s9t
+  - s9t
+  - z0t
+  - z0t
+  - m9t
+  - m9t
+  - z0t
+  :agari: j7t
+:score: 
+  :yaku: "\xE9\xA3\x9C\xE7\x89\x8CTODO"
+  :fu_nam: 110
+  :han_num: 3
+  :total_point: 12000
+:info: 
+  :url: http://dora12.com/2/yakuten/142mon.php

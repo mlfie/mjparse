@@ -1,0 +1,37 @@
+--- 
+:kyoku: 
+  :bakaze: ton
+  :jikaze: ton
+  :is_tsumo: false
+  :reach_num: 0
+  :dora_num: 0
+  :is_haitei: false
+  :is_rinshan: false
+  :is_chankan: false
+  :honba_num: false
+  :is_ippatsu: false
+  :is_tenho: false
+  :is_chiho: false
+  :is_parent: true
+:pai: 
+  :menzen: 
+  - m7t
+  - m8t
+  - s4t
+  - s5t
+  - s6t
+  - s7t
+  - s7t
+  :naki: 
+  - p4l
+  - p4t
+  - p4t
+  - p6l
+  - p7t
+  - p8t
+  :agari: m9t
+:score: 
+  :yaku: []
+
+:info: 
+  :url: http://dora12.com/2/yakuten/65mon.php
