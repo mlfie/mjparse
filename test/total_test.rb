@@ -71,7 +71,7 @@ class TotalTest < Test::Unit::TestCase
   #親の40符３飜は7700点
   #嵌張待ち( 4w 6w )の２符で40符(32符)になる。
   #役は立直(１飜)と一気通貫親(２飜)。もし自摸っていれば12000点。
-  def test_case_a
+  def test_case_1_a
     # input
     pai_items = "m1 m2 m3 m4 m6 m7 m8 m9 p3 p4 p5 j3 j3 m5 ".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -113,7 +113,7 @@ class TotalTest < Test::Unit::TestCase
   #と勘違いしがちだが、平和はロン和了の場合は必ず30符、
   #自摸和了の場合は必ず20符になる。→特殊な例もし自摸っていれば
   #2600点(実際はいわゆるナナ・トーサンで計2700点になる)。
-  def test_case_b
+  def test_case_1_b
     # input
     pai_items = "m1 m2 m3 m3 m4 p4 p5 p6 s5 s6 s7 s7 s7 m2 ".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -156,7 +156,7 @@ class TotalTest < Test::Unit::TestCase
   #3w の場合、ロン・自摸和了どちらも3900点、 7w 8w の場合、ロン・自摸和了
   #どちらも5200点、 6w 9w の場合、ロン・自摸和了どちらも8000点、
   #とかなり開きがある。
-  def test_case_c
+  def test_case_1_c
     # input
     pai_items = "m4 m5 m6 m7 m7 m8 m8 m9 m9 m9 m3 j2 j2 j2l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -198,7 +198,7 @@ class TotalTest < Test::Unit::TestCase
   #＠解説　５索の明刻( 5s5s5sb )の２符＋９萬の暗槓( 裏9w9w裏 )の
   #32符＋西の暗刻( 西西西 )の８符＝42符で符ハネして70符(62符)。
   #役は自風(１飜)とドラ２(２飜)。２本場なので600点加算されることを見逃してはダメ。
-  def test_case_d
+  def test_case_1_d
     # input
     pai_items = "m4 m4 m5 m6 j3 j3 j3 m9 m9 m9 m9 m7 s5 s5 s5l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -241,7 +241,7 @@ class TotalTest < Test::Unit::TestCase
   #２符＝52符で符ハネして80符(72符)。役は鳴き混一色(２飜)と場風(１飜)。
   #ロン和了の場合も70符で満貫、 8p であがっても同じく満貫。
   #(この場合自摸は70符、ロンも70符(68符)だから。) 
-  def test_case_e
+  def test_case_1_e
     # input
     pai_items = "p1 p1 p1 p5 p5 p6 p7 r0 j2 j2 r0 p5 p3 p3 p3 p3l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -282,7 +282,7 @@ class TotalTest < Test::Unit::TestCase
   #＠解説　七対子は50符１飜(25符２飜でも可)で計算する。
   #→特殊な例　役は立直(１飜)と七対子(１飜)。３本場なの
   #で900点を忘れてはダメ。もし自摸っていれば9600点＋900点。 
-  def test_case_f
+  def test_case_1_f
     # input
     pai_items = "m2 m2 m3 m3 m4 m4 p8 p8 s2 s2 s4 s8 s8 s4 ".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -324,7 +324,7 @@ class TotalTest < Test::Unit::TestCase
   #＝12符で符ハネして40符(32符)。役は三色(２飜)と自摸(１飜)。ロン和了なら
   #2600点と寂しい。もし 東 を自摸っていれば満貫(8000点)、この場合ロンでも
   #40符(34符)で5200点となる。 
-  def test_case_g
+  def test_case_1_g
     # input
     pai_items = "m5 m6 m7 m9 m9 p5 p6 p7 s5 s6 s7 j1 j1 m9 ".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -368,7 +368,7 @@ class TotalTest < Test::Unit::TestCase
   #役は三元牌(中)(１飜)とドラ１(１飜)。連風牌の雀頭は４符になることに注意。
   #しかしこの手、かなり派手に動いた割には寒い。とてもドラそばが出てくるとは
   #思えん。('-'; 
-  def test_case_h
+  def test_case_1_h
     # input
     pai_items = "s5 s6 j2 j2 j7 j7 j7 j7 s4 m4 m4 m4lm9 m9 m9l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -413,7 +413,7 @@ class TotalTest < Test::Unit::TestCase
   #という役がつくので一気に跳満(12000点)＋900点になりますし、 8s の代わりに
   #ヤオ九牌をうまく手にいれる事が出来れば混老頭という役までつくので倍満
   #(16000点)＋900点にまで化けてしまいます。なんかもったいないですね。('▽'; 
-  def test_case_i
+  def test_case_1_i
     # input
     pai_items = "m9 m9 m9 p9 p9 p9 s8 s9 s9 s9 s7 j5 j5 j5l".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -458,7 +458,7 @@ class TotalTest < Test::Unit::TestCase
   #発の明刻( 発発発b )の４符＋雀頭( 東東 )の４符＝72符は符ハネしまくりで
   #110符(102符)。役は三元牌(発)(１飜)。う～ん、１飜の最高役です、
   #これ以上の符(110符以上)はありません。
-  def test_case_j
+  def test_case_1_j
     # input
     pai_items = "m6 m7 m8 j1 j1 j6 j6 s9 s9 s9 s9 j4 j4 j4 j4 j6 ".gsub!(" ","t")
     kyoku = Mjparse::Kyoku.new
@@ -491,6 +491,223 @@ class TotalTest < Test::Unit::TestCase
     assert_equal 1, teyaku.yaku_list.size
     assert_equal true, teyaku_include?(teyaku, "hatsu")
   end
+
+
+  #http://mjclv.com/calc/mondai03.html
+  # 回答：50符2ハンの3200点
+  #解説：役牌×2。メンゼンロン30符に東(1,9,字牌)の暗刻+8符と、西の暗刻+8符なので合計46符となり、切り上げて50符となる（補足：数牌（2～8牌）の暗刻は+4符）。
+  def test_case_2_1_1
+    # input
+    pais = "j1 j1 j1 j3 j3 j3 s3 s3 s3 s4 s5 p4 p5 p6 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 50, teyaku.fu_num , "符"
+    assert_equal 2, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 3200 , teyaku.total_point , "総得点"
+    assert_equal 2, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "jikazesha")
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+  end
+
+  #http://mjclv.com/calc/mondai03.html
+  # 回答：40符3ハンの1300点2600点
+  #解説：役牌×2+ツモ。20符に暗刻の+16符と、ツモ+2符なので38符となり、切り上げて40符となる。
+  def test_case_2_1_1
+    # input
+    pais = "j1 j1 j1 j3 j3 j3 s3 s3 s3 s4 s5 p4 p5 p6 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = true # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num , "符"
+    assert_equal 3, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 5200 , teyaku.total_point , "総得点"
+    assert_equal 3, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "jikazesha")
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+    assert_equal true, teyaku_include?(teyaku, "tsumo")
+  end
+
+  #http://mjclv.com/calc/mondai03.html
+  # 回答：40符2ハンの2600点
+  # 解説：役牌+イーペイコー。メンゼンロン30符に東の暗刻+8符に西(役牌)のトイツ+2符なので40符となる。
+  # 補足：オタ風のトイツは+0符
+  def test_case_2_2_1
+    # input
+    pais = "j1 j1 j1 j3 j3 s3 s3 s4 s4 s5 s5 p7 p8 p9 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num , "符"
+    assert_equal 2, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 2600 , teyaku.total_point , "総得点"
+    assert_equal 2, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "iipeikou")
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+  end
+
+  #http://mjclv.com/calc/mondai03.html
+  #回答：40符3ハンの1300点2600点
+  #解説：役牌+イーペイコー+ツモ。20符に役牌の8符と、役牌トイツの2符と、ツモの2符なので32符となり、切り上げて40符となる。
+  def test_case_2_2_2
+    # input
+    pais = "j1 j1 j1 j3 j3 s3 s3 s4 s4 s5 s5 p7 p8 p9 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = true # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num , "符"
+    assert_equal 3, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 5200 , teyaku.total_point , "総得点"
+    assert_equal 3, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "iipeikou")
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+    assert_equal true, teyaku_include?(teyaku, "tsumo")
+  end
+
+
+  #http://mjclv.com/calc/mondai03.html
+  # 回答：40符1ハンの1300点
+  #解説：役牌のみ。メンゼンロン30符に字牌の暗刻+8符とカンチャンの+2符なので40符となる。（北はオタ風のトイツなので+0符）
+  def test_case_2_3_1
+    # input
+    pais = "j1 j1 j1 j4 j4 s3 s4 s5 p2 p3 p4 p6 p8 p7 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = false # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num , "符"
+    assert_equal 1, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 1300 , teyaku.total_point , "総得点"
+    assert_equal 1, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+  end
+
+  #http://mjclv.com/calc/mondai03.html
+  #回答：40符2ハンの700点1300点
+  #解説:役牌+ツモ。20符に字牌の暗刻+8符と、カンチャンの+2符と、ツモの2符なので32符となり、切り上げて40符となる。
+  def test_case_2_3_2
+    # input
+    pais = "j1 j1 j1 j4 j4 s3 s4 s5 p2 p3 p4 p6 p8 p7 ".gsub!(" ","t")
+    kyoku = Mjparse::Kyoku.new
+    kyoku.is_tsumo   = true # ツモ？
+    kyoku.bakaze     = TON   # 場風
+    kyoku.honba_num  = 0     # 本場
+    kyoku.dora_num   = 0     # ドラ
+    kyoku.reach_num  = 0     # リーチ
+    kyoku.jikaze     = SHA   # 自風
+    kyoku.is_parent  = kyoku.jikaze == TON
+    kyoku.is_ippatsu = false
+    kyoku.is_haitei  = false
+    kyoku.is_tenho   = false
+    kyoku.is_chiho   = false
+    kyoku.is_rinshan = false
+    kyoku.is_chankan = false
+    # run
+    td = Mjparse::TeyakuDecider.new
+    td.get_agari_teyaku(pais,kyoku,@yaku_specimen)
+    teyaku = td.teyaku
+    # check
+    assert_equal 0, td.result_code
+    assert_equal 40, teyaku.fu_num , "符"
+    assert_equal 2, teyaku.han_num , "翻"
+    assert_equal 0, teyaku.mangan_scale , "○倍満"
+    assert_equal 2700 , teyaku.total_point , "総得点"
+    assert_equal 2, teyaku.yaku_list.size, "役の数"
+    assert_equal true, teyaku_include?(teyaku, "bakazeton")
+    assert_equal true, teyaku_include?(teyaku, "tsumo")
+  end
+
+
+
 
   def teyaku_include?(teyaku,yaku_name)
     teyaku.yaku_list.each{|yaku|
