@@ -57,11 +57,7 @@ module Mjparse
 #*****************************************************************#
     def self.calc_fu(tehai, kyoku)
       ###--------------- 七対子 ---------------###
-      tehai.yaku_list.each do |yaku|
-        if yaku.name == YakuSpecimen::YAKU_NAME_CHITOITSU then
-           return 25
-        end
-      end
+      return 25 if tehai.yaku_list.any?{|yaku| yaku.name == YakuSpecimen::YAKU_NAME_CHITOITSU }
 
       ###--------------- 副底 ---------------###
       # 基本符20符 
