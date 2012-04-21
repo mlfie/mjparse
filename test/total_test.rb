@@ -391,13 +391,13 @@ class TotalTest < Test::Unit::TestCase
     teyaku = td.teyaku
     # check
     assert_equal 0, td.result_code
-    assert_equal 70, teyaku.fu_num
+    assert_equal 60, teyaku.fu_num
     assert_equal 2, teyaku.han_num
     assert_equal 0, teyaku.mangan_scale
-    assert_equal 4500, teyaku.total_point
+    assert_equal 3900, teyaku.total_point
     assert_equal 0, teyaku.parent_point
     assert_equal 0, teyaku.child_point
-    assert_equal 4500, teyaku.ron_point
+    assert_equal 3900, teyaku.ron_point
     assert_equal 1, teyaku.yaku_list.size
     assert_equal true, teyaku_include?(teyaku, "chun")
   end
