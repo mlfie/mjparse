@@ -1,0 +1,11 @@
+Run all tests
+
+  rake test
+
+Run one test
+
+ ex)  /usr/local/bin/ruby -Ilib:lib:test test/total_test.rb
+
+Run one case
+
+ ex)  /usr/local/bin/ruby -Ilib:lib:test test/total_test.rb --name test_24
