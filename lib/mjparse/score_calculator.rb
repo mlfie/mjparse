@@ -88,7 +88,7 @@ module Mjparse
           # 幺九牌の場合
           if mentsu.pai_list[0].yaochu? then
             # 明刻の場合
-            if mentsu.furo then
+            if mentsu.minkou? then
               total_fu += 4
             # 暗刻の場合
             else
@@ -97,7 +97,7 @@ module Mjparse
           # 中張牌の場合
           else
             # 明刻の場合
-            if mentsu.furo then
+            if mentsu.minkou? then
               total_fu += 2
             # 暗刻の場合
             else
