@@ -87,7 +87,7 @@ module Mjparse
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_DOUBLEREACH]     if  doublereach?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_CHITOITSU]       if  chitoitsu?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANSHOKU]        if  sanshoku?(tehai, kyoku)
-      self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANSHOKUDOUKO]   if  sanshokudouko?(tehai, kyoku)
+      self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_SANSHOKUDOUKOU]   if  sanshokudouko?(tehai, kyoku)
       self.yaku_list << self.yaku_specimen[YakuSpecimen::YAKU_NAME_HONROUTOU]       if  honroutou?(tehai, kyoku)
 
 #*****************************************************************#
