@@ -25,20 +25,15 @@ module Mjparse
     
     ### 混一色
     def honitsu?(tehai, agari)
-      fetchtype = nil
-      tehai.mentsu_list.each do | mentsu |		
-        if not mentsu.jihai?
-          fetchtype = mentsu.identical.type
-        end
-      end  
-      return false if fetchtype.nil?
+      return false unless tehai.atama.jihai? or tehai.mentsu_list.any?{|mentsu| mentsu.jihai? }
 
-      tehai.mentsu_list.each do | mentsu2 |		
-        if !mentsu2.jihai? && mentsu2.identical.type != fetchtype
-          return false
-         end
+      Type.suhai_types.each do |type|
+        mentsu_ok = tehai.mentsu_list.all?{|mentsu| (mentsu.is_type?(type) or mentsu.jihai?)}
+        atama_ok = (tehai.atama.is_type?(type) or tehai.atama.jihai?)
+
+        return true if mentsu_ok && atama_ok
       end
-      return true
+      return false
     end
     
     ### 純全帯么九

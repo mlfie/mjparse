@@ -88,6 +88,10 @@ module Mjparse
     def furo?
       self.pai_list.any?{|pai| pai.naki}
     end
+
+    def is_type?(type)
+      self.pai_list.all?{|pai| pai.is_type?(type)}
+    end
       
     # 全ての牌が萬子か？
     def manzu?

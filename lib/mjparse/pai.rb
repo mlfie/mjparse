@@ -64,6 +64,10 @@ module Mjparse
     def chunchan?
       self.pai_type.chunchan?
     end
+
+    def is_type?(type)
+      self.pai_type.is_type?(type)
+    end
     
     # 萬子かどうか
     def manzu?

@@ -3,7 +3,17 @@
 require 'renum'
 
 module Mjparse
-  enum :Type, [:Manzu, :Pinzu, :Souzu, :Jihai, :Reverse]
+  enum :Type do
+    Manzu()
+    Pinzu()
+    Souzu()
+    Jihai()
+    Reverse()
+
+    def self.suhai_types
+      [Type::Manzu, Type::Pinzu, Type::Souzu]
+    end
+  end
 
   enum :PaiType do
     M1('m1', Type::Manzu, true, false)
