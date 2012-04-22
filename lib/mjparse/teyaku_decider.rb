@@ -29,7 +29,7 @@ module Mjparse
       STDERR.puts Time.new.to_s + "：受け取った面子構成は(" + pai_list + ")です。"
       
       resolver = MentsuResolver.new
-      resolver.get_mentsu(pai_list)
+      resolver.get_mentsu(pai_list, kyoku.is_tsumo)
       
       case resolver.result_code
         when MentsuResolver::RESULT_SUCCESS then
