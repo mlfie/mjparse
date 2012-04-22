@@ -54,4 +54,8 @@ class TypeTest < Test::Unit::TestCase
     PaiType.values.select{|p| yield p}.map{|p| p.name}
   end
 
+  def test_get
+    assert_equal PaiType::M1, PaiType.get("m1")
+  end
+
 end

@@ -49,6 +49,14 @@ module Mjparse
       @is_kaze = is_kaze
     end
 
+    def self.get(code)
+      values.find{|p| p.is_code?(code)}
+    end
+
+    def is_code?(code)
+      @code == code
+    end
+
     def type
       @type
     end
