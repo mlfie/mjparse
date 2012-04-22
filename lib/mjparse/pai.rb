@@ -29,7 +29,8 @@ module Mjparse
                   :number,  # 数字(字牌の場合 1:東 2:南 3:西 4:北 5:白 6:發 7:中、背面牌の場合 0:背面牌)
                   :naki,    # 鳴き牌かどうか(true, false)
                   :agari,   # アガリ牌かどうか(true, false)
-                  :is_tsumo
+                  :is_tsumo,
+                  :pai_type
 
     # 初期化メソッド
     def initialize(tehai_str)
@@ -41,95 +42,92 @@ module Mjparse
         self.naki   = true
       end
       self.agari    = false
+      self.pai_type = PaiType.get(tehai_str[0,2])
     end
   
     def ==(pai)
-      if pai != nil then
-        if self.type == pai.type && self.number == pai.number then
-          return true
-        end
-      end
+      return self.pai_type == pai.pai_type unless pai.nil?
       return false
     end
 
     # 幺九牌の判定
     def yaochu?
-      return self.number == 1 || self.number == 9 || self.type == PAI_TYPE_JIHAI
+      self.pai_type.yaochu?
     end
 
     # 老頭牌(1,9)の判定
     def raotou?
-      return (suhai? && (self.number == 1 or self.number == 9))
+      self.pai_type.raotou?
     end
   
     # 中張牌の判定
     def chunchan?
-      return ! yaochu?
+      self.pai_type.chunchan?
     end
     
     # 萬子かどうか
     def manzu?
-      return self.type == PAI_TYPE_MANZU
+      self.pai_type.manzu?
     end
     
     # 索子かどうか
     def souzu?
-      return self.type == PAI_TYPE_SOUZU
+      self.pai_type.souzu?
     end
     
     # 筒子かどうか
     def pinzu?
-      return self.type == PAI_TYPE_PINZU
+      self.pai_type.pinzu?
     end
     
     # 字牌かどうか
     def jihai?
-      return self.type == PAI_TYPE_JIHAI
+      self.pai_type.jihai?
     end
 
     # 数牌かどうか
     def suhai?
-      return !jihai?
+      self.pai_type.suhai?
     end
     
     # 東かどうか
     def ton?
-      return jihai? && self.number == PAI_NUMBER_TON
+      self.pai_type.is_code?('j1')
     end
     
     # 南かどうか
     def nan?
-      return jihai? && self.number == PAI_NUMBER_NAN
+      self.pai_type.is_code?('j2')
     end
     
     # 西かどうか
     def sha?
-      return jihai? && self.number == PAI_NUMBER_SHA
+      self.pai_type.is_code?('j3')
     end
     
     # 北かどうか
     def pei?
-      return jihai? && self.number == PAI_NUMBER_PEI
+      self.pai_type.is_code?('j4')
     end
     
     # 白かどうか
     def haku?
-      return jihai? && self.number == PAI_NUMBER_HAKU
+      self.pai_type.is_code?('j5')
     end
     
     # 發かどうか
     def hatsu?
-      return jihai? && self.number == PAI_NUMBER_HATSU
+      self.pai_type.is_code?('j6')
     end
     
     # 中かどうか
     def chun?
-      return jihai? && self.number == PAI_NUMBER_CHUN
+      self.pai_type.is_code?('j7')
     end
 
     # 三元牌かどうか
     def sangenpai?
-      haku? or hatsu? or chun?
+      self.pai_type.sangen?
     end
 
     # 役牌(自風、場風、三元牌)かどうか
