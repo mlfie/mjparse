@@ -188,10 +188,10 @@ module Mjparse
               #   add_minkan(@pai_list.slice!(0,4).reverse!)
               #   get_furo
               # step1-1-7-3.
-              # 1〜4枚目の牌が全て同じであり、5〜8枚目の牌のいずれかが鳴き牌だった場合、
+              # 1〜4枚目の牌が全て同じであり、5〜8枚目の牌のいずれかが鳴き牌もしくはアンカンだった場合、
               # この時点で4枚目を含むチー面子は存在せず、かつ同一牌が4枚までしか存在しないことから、
               # 1〜4枚目の牌は組となることが確実であるため、明槓面子となる。
-              elsif @pai_list[4].naki || @pai_list[5].naki || @pai_list[6].naki || @pai_list[7].naki then
+              elsif @pai_list[4].naki || @pai_list[5].naki || @pai_list[6].naki || @pai_list[7].naki || @pai_list[4].type == Pai::PAI_TYPE_REVERSE|| @pai_list[5].type == Pai::PAI_TYPE_REVERSE || @pai_list[6].type == Pai::PAI_TYPE_REVERSE || @pai_list[7].type == Pai::PAI_TYPE_REVERSE then
                 add_minkan(@pai_list.slice!(0,4).reverse!)
                 get_furo
               # step1-1-7-4. 
