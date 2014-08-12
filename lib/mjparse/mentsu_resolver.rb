@@ -237,7 +237,7 @@ module Mjparse
             self.result_code = RESULT_ERROR_NAKI
           end
         # step3. 暗槓が含まれる場合
-        elsif @pai_list[0].type == Pai::PAI_TYPE_REVERSE || @pai_list[1].type == Pai::PAI_TYPE_REVERSE then
+        elsif @pai_list[0].type == Pai::PAI_TYPE_REVERSE || @pai_list[1].type == Pai::PAI_TYPE_REVERSE || @pai_list[2].type == Pai::PAI_TYPE_REVERSE || @pai_list[3].type == Pai::PAI_TYPE_REVERSE then
           # step3-1. 背面牌で挟んだ暗槓の場合
           if @pai_list[0].type == Pai::PAI_TYPE_REVERSE && @pai_list[1].type != Pai::PAI_TYPE_REVERSE && @pai_list[1] == @pai_list[2] && @pai_list[0] == @pai_list[3] then
             add_ankan(@pai_list[1])
